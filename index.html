@@ -59,11 +59,114 @@
 	<p>3.tomcat有个manager界面，可以管理webapps下的应用，这里可以看到应用是否正常启动。可以通过tomcat主页进入manager界面，用户名密码再tomcat-user.xml中配置</p>
 		
 	<h2>FlexScript Bible</h2>
-	<p>1.关于软电话操作的那些FlexScript：
-		(1)拨打电话
-			import Elite.EXSoftPhone.EXSoftPhone;
-			EXSoftPhone.makeCall("8003","xxxx=123|oooo=456");
-	
+	<p>1.关于软电话操作的那些FlexScript：<br>
+		(1)拨打电话:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.makeCall("8003","xxxx=123|oooo=456");<br>
+		(2)挂断电话:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.releaseCall();<br>
+		(3)接起电话:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.answerCall();<br>
+		(4)发起会议:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.initConference("8003","xxxx=123|oooo=456");<br>
+			
+		(5)完成会议:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.compConference();<br>
+		(6)发起转接:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.initTransfer("8003","xxxx=123|oooo=456");<br>
+		(7)完成转接:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.compTransfer();<br>
+		(8)单步转:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.muteTransfer("8003","xxxx=123|oooo=456");<br>
+		(9)接回:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.reconnect();<br>
+		(10)通知进入工作:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.notifyWorkStart("WT-OB");//WT-OB代表外拨 WT-IB代表呼入<br>
+		(11)通知结束工作:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.notifyWorkEnd();<br>
+		(12)软电话的CommonCall:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.commonCall("callName","callParam");<br>
+		(13)获取随路数据:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.attachData("key");<br>
+			
+		(14)发送消息给IVR:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.sendIVRMessage("message");<br>
+		(15)软电话退出:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.quitSoftphone();<br>
+		(16)软电话准备好:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.agentReady();<br>
+		(17)软电话未准备好:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.agentNotReady(3);//3是默认的AUX状态<br>
+		(18)强制话务员登出:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.forceAgentLogout("dn","agent_id");<br>
+			
+		(19)强制话务员未准备好:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.forceAgentNotReady("dn","agent_id");<br>
+		(20)强制话务员准备好:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.forceAgentReady("dn","agent_id");<br>
+		(21)监听:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.listen("dn");<br>
+		(22)拦截:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.intercept("agent_id");<br>
+		(23)根据dn号强制断开agent连接:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.forceDisconnectAgentByDN("dn");<br>
+		(24)强制挂断:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.forceHangUp();<br>
+			
+		(25)强插:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.bargeIn("dn");<br>
+		(26)接管:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.takeOver("dn","agent_id");<br>
+		(27)暗语:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.coach("dn","agent_id");<br>
+		(28)静音:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.mute();<br>
+		(29)取消静音:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.unmute();<br>
+			
+		(30)发送DTMF:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.sendDTMF("1");<br>
+		(31)软电话登录:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.login();<br>
+		(32)软电话登出:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.logout();<br>
+		(33)开始播放:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.startPlay("f:/temp/xxx.wav");<br>
+		(34)结束播放:<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.stopPlay();<br>
 	</p>
 	
         </section>
