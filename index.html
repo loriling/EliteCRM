@@ -168,7 +168,22 @@
 			import Elite.EXSoftPhone.EXSoftPhone;<br>
 			EXSoftPhone.stopPlay();<br>
 	</p>
-	
+	<p>2.FlexScript添加js代码并调用：<br>
+		<textarea readonly cols="100" rows="12">
+import flash.external.ExternalInterface;
+	var insertScript:String = "document.insertScript = function() {"+
+		"if (document._test==null){" + 
+		"_test = function(){" +
+			"alert('test');"+//具体_test方法做的事情
+		"}"+
+	"}"+
+"}";
+ExternalInterface.call(insertScript);//将上述定义的js脚本插入到dom中
+ExternalInterface.call("_test");//调用插入的js方法
+		</textarea>
+		<br>
+		
+	</p>
         </section>
 		
         <aside id="sidebar">
