@@ -204,9 +204,18 @@ import Elite.util.AlertUtil;
 AlertUtil.showScripOverIFrame("您有【100023】条过期的本组--工单--需要处理","标题");
 		</textarea>
 		<br>
-		
+	</p>
+	<p>4.FlexScript获取登录时输入的密码，并进行MD5加密：<br>
+		<textarea readonly cols="100" rows="5">
+import Elite.ECCore.ECore;
+import Elite.util.DigestUtils;
+var inputPassword:String = ECore.loginInfo.inputPassword;//获取到输入密码
+DigestUtils.md5Hex(inputPassword);//对密码进行md5加密
+		</textarea>
+		<br>
 	</p>
 	
+
         </section>
 		
         <aside id="sidebar">
