@@ -190,12 +190,23 @@ import Elite.ECCore.ECore;
 import Elite.ECCore.Addin;
 var param:Object=new Object();
 param.url="http://about.me/loriling";
+//这个reload如果传递了1，则打开此页面时候会刷新，如果不是，则不会刷新，还是显示之前的内容
+param.reload=1;
 //这里第二个参数some_unique_id是自己起的一个id，对应于某一个tab页，如果想同时打开多个页面，则这个id需要不同
 ECore.addinDoByInstanceId(Addin.AddinBrowser,"some_unique_id",ECore.ECM_SHOW,"flexscript",param);
 		</textarea>
 		<br>
 		
 	</p>
+	<p>4.FlexScript弹出浮动窗口：<br>
+		<textarea readonly cols="100" rows="5">
+import Elite.util.AlertUtil;
+AlertUtil.showScripOverIFrame("您有【100023】条过期的本组--工单--需要处理","标题");
+		</textarea>
+		<br>
+		
+	</p>
+	
         </section>
 		
         <aside id="sidebar">
