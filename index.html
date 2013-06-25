@@ -184,6 +184,18 @@ ExternalInterface.call("_test");//调用插入的js方法
 		<br>
 		
 	</p>
+	<p>3.FlexScript打开某个URL：<br>
+		<textarea readonly cols="100" rows="12">
+import Elite.ECCore.ECore;
+import Elite.ECCore.Addin;
+var param:Object=new Object();
+param.url="http://about.me/loriling";
+//这里第二个参数some_unique_id是自己起的一个id，对应于某一个tab页，如果想同时打开多个页面，则这个id需要不同
+ECore.addinDoByInstanceId(Addin.AddinBrowser,"some_unique_id",ECore.ECM_SHOW,"flexscript",param);
+		</textarea>
+		<br>
+		
+	</p>
         </section>
 		
         <aside id="sidebar">
