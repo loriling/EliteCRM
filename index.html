@@ -28,6 +28,8 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
+		
+		
 		<h2>Flex客户端常见卡死情况与排除</h2>
           <p>1.打开fiddler，查看网络请求中是否有哪个请求是长时间没有响应的。
     由于客户端请求绝大多数是同步请求，因此发出请求没有响应，则客户端现象就是浏览器僵死。</p>
@@ -175,6 +177,10 @@
 			import Elite.EXSoftPhone.EXSoftPhone;<br>
 			EXSoftPhone.getAgentState();<br>
 			//UNKNOWN=0;			AUTOIN=1;			MANUALIN=2;			AUX=3;			ACW=4;			NOCALLDISCONNECT=5;			MAX=6;<br>
+		(37)获取电话状态：<br>
+			import Elite.EXSoftPhone.EXSoftPhone;<br>
+			EXSoftPhone.getCallState2();<br>
+			//UNKNOWN=0;		RINGING=1;		TALKING=2;		HOLD=3;		DIALING=4;	TALKINGHOLD=32;			DIALINGHOLD=34;<br>
 	</p>
 	<p>2.FlexScript添加js代码并调用：<br>
 		<textarea readonly cols="100" rows="12">
@@ -227,10 +233,14 @@ DigestUtils.md5Hex(inputPassword);//对密码进行md5加密
         </section>
 		
         <aside id="sidebar">
-          
+          <p>
+			<div style="font-size:22px;font-weight: bold;">SAAS移动版下载地址：</div>
+			<li style="font-size:18px;"><a href="http://202.105.215.50:8012/EliteSAAS/servlet/DownloadAppServlet?path=EliteSaaSCRM.MIS">Android</a></li>
+			<li style="font-size:18px;"><a href="http://202.105.215.50:8012/EliteSAAS/mobile/iphone/connection.html">Iphone</a></li>
+		  </p>
           <p class="repo-owner"><a href="https://github.com/loriling/EliteCRM"></a> is maintained by <a href="https://github.com/loriling">loriling</a>.</p>
-
           <p class="repo-owner">Sina weibo: <a href="http://weibo.com/loriling" target="_blank">Loriling</a></p>
+
         </aside>
       </div>
     </div>
