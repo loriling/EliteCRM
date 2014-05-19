@@ -1,262 +1,568 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
-    <title>EliteCRM by loriling</title>
-  </head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>githubio-index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
 
-  <body>
-    <header>
-      <div class="inner">
-        <h1>EliteCRM</h1>
-        <h2>FlexClient</h2>
-        <a href="https://github.com/loriling/EliteCRM" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+/* RESET
+=============================================================================*/
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-		
-		
-		<h2>Flex客户端常见卡死情况与排除</h2>
-          <p>1.打开fiddler，查看网络请求中是否有哪个请求是长时间没有响应的。
-    由于客户端请求绝大多数是同步请求，因此发出请求没有响应，则客户端现象就是浏览器僵死。</p>
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
 
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<base href='file:\\\E:\01\markdown\'/>
+</head>
+<body>
+<h1>EliteCRM</h1>
+<p><a href="https://github.com/loriling/EliteCRM" title="View project on GitHub">https://github.com/loriling/EliteCRM</a></p>
+<h2>FlexClient</h2>
+<p><strong>Flex客户端常见卡死情况与排除</strong></p>
+<p>1.打开fiddler，查看网络请求中是否有哪个请求是长时间没有响应的。由于客户端请求绝大多数是同步请求，因此发出请求没有响应，则客户端现象就是浏览器僵死。</p>
 <p>2.可以先尝试使用非软电话登录，如果在非软电话清空下，不会卡死，则多数卡死原因出在软电话中。
-    因为软电话与后台服务连接也都是同步的请求，如果与后台aps或者cti之间网络存在些许异常，就可能出现客户端浏览器卡死现象。
-    软电话与APS连接查看EliteServerProxy.log，软电话与CTI连接查看ComCTIClient.log和CTIClient.log，有的地方还需要查看对应的CTIExtra日志</p>
-
+因为软电话与后台服务连接也都是同步的请求，如果与后台aps或者cti之间网络存在些许异常，就可能出现客户端浏览器卡死现象。
+软电话与APS连接查看EliteServerProxy.log，软电话与CTI连接查看ComCTIClient.log和CTIClient.log，有的地方还需要查看对应的CTIExtra日志</p>
 <p>3.更换浏览器尝试。
-    也许刚好你用的ie本身就有问题，所以可以试试360浏览器，遨游浏览器等等是不是可以正常，如果可以，则可能需要重装ie或者升级ie版本。</p>
-
+也许刚好你用的ie本身就有问题，所以可以试试360浏览器，遨游浏览器等等是不是可以正常，如果可以，则可能需要重装ie或者升级ie版本。</p>
 <p>4.使用debug版本flashplayer（使用debug的目的是让客户端日志可以输出错误堆栈，有助于快速定位问题）
-    EliteClient.log中也许会出现：
-        #1502: 脚本的执行时间已经超过了 15 秒的默认超时设置。
-    类似这样的错误日志。这句日志就可以看出客户端flex调用某个方法执行时间超过了flex内置的超时时长（日志中看到15秒，其实应该是1分钟）。
-    也就是说，这句报错说明了当前这句命令，造成了客户端卡死。如果可以看到日志中有类似：begin call xxxxx 。。那也就可以判定就是这个xxxx造成了调用超时，具体原因就可以进一步分析。</p>
-
+EliteClient.log中也许会出现：
+    #1502: 脚本的执行时间已经超过了 15 秒的默认超时设置。
+类似这样的错误日志。这句日志就可以看出客户端flex调用某个方法执行时间超过了flex内置的超时时长（日志中看到15秒，其实应该是1分钟）。
+也就是说，这句报错说明了当前这句命令，造成了客户端卡死。如果可以看到日志中有类似：begin call xxxxx 。。那也就可以判定就是这个xxxx造成了调用超时，具体原因就可以进一步分析。</p>
 <p>5.去现场之前记得先下载好最新的debug版本flashplayer，以便出了问题后安装上去，方便看日志。
-    下载地址：<a href="http://www.adobe.com/support/flashplayer/downloads.html">http://www.adobe.com/support/flashplayer/downloads.html</a>
-    记得是下载activex for ie的。。。。</p>
-
+下载地址：<a href="http://www.adobe.com/support/flashplayer/downloads.html">http://www.adobe.com/support/flashplayer/downloads.html</a>
+记得是下载activex for ie的。。。。</p>
 <p>6.客户端清空浏览器缓存，这个有的ie下，清空时候有个勾选是否保留收藏夹中内容的，很多人勾上了这个然后又刚好把登录地址放在收藏夹内，这样是删不掉缓存的，要去掉这个勾选。
-    其实，只需要勾选上"Internet 临时文件"即可，其他都不用勾。
-    如果确认了删了缓存了，还是出现版本不对问题，可以尝试查看ie是否设置了代理，也许是代理那边有缓存。</p>
-	
-	<h2>web应用与它们的日志</h2>
-	<p>1.首先去看log4j.properties文件的配置，看是不是有日志输出，是不是没加上,R</p>
-	<p>2.如果一个应用根本就没能成功起来，那就可以先配置成输出所有日志：log4j.rootLogger=debug,stdout,R ，这样可以看到第三方jar中输出的所有日志，方便问题排查。</p>
-	<p>3.tomcat有个manager界面，可以管理webapps下的应用，这里可以看到应用是否正常启动。可以通过tomcat主页进入manager界面，用户名密码再tomcat-user.xml中配置</p>
-		
-	<h2>FlexScript Bible</h2>
-	<p>1.关于软电话操作的那些FlexScript：<br>
-		(1)拨打电话:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.makeCall("8003","xxxx=123|oooo=456");<br>
-		(2)挂断电话:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.releaseCall();<br>
-		(3)接起电话:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.answerCall();<br>
-		(4)发起会议:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.initConference("8003","xxxx=123|oooo=456");<br>
-			
-		(5)完成会议:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.compConference();<br>
-		(6)发起转接:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.initTransfer("8003","xxxx=123|oooo=456");<br>
-		(7)完成转接:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.compTransfer();<br>
-		(8)单步转:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.muteTransfer("8003","xxxx=123|oooo=456");<br>
-		(9)接回:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.reconnect();<br>
-		(10)通知进入工作:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.notifyWorkStart("WT-OB");//WT-OB代表外拨 WT-IB代表呼入<br>
-		(11)通知结束工作:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.notifyWorkEnd();<br>
-		(12)软电话的CommonCall:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.commonCall("callName","callParam");<br>
-		(13)获取随路数据:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.attachData("key");<br>
-			
-		(14)发送消息给IVR:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.sendIVRMessage("message");<br>
-		(15)软电话退出:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.quitSoftphone();<br>
-		(16)软电话准备好:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.agentReady();<br>
-		(17)软电话未准备好:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.agentNotReady(3);//3是默认的AUX状态<br>
-		(18)强制话务员登出:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.forceAgentLogout("dn","agent_id");<br>
-			
-		(19)强制话务员未准备好:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.forceAgentNotReady("dn","agent_id");<br>
-		(20)强制话务员准备好:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.forceAgentReady("dn","agent_id");<br>
-		(21)监听:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.listen("dn");<br>
-		(22)拦截:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.intercept("agent_id");<br>
-		(23)根据dn号强制断开agent连接:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.forceDisconnectAgentByDN("dn");<br>
-		(24)强制挂断:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.forceHangUp();<br>
-			
-		(25)强插:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.bargeIn("dn");<br>
-		(26)接管:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.takeOver("dn","agent_id");<br>
-		(27)暗语:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.coach("dn","agent_id");<br>
-		(28)静音:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.mute();<br>
-		(29)取消静音:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.unmute();<br>
-			
-		(30)发送DTMF:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.sendDTMF("1");<br>
-		(31)软电话登录:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.login();<br>
-		(32)软电话登出:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.logout();<br>
-		(33)开始播放:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.startPlay("f:/temp/xxx.wav");<br>
-		(34)结束播放:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.stopPlay();<br>
-		(35)获取话务员状态:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.getAgentState();<br>
-			//UNKNOWN = 0;			LOGOUT = 1;			READY = 2;			NOTREADY = 3;			BUSY = 4;			MAX = 5;<br>
-		(36)获取话务员模式:<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.getAgentState();<br>
-			//UNKNOWN=0;			AUTOIN=1;			MANUALIN=2;			AUX=3;			ACW=4;			NOCALLDISCONNECT=5;			MAX=6;<br>
-		(37)获取电话状态：<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.getCallState2();<br>
-			//UNKNOWN=0;		RINGING=1;		TALKING=2;		HOLD=3;		DIALING=4;	TALKINGHOLD=32;			DIALINGHOLD=34;<br>
-		(38)获取当前record_guid：<br>
-			import Elite.EXSoftPhone.EXSoftPhone;<br>
-			EXSoftPhone.getRecordGuid();<br>
-	</p>
-	<p>2.FlexScript添加js代码并调用：<br>
-		<textarea readonly cols="100" rows="12">
-import flash.external.ExternalInterface;
-	var insertScript:String = "document.insertScript = function() {"+
-		"if (document._test==null){" + 
-		"_test = function(){" +
-			"alert('test');"+//具体_test方法做的事情
-		"}"+
-	"}"+
-"}";
+其实，只需要勾选上&quot;Internet 临时文件&quot;即可，其他都不用勾。
+如果确认了删了缓存了，还是出现版本不对问题，可以尝试查看ie是否设置了代理，也许是代理那边有缓存。</p>
+<hr />
+<p><strong>web应用与它们的日志</strong></p>
+<p>1.首先去看log4j.properties文件的配置，看是不是有日志输出，是不是没加上,R</p>
+<p>2.如果一个应用根本就没能成功起来，那就可以先配置成输出所有日志：log4j.rootLogger=debug,stdout,R ，这样可以看到第三方jar中输出的所有日志，方便问题排查。</p>
+<p>3.tomcat有个manager界面，可以管理webapps下的应用，这里可以看到应用是否正常启动。可以通过tomcat主页进入manager界面，用户名密码再tomcat-user.xml中配置</p>
+<hr />
+<p><strong>FlexScript Bible</strong></p>
+<p>1.关于软电话操作的那些FlexScript：<br></p>
+<p>(1)拨打电话:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.makeCall(&quot;8003&quot;,&quot;xxxx=123|oooo=456&quot;);
+</code></pre>
+
+<p>(2)挂断电话:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.releaseCall();
+</code></pre>
+
+<p>(3)接起电话:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.answerCall();
+</code></pre>
+
+<p>(4)发起会议:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.initConference(&quot;8003&quot;,&quot;xxxx=123|oooo=456&quot;);
+</code></pre>
+
+<p>(5)完成会议:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.compConference();
+</code></pre>
+
+<p>(6)发起转接:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.initTransfer(&quot;8003&quot;,&quot;xxxx=123|oooo=456&quot;);
+</code></pre>
+
+<p>(7)完成转接:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.compTransfer();
+</code></pre>
+
+<p>(8)单步转:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.muteTransfer(&quot;8003&quot;,&quot;xxxx=123|oooo=456&quot;);
+</code></pre>
+
+<p>(9)接回:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.reconnect();
+</code></pre>
+
+<p>(10)通知进入工作:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.notifyWorkStart(&quot;WT-OB&quot;);//WT-OB代表外拨 WT-IB代表呼入
+</code></pre>
+
+<p>(11)通知结束工作:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.notifyWorkEnd();
+</code></pre>
+
+<p>(12)软电话的CommonCall:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.commonCall(&quot;callName&quot;,&quot;callParam&quot;);
+</code></pre>
+
+<p>(13)获取随路数据:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.attachData(&quot;key&quot;);
+</code></pre>
+
+<p>(14)发送消息给IVR:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.sendIVRMessage(&quot;message&quot;);
+</code></pre>
+
+<p>(15)软电话退出:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.quitSoftphone();
+</code></pre>
+
+<p>(16)软电话准备好:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.agentReady();
+</code></pre>
+
+<p>(17)软电话未准备好:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.agentNotReady(3);//3是默认的AUX状态
+</code></pre>
+
+<p>(18)强制话务员登出:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.forceAgentLogout(&quot;dn&quot;,&quot;agent_id&quot;);
+</code></pre>
+
+<p>(19)强制话务员未准备好:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.forceAgentNotReady(&quot;dn&quot;,&quot;agent_id&quot;);
+</code></pre>
+
+<p>(20)强制话务员准备好:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.forceAgentReady(&quot;dn&quot;,&quot;agent_id&quot;);
+</code></pre>
+
+<p>(21)监听:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.listen(&quot;dn&quot;);
+</code></pre>
+
+<p>(22)拦截:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.intercept(&quot;agent_id&quot;);
+</code></pre>
+
+<p>(23)根据dn号强制断开agent连接:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.forceDisconnectAgentByDN(&quot;dn&quot;);
+</code></pre>
+
+<p>(24)强制挂断:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.forceHangUp();
+</code></pre>
+
+<p>(25)强插:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.bargeIn(&quot;dn&quot;);
+</code></pre>
+
+<p>(26)接管:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.takeOver(&quot;dn&quot;,&quot;agent_id&quot;);
+</code></pre>
+
+<p>(27)暗语:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.coach(&quot;dn&quot;,&quot;agent_id&quot;);
+</code></pre>
+
+<p>(28)静音:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.mute();
+</code></pre>
+
+<p>(29)取消静音:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.unmute();
+</code></pre>
+
+<p>(30)发送DTMF:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.sendDTMF(&quot;1&quot;);
+</code></pre>
+
+<p>(31)软电话登录:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.login();
+</code></pre>
+
+<p>(32)软电话登出:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.logout();
+</code></pre>
+
+<p>(33)开始播放:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.startPlay(&quot;f:/temp/xxx.wav&quot;);
+</code></pre>
+
+<p>(34)结束播放:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.stopPlay();
+</code></pre>
+
+<p>(35)获取话务员状态:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.getAgentState();
+//UNKNOWN = 0;          LOGOUT = 1;         READY = 2;          NOTREADY = 3;           BUSY = 4;           MAX = 5;
+</code></pre>
+
+<p>(36)获取话务员模式:</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.getAgentState();
+//UNKNOWN=0;            AUTOIN=1;           MANUALIN=2;         AUX=3;          ACW=4;          NOCALLDISCONNECT=5;         MAX=6;
+</code></pre>
+
+<p>(37)获取电话状态：</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.getCallState2();
+//UNKNOWN=0;        RINGING=1;      TALKING=2;      HOLD=3;     DIALING=4;  TALKINGHOLD=32;         DIALINGHOLD=34;
+</code></pre>
+
+<p>(38)获取当前record_guid：</p>
+<pre><code>import Elite.EXSoftPhone.EXSoftPhone;
+EXSoftPhone.getRecordGuid();
+</code></pre>
+
+<p>2.FlexScript添加js代码并调用：</p>
+<pre><code>import flash.external.ExternalInterface;
+var insertScript:String = &quot;document.insertScript = function() {&quot;+
+    &quot;if (document._test==null){&quot; + 
+        &quot;_test = function(){&quot; +
+            &quot;alert('test');&quot;+//具体_test方法做的事情
+        &quot;}&quot;+
+    &quot;}&quot;+
+&quot;}&quot;;
 ExternalInterface.call(insertScript);//将上述定义的js脚本插入到dom中
-ExternalInterface.call("_test");//调用插入的js方法
-		</textarea>
-		<br>
-		
-	</p>
-	<p>3.FlexScript打开某个URL：<br>
-		<textarea readonly cols="100" rows="12">
-import Elite.ECCore.ECore;
+ExternalInterface.call(&quot;_test&quot;);//调用插入的js方法
+</code></pre>
+
+<p>3.FlexScript打开某个URL：</p>
+<pre><code>import Elite.ECCore.ECore;
 import Elite.ECCore.Addin;
 var param:Object=new Object();
-param.url="http://about.me/loriling";
+param.url=&quot;http://about.me/loriling&quot;;
 //这个reload如果传递了1，则打开此页面时候会刷新，如果不是，则不会刷新，还是显示之前的内容
 param.reload=1;
 //这里第二个参数some_unique_id是自己起的一个id，对应于某一个tab页，如果想同时打开多个页面，则这个id需要不同
-ECore.addinDoByInstanceId(Addin.AddinBrowser,"some_unique_id",ECore.ECM_SHOW,"flexscript",param);
-		</textarea>
-		<br>
-		
-	</p>
-	<p>4.FlexScript弹出浮动窗口：<br>
-		<textarea readonly cols="100" rows="5">
-import Elite.util.AlertUtil;
-AlertUtil.showScripOverIFrame("您有【100023】条过期的本组--工单--需要处理","标题");
-		</textarea>
-		<br>
-	</p>
-	<p>5.FlexScript获取登录时输入的密码，并进行MD5加密：<br>
-		<textarea readonly cols="100" rows="5">
-import Elite.ECCore.ECore;
+ECore.addinDoByInstanceId(Addin.AddinBrowser,&quot;some_unique_id&quot;,ECore.ECM_SHOW,&quot;flexscript&quot;,param);
+</code></pre>
+
+<p>4.FlexScript弹出浮动窗口：</p>
+<pre><code>import Elite.util.AlertUtil;
+AlertUtil.showScripOverIFrame(&quot;您有【100023】条过期的本组--工单--需要处理&quot;,&quot;标题&quot;);
+</code></pre>
+
+<p>5.FlexScript获取登录时输入的密码，并进行MD5加密：</p>
+<pre><code>import Elite.ECCore.ECore;
 import Elite.util.DigestUtils;
 var inputPassword:String = ECore.loginInfo.inputPassword;//获取到输入密码
 DigestUtils.md5Hex(inputPassword);//对密码进行md5加密
-		</textarea>
-		<br>
-	</p>
-	
+</code></pre>
 
-        </section>
-		
-        <aside id="sidebar">
-          <p>
-			<div style="font-size:22px;font-weight: bold;">SAAS移动版下载地址：</div>
-			<li style="font-size:18px;"><a href="http://202.105.215.50:8012/EliteSAAS/servlet/DownloadAppServlet?path=EliteSaaSCRM.MIS">Android</a></li>
-			<li style="font-size:18px;"><a href="http://202.105.215.50:8012/EliteSAAS/mobile/iphone/connection.html">Iphone</a></li>
-		  </p>
-          <p class="repo-owner"><a href="https://github.com/loriling/EliteCRM"></a> is maintained by <a href="https://github.com/loriling">loriling</a>.</p>
-          <p class="repo-owner">Sina weibo: <a href="http://weibo.com/loriling" target="_blank">Loriling</a></p>
+<p><code>EliteCRM by loriling</code></p>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        </aside>
-      </div>
-    </div>
+  ga('create', 'UA-51025730-1', 'loriling.github.io');
+  ga('send', 'pageview');
 
-  
-  </body>
-  	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+</script>
 
-	  ga('create', 'UA-51025730-1', 'loriling.github.io');
-	  ga('send', 'pageview');
-
-	</script>
+</body>
 </html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
