@@ -1,6 +1,5 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
 <head>
 <title>webchat-thirdpart-integration</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -423,7 +422,7 @@ message: &quot;success&quot;
 
 </blockquote>
 <ul>
-<li>如果是微信客户端，发出了语音或者图片等富媒体消息时候，可能还需要一个接口来获取具体富媒体消息的内容</li>
+<li>如果是微信客户端，发出了语音消息时候，可能还需要一个接口来获取具体语音的内容</li>
 </ul>
 <blockquote>
 <pre><code>http://xxxxx/ThirdPartService/getMedia
@@ -434,6 +433,13 @@ agentId: &quot;SELITE&quot;,
 clientId: &quot;xxxxxxxxxx&quot;,
 time: 1400913830109，
 mediaId: &quot;xxxx&quot;
+}
+返回参数:
+成功时候，返回的是amr格式的语音文件流
+失败时候，返回的json字符串：
+{
+result:0,
+message:&quot;&quot;
 }
 </code></pre>
 
