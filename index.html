@@ -551,6 +551,51 @@ var inputPassword:String = ECore.loginInfo.inputPassword;//获取到输入密码
 DigestUtils.md5Hex(inputPassword);//对密码进行md5加密
 </code></pre>
 
+<p>6.FlexScript添加客户端任务栏标签闪烁功能</p>
+<pre><code>import flash.external.ExternalInterface;
+//定义插入ocx方法
+var INSERT_FUNCTION_CREATEFLASHMEOCX:String = 
+    &quot;document.insertScript = function () {&quot; +
+        &quot;if (document._createFlashMeOCX==null){&quot; + 
+            &quot;_createFlashMeOCX = function(){&quot; +
+            &quot;var bodyID = document.getElementsByTagName(\&quot;body\&quot;)[0];&quot; +
+            &quot;if(document._flashMeOCX!=null){&quot;+
+                &quot;return true;&quot;+
+            &quot;}&quot;+
+            &quot;var flashMeOCX = document.createElement('object');&quot;+
+            &quot;flashMeOCX.classid='CLSID:9ADB7F92-97BB-4F04-A094-0E4EFAC857A8';&quot;+
+            &quot;flashMeOCX.style.width=0;&quot;+
+            &quot;flashMeOCX.style.height=0;&quot;+
+            &quot;flashMeOCX.id=\&quot;_flashMeOCX\&quot;;&quot;+
+            &quot;bodyID.appendChild(flashMeOCX);&quot;+
+            &quot;var result=(document._flashMeOCX!=null);&quot;+
+            &quot;return result;&quot;+
+        &quot;}&quot;+
+    &quot;}&quot;+
+&quot;}&quot;;
+//定义插入调用flashMe的方法
+var INSERT_FUNCTION_FLASHME:String = &quot;document.insertScript = function() {&quot;+
+    &quot;if (document._flashMe==null){&quot; + 
+        &quot;_flashMe = function(){&quot; +
+            &quot;var flashMeOCX = document.getElementById(\&quot;_flashMeOCX\&quot;);&quot;+
+            &quot;if(flashMeOCX != null){&quot;+
+              &quot;flashMeOCX.BeginFlash();&quot;+
+            &quot;}&quot;+
+        &quot;}&quot;+
+    &quot;}&quot;+
+&quot;}&quot;;
+
+//执行插入flashMe这个ocx到页面
+ExternalInterface.call(INSERT_FUNCTION_CREATEFLASHMEOCX);
+//执行插入flashMe这个方法
+ExternalInterface.call(INSERT_FUNCTION_FLASHME);
+
+
+//下面就是每次要闪烁时候调用：
+import flash.external.ExternalInterface;
+ExternalInterface.call(&quot;_flashMe&quot;);
+</code></pre>
+
 <p><code>EliteCRM by loriling</code></p>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
