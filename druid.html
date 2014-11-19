@@ -1,0 +1,400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>druid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>数据库连接池新选择  --  Druid</h1>
+<hr />
+<p><a href="https://github.com/alibaba/druid" title="Druid">Druid</a>是由阿里巴巴提供的另一个数据库连接池的实现，能够提供强大的监控和扩展功能。</p>
+<p>通常情况下，我们使用的数据库连接池的实现是commons的dbcp，而DruidDataSource的配置是兼容DBCP的。从DBCP迁移到DruidDataSource，只需要修改数据源的实现类就可以了。</p>
+<p>DBCP的数据库连接池的实现是：</p>
+<blockquote>
+<p>org.apache.commons.dbcp.BasicDataSource</p>
+</blockquote>
+<p>替换为：</p>
+<blockquote>
+<p>com.alibaba.druid.pool.DruidDataSource</p>
+</blockquote>
+<h2>对于我们实施人员来说，想用druid，只需要做一下几部操作：</h2>
+<p><strong>1.下载最新的druid的jar包。</strong></p>
+<p><a href="http://central.maven.org/maven2/com/alibaba/druid/1.0.10/druid-1.0.10.jar">druid-1,0,10,jar 下载地址</a></p>
+<p><strong>2.修改需要使用druid数据库连接池的web应用的数据源配置</strong></p>
+<pre><code>&lt;bean id=&quot;dataSource&quot; class=&quot;com.alibaba.druid.pool.DruidDataSource&quot; destroy-method=&quot;close&quot;&gt; 
+    &lt;property name=&quot;url&quot; value=&quot;${jdbc_url}&quot; /&gt;
+    &lt;property name=&quot;username&quot; value=&quot;${jdbc_user}&quot; /&gt;
+    &lt;property name=&quot;password&quot; value=&quot;${jdbc_password}&quot; /&gt;
+
+    &lt;property name=&quot;filters&quot; value=&quot;stat,commonlogging&quot; /&gt;&lt;!-- 用于droid的监控 --&gt;
+
+    &lt;property name=&quot;maxActive&quot; value=&quot;20&quot; /&gt;
+    &lt;property name=&quot;initialSize&quot; value=&quot;1&quot; /&gt;
+    &lt;property name=&quot;maxWait&quot; value=&quot;60000&quot; /&gt;
+    &lt;property name=&quot;minIdle&quot; value=&quot;1&quot; /&gt;
+
+    &lt;property name=&quot;timeBetweenEvictionRunsMillis&quot; value=&quot;60000&quot; /&gt;
+    &lt;property name=&quot;minEvictableIdleTimeMillis&quot; value=&quot;300000&quot; /&gt;
+
+    &lt;property name=&quot;validationQuery&quot; value=&quot;SELECT 'x'&quot; /&gt;
+    &lt;property name=&quot;testWhileIdle&quot; value=&quot;true&quot; /&gt;
+    &lt;property name=&quot;testOnBorrow&quot; value=&quot;false&quot; /&gt;
+    &lt;property name=&quot;testOnReturn&quot; value=&quot;false&quot; /&gt;
+    &lt;property name=&quot;poolPreparedStatements&quot; value=&quot;true&quot; /&gt;
+    &lt;property name=&quot;maxPoolPreparedStatementPerConnectionSize&quot; value=&quot;20&quot; /&gt;
+&lt;/bean&gt;
+</code></pre>
+
+<p>这是一段我们非常熟悉的spring中配置数据库连接池的配置，可以关注到其中最主要就是bean的class改了</p>
+<p><strong>3.配置web应用的web.xml</strong></p>
+<pre><code>&lt;servlet&gt;
+  &lt;servlet-name&gt;DruidStatView&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;com.alibaba.druid.support.http.StatViewServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;DruidStatView&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/druid/*&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre>
+
+<p>这样就可以通过 http://127.0.0.1:8080/appname/druid/index.html 来访问到druid的监控页面了，类似如下图：</p>
+<p><img src="http://202.105.215.50:8012/EliteKM/userfiles/image/20141119/20141119132712_644.png" alt="数据源监控" /></p>
+<p>这里可以看到各种我们非常关注的数据，比如：<strong>活跃连接数</strong>，<strong>池中连接数</strong>
+，包括可以直接看到<strong>连接池中连接信息</strong></p>
+<p><img src="http://202.105.215.50:8012/EliteKM/userfiles/image/20141119/20141119133928_358.png" alt="连接池中连接信息" /></p>
+<p>也可以看到<strong>SQL列表</strong></p>
+<p><img src="http://202.105.215.50:8012/EliteKM/userfiles/image/20141119/20141119132725_557.png" alt="SQL监控" /></p>
+<p><em>是不是碉堡了~~~</em></p>
+<p><strong>4.（可选）log4j.properties中添加配置,这样可以让sql相关操作日志输出</strong></p>
+<pre><code>log4j.logger.druid.sql=debug,stdout,druidRFA
+log4j.appender.druidRFA=org.apache.log4j.RollingFileAppender
+log4j.appender.druidRFA.File=${catalina.home}/logs/druid.log
+log4j.appender.druidRFA.MaxFileSize=10000KB
+log4j.appender.druidRFA.MaxBackupIndex=100
+log4j.appender.druidRFA.layout=org.apache.log4j.PatternLayout
+log4j.appender.druidRFA.layout.ConversionPattern=%d [%t] %-5p %c - %m%n
+</code></pre>
+
+<p>日志中就可以看到类似：</p>
+<pre><code>2014-11-19 11:44:18,065 [http-8080-3] DEBUG druid.sql.Connection - {conn-10008} pool-connect
+2014-11-19 11:44:18,065 [http-8080-3] DEBUG druid.sql.Statement - {conn-10008, stmt-20088} created
+2014-11-19 11:44:18,065 [http-8080-3] DEBUG druid.sql.Statement - {conn-10008, stmt-20088, rs-50084} query executed. 0.599564 millis. 
+select distinct(queue_id) from agent_queue where agent_id='SELITE' order by queue_id
+2014-11-19 11:44:18,065 [http-8080-3] DEBUG druid.sql.ResultSet - {conn-10008, stmt-20088, rs-50084} open
+2014-11-19 11:44:18,065 [http-8080-3] DEBUG druid.sql.ResultSet - {conn-10008, stmt-20088, rs-50084} Header: [queue_id]
+2014-11-19 11:44:18,068 [http-8080-3] DEBUG druid.sql.ResultSet - {conn-10008, stmt-20088, rs-50084} Result: [1]
+2014-11-19 11:44:18,070 [http-8080-3] DEBUG druid.sql.ResultSet - {conn-10008, stmt-20088, rs-50084} closed
+2014-11-19 11:44:18,070 [http-8080-5] DEBUG druid.sql.Connection - {conn-10007} pool-connect
+2014-11-19 11:44:18,070 [http-8080-3] DEBUG druid.sql.Statement - {conn-10008, stmt-20088} closed
+2014-11-19 11:44:18,070 [http-8080-3] DEBUG druid.sql.Connection - {conn-10008} pool-recycle
+</code></pre>
+
+<p>包含了从获取连接到执行结束连接回收的一系列操作的日志信息。</p>
+<p><em>这些还不够，根本停不下来</em></p>
+<p><strong>5.连接泄漏监测</strong></p>
+<pre><code>&lt;bean id=&quot;dataSource&quot; class=&quot;com.alibaba.druid.pool.DruidDataSource&quot; destroy-method=&quot;close&quot;&gt;
+    ... ...
+    &lt;property name=&quot;removeAbandoned&quot; value=&quot;true&quot; /&gt; &lt;!-- 打开removeAbandoned功能 --&gt;
+    &lt;property name=&quot;removeAbandonedTimeout&quot; value=&quot;1800&quot; /&gt; &lt;!-- 1800秒，也就是30分钟 --&gt;
+    &lt;property name=&quot;logAbandoned&quot; value=&quot;true&quot; /&gt; &lt;!-- 关闭abanded连接时输出错误日志 --&gt;
+    ... ...
+&lt;/bean&gt;
+</code></pre>
+
+<p>配置removeAbandoned对性能会有一些影响，建议怀疑存在泄漏之后再打开。在上面的配置中，如果连接超过30分钟未关闭，就会被强行回收，并且日志记录连接申请时的调用堆栈。</p>
+<p>具体可以访问：
+<a href="https://github.com/alibaba/druid/wiki/%E8%BF%9E%E6%8E%A5%E6%B3%84%E6%BC%8F%E7%9B%91%E6%B5%8B" title="连接泄漏监测">https://github.com/alibaba/druid/wiki/%E8%BF%9E%E6%8E%A5%E6%B3%84%E6%BC%8F%E7%9B%91%E6%B5%8B</a></p>
+<p><em>是不是觉得连接泄露变得不是那么可怕了~~</em></p>
+<hr />
+<p>参考：
+<a href="https://github.com/alibaba/druid/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98" title="Druid wiki">https://github.com/alibaba/druid/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98</a></p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
