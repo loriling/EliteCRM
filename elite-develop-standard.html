@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>elite-develop-standard</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Elite开发文档规格说明</h1>
+<p>由于现在项目级别的开发，多数都是现场人员或者客户，丢一个文档过来，或者一个邮件，甚至就是口头说一下，需要什么什么功能，然后就由开发人员开始开发了。通常，这样做出来的都不能完全满足需求，然后就是一遍一遍的修改，发过去退回来，造成开发人员与现场实施人员的工作效率非常低下。</p>
+<p>本文就是定制一套开发文档的规格说明，帮助提高开发测试实施的效率。<strong>文档应由项目经理与开发人员讨论后一同撰写，最终由客户签字确认后，开发人员才进行正式开发，不然一律不予处理。</strong></p>
+<hr />
+<p>一. 关于无界面，接口类开发</p>
+<ol>
+<li>首先需要说清楚，需要实现什么功能，开发的目的是什么！我们作为服务提供者还是服务调用者，是手动触发还是定时调用，等等。</li>
+<li>需要有接口说明说，包括接口类型，入参规则，出参规则，如果是webservice的话，需要wsdl，如果有接口示例代码，那就特别赞。如果没有，请项目经理与客户沟通获取，而不是说客户的开发手机号给过来，你自己去沟通吧。</li>
+<li>整个接口的处理流程要清晰，比如：先查询数据库 --&gt; 查询到数据后 --&gt; 调用对方的addData接口 --&gt; 调用成功后，更新我们自己的库数据。 很简单一个逻辑，在这个基础上，还要考虑，如果数据库查询不到，需要有什么处理，如果调用接口失败，需要什么处理，如果调用成功后，更新自己数据库失败，又需要怎么处理。 所以这些异常保护，都需要在文档中体现出来。这个过程可能项目经理没法都考虑到，所以需要与开发人员一起讨论得出这些异常处理的方式。</li>
+<li>最好可以提供测试数据，比如数据库dump，或者一些相关表结构，方便开发者在本机做最基本的测试调试，开发人员必须本地想办法模拟测试，测试通过才提交服务，而不是写完自己都没有跑过一遍就丢给现场人员，由现场人员帮你测试！现场人员发现代码质量非常低下，根本自己没跑就扔过来的，可以和Lori，Aaron，Sam说。</li>
+<li>如果开发完发现又需要修改需求，同样需要补充到开发文档中，由<strong>客户签字确认</strong>了才给予开发，这样即便是一个项目开发了很久，最后客户说起来我们也有依据说明是他们修改需求造成而不是我们自身开发慢的问题。</li>
+<li>注意边界保护与并发处理。如果能预计到的，文档中都需要体现出来。如果文档中体现出来的问题，最终开发提供的版本中没有处理，责任在于开发人员。</li>
+</ol>
+<hr />
+<p>二. 关于有界面的web服务开发，除了上述这些外，还需要补充</p>
+<ol>
+<li>对于比较简单的页面，客户对页面的美化没有要求的，项目经理需要说明清楚页面的功能，提前用工具绘制出页面大致样子，描述清楚各区域显示内容，按钮的功能等等。</li>
+<li>对于复杂的页面，或者客户对页面的美化有要求的，<strong>需要先和美工讨论，由美工做出页面效果图</strong>，并对各种情况加以说明，比如按下什么按钮后，页面出现什么效果等等，拿着这些效果图与客户确认，<strong>客户确认签字后</strong>，才开始开发！</li>
+</ol>
+<p>1/7/2015 11:59:00 AM </p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
