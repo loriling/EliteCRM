@@ -302,12 +302,14 @@ img {
 <li>客户从网页或者微信端发出聊天请求： </li>
 </ul>
 <blockquote>
-<pre><code>http://xxxxx/EliteWebChat/createcon.do
+<pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数：
 {
+    type: 1000,//发出聊天的请求
     clientId: &quot;xxxxxxxxx&quot;,//客户的唯一标示
     nickname: &quot;lori&quot;,//客户昵称（微信昵称）
-    time: 1400913140127//发出请求的时间戳
+    time: 1400913140127,//发出请求的时间戳
+    queue: 1//请求的队列号
 }
 返回参数：
 {
@@ -325,17 +327,16 @@ img {
 <pre><code>http://xxxxx/ThirdPartService/create
 发送参数：
 {
-result：1,
-message:&quot;success&quot;,
-agentId:&quot;SELITE&quot;,
-agentName:&quot;Elite&quot;,
-sessionId: 1299,
-time: 1400913830109
+    agentId: &quot;SELITE&quot;,
+    agentName: &quot;Elite&quot;,
+    clientId: &quot;xxxxxxxx&quot;,
+    sessionId: 1299,
+    time: 1400913830109
 }
 返回参数:
 {
-result:1,
-message:&quot;success&quot;
+    result:1,
+    message:&quot;success&quot;
 }
 </code></pre>
 
@@ -344,15 +345,14 @@ message:&quot;success&quot;
 <li>客户发送消息给客服</li>
 </ul>
 <blockquote>
-<pre><code>http://xxxxx/EliteWebChat/getmsg.do
+<pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数:
 {
+    type: 2001,//发送消息请求
     sessionId: 1299,
-    agentId: &quot;SELITE&quot;,
     clientId: &quot;xxxxxxxxxx&quot;,
     time: 1400913830109,
-    type: &quot;text&quot;,//消息类型，可能存在image,voice,location,text等
-    content: &quot;你好，请问xxxxx&quot;
+    text: &quot;你好，请问xxxxx&quot;
 }
 返回参数：
 {
@@ -368,17 +368,17 @@ message:&quot;success&quot;
 <blockquote>
 <pre><code>http://xxxxx/ThirdPartService/msg
 {
-sessionId: 1299,
-agentId: &quot;SELITE&quot;,
-clientId: &quot;xxxxxxxxxx&quot;,
-time: 1400913830109,
-content: &quot;xxxxxxxxxx，xxxxx&quot;,
-type: &quot;text&quot;//客服发送送出的微信消息目前只支持文字信息
+    sessionId: 1299,
+    agentId: &quot;SELITE&quot;,
+    clientId: &quot;xxxxxxxxxx&quot;,
+    time: 1400913830109,
+    content: &quot;xxxxxxxxxx，xxxxx&quot;,
+    type: &quot;text&quot;//客服发送送出的微信消息目前只支持文字信息
 }
 返回参数：
 {
-result: 1,
-message: &quot;success&quot;
+    result: 1,
+    message: &quot;success&quot;
 }
 </code></pre>
 
@@ -387,16 +387,17 @@ message: &quot;success&quot;
 <li>客户结束聊天</li>
 </ul>
 <blockquote>
-<pre><code>http://xxxxx/EliteWebChat/closecon.do
+<pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数:
 {
-sessionId: 1299,
-time: 1400913830109
+    type: 4001,//结束请求
+    sessionId: 1299,
+    time: 1400913830109
 }
 返回参数：
 {
-result:1,
-message:&quot;success&quot;
+    result:1,
+    message:&quot;success&quot;
 }
 </code></pre>
 
@@ -408,43 +409,47 @@ message:&quot;success&quot;
 <pre><code>http://xxxxx/ThirdPartService/close
 发送参数:
 {
-sessionId: 1299,
-agentId: &quot;SELITE&quot;,
-clientId: &quot;xxxxxxxxxx&quot;,
-time: 1400913830109
+    sessionId: 1299,
+    agentId: &quot;SELITE&quot;,
+    clientId: &quot;xxxxxxxxxx&quot;,
+    time: 1400913830109
 }
 返回参数:
 {
-result: 1,
-message: &quot;success&quot;
+    result: 1,
+    message: &quot;success&quot;
 }
 </code></pre>
 
 </blockquote>
+
+
+<h2>二. 请求代码与相应结果代码</h2>
 <ul>
-<li>如果是微信客户端，发出了语音消息时候，可能还需要一个接口来获取具体语音的内容</li>
+<li>request中的type</li>
 </ul>
 <blockquote>
-<pre><code>http://xxxxx/ThirdPartService/getMedia
-发送参数：
-{
-sessionId: 1299,
-agentId: &quot;SELITE&quot;,
-clientId: &quot;xxxxxxxxxx&quot;,
-time: 1400913830109，
-mediaId: &quot;xxxx&quot;
-}
-返回参数:
-成功时候，返回的是amr格式的语音文件流
-失败时候，返回的json字符串：
-{
-result:0,
-message:&quot;&quot;
-}
+<pre><code>CHAT_REQUEST = 1000;
+MSG_REQUEST = 2001;
+CLOSE_REQUEST = 4001;
 </code></pre>
-
 </blockquote>
-
+<ul>
+<li>response中的result</li>
+</ul>
+<blockquote>
+<pre><code>SUCCESS = 1;
+REQUEST_ALREADY_IN_ROULTING = -1;
+ALREADY_IN_CHATTING = -2;
+NOT_IN_WORKTIME = -3;
+INVAILD_SKILLGROUP = -4;
+NO_AGENT_ONLINE = -5;
+INVAILD_CLIENT_ID = -6;
+INVAILD_QUEUE_ID = -7;
+REQUEST_ERROR = -8;
+INTERNAL_ERROR = -100;
+</code></pre>
+</blockquote>
 </body>
 </html>
 <!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
