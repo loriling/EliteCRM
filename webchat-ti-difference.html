@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>index</title>
+<title>webchat-ti-difference</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
@@ -291,10 +291,79 @@ img {
 </style>
 </head>
 <body>
-<p><a href="http://loriling.github.io/EliteCRM/elitecrm.html" title="WebChat第三方接入接口说明">FlexClient相关说明： 卡死处理， 部分flexscript说明等</a></p>
-<p><a href="http://loriling.github.io/EliteCRM/webchat-thirdpart-integration.html" title="WebChat第三方接入接口说明">WebChat第三方接入接口说明</a></p>
-<p><a href="http://loriling.github.io/EliteCRM/webchat-thirdpart-integration.html" title="WebChat第三方接入不同方案优劣对比">WebChat第三方接入不同方案优劣对比</a></p>
-<p><a href="http://loriling.github.io/EliteCRM/elite-develop-standard.html" title="WebChat第三方接入不同方案优劣对比">Elite开发文档规格说明</a></p>
+<h1>EliteWebChat第三方对接不同方式的优劣分析</h1>
+<h2>一. 接口形式对接</h2>
+<blockquote>
+<p>这种形式的对接，过河兵端对于客户端的页面展示是不关心的，只负责聊天数据的交互，这样的话，如果第三方想要修改客户端ui展示，是非常自由且方便的。在不同的平台中（微信公众号，微信，自己APP），也可以有不同的展示，比如，微信公众号中就可以直接在微信对话框中聊天，自己APP则可以自己开发一个聊天的界面，来展示信息。
+当然，这种方式还是涉及到双方的开发工作的。主要工作在于几个接口的调用与开发</p>
+</blockquote>
+<ol>
+<li>
+第三方需要按过河兵提供的接口文档，调用过河兵3个接口：
+<br>（1）发起聊天请求接口
+	当客户需要开始聊天时候，调用过河兵此接口。
+<br>（2）发消息接口
+	客户发出的消息，通过调用此接口告知过河兵。
+<br>（3）结束聊天接口
+	客户结束聊天时候，调用此接口通知过河兵。
+</li>
+<li>
+同时，还需要按文档实现3个接口给过河兵系统调用：
+<br>（1）接收聊天开始接口
+	当聊天请求已经排队结束，被某个坐席接受时候，过河兵会调用第三方这个接口，通知第三方聊天可以开始了。
+<br>（2）接收消息接口
+	坐席往第三发系统发送聊天消息时候，需要调用此接口。
+<br>（3）接收聊天结束接口
+	坐席主动结束聊天时候，调用此接口通知第三方聊天结束。
+</li>
+</ol>
+<blockquote>
+<p>同时，可能还需要一些辅助开发，如果客户发起排队候，需要实时获取排队情况，还需要第三方调用获取排队最新信息的接口。
+    整个需要开发的工作量，以微信公众号为例，第三方预计在1个人月左右，具体看实际开发进度。过河兵预计在1-2周时间，配合第三方调通接口，再做一些相关的辅助开发。
+    APP嵌入的开发还涉及到ui的展示，可能会需要更多一些时间。</p>
+</blockquote>
+<h2>二.嵌入H5页面方式对接</h2>
+<blockquote>
+<p>这种形式，客户端页面展示由过河兵来提供，第三方可以给出希望的页面样式，由过河兵对此样式做相应开发，实现聊天功能，具体使用时候，不同平台上都是以打开网页形式，来做接入。这种情况，第三方几乎没有开发的工作量，只需要在需要的地方，提供打开链接的按钮或者菜单即可。但是，由于页面的展示在过河兵系统中，后期如果需要平凡修改，会比较不便。
+ 整个需要开发的工作量，在于过河兵实现客户端页面，通常情况下，如果页面上没有什么特殊功能，开发时间在2周左右。</p>
+</blockquote>
+<h2>三.总结</h2>
+<h3>接口形式：</h3>
+<ul>
+<li>优点：</li>
+</ul>
+<blockquote>
+<pre><code>界面展示更自由
+用户体验更好，可以用微信本身的对话界面来进行聊天
+</code></pre>
+
+</blockquote>
+<ul>
+<li>缺点：</li>
+</ul>
+<blockquote>
+<pre><code>工作量较大，基本是嵌入H5方式的2-3倍工作量
+</code></pre>
+
+</blockquote>
+<h3>嵌入H5页面方式：</h3>
+<ul>
+<li>优点：</li>
+</ul>
+<blockquote>
+<pre><code>工作量较小，可以更快的进行对接&lt;br&gt; 
+有更多的使用案例，一套页面可以在不同平台使用
+</code></pre>
+
+</blockquote>
+<ul>
+<li>缺点：</li>
+</ul>
+<blockquote>
+<pre><code>1.用户体验可能没有原生APP或者微信本身对话框来的好。
+</code></pre>
+
+</blockquote>
 
 </body>
 </html>
