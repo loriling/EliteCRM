@@ -1,5 +1,5 @@
-
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>webchat-thirdpart-integration</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -289,11 +289,10 @@ img {
   max-width: 100%
 }
 </style>
-<base href='file:\\\E:\01\markdown\'/>
 </head>
 <body>
 <h1>WebChat第三方客户端接入说明</h1>
-<p>5/24/2014 3:36:09 PM </p>
+<p>10/15/2015 12:27:09 PM </p>
 <h3>EliteWebChat提供整套从客服端到客户端的界面与展示解决方案，同时也可以支持与第三方客户端的对接。其中成功案例就有与小米的米聊对接，与livebot的微信服务对接等。</h3>
 <h2>一. 第三方客户端对接接口说明</h2>
 <p>接口才用http协议，包括了webchat端提供的接口与第三方提供的接口，数据传输使用json格式。
@@ -302,14 +301,12 @@ img {
 <li>客户从网页或者微信端发出聊天请求： </li>
 </ul>
 <blockquote>
-<pre><code>http://xxxxx/EliteWebChat/tpi
+<pre><code>http://xxxxx/EliteWebChat/createcon.do
 发送参数：
 {
-    type: 1000,//发出聊天的请求
     clientId: &quot;xxxxxxxxx&quot;,//客户的唯一标示
     nickname: &quot;lori&quot;,//客户昵称（微信昵称）
-    time: 1400913140127,//发出请求的时间戳
-    queue: 1//请求的队列号
+    time: 1400913140127//发出请求的时间戳
 }
 返回参数：
 {
@@ -327,16 +324,17 @@ img {
 <pre><code>http://xxxxx/ThirdPartService/create
 发送参数：
 {
-    agentId: &quot;SELITE&quot;,
-    agentName: &quot;Elite&quot;,
-    clientId: &quot;xxxxxxxx&quot;,
-    sessionId: 1299,
-    time: 1400913830109
+result：1,
+message:&quot;success&quot;,
+agentId:&quot;SELITE&quot;,
+agentName:&quot;Elite&quot;,
+sessionId: 1299,
+time: 1400913830109
 }
 返回参数:
 {
-    result:1,
-    message:&quot;success&quot;
+result:1,
+message:&quot;success&quot;
 }
 </code></pre>
 
@@ -345,14 +343,15 @@ img {
 <li>客户发送消息给客服</li>
 </ul>
 <blockquote>
-<pre><code>http://xxxxx/EliteWebChat/tpi
+<pre><code>http://xxxxx/EliteWebChat/getmsg.do
 发送参数:
 {
-    type: 2001,//发送消息请求
     sessionId: 1299,
+    agentId: &quot;SELITE&quot;,
     clientId: &quot;xxxxxxxxxx&quot;,
     time: 1400913830109,
-    text: &quot;你好，请问xxxxx&quot;
+    type: &quot;text&quot;,//消息类型，可能存在image,voice,location,text等
+    content: &quot;你好，请问xxxxx&quot;
 }
 返回参数：
 {
@@ -368,17 +367,17 @@ img {
 <blockquote>
 <pre><code>http://xxxxx/ThirdPartService/msg
 {
-    sessionId: 1299,
-    agentId: &quot;SELITE&quot;,
-    clientId: &quot;xxxxxxxxxx&quot;,
-    time: 1400913830109,
-    content: &quot;xxxxxxxxxx，xxxxx&quot;,
-    type: &quot;text&quot;//客服发送送出的微信消息目前只支持文字信息
+sessionId: 1299,
+agentId: &quot;SELITE&quot;,
+clientId: &quot;xxxxxxxxxx&quot;,
+time: 1400913830109,
+content: &quot;xxxxxxxxxx，xxxxx&quot;,
+type: &quot;text&quot;//客服发送送出的微信消息目前只支持文字信息
 }
 返回参数：
 {
-    result: 1,
-    message: &quot;success&quot;
+result: 1,
+message: &quot;success&quot;
 }
 </code></pre>
 
@@ -387,17 +386,16 @@ img {
 <li>客户结束聊天</li>
 </ul>
 <blockquote>
-<pre><code>http://xxxxx/EliteWebChat/tpi
+<pre><code>http://xxxxx/EliteWebChat/closecon.do
 发送参数:
 {
-    type: 4001,//结束请求
-    sessionId: 1299,
-    time: 1400913830109
+sessionId: 1299,
+time: 1400913830109
 }
 返回参数：
 {
-    result:1,
-    message:&quot;success&quot;
+result:1,
+message:&quot;success&quot;
 }
 </code></pre>
 
@@ -409,47 +407,119 @@ img {
 <pre><code>http://xxxxx/ThirdPartService/close
 发送参数:
 {
-    sessionId: 1299,
-    agentId: &quot;SELITE&quot;,
-    clientId: &quot;xxxxxxxxxx&quot;,
-    time: 1400913830109
+sessionId: 1299,
+agentId: &quot;SELITE&quot;,
+clientId: &quot;xxxxxxxxxx&quot;,
+time: 1400913830109
 }
 返回参数:
 {
-    result: 1,
-    message: &quot;success&quot;
+result: 1,
+message: &quot;success&quot;
 }
 </code></pre>
 
 </blockquote>
-
-
-<h2>二. 请求代码与相应结果代码</h2>
 <ul>
-<li>request中的type</li>
+<li>如果是微信客户端，发出了语音消息时候，可能还需要一个接口来获取具体语音的内容</li>
 </ul>
 <blockquote>
-<pre><code>CHAT_REQUEST = 1000;
-MSG_REQUEST = 2001;
-CLOSE_REQUEST = 4001;
+<pre><code>http://xxxxx/ThirdPartService/getMedia
+发送参数：
+{
+sessionId: 1299,
+agentId: &quot;SELITE&quot;,
+clientId: &quot;xxxxxxxxxx&quot;,
+time: 1400913830109，
+mediaId: &quot;xxxx&quot;
+}
+返回参数:
+成功时候，返回的是amr格式的语音文件流
+失败时候，返回的json字符串：
+{
+result:0,
+message:&quot;&quot;
+}
 </code></pre>
+
 </blockquote>
+<p><br><br><br><br><br><br><br><br></p>
+<h1>EliteWebChat第三方对接不同方式的优劣分析</h1>
+<h2>一. 接口形式对接</h2>
+<blockquote>
+<p>这种形式的对接，过河兵端对于客户端的页面展示是不关心的，只负责聊天数据的交互，这样的话，如果第三方想要修改客户端ui展示，是非常自由且方便的。在不同的平台中（微信公众号，微信，自己APP），也可以有不同的展示，比如，微信公众号中就可以直接在微信对话框中聊天，自己APP则可以自己开发一个聊天的界面，来展示信息。
+当然，这种方式还是涉及到双方的开发工作的。主要工作在于几个接口的调用与开发</p>
+</blockquote>
+<ol>
+<li>
+第三方需要按过河兵提供的接口文档，调用过河兵3个接口：
+<br>（1）发起聊天请求接口
+	当客户需要开始聊天时候，调用过河兵此接口。
+<br>（2）发消息接口
+	客户发出的消息，通过调用此接口告知过河兵。
+<br>（3）结束聊天接口
+	客户结束聊天时候，调用此接口通知过河兵。
+</li>
+<li>
+同时，还需要按文档实现3个接口给过河兵系统调用：
+<br>（1）接收聊天开始接口
+	当聊天请求已经排队结束，被某个坐席接受时候，过河兵会调用第三方这个接口，通知第三方聊天可以开始了。
+<br>（2）接收消息接口
+	坐席往第三发系统发送聊天消息时候，需要调用此接口。
+<br>（3）接收聊天结束接口
+	坐席主动结束聊天时候，调用此接口通知第三方聊天结束。
+</li>
+</ol>
+<blockquote>
+<p>同时，可能还需要一些辅助开发，如果客户发起排队候，需要实时获取排队情况，还需要第三方调用获取排队最新信息的接口。
+    整个需要开发的工作量，以微信公众号为例，第三方预计在1个人月左右，具体看实际开发进度。过河兵预计在1-2周时间，配合第三方调通接口，再做一些相关的辅助开发。
+    APP嵌入的开发还涉及到ui的展示，可能会需要更多一些时间。</p>
+</blockquote>
+<p><br><br></p>
+<h2>二.嵌入H5页面方式对接</h2>
+<blockquote>
+<p>这种形式，客户端页面展示由过河兵来提供，第三方可以给出希望的页面样式，由过河兵对此样式做相应开发，实现聊天功能，具体使用时候，不同平台上都是以打开网页形式，来做接入。这种情况，第三方几乎没有开发的工作量，只需要在需要的地方，提供打开链接的按钮或者菜单即可。但是，由于页面的展示在过河兵系统中，后期如果需要平凡修改，会比较不便。
+ 整个需要开发的工作量，在于过河兵实现客户端页面，通常情况下，如果页面上没有什么特殊功能，开发时间在2周左右。</p>
+</blockquote>
+<p><br><br></p>
+<h2>三.总结</h2>
+<h3>接口形式：</h3>
 <ul>
-<li>response中的result</li>
+<li>优点：</li>
 </ul>
 <blockquote>
-<pre><code>SUCCESS = 1;
-REQUEST_ALREADY_IN_ROULTING = -1;
-ALREADY_IN_CHATTING = -2;
-NOT_IN_WORKTIME = -3;
-INVAILD_SKILLGROUP = -4;
-NO_AGENT_ONLINE = -5;
-INVAILD_CLIENT_ID = -6;
-INVAILD_QUEUE_ID = -7;
-REQUEST_ERROR = -8;
-INTERNAL_ERROR = -100;
+<pre><code>界面展示更自由
+用户体验更好，可以用微信本身的对话界面来进行聊天
 </code></pre>
+
 </blockquote>
+<ul>
+<li>缺点：</li>
+</ul>
+<blockquote>
+<pre><code>工作量较大，基本是嵌入H5方式的2-3倍工作量
+</code></pre>
+
+</blockquote>
+<h3>嵌入H5页面方式：</h3>
+<ul>
+<li>优点：</li>
+</ul>
+<blockquote>
+<pre><code>工作量较小，可以更快的进行对接&lt;br&gt; 
+有更多的使用案例，一套页面可以在不同平台使用
+</code></pre>
+
+</blockquote>
+<ul>
+<li>缺点：</li>
+</ul>
+<blockquote>
+<pre><code>1.用户体验可能没有原生APP或者微信本身对话框来的好。
+</code></pre>
+
+</blockquote>
+
 </body>
 </html>
 <!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
