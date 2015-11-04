@@ -326,33 +326,55 @@ img {
 <pre><code>http://xxxxx/ThirdPartService/create
 发送参数：
 {
-result：1,
-message:&quot;success&quot;,
-agentId:&quot;SELITE&quot;,
-agentName:&quot;Elite&quot;,
-sessionId: 1299,
-time: 1400913830109
+    result：1,
+    message:&quot;success&quot;,
+    agentId:&quot;SELITE&quot;,
+    agentName:&quot;Elite&quot;,
+    sessionId: 1299,
+    time: 1400913830109
 }
 返回参数:
 {
-result:1,
-message:&quot;success&quot;
+    result:1,
+    message:&quot;success&quot;
 }
 </code></pre>
 
 </blockquote>
 <ul>
-<li>客户发送消息给客服</li>
+<li>客户发送文本消息给客服</li>
 </ul>
 <blockquote>
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数:
 {
-    type: 2001,//发送消息请求
+    type: 2001,//发送文本消息请求
     sessionId: 1299,
     clientId: &quot;xxxxxxxxxx&quot;,
     time: 1400913830109,
     text: &quot;你好，请问xxxxx&quot;
+}
+返回参数：
+{
+    result: 1,
+    message: &quot;&quot;
+}
+</code></pre>
+
+</blockquote>
+<ul>
+<li>客户发送图片消息给客服</li>
+</ul>
+<blockquote>
+<pre><code>http://xxxxx/EliteWebChat/tpi
+发送参数:
+{
+    type: 2002,//发送图片消息请求
+    sessionId: 1299,
+    clientId: &quot;xxxxxxxxxx&quot;,
+    time: 1400913830109,
+    imgName: &quot;IMG_001&quot;,
+    imgData: &quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==&quot;//图片dataURI，标准的html5中dataURI的格式
 }
 返回参数：
 {
@@ -368,17 +390,17 @@ message:&quot;success&quot;
 <blockquote>
 <pre><code>http://xxxxx/ThirdPartService/msg
 {
-sessionId: 1299,
-agentId: &quot;SELITE&quot;,
-clientId: &quot;xxxxxxxxxx&quot;,
-time: 1400913830109,
-content: &quot;xxxxxxxxxx，xxxxx&quot;,
-type: &quot;text&quot;//客服发送送出的微信消息目前只支持文字信息
+    sessionId: 1299,
+    agentId: &quot;SELITE&quot;,
+    clientId: &quot;xxxxxxxxxx&quot;,
+    time: 1400913830109,
+    content: &quot;xxxxxxxxxx，xxxxx&quot;,
+    type: &quot;text&quot;//客服发送送出的微信消息目前只支持文字信息
 }
 返回参数：
 {
-result: 1,
-message: &quot;success&quot;
+    result: 1,
+    message: &quot;success&quot;
 }
 </code></pre>
 
@@ -390,13 +412,13 @@ message: &quot;success&quot;
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数:
 {
-sessionId: 1299,
-time: 1400913830109
+    sessionId: 1299,
+    time: 1400913830109
 }
 返回参数：
 {
-result:1,
-message:&quot;success&quot;
+    result:1,
+    message:&quot;&quot;
 }
 </code></pre>
 
@@ -408,14 +430,14 @@ message:&quot;success&quot;
 <pre><code>http://xxxxx/ThirdPartService/close
 发送参数:
 {
-type: 4001,//结束请求
-sessionId: 1299,
-time: 1400913830109
+    type: 4001,//结束请求
+    sessionId: 1299,
+    time: 1400913830109
 }
 返回参数:
 {
-result: 1,
-message: &quot;success&quot;
+    result: 1,
+    message: &quot;success&quot;
 }
 </code></pre>
 
@@ -427,6 +449,7 @@ message: &quot;success&quot;
 <blockquote>
 <pre><code> CHAT_REQUEST = 1000;
  MSG_REQUEST = 2001;
+ MSG_IMG_REQUEST = 2002;
  CLOSE_REQUEST = 4001;
 </code></pre>
 
