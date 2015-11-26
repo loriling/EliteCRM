@@ -442,6 +442,26 @@ img {
 </code></pre>
 
 </blockquote>
+<ul>
+<li>客户发出满意度评价请求</li>
+</ul>
+<blockquote>
+<pre><code>http://xxxxx/EliteWebChat/tpi
+发送参数:
+{
+    type: 5001,//满意度评价请求
+    sessionId: 1299,
+    ratingId: 1,//具体id值对应的含义需要询问具体项目人员
+    ratingComments: &quot;服务非常满意&quot;
+}
+返回参数:
+{
+    result: 1,
+    message: &quot;success&quot;
+}
+</code></pre>
+
+</blockquote>
 <h2>二. 请求代码与相应结果代码</h2>
 <ul>
 <li>request中的type</li>
