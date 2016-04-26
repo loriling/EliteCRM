@@ -413,6 +413,7 @@ img {
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数:
 {
+    type: 4001,
     sessionId: 1299,
     time: 1400913830109
 }
@@ -431,7 +432,6 @@ img {
 <pre><code>http://xxxxx/ThirdPartService/close
 发送参数:
 {
-    type: 4001,//结束请求
     sessionId: 1299,
     agentId: 'SELITE'
     clientId: 'xxxxxxxxxx'//（备用，可能不传）
@@ -490,6 +490,7 @@ img {
  INVAILD_CLIENT_ID = -6;
  INVAILD_QUEUE_ID = -7;
  REQUEST_ERROR = -8;
+ INVAILD_TO_USER_ID = -9;
  INTERNAL_ERROR = -100;
 </code></pre>
 
