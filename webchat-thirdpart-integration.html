@@ -495,6 +495,118 @@ img {
 </code></pre>
 
 </blockquote>
+<h2>三. 消息体中表情的定义</h2>
+<blockquote>
+<p>聊天消息中支持发送表情，比如，发送/::)，就表示微笑，一共支持如下105个表情，包括发送和接受都应该按这个规则来处理表情。
+如果需要支持自定义表情，则只能通过&lt;img src='自定义表情.gif'&gt;方式来发送。</p>
+</blockquote>
+<pre><code>  0 : &quot;/::)&quot;, // 微笑
+  1 : &quot;/::~&quot;, // 撇嘴
+  2 : &quot;/::B&quot;, // 色
+  3 : &quot;/::|&quot;, // 发呆
+  4 : &quot;/:8-)&quot;, // 得意
+  5 : &quot;/::&lt;&quot;, // 流泪
+  6 : &quot;/::$&quot;, // 害羞
+  7 : &quot;/::X&quot;, // 闭嘴
+  8 : &quot;/::Z&quot;, // 睡
+  9 : &quot;/::'(&quot;, // 大哭
+  10 : &quot;/::-|&quot;, // 尴尬
+  11 : &quot;/::@&quot;, // 发怒
+  12 :&quot;/::P&quot;, // 调皮
+  13 : &quot;/::D&quot;, // 呲牙
+  14 : &quot;/::O&quot;, // 惊讶
+  15 : &quot;/::(&quot;, // 难过
+  16 : &quot;/::+&quot;, // 酷
+  17 : &quot;/:–-b&quot;, // 冷汗
+  18 : &quot;/::Q&quot;, // 抓狂
+  19 : &quot;/::T&quot;, // 吐
+  20 : &quot;/:,@P&quot;, // 偷笑
+  21 : &quot;/:,@-D&quot;, // 愉快
+  22 : &quot;/::d&quot;, // 白眼
+  23 : &quot;/:,@o&quot;, // 傲慢
+  24 : &quot;/::g&quot;, // 饥饿
+  25 : &quot;/:|-)&quot;, // 困
+  26 : &quot;/::!&quot;, // 惊恐
+  27 : &quot;/::L&quot;, // 流汗
+  28 : &quot;/::&gt;&quot;, // 憨笑
+  29 : &quot;/::,@&quot;, // 悠闲
+  30 : &quot;/:,@f&quot;, // 奋斗
+  31 : &quot;/::-S&quot;, // 咒骂
+  32 : &quot;/:?&quot;, // 疑问
+  33 : &quot;/:,@x&quot;, // 嘘
+  34 : &quot;/:,@@&quot;, // 晕
+  35 : &quot;/::8&quot;, // 疯了
+  36 : &quot;/:,@!&quot;, // 衰
+  37 : &quot;/:!!!&quot;, // 骷髅
+  38 : &quot;/:xx&quot;, // 敲打
+  39 : &quot;/:bye&quot;, // 再见
+  40 : &quot;/:wipe&quot;, // 擦汗
+  41 : &quot;/:dig&quot;, // 抠鼻
+  42 : &quot;/:handclap&quot;, // 鼓掌
+  43 : &quot;/:&amp;-(&quot;, // 糗大了
+  44 : &quot;/:B-)&quot;, // 坏笑
+  45 : &quot;/:&lt;@&quot;, // 左哼哼
+  46 : &quot;/:@&gt;&quot;, // 右哼哼
+  47 : &quot;/::-O&quot;, // 哈欠
+  48 : &quot;/:&gt;-|&quot;, // 鄙视
+  49 : &quot;/:P-(&quot;, // 委屈
+  50 : &quot;/::'|&quot;, // 快哭了
+  51 : &quot;/:X-)&quot;, // 阴险
+  52 : &quot;/::*&quot;, // 亲亲
+  53 : &quot;/:@x&quot;, // 吓
+  54 : &quot;/:8*&quot;, // 可怜
+  55 : &quot;/:pd&quot;, // 菜刀
+  56 : &quot;/:&lt;W&gt;&quot;, // 西瓜
+  57 : &quot;/:beer&quot;, // 啤酒
+  58 : &quot;/:basketb&quot;, // 篮球
+  59 : &quot;/:oo&quot;, // 乒乓
+  60 : &quot;/:coffee&quot;, // 咖啡
+  61 : &quot;/:eat&quot;, // 饭
+  62 : &quot;/:pig&quot;, // 猪头
+  63 : &quot;/:rose&quot;, // 玫瑰
+  64 : &quot;/:fade&quot;, // 凋谢
+  65 : &quot;/:showlove&quot;, // 嘴唇
+  66 : &quot;/:heart&quot;, // 爱心
+  67 : &quot;/:break&quot;, // 心碎
+  68 : &quot;/:cake&quot;, // 蛋糕
+  69 : &quot;/:li&quot;, // 闪电
+  70 : &quot;/:bome&quot;, // 炸弹
+  71 : &quot;/:kn&quot;, // 刀
+  72 : &quot;/:footb&quot;, // 足球
+  73 : &quot;/:ladybug&quot;, // 瓢虫
+  74 : &quot;/:shit&quot;, // 便便
+  75 : &quot;/:moon&quot;, // 月亮
+  76 : &quot;/:sun&quot;, // 太阳
+  77 : &quot;/:gift&quot;, // 礼物
+  78 : &quot;/:hug&quot;, // 拥抱
+  79 : &quot;/:strong&quot;, // 强
+  80 : &quot;/:weak&quot;, // 弱
+  81 : &quot;/:share&quot;, // 握手
+  82 : &quot;/:v&quot;, // 胜利
+  83 : &quot;/:@)&quot;, // 抱拳
+  84 : &quot;/:jj&quot;, // 勾引
+  85 : &quot;/:@@&quot;, // 拳头
+  86 : &quot;/:bad&quot;, // 差劲
+  87 : &quot;/:lvu&quot;, // 爱你
+  88 : &quot;/:no&quot;, // NO
+  89 : &quot;/:ok&quot;, // OK
+  90 : &quot;/:love&quot;, // 爱情
+  91 : &quot;/:&lt;L&gt;&quot;, // 飞吻
+  92 : &quot;/:jump&quot;, // 跳跳
+  93 : &quot;/:shake&quot;, // 发抖
+  94 : &quot;/:&lt;O&gt;&quot;, // 怄火
+  95 : &quot;/:circle&quot;, // 转圈
+  96 : &quot;/:kotow&quot;, // 磕头
+  97 : &quot;/:turn&quot;, // 回头
+  98 : &quot;/:skip&quot;, // 跳绳
+  99 : &quot;/:oY&quot;, // 投降
+  100 : &quot;/:#-0&quot;, // 激动
+  101 : &quot;/:hiphot&quot;, // 乱舞
+  102 : &quot;/:kiss&quot;, // 献吻
+  103 : &quot;/:&lt;&amp;&quot;, // 左太极
+  104 : &quot;/:&amp;&gt;&quot; // 右太极
+</code></pre>
+
 
 </body>
 </html>
