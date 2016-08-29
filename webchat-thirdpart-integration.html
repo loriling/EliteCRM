@@ -313,9 +313,30 @@ img {
 }
 返回参数：
 {
+    result: 1, //请求发送成功（1）或失败（0）
+    message: &quot;success&quot;, //成功或失败的消息
+    requestId: 103, //请求id号，如果发起请求成功，就会返回这个id
+    queueLength: 3 //队列长度
+}
+</code></pre>
+
+</blockquote>
+<ul>
+<li>更新聊天排队情况： </li>
+</ul>
+<blockquote>
+<pre><code>http://xxxxx/EliteWebChat/tpi
+发送参数：
+{
+    type: 1001,//查看聊天请求当前状态的请求
+    requestId: 103//需要查看状态的请求id（发起聊天请求成功后会返回这个id）
+}
+返回参数：
+{
     result: 1,//请求发送成功（1）或失败（0）
     message: &quot;success&quot;,//成功或失败的消息
-    queueLength: 3//队列长度
+    requestStatus: 1,//请求状态，具体状态码看下方说明
+    queueLength: 2//当前排队长度
 }
 </code></pre>
 
@@ -479,9 +500,11 @@ img {
 </ul>
 <blockquote>
 <pre><code> CHAT_REQUEST = 1000;
+ CHAT_REQUEST_STATE_UPDATE = 1001;
  MSG_REQUEST = 2001;
  MSG_IMG_REQUEST = 2002;
  CLOSE_REQUEST = 4001;
+ RATING_REQUEST = 5001;
 </code></pre>
 
 </blockquote>
@@ -499,11 +522,26 @@ img {
  INVAILD_QUEUE_ID = -7;
  REQUEST_ERROR = -8;
  INVAILD_TO_USER_ID = -9;
+ INVAILD_CHAT_REQUEST_ID = -10;
  INTERNAL_ERROR = -100;
 </code></pre>
 
 </blockquote>
-<h2>三. 消息体中表情的定义</h2>
+<h2>三. 聊天请求状态码</h2>
+<blockquote>
+<pre><code> WAITING = 0;
+ ACCEPTED = 1;
+ REFUSED = 2;
+ TIMEOUT = 3;
+ DROPPED = 4;
+ NO_AGENT_ONLINE = 5;
+ OFF_HOUR = 6;
+ CANCELED_BY_CLIENT = 7;
+ ENTERPRISE_WECHAT_ACCEPTED = 11;
+</code></pre>
+
+</blockquote>
+<h2>四. 消息体中表情的定义</h2>
 <blockquote>
 <p>聊天消息中支持发送表情，比如，发送/::)，就表示微笑，一共支持如下105个表情，包括发送和接受都应该按这个规则来处理表情。
 如果需要支持自定义表情，则只能通过&lt;img src='自定义表情.gif'&gt;方式来发送。</p>
