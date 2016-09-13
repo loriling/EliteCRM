@@ -309,7 +309,8 @@ img {
     nickname: &quot;lori&quot;,//客户昵称（微信昵称）
     time: 1400913140127,//发出请求的时间戳
     queueId: 1,//请求的队列号
-    from: &quot;APP&quot;//请求来源，比如：微信 or APP (可选)
+    from: &quot;APP&quot;,//请求来源，比如：微信 or APP (可选)
+    serverAddr: &quot;http://www.xxxx.com&quot; //请求方服务地址（可选）如果传递，则后面的回调都会按这个地址来
 }
 返回参数：
 {
