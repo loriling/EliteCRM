@@ -335,6 +335,8 @@ security:
 replication:
    oplogSizeMB: 1024
    replSetName: rs0
+processManagement:
+   fork: true
 </code></pre>
 
 <p><strong>2.编写mongod2.conf配置文件，作为replicaSet中的第二个节点（Secondary）</strong></p>
@@ -356,6 +358,8 @@ security:
 replication:
    oplogSizeMB: 1024
    replSetName: rs0
+processManagement:
+   fork: true
 </code></pre>
 
 <p><strong>3.编写mongod-arb.conf配置文件，作为replicaSet中的仲裁者节点（Arbiter）</strong></p>
@@ -379,6 +383,8 @@ security:
 replication:
    oplogSizeMB: 1024
    replSetName: rs0
+processManagement:
+   fork: true
 </code></pre>
 
 <p><strong>4.启动三个节点：</strong></p>
@@ -395,7 +401,7 @@ mongod --config mongod-arb.conf
 <p>配置replica-set</p>
 <pre><code>rs.initiate(
   {
-    _id : 'webchat',
+    _id : 'rs0',
     members: [
       { _id : 0, host : &quot;127.0.0.1:27017&quot; }
     ]
@@ -439,6 +445,11 @@ rs.addArb(&quot;127.0.0.1&quot;, 27019);//添加仲裁者
 <p>至此集群配置完毕，手动关闭Primary节点，可以看到Secondary自动变成了Primary，应用服务照旧正常运行。</p>
 <p><strong>7.配置带auth的mongo集群</strong></p>
 <p>未完待续~</p>
+<p>参考：</p>
+<blockquote>
+<p><a href="http://www.jianshu.com/p/2825a66d6aed">http://www.jianshu.com/p/2825a66d6aed</a>
+<a href="https://docs.mongodb.com/manual/reference/">https://docs.mongodb.com/manual/reference/</a></p>
+</blockquote>
 
 </body>
 </html>
