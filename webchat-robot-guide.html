@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>index</title>
+<title>webchat-robot-guide</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
@@ -291,32 +291,37 @@ img {
 </style>
 </head>
 <body>
-<h1>目录</h1>
-<p>10/15/2015 6:29:27 PM </p>
-<ol>
-<li>
-<p><a href="http://loriling.github.io/EliteCRM/elitecrm-flexscript.html" title="FlexClient相关说明： 卡死处理， 部分flexscript说明等">FlexClient相关说明： 卡死处理， 部分flexscript说明等</a></p>
-</li>
-<li>
-<p><a href="http://loriling.github.io/EliteCRM/webchat-thirdpart-integration.html" title="WebChat第三方接入接口说明">WebChat第三方接入接口说明</a></p>
-</li>
-<li>
-<p><a href="http://loriling.github.io/EliteCRM/webchat-ti-difference.html" title="WebChat第三方接入不同方案优劣对比">WebChat第三方接入不同方案优劣对比</a></p>
-</li>
-<li>
-<p><a href="http://loriling.github.io/EliteCRM/elite-develop-standard.html" title="Elite开发文档规格说明">Elite开发文档规格说明</a></p>
-</li>
-<li>
-<p><a href="http://loriling.github.io/EliteCRM/druid.html" title="Druid使用介绍">Druid使用介绍</a></p>
-</li>
-<li>
-<p><a href="http://loriling.github.io/EliteCRM/Tomcat-JNDI-misunderstanding.html" title="Tomcat JNDI使用误区说明">Tomcat JNDI使用误区说明</a></p>
-</li>
-<li>
-<p><a href="http://loriling.github.io/EliteCRM/mongodb-cluster-config.html" title="MongoDB集群配置说明">MongoDB集群配置说明</a></p>
-</li>
-<li><a href="http://loriling.github.io/EliteCRM/webchat-robot-guide.html" title="WebChat机器人自动应答接口说明">WebChat机器人自动应答接口说明</a></li>
-</ol>
+<h1>WebChat自动应答接口说明</h1>
+<p>9/22/2016 2:58:08 PM  </p>
+<h3>通过知识库维护机器人自动应答的相关文章后（知识库的文章需要开启自动应答，才回被机器人检索到: forRobot = 1），可以通过http接口来获取机器人自动应答的信息</h3>
+<p>接口采用http协议，post方式，请求参数是form格式，返回结果为json格式</p>
+<ul>
+<li>查询问题： </li>
+</ul>
+<blockquote>
+<pre><code>http://xxxxx/EliteKM/RobotServlet
+发送参数：
+    action: &quot;search&quot;,
+    question: &quot;测试&quot;
+返回参数：
+{
+  &quot;question&quot;:&quot;测试&quot;,
+  &quot;srs&quot;:[ //返回一个搜索结果的数组
+    {
+     &quot;preview&quot;:&quot;&lt;span style=\&quot;color:#FFFFF0;background-color:#1E90FF;font-weight:bold;\&quot; id=\&quot;kmhighlighter\&quot;&gt;测试&lt;\/span&gt;&quot;, //结果预览
+     &quot;question&quot;:&quot;&quot;,
+     &quot;ra&quot;:{ //文章相关信息，包括id，路径，标题
+       &quot;articleAId&quot;:&quot;3baf0f47-f232-1737-7610-e65f77b2d6d0&quot;,
+       &quot;path&quot;:&quot;/oldkm/ArticleStore/E9D9C25E_1741_48C9_915E_2B6EE7FA6385/3baf0f47-f232-1737-7610-e65f77b2d6d0.htm&quot;,
+       &quot;title&quot;:&quot;klkljhk&quot;
+     },
+     &quot;title&quot;:&quot;klkljhk&quot; //文章标题
+     }
+   ]
+}
+</code></pre>
+
+</blockquote>
 
 </body>
 </html>
