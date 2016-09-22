@@ -407,8 +407,8 @@ mongod --config mongod-arb.conf
     ]
   }
 );//初始化replica，添加主member
-rs.add(&quot;127.0.0.1&quot;, 27018);//添加从member
-rs.addArb(&quot;127.0.0.1&quot;, 27019);//添加仲裁者
+rs.add(&quot;127.0.0.1:27018&quot;);//添加从member
+rs.addArb(&quot;127.0.0.1:27019&quot;);//添加仲裁者
 </code></pre>
 
 <p>看到返回{&quot;ok&quot;:1} 就表示配置成功了</p>
@@ -445,11 +445,9 @@ rs.addArb(&quot;127.0.0.1&quot;, 27019);//添加仲裁者
 <p>至此集群配置完毕，手动关闭Primary节点，可以看到Secondary自动变成了Primary，应用服务照旧正常运行。</p>
 <p><strong>7.配置带auth的mongo集群</strong></p>
 <p>未完待续~</p>
-<p>参考：</p>
-<blockquote>
-<p><a href="http://www.jianshu.com/p/2825a66d6aed">http://www.jianshu.com/p/2825a66d6aed</a>
+<p>参考：<br>
+<a href="http://www.jianshu.com/p/2825a66d6aed">http://www.jianshu.com/p/2825a66d6aed</a> <br>
 <a href="https://docs.mongodb.com/manual/reference/">https://docs.mongodb.com/manual/reference/</a></p>
-</blockquote>
 
 </body>
 </html>
