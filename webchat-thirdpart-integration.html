@@ -458,6 +458,25 @@ img {
 
 </blockquote>
 <ul>
+<li><div style="color:#0086b3">客服推送满意度给客户</div></li>
+</ul>
+<blockquote>
+<pre><code>http://xxxxx/ThirdPartService/pushRating
+发送参数:
+{
+    sessionId: 1299,
+    agentId: 'SELITE',
+    clientId: 'xxxxxxxxxx'//（备用，可能不传）
+}
+返回参数:
+{
+    result: 1,
+    message: &quot;success&quot;
+}
+</code></pre>
+
+</blockquote>
+<ul>
 <li>客户结束聊天</li>
 </ul>
 <blockquote>
@@ -484,8 +503,8 @@ img {
 发送参数:
 {
     sessionId: 1299,
-    agentId: 'SELITE'
-    clientId: 'xxxxxxxxxx'//（备用，可能不传）
+    agentId: 'SELITE',
+    clientId: 'xxxxxxxxxx',//（备用，可能不传）
     time: 1400913830109
 }
 返回参数:
