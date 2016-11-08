@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>webchat-sdk-requirement</title>
+<link rel="stylesheet" href="../base.css" />
+</head>
+<body><div class="container"><h1 id="elitewebchat-sdk-开发需求说明">EliteWebChat SDK 开发需求说明</h1>
+
+<p>EliteWebChat服务SDK开发，包括了对ios和android两个平台的代码开发，用来方便第三方app接入EliteWebChat聊天服务，可以不需要关心底层接口细节，和app界面，通过sdk方法调用的方式来完成连接到chat服务端，从而实现客服客户之间的聊天功能。 <br>
+SDK应该分为2层：  <br>
+1.核心层包含了所有接口的调用，包括创建请求，收发消息，结束会话，满意度评价  <br>
+2.UI层，包括了界面元素，有聊天消息窗口，聊天内容输入窗口等。</p>
+
+<p>别人可以只使用核心SDK，自己开发UI界面；也可以直接使用我们现成的包含聊天功能的UI界面。</p>
+
+<h2 id="sdk核心功能">SDK核心功能</h2>
+
+<p>一. 登录：</p>
+
+<pre><code>客户通过用户名和密码登录WebChat服务
+</code></pre>
+
+<p>二. 自动登录：</p>
+
+<pre><code>客户端登录过一次后，下次可以直接调用自动登录
+</code></pre>
+
+<p>三. 退出登录：</p>
+
+<pre><code>客户端可以选择登出WebChat
+</code></pre>
+
+<p>四. 注册消息：</p>
+
+<pre><code>人工聊天是基于websocket的一套接口，因此需要注册相关事件用来相应收到的socket消息：
+注册连接状态监听
+    存在网络重连等情况，会收到相关重连状态事件
+注册消息监听（接收消息）
+    接收各种消息事件，包括所有聊天消息类型
+        1.文本消息
+        2.图片，文件，语音，地图位置等消息
+    系统消息
+        1.排队成功，可以聊天
+        2.客服人员变更
+        3.新客服人员加入
+        4.客服发出满意度推送
+        5.客服关闭聊天会话
+</code></pre>
+
+<p>五. 发送机器人聊天信息：</p>
+
+<pre><code>机器人聊天是基于http的一套接口，json格式数据传递。客户可以与机器人聊天来实现自助服务。
+消息发出后，就会有response，所以不需要针对机器人聊天来注册监听。
+</code></pre>
+
+<p>六. 发送人工聊天消息：</p>
+
+<pre><code>客户可以发出多种聊天消息类型：
+1.发送文本消息
+2.发送图片，文件，语音，地图位置等消息
+3.发送视频消息（待实现）
+4.发送系统消息
+    请求排队，结束聊天，修改头像，修改名称，送满意度等等，系统消息，这类消息不作为消息历史
+</code></pre>
+
+
+
+<h2 id="sdk-ui库">SDK-UI库</h2>
+
+<p>SDK核心库中，需要自己处理和调用的代码还是比较多的，需要对方有一定的开发量，好处在于对方可以完全自定义界面。而如果对方不需要那么高度的自定义UI，则可以选择直接使用我们的SDK的UI库。</p>
+
+<p><a href="http://docs.easemob.com/im/200androidclientintegration/135easeuiuseguide" target="_blank"> <br>
+<em>引用自环信EaseUI使用说明</em> <br>
+<img src="http://docs.easemob.com/_media/start/200androidcleintintegration/chat_widget_simple.png" alt="enter image description here" title=""> <br>
+</a></p>
+
+<p>需要实现类似上图中的聊天界面，主要包括了： <br>
+1.TitleBar 标题栏，显示公司logo，返回按钮 <br>
+2.ChatMessageList 消息列表面板 <br>
+3.ChatInputMenu 消息输入框，包括语音输入，表情等其他消息类型选择</p>
+
+<p>同时可以参考<a href="http://www.rongcloud.cn/docs/index.html" target="_blank">融云SDK说明</a>，其中的IMKit就是这里的SDK-UI，两者是类似的。</p></div></body>
+</html>
