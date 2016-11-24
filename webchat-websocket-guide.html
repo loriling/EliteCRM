@@ -294,26 +294,45 @@ img {
 <h1>WebChat第三方客户端接入说明（WebSocket版本）</h1>
 <p>11/16/2016 5:33:49 PM </p>
 <h3>为了满足更高的消息时效性，websocket版本的接口应运而生</h3>
-<p>所有接口都是基于WebSocket协议：</p>
-<pre><code>ws://xxxxx/webchat/cws 或者加密的 wss://xxxxx/webchat/cws
-</code></pre>
-
-<p>数据均采用json格式传输</p>
-<h2>一. 客户端发送消息接口说明</h2>
+<p>登录接口与一些特殊接口（入文件上传）使用http协议，其余消息接口都是基于WebSocket协议，数据均采用json格式传输</p>
+<h2>一. 客户端登录并连接上websocket</h2>
 <ul>
-<li>客户端登录： </li>
+<li>客户端登录，登录采用http接口，url为： http://xxxx/webchat/tpi，参数是如下json</li>
 </ul>
 <blockquote>
-<pre><code>{
-    type: 1,//登录
-    time: 1400913140127,//时间戳
-    loginName: &quot;xxxxxxxxx&quot;,//登录名
-    password: &quot;******&quot;,//登录密码
-    epid: &quot;E00013&quot;//企业id（可选）
+<pre><code>请求示例：
+var params = {
+    type: 1,
+    loginName: 'lori',
+    password: ''
+};
+$.ajax({
+    url: &quot;http://127.0.0.1:8980/webchat/tpi&quot;,
+    method: &quot;post&quot;,
+    data : JSON.stringify(params)
+})；
+响应参数示例：
+{
+    result: 1, // 1成功 0失败
+    message: '', // 失败消息
+    token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168'//成功后，会返回token作为之后的接口凭据
+    config: {
+        //相关配置信息，暂无，待扩展
+    }
 }
 </code></pre>
 
 </blockquote>
+<ul>
+<li>当登录成功后，就可以去连接websocket了：</li>
+</ul>
+<blockquote>
+<pre><code>//这里需要传递登录成功后获取的token参数，不然没法正确握手
+ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.token);
+</code></pre>
+
+</blockquote>
+<h2>二. 连上websocket后，就可以开始发送消息了</h2>
 <ul>
 <li>客户端登出： </li>
 </ul>
@@ -421,23 +440,7 @@ img {
 </code></pre>
 
 </blockquote>
-<h2>二. 客户端接收消息接口说明</h2>
-<ul>
-<li>客户端登录结果： </li>
-</ul>
-<blockquote>
-<pre><code>{
-    type: 1,//登录
-    result: 1, // 1成功 0失败
-    message: '', // 失败消息
-    token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168'//成功后，会返回token作为之后的接口凭据
-    config: {
-        //相关配置信息，暂无，待扩展
-    }
-}
-</code></pre>
-
-</blockquote>
+<h2>三. 客户端接收消息接口说明</h2>
 <ul>
 <li>客户端登出结果： </li>
 </ul>
