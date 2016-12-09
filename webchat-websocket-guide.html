@@ -629,18 +629,18 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 
 </blockquote>
 <h2>四. 机器人聊天接口</h2>
-<p>机器人接口采用http方式</p>
+<p>机器人接口采用http方式，调用URL： http://xxxx/webchat/robotSearch</p>
 <ul>
 <li>机器人查询接口</li>
 </ul>
 <blockquote>
-<pre><code>请求示例
-{
-    &quot;epid&quot;: &quot;E00001&quot;, //企业id
-    &quot;action&quot;: &quot;search&quot;, //查询答案
-    &quot;question&quot;: &quot;测试&quot;， //查询的问题
-    &quot;sign&quot;: &quot;xxxxxxxxxxxxxxxxx&quot; // 参数的签名
-}
+<pre><code>请求示例：
+用表单提交格式，POST方法，参数如下：
+&quot;epid&quot;: &quot;E00001&quot;, //企业id
+&quot;action&quot;: &quot;search&quot;, //查询答案
+&quot;question&quot;: &quot;测试&quot;， //查询的问题
+&quot;sign&quot;: &quot;xxxxxxxxxxxxxxxxx&quot; // 参数的签名
+
 签名规则：
 所有入参的值（除去sign）按参数名的字母排序，再加上PUBLIC_KEY，做MD5加密后的结果，用utf-8编码。具体PUBLIC_KEY询问相关人员。
 拿上面举例，假设PUBLIC_KEY=123456，排序后（action, epid, question）得到： searchE00001测试123456
