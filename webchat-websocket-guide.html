@@ -303,8 +303,9 @@ img {
 <pre><code>请求示例：
 var params = {
     type: 1,
-    loginName: 'lori',
-    password: ''
+    loginName: 'lori',//登录名
+    password: '',//密码
+    epid: ''//企业号
 };
 $.ajax({
     url: &quot;http://127.0.0.1:8980/webchat/tpi&quot;,
@@ -419,7 +420,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 图片的content:
 {
     name: 'xxx.png',//图片名称
-    data: 'xxxxxxxxxx'//图片文件base64码
+    url: 'http://xxxx/xxx.png'//图片url地址
 }
 文件的content:
 {
@@ -440,7 +441,24 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </code></pre>
 
 </blockquote>
+<ul>
+<li>上传文件接口（http）url为： http://xxxx/webchat/tpiu?token=xxxxxxxx</li>
+</ul>
+<blockquote>
+<pre><code>请求时候需要带上token参数，请求体就是需要上传附件的byte
+
+响应参数示例：
+{
+    result: 1, // 1成功 0失败
+    message: '', // 失败消息
+    url: '/webchat/xxxxx.jpg', //文件url地址
+    fileName: 'xxxxx.jpg' //文件名字
+}
+</code></pre>
+
+</blockquote>
 <h2>三. 客户端接收消息接口说明</h2>
+<p><strong>一. 每个客户端发出的请求都会有响应的消息返回，表示发送成功还是失败</strong></p>
 <ul>
 <li>客户端登出结果： </li>
 </ul>
@@ -453,6 +471,66 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </code></pre>
 
 </blockquote>
+<ul>
+<li>发出聊天排队请求结果： </li>
+</ul>
+<blockquote>
+<pre><code>{
+    type: 101,
+    result: 1, //结果代码
+    message: ''//结果描述
+}
+</code></pre>
+
+<ul>
+<li>
+<p>取消请求结果： </p>
+<p>{
+	type: 102,
+	result: 1, //结果代码
+	message: ''//结果描述
+}</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>结束会话结果： </li>
+</ul>
+<blockquote>
+<pre><code>{
+    type: 103,
+    result: 1, //结果代码
+    message: ''//结果描述
+}
+</code></pre>
+
+</blockquote>
+<ul>
+<li>满意度评价结果： </li>
+</ul>
+<blockquote>
+<pre><code>{
+    type: 104,
+    result: 1, //结果代码
+    message: ''//结果描述
+}
+</code></pre>
+
+</blockquote>
+<ul>
+<li>客户端发出聊天消息结果： </li>
+</ul>
+<blockquote>
+<pre><code>{
+    type: 110,//发送消息
+    result: 1, //结果代码
+    message: ''//结果描述
+}
+</code></pre>
+
+</blockquote>
+<hr />
+<p><strong>二. 客户端直接收到的相关消息</strong></p>
 <ul>
 <li>通知客户端聊天排队状态更新： </li>
 </ul>
@@ -550,7 +628,48 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </code></pre>
 
 </blockquote>
-<h2>三. 常量说明</h2>
+<h2>四. 机器人聊天接口</h2>
+<p>机器人接口采用http方式</p>
+<ul>
+<li>机器人查询接口</li>
+</ul>
+<blockquote>
+<pre><code>请求示例
+{
+    &quot;epid&quot;: &quot;E00001&quot;, //企业id
+    &quot;action&quot;: &quot;search&quot;, //查询答案
+    &quot;question&quot;: &quot;测试&quot;， //查询的问题
+    &quot;sign&quot;: &quot;xxxxxxxxxxxxxxxxx&quot; // 参数的签名
+}
+签名规则：
+所有入参的值（除去sign）按参数名的字母排序，再加上PUBLIC_KEY，做MD5加密后的结果，用utf-8编码。具体PUBLIC_KEY询问相关人员。
+拿上面举例，假设PUBLIC_KEY=123456，排序后（action, epid, question）得到： searchE00001测试123456
+然后根据utf-8编码获取byte数组，再做MD5，得到sign
+
+
+返回数据json示例
+{
+    &quot;searchResult&quot; : {
+        &quot;question&quot; : &quot;测试&quot;,
+        &quot;srs&quot; : [{ //返回的查询结果数组
+                &quot;preview&quot; : &quot;&lt;span style=\&quot;color:#FFFFF0;background-color:#1E90FF;font-weight:bold;\&quot; id=\&quot;kmhighlighter\&quot;&gt;测试&lt;\/span&gt;1.1 真的，1居然也会高亮&quot;, //预览信息
+                &quot;question&quot; : &quot;&quot;,
+                &quot;ra&quot; : { //具体文章信息
+                    &quot;articleAId&quot; : &quot;3baf0f47-f232-1737-7610-e65f77b2d6d0&quot;,
+                    &quot;path&quot; : &quot;/oldkm/ArticleStore/E9D9C25E_1741_48C9_915E_2B6EE7FA6385/3baf0f47-f232-1737-7610-e65f77b2d6d0.htm&quot;,//文章路径
+                    &quot;title&quot; : &quot;测试标题&quot;//文章标题
+                },
+                &quot;title&quot; : &quot;测试标题&quot;
+            }
+        ]
+    },
+    &quot;result&quot; : 1,
+    &quot;message&quot; : &quot;&quot;
+}
+</code></pre>
+
+</blockquote>
+<h2>五. 常量说明</h2>
 <ol>
 <li>
 <p>websocket消息类型说明</p>
@@ -616,6 +735,12 @@ REQUEST_ERROR = -8;
 INVAILD_TO_USER_ID = -9;
 INVAILD_CHAT_REQUEST_ID = -10;
 INVAILD_CHAT_SESSION_ID = -11;
+INVAILD_MESSAGE_TYPE = -12;
+UPLOAD_FILE_FAILED = -13;
+INVAILD_PARAMETER = -14;
+INVAILD_TOKEN = -15;
+INVAILD_FILE_EXTENSION = -16;
+INVAILD_LOGINNAME_OR_PASSWORD = -20;
 INTERNAL_ERROR = -100;
 </code></pre>
 
