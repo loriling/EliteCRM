@@ -457,6 +457,20 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </code></pre>
 
 </blockquote>
+<ul>
+<li>客户端发出预聊天消息（排队中，客户可以先发送消息，排上队后，之前发送的预消息会一次性发送给排到的坐席）： </li>
+</ul>
+<blockquote>
+<pre><code>{
+    type: 111,//发送预消息
+    token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
+    time: 1400913140127,//时间戳
+    requestId: 724,//排队成功后，获取到的排队号
+    content: 'xxxxxxxx'//发送的消息内容
+}
+</code></pre>
+
+</blockquote>
 <h2>三. 客户端接收消息接口说明</h2>
 <p><strong>一. 每个客户端发出的请求都会有响应的消息返回，表示发送成功还是失败</strong></p>
 <ul>
@@ -523,6 +537,18 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 <blockquote>
 <pre><code>{
     type: 110,//发送消息
+    result: 1, //结果代码
+    message: ''//结果描述
+}
+</code></pre>
+
+</blockquote>
+<ul>
+<li>客户端发出预聊天消息结果： </li>
+</ul>
+<blockquote>
+<pre><code>{
+    type: 111,//发送消息
     result: 1, //结果代码
     message: ''//结果描述
 }
@@ -684,6 +710,7 @@ int CANCEL_CHAT_REQUEST = 102;//取消聊天请求
 int CLOSE_SESSION = 103;//结束聊天
 int RATE_SESSION = 104;//满意度评价
 int SEND_CHAT_MESSAGE = 110;//发送聊天消息
+int SEND_PRE_CHAT_MESSAGE = 111;//发送预消息（还没排完队时候的消息）
 
 //客户接受
 int CHAT_REQUEST_STATUS_UPDATE = 201;//聊天排队状态更新

@@ -344,6 +344,25 @@ img {
 
 </blockquote>
 <ul>
+<li>客户在排队中，就想发起消息，如果排队排上，之前的消息就会一起一次性发送给对应坐席： </li>
+</ul>
+<blockquote>
+<pre><code>http://xxxxx/EliteWebChat/tpi
+发送参数：
+{
+    type: 2005,//发送预消息
+    requestId: 103,//请求id（发起聊天请求成功后会返回这个id）
+    text: 'xxxxxx'
+}
+返回参数：
+{
+    result: 1,//请求发送成功（1）或失败（0）
+    message: &quot;success&quot;//成功或失败的消息
+}
+</code></pre>
+
+</blockquote>
+<ul>
 <li>客户排队时间过长，想取消排队： </li>
 </ul>
 <blockquote>
@@ -546,6 +565,7 @@ img {
  CANCEL_CHAT_REQUEST = 1002;
  MSG_REQUEST = 2001;
  MSG_IMG_REQUEST = 2002;
+ PRE_MSG_REQUEST = 2005
  CLOSE_REQUEST = 4001;
  RATING_REQUEST = 5001;
 </code></pre>
