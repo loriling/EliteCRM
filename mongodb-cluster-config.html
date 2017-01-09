@@ -292,7 +292,7 @@ img {
 </head>
 <body>
 <h1>MongoDB 集群配置</h1>
-<p>9/9/2016 17:53 PM </p>
+<p>1/9/2017 1:36:49 PM </p>
 <h2>副本集架构（Replica Set）</h2>
 <p>为了防止单点故障就需要引副本（Replication），当发生硬件故障或者其它原因造成的宕机时，可以使用副本进行恢复，最好能够自动的故障转移（failover）。有时引入副本是为了读写分离，将读的请求分流到副本上，减轻主（Primary）的读压力。而Mongodb的Replica Set都能满足这些要求。</p>
 <p>Replica Set的一堆mongod的实例集合，它们有着同样的数据内容。包含三类角色：</p>
@@ -334,6 +334,7 @@ security:
 replication:
    oplogSizeMB: 1024
    replSetName: rs0
+#linux下需要下面的配置，windows下需要删除
 processManagement:
    fork: true
 </code></pre>
@@ -356,6 +357,7 @@ security:
 replication:
    oplogSizeMB: 1024
    replSetName: rs0
+#linux下需要下面的配置，windows下需要删除
 processManagement:
    fork: true
 </code></pre>
@@ -380,6 +382,7 @@ security:
 replication:
    oplogSizeMB: 1024
    replSetName: rs0
+#linux下需要下面的配置，windows下需要删除
 processManagement:
    fork: true
 </code></pre>
@@ -421,15 +424,8 @@ rs.addArb(&quot;127.0.0.1:27019&quot;);//添加仲裁者
     &lt;constructor-arg name=&quot;port&quot; value=&quot;27018&quot;&gt;&lt;/constructor-arg&gt;
   &lt;/bean&gt;
 &lt;/util:list&gt;
-&lt;!-- mongodb的credential配置，当使用authorization: enabled时候，需要配置此项 --&gt;
-&lt;bean id=&quot;mongoCredentialID&quot; class=&quot;com.mongodb.MongoCredential&quot;&gt;
-    &lt;constructor-arg name=&quot;mechanism&quot; value = &quot;#{T(com.mongodb.AuthenticationMechanism).SCRAM_SHA_1}&quot; /&gt;
-    &lt;constructor-arg type=&quot;java.lang.String&quot; name=&quot;userName&quot; value=&quot;elite&quot; /&gt;
-    &lt;constructor-arg type=&quot;java.lang.String&quot; name=&quot;source&quot; value=&quot;webchat&quot; /&gt;
-    &lt;constructor-arg type=&quot;char[]&quot; name=&quot;password&quot; value=&quot;letmein&quot; /&gt;
-&lt;/bean&gt;
-&lt;!-- mongo client的配置，应用了之前配置的replicaSet和mongoCredentialID --&gt;
-&lt;mongo:mongo-client id=&quot;mongo&quot; replica-set=&quot;#{replicaSet}&quot; credentials=&quot;#{mongoCredentialID}&quot;&gt;
+&lt;!-- mongo client的配置，应用了之前配置的replicaSet --&gt;
+&lt;mongo:mongo-client id=&quot;mongo&quot; replica-set=&quot;#{replicaSet}&quot;&gt;
   &lt;mongo:client-options 
       connections-per-host=&quot;10&quot;
       connect-timeout=&quot;30000&quot;
@@ -441,10 +437,112 @@ rs.addArb(&quot;127.0.0.1:27019&quot;);//添加仲裁者
 
 <p>至此集群配置完毕，手动关闭Primary节点，可以看到Secondary自动变成了Primary，应用服务照旧正常运行。</p>
 <p><strong>7.配置带auth的mongo集群</strong></p>
-<p>未完待续~</p>
-<p>参考：<br>
-<a href="http://www.jianshu.com/p/2825a66d6aed">http://www.jianshu.com/p/2825a66d6aed</a> <br>
-<a href="https://docs.mongodb.com/manual/reference/">https://docs.mongodb.com/manual/reference/</a></p>
+<p>参考：<a href="https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set/">https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set/</a></p>
+<p>1.在之前的配置环境下，使用mongo客户端连上mongodb的primary节点，执行脚本：</p>
+<pre><code>//创建出一个admin的user
+use admin;
+db.createUser({
+    user: &quot;elite&quot;,
+    pwd: &quot;letmein&quot;,
+    roles: [ &quot;userAdminAnyDatabase&quot;,
+           &quot;dbAdminAnyDatabase&quot;,
+           &quot;readWriteAnyDatabase&quot;
+});
+//创建webchat相关的user
+use webchat;
+db.createUser({
+    user: 'elite',
+    pwd: 'letmein',
+    roles: [
+        {
+            role: 'readWrite', db: 'webchat'
+        },
+        {
+            role: 'dbAdmin', db: 'webchat'
+        },
+        {
+            role: 'userAdmin', db: 'webchat'
+        },
+    ]
+});
+
+//创建一个可以执行脚本的role，为了在webchat中可以执行eval去获取mongodb的当前时间
+use admin;
+db.createRole( { role: &quot;executeFunctions&quot;, privileges: [ { resource: { anyResource: true }, actions: [ &quot;anyAction&quot; ] } ], roles: [] } ) 
+{ 
+    &quot;role&quot; : &quot;executeFunctions&quot;, 
+    &quot;privileges&quot; : [ 
+        { 
+            &quot;resource&quot; : { 
+                &quot;anyResource&quot; : true 
+            }, 
+            &quot;actions&quot; : [ 
+                &quot;anyAction&quot; 
+            ] 
+        } 
+    ], 
+    &quot;roles&quot; : [ ] 
+};
+//给webchat库的elite用户添加这个role
+use webchat;
+db.grantRolesToUser(&quot;elite&quot;, [{role: &quot;executeFunctions&quot;, db: &quot;admin&quot;}]);
+</code></pre>
+
+<p>2.创建keyfile</p>
+<blockquote>
+<p>随便用什么方式生成一个keyfile文件，文件内容必须是6-1024个字符。<br>
+比如创建一个mongodb-key.keyfile文件，用nodepad++打开，随便写一段字符，比如是：letmein0308，保存。</p>
+</blockquote>
+<p>3.修改conf文件</p>
+<blockquote>
+<p>修改每个实例的mongod.conf文件，在security节点下，增加配置  keyFile： mongodb-key.keyfile。<br>
+注意这里配置的是keyfile的路径，如果不在当前目录下，就需要写上绝对路径。<br>
+每个节点的配置文件中，都要加上这句，并且要使用相同的keyfile<br>
+原本security节点下的authorization: disabled这句配置，当配置了keyFile: mongodb-key.keyfile，就不会起作用了。</p>
+</blockquote>
+<pre><code>systemLog:
+   destination: file
+   path: &quot;D:/MongoDB/logs/mongod.log&quot;
+   logAppend: true
+storage:
+   dbPath: &quot;D:/MongoDB/data/db&quot;
+   journal:
+      enabled: true
+net:
+   bindIp: 127.0.0.1
+   port: 27017
+setParameter:
+   enableLocalhostAuthBypass: false
+security:
+   authorization: disabled
+   keyFile: mongodb-key.keyfile
+replication:
+   oplogSizeMB: 512
+   replSetName: rs0
+</code></pre>
+
+<p>4.重启所有的mongodb实例</p>
+<p>5.修改客户端连接配置，以webchat举例，服务配置中，applicationContext.xml中添加配置：</p>
+<pre><code>&lt;!-- 创建一个com.mongodb.MongoCredential示例，配置用户名密码和验证的数据库名 --&gt;
+&lt;bean id=&quot;mongoCredentialID&quot; class=&quot;com.mongodb.MongoCredential&quot;&gt;
+    &lt;constructor-arg name=&quot;mechanism&quot; value = &quot;#{T(com.mongodb.AuthenticationMechanism).SCRAM_SHA_1}&quot; /&gt;
+    &lt;constructor-arg type=&quot;java.lang.String&quot; name=&quot;userName&quot; value=&quot;elite&quot; /&gt;
+    &lt;constructor-arg type=&quot;java.lang.String&quot; name=&quot;source&quot; value=&quot;webchat&quot; /&gt;
+    &lt;constructor-arg type=&quot;char[]&quot; name=&quot;password&quot; value=&quot;letmein&quot; /&gt;
+&lt;/bean&gt;
+&lt;!-- mongo-client 添加属性credentials，应用上面配置的mongoCredentialID这个bean --&gt;
+&lt;mongo:mongo-client id=&quot;mongo&quot; replica-set=&quot;#{replicaSet}&quot; credentials=&quot;#{mongoCredentialID}&quot;&gt;
+    &lt;mongo:client-options 
+        connections-per-host=&quot;10&quot;
+        connect-timeout=&quot;30000&quot;
+        max-wait-time=&quot;30000&quot; /&gt;
+&lt;/mongo:mongo-client&gt;
+</code></pre>
+
+<h2>全文参考：</h2>
+<p><a href="http://www.jianshu.com/p/2825a66d6aed">http://www.jianshu.com/p/2825a66d6aed</a> <br>
+<a href="https://docs.mongodb.com/manual/reference/">https://docs.mongodb.com/manual/reference/</a><br>
+<a href="https://www.claudiokuenzler.com/blog/555/allow-mongodb-user-execute-command-eval-mongodb-3.x#.WHMNRNV96Uk">https://www.claudiokuenzler.com/blog/555/allow-mongodb-user-execute-command-eval-mongodb-3.x#.WHMNRNV96Uk</a></p>
 
 </body>
 </html>
