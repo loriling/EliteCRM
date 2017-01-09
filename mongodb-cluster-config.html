@@ -468,8 +468,7 @@ db.createUser({
 
 //创建一个可以执行脚本的role，为了在webchat中可以执行eval去获取mongodb的当前时间
 use admin;
-db.createRole( { role: &quot;executeFunctions&quot;, privileges: [ { resource: { anyResource: true }, actions: [ &quot;anyAction&quot; ] } ], roles: [] } ) 
-{ 
+db.createRole({ 
     &quot;role&quot; : &quot;executeFunctions&quot;, 
     &quot;privileges&quot; : [ 
         { 
@@ -482,7 +481,7 @@ db.createRole( { role: &quot;executeFunctions&quot;, privileges: [ { resource: {
         } 
     ], 
     &quot;roles&quot; : [ ] 
-};
+});
 //给webchat库的elite用户添加这个role
 use webchat;
 db.grantRolesToUser(&quot;elite&quot;, [{role: &quot;executeFunctions&quot;, db: &quot;admin&quot;}]);
