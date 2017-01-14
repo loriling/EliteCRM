@@ -1,0 +1,131 @@
+<!DOCTYPE html><html><head><title>NGS js解读</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="ngs-js解读">NGS js解读</h1>
+
+
+
+<h2 id="e">$E</h2>
+
+<p>$E作为NGS客户端体系结构中的一个重要的对象，处于<strong>最外层</strong>，直接绑定在当前页面的window对象上，作用于全局。 <br>
+我们可以很简单的通过chrome的console，输入 :</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$E.version<br><span class="hljs-string">"NGS-1.1"</span><br></code></pre>
+
+<hr>
+
+<p>我们可以关注几个重要的属性和方法：</p>
+
+
+
+<h4 id="属性">属性</h4>
+
+<ul><li><strong>caches</strong> 缓存对象 <br>
+全局的缓存对象，可以用来存储跨项目的缓存内容</li>
+<li><strong>events</strong> 事件对象 <br>
+全局的事件对象，这个事件在NGS中也是一个非常重要的对象，我们打印出来看到目前此对象的evtMap属性中已经注册了两个事件，分别是： <br>
+1.软电话注册的项目改变事件 <br>
+2.某个动态页面注册的电话号码输入框双击事件</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">{<br>    <span class="hljs-string">"name"</span>: <span class="hljs-string">"未知"</span>,<br>    <span class="hljs-string">"id"</span>: <span class="hljs-string">"BC757749-A7BC-8744-FCAC-276212431BBF"</span>,<br>    <span class="hljs-string">"evtMap"</span>: {<br>        <span class="hljs-string">"PROJECT_CHANGED"</span>: {<br>            <span class="hljs-string">"Softphone"</span>: [{}]<br>        },<br>        <span class="hljs-string">"NUMBER_INPUT_DOUBLE_CLICKED"</span>: {<br>            <span class="hljs-string">"dynPage"</span>: [{}]<br>        }<br>    }<br>}<br></code></pre>
+
+<p>通常不会直接对events的evtMap属性进行操作，而是会调用events的register或者notify方法，来实现注册消息与触发消息</p>
+
+<ul><li><strong>url</strong> 应用地址 <br>
+我们看到这个属性，通常返回的是<code>/ngs</code>（当然，如果你给ngs应用该成了nnggss，那这里就会返回<code>/nnggss</code>）</li>
+<li><strong>dataService</strong> 数据服务对象 <br>
+可以看到这个属性，存储了当前登录的ngs所链接的对应的elitejsservice服务的具体信息，所有数据库操作，都和这个属性的值有关，其中key的值就是登录时候url上写的ds=的值</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">{<br>    <span class="hljs-string">"url"</span>: <span class="hljs-string">"http://dev.elitecrm.com/elitejsservice"</span>,<br>    <span class="hljs-string">"dbPool"</span>: <span class="hljs-string">"DBMainElite"</span>,<br>    <span class="hljs-string">"saas"</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-string">"key"</span>: <span class="hljs-string">"elite"</span><br>}<br></code></pre>
+
+<ul><li><strong>staff</strong> 当前登录的staff对象 <br>
+要获取任何当前登录staff的信息，都可以从这个对象上获取，注意这个对象上还有相关epid信息（如果是saas环境的话），staff上还有个current属性，用来记录当前登录的组与当前项目。</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">{<br>    <span class="hljs-string">"id"</span>: <span class="hljs-string">"000001"</span>,<br>    <span class="hljs-string">"name"</span>: <span class="hljs-string">"Lori"</span>,<br>    <span class="hljs-string">"agentId"</span>: <span class="hljs-string">"Lori"</span>,<br>    <span class="hljs-string">"loginName"</span>: <span class="hljs-string">"lori"</span>,<br>    <span class="hljs-string">"epid"</span>: <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"epidDbPool"</span>: <span class="hljs-literal">null</span>,<br>    <span class="hljs-string">"remoteKey"</span>: <span class="hljs-string">"9F773EC8-B03A-27A2-644B-1EFB9A260204"</span>,<br>    <span class="hljs-string">"headImg"</span>: <span class="hljs-string">"headimg/C6A051A9-6B0E-3800-BBF4-835F1307D305.jpg"</span>,<br>    <span class="hljs-string">"password"</span>: <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"supervisor"</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-string">"rolegroupType"</span>: <span class="hljs-literal">null</span>,<br>    <span class="hljs-string">"loginTime"</span>: <span class="hljs-number">1484404678354</span>,<br>    <span class="hljs-string">"projects"</span>: [{<br>        <span class="hljs-string">"id"</span>: <span class="hljs-string">"gzl111"</span>,<br>        <span class="hljs-string">"name"</span>: <span class="hljs-string">"2010"</span>,<br>        <span class="hljs-string">"token"</span>: <span class="hljs-string">"89a98534-8851-454e-bbc3-625aeb6e0f95$DBMainElite"</span>,<br>        <span class="hljs-string">"ordIndex"</span>: <span class="hljs-number">14</span>,<br>        <span class="hljs-string">"groupId"</span>: <span class="hljs-string">"SYSTEM"</span>,<br>        <span class="hljs-string">"groupName"</span>: <span class="hljs-string">"系统组飕飕"</span>,<br>        <span class="hljs-string">"roles"</span>: [{<br>            <span class="hljs-string">"id"</span>: <span class="hljs-string">"G00010"</span>,<br>            <span class="hljs-string">"name"</span>: <span class="hljs-string">"测试1"</span><br>        }]<br>    }],<br>    <span class="hljs-string">"curProject"</span>: <span class="hljs-string">"gzl111"</span>,<br>    <span class="hljs-string">"epidSql"</span>: <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"current"</span>: {<br>        <span class="hljs-string">"id"</span>: <span class="hljs-string">"gzl111"</span>,<br>        <span class="hljs-string">"name"</span>: <span class="hljs-string">"2010"</span>,<br>        <span class="hljs-string">"token"</span>: <span class="hljs-string">"89a98534-8851-454e-bbc3-625aeb6e0f95$DBMainElite"</span>,<br>        <span class="hljs-string">"ordIndex"</span>: <span class="hljs-number">14</span>,<br>        <span class="hljs-string">"groupId"</span>: <span class="hljs-string">"SYSTEM"</span>,<br>        <span class="hljs-string">"groupName"</span>: <span class="hljs-string">"系统组飕飕"</span>,<br>        <span class="hljs-string">"roles"</span>: [{<br>            <span class="hljs-string">"id"</span>: <span class="hljs-string">"G00010"</span>,<br>            <span class="hljs-string">"name"</span>: <span class="hljs-string">"测试1"</span><br>        }]<br>    }<br>}<br></code></pre>
+
+<ul><li><strong>projects</strong> 项目对象 <br>
+当前登录的所有项目，项目对象非常重要，且内容较多，之后会单独细讲。</li>
+<li><strong>softphone</strong> 软电话对象 <br>
+页面顶部，软电话条相关的操作对象，电话操作均在次对象上，内容较多，之后会单独细讲。</li>
+<li><strong>plugins</strong> 插件对象 <br>
+所有加载的插件的<strong>工厂类</strong>，都会存于这个全局的属性中，作为缓存。注意这里不是插件对象本身，而是用来构造这个插件对象的对象（是不是有点拗口…）</li>
+<li><strong>jsv</strong> 是不是debug模式 <br>
+如果url上加上了<code>dev=true</code>，则这个参数的值为空字符串，不然，这个参数为：<code>.min</code> <br>
+看出来了吧，这个jsv属性，就是用来加到那些需要加载的js文件的文件名中的，它来决定加载的是压缩过的js还是源码js</li>
+<li><strong>host</strong> 当前域 <br>
+看到返回的是：<a href="http://dev.elitecrm.com" target="_blank">http://dev.elitecrm.com</a>，这个值是当前ngs的root-context.xml中配置的config bean下的ngsHost属性的值 <br>
+用来告诉客户端服务的域名，通常应该就是当前访问ngs的url的前面部分。</li>
+<li><strong>pluginServices</strong> 插件服务地址 <br>
+用来存储所有插件服务对应的url地址，也是从root-context.xml中获取的，目前包括的是：报表，消息，日历，邮件，这四个插件服务。（其他插件服务呢，chat呢？嘿嘿，我没用这里的这个属性，而是用的一个系统参数获取到的chat服务地址..啦啦啦）</li>
+</ul>
+
+
+
+<h4 id="方法">方法</h4>
+
+<ul><li><p><strong>getActiveProject()</strong> 获取当前活动的项目 <br>
+NGS客户端框架是支持同时登陆多个项目的，而当前活动的项目只有一个，可以通过<code>$E.getActiveProject()</code>来获取。</p></li>
+<li><p><strong>getCurrentToken()</strong> 获取当前token <br>
+与当前项目类似，token作为调用elitejsservice的凭据，是绑定在project对象上的，这里的<code>$E.getCurrentToken()</code>就是获取当前项目的token。</p></li>
+<li><p><strong>frameLock(option)</strong> 框架加锁 <br>
+锁住框架上的菜单与tab页，这个通常在电话弹屏时候，框架会自己调用此方法，来锁住当前菜单。这里有个可选的参数option，可以传入：</p></li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$E.frameLock({withoutHeader: <span class="hljs-literal">false</span>});<span class="hljs-comment">//这样就可以锁住菜单和tab同时，也锁住软电话条</span><br></code></pre>
+
+<ul><li><p><strong>frameUnlock()</strong> 框架解锁 <br>
+与加锁对应，加锁完，是不是该解锁了~</p></li>
+<li><p><strong>isAdminRole()</strong> 是否是管理员角色 <br>
+这个方法其实应该是在project上，这里可能为了方便调用，也在$E上封装了一下，用来判断当前项目对应的登录人的角色，是不是属于管理员（<code>G00001</code>），这个用于SAAS版本中。</p></li>
+<li><p><strong>openPlugin(tabName, project, addin, addinParam, parameter, keepOpen)</strong> 打开插件到tab <br>
+用来打开一个插件到tab页上， <br>
+     * @param tabName {string} TAB标签 <br>
+     * @param project {project} 项目对象 <br>
+     * @param addin {string | object} 插件的addin对象 <br>
+     * @param addinParam {any} 组件参数 <br>
+     * @param [parameter] {any} 插件入参 <br>
+     * @param keepOpen {boolean} 是否不允许关闭</p></li>
+<li><p><strong>embPlugin(ctl, project, addin, addinParam, parameter, callback)</strong> 打开插件到指定控件 <br>
+可以把一个控件作为这个插件的容器，把插件显示到这个控件中去 <br>
+     * @method openPlugin <br>
+     * @param ctl {object} PANEL对象 <br>
+     * @param project {project} 项目对象 <br>
+     * @param addin {string | object} 组件对象 <br>
+     * @param addinParam {any} 组件参数 <br>
+     * @param [parameter] {any} 插件入参</p></li>
+<li><p><strong>rightPanel(force, recreate)</strong> 对右侧区域显隐控制 <br>
+扩展右侧区域，并进行显影切换，点击右上角的<strong>客服</strong>按钮时候，就会调用此方法 <br>
+     * @param force {boolean} 是否强行显示 <br>
+     * @param recreate {boolean} 是否重新构建，重新构建的话，会清除原来的splitter，重新创建一个新的splitter</p></li>
+<li><p><strong>createRightPanel(panelId, panelName)</strong> 创建右侧区域中的面板 <br>
+这个方法有点像打开一个菜单到tab页，而这里的是右侧区域，并且这个右侧区域目前只有webchat使用了，其他模块或者插件，都还没有使用这个区域，而这个方法就是提供给想要用这个区域的人的，可以自己创建自己的右侧区域面板，多个面板目前是通过显隐来控制的，也许将来这里也会做成tab的方式。 <br>
+     * @param panelId {string} 需要创建的面板ID，如该面板已经创建，则切换至显示 <br>
+     * @param panelName {string} 面板名称 <br>
+     * @return {dom} 面板容器</p></li>
+<li><p><strong>wsSend(module, data, callback, ev)</strong> 发送websocket消息 <br>
+这是一个非常重要的方法，由这个方法来实现chrome浏览器发送websocket消息到本地的EliteLocalProxy程序。 <br>
+     * @param module {string} 服务名称 <br>
+     * @param data {any} 发送的消息对象 <br>
+     * @param [callback] {callback} 需要请求回调的方法 <br>
+     * @param [ev] {any} 回调的环境参数</p></li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">//webchat插件中，调用本地localproxy中的截图组件，截完图后上传到对应地址，方法成功后，回调自己，把上传完的图片地址作为消息内容发送</span><br>$E.wsSend(<span class="hljs-string">'captureScreen'</span>, {<br>    action : <span class="hljs-string">'capture'</span>,<br>    param : {<br>        uploadURL : uploadURL,<br>        tmpFileName : tmpFileName,<br>        style : <span class="hljs-string">'Lori'</span>,<br>        hideFlag : <span class="hljs-number">1</span><br>    }<br>}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">d</span>)</span>{<br>    <span class="hljs-keyword">var</span> content = <span class="hljs-string">'&lt;img src = "'</span> + d.url + <span class="hljs-string">'" &gt;'</span>;<br>    sendMessage(content, csId);<br>});<br></code></pre></div></body></html>
