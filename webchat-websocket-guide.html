@@ -339,6 +339,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 1,//消息id，唯一标示此消息，消息从服务端返回时候，也会带上此id，这样客户端就可以知道返回的消息是对应到客户端发出的哪个消息了
     type: 2,//登录
     time: 1400913140127,//时间戳
     token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168'//登录成功后获取到的凭据
@@ -351,6 +352,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 2,//消息id，唯一标示此消息
     type: 101,//人工聊天请求
     token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
     time: 1400913140127,//时间戳
@@ -365,6 +367,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 3,//消息id，唯一标示此消息
     type: 102,//取消请求
     token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
     time: 1400913140127,//时间戳
@@ -378,6 +381,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 4,//消息id，唯一标示此消息
     type: 103,//结束聊天
     token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
     time: 1400913140127,//时间戳
@@ -391,6 +395,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 5,//消息id，唯一标示此消息
     type: 104,//满意度发送
     token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
     time: 1400913140127,//时间戳
@@ -408,6 +413,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 6,//消息id，唯一标示此消息
     type: 110,//发送消息
     token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
     time: 1400913140127,//发出请求的时间戳
@@ -462,6 +468,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 7,//消息id，唯一标示此消息
     type: 111,//发送预消息
     token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
     time: 1400913140127,//时间戳
@@ -478,6 +485,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 1,//消息id，这里的id就是之前调用此接口时候传递过来的id，客户端可以通过此id来知道是哪个请求的返回内容
     type: 2,//登出
     result: 1, // 1成功 0失败
     message: '', // 失败消息
@@ -490,6 +498,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 2,//消息id，唯一标示此消息
     type: 101,
     result: 1, //结果代码
     message: ''//结果描述
@@ -498,12 +507,13 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 
 <ul>
 <li>
-<p>取消请求结果： </p>
-<p>{
+取消请求结果： 
+{
+	messageId: 3,//消息id，唯一标示此消息
 	type: 102,
 	result: 1, //结果代码
 	message: ''//结果描述
-}</p>
+}
 </li>
 </ul>
 </blockquote>
@@ -512,6 +522,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 4,//消息id，唯一标示此消息
     type: 103,
     result: 1, //结果代码
     message: ''//结果描述
@@ -524,6 +535,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 5,//消息id，唯一标示此消息
     type: 104,
     result: 1, //结果代码
     message: ''//结果描述
@@ -536,6 +548,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 6,//消息id，唯一标示此消息
     type: 110,//发送消息
     result: 1, //结果代码
     message: ''//结果描述
@@ -548,6 +561,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </ul>
 <blockquote>
 <pre><code>{
+    messageId: 7,//消息id，唯一标示此消息
     type: 111,//发送消息
     result: 1, //结果代码
     message: ''//结果描述
