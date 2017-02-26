@@ -1,0 +1,260 @@
+<!DOCTYPE html><html><head><title>NGS JS 解读 - Softphone.js</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="ngs-js-解读-softphonejs">NGS JS 解读 - Softphone.js</h1>
+
+<p>softphone.js中主要封装了软电话相关操作的方法，软电话状态逻辑处理等。 <br>
+与原来的flex中调用基本相似，但最大的差别在于，所有的方法调用，都是异步的，意味着，如果你需要得到方法的返回值，通常是需要在回调方法中获取，而不是方法的直接返回。</p>
+
+
+
+<h3 id="具体方法说明直接用动态页面中的写法来举例">具体方法说明（直接用动态页面中的写法来举例）</h3>
+
+<p>动态页面中，可以通过<strong>$softphone</strong>来获取到当前NGS框架的软电话对象。</p>
+
+<ul><li><strong>simpleCommonCall</strong> -  原软电话的commonCall <br>
+commonCall是软电话的一个非常重要且通用的方法，通常为了不去修改软电话接口方法，新加的一些功能都会通过用这个commonCall来实现，比如转ivr，pds的一些操作，设置event值等等</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">//通过commonCall来调用setevent，给当前event赋值</span><br><span class="hljs-keyword">var</span> param = <span class="hljs-string">"customer_guid="</span> + R.temp.cust_customer_guid + <span class="hljs-string">"|event_guid="</span> + R.temp.event_guid;<br>$softphone.simpleCommonCall(<span class="hljs-string">'setevent'</span>, <span class="hljs-string">'param'</span>);<br><br><span class="hljs-comment">//通过commonCall来通知软电话项目改变</span><br>$softphone.simpleCommonCall(<span class="hljs-string">'changeproject'</span>, <span class="hljs-string">'ProjectId=gzl111'</span>);<br><br><span class="hljs-comment">//通过commonCall发起转ivr, 从项目上抄来，仅供参考，具体写法可能根据CTI不同或者其他什么不同，要咨询jeff</span><br>$softphone.simpleCommonCall(<span class="hljs-string">'ConferenceIVR'</span>, <span class="hljs-string">'Dest=7006|nodeCode=1001|idNo=[Temp.CUST_CUSTOMERID]'</span>);<br><br><span class="hljs-comment">//通过commonCall重置作息技能队列。</span><br><span class="hljs-comment">//从项目上抄来，仅供参考，具体可以咨询jeff或max</span><br>$softphone.simpleCommonCall(<span class="hljs-string">'CTICommonCall'</span>, <span class="hljs-string">'CTICallName=RESETAGENTSKILL|AgentID=[Temp.agent_id]|AgentGroup=[Temp.skill_end]|Permanent=0'</span>);<br></code></pre>
+
+<ul><li><strong>getCallInfo</strong> -  获取callInfo</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.getCallInfo(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callInfo</span>)</span>{<br>    <span class="hljs-comment">//这个callInfo是我封装的一个js对象，其中包含了当前电话的很多信息，可以通过getValue方法获取具体信息的值，所有信息如下：</span><br>    <span class="hljs-comment">//var callInfo = {</span><br>    <span class="hljs-comment">//  agentid : softphone.AgentID,</span><br>    <span class="hljs-comment">//  extension : softphone.Extension,</span><br>    <span class="hljs-comment">//  agentstate : softphone.AgentState,</span><br>    <span class="hljs-comment">//  evtdetail : softphone.EvtDetail,</span><br>    <span class="hljs-comment">//  rawattachdata : softphone.CallInfo.RawAttachData,</span><br>    <span class="hljs-comment">//  callstate : softphone.CallInfo.CallState,</span><br>    <span class="hljs-comment">//  ani : softphone.CallInfo.ANI,</span><br>    <span class="hljs-comment">//  dnis : softphone.CallInfo.DNIS,</span><br>    <span class="hljs-comment">//  otherdn : softphone.CallInfo.OtherDN,</span><br>    <span class="hljs-comment">//  starttime : softphone.CallInfo.starttime,</span><br>    <span class="hljs-comment">//  establishtime : softphone.CallInfo.establishtime,</span><br>    <span class="hljs-comment">//  endtime : softphone.CallInfo.endtime,</span><br>    <span class="hljs-comment">//  calltype : softphone.CallInfo.CallType,</span><br>    <span class="hljs-comment">//  attachdatadisplay : softphone.CallInfo.AttachDataDisplay,</span><br>    <span class="hljs-comment">//  istranin : softphone.CallInfo.IsTranIn,</span><br>    <span class="hljs-comment">//  istranout : softphone.CallInfo.IsTranOut,</span><br>    <span class="hljs-comment">//  hanguptype : softphone.CallInfo.HangupType,</span><br>    <span class="hljs-comment">//  callid2 : softphone.CallInfo.CallID2,</span><br>    <span class="hljs-comment">//  callid1 : softphone.CallInfo.CallID1,</span><br>    <span class="hljs-comment">//  callstate2 : softphone.CallInfo.CallState2,</span><br>    <span class="hljs-comment">//  event_guid : event_guid,</span><br>    <span class="hljs-comment">//  allattachdatas : allAttachDatas</span><br>    <span class="hljs-comment">//};</span><br>    <span class="hljs-keyword">var</span> eventGuid = callInfo.getValue(<span class="hljs-string">'event_guid'</span>);<span class="hljs-comment">//获取当前电话的event_guid</span><br>    <span class="hljs-keyword">var</span> callType = callInfo.getValue(<span class="hljs-string">'calltype'</span>);<span class="hljs-comment">//获取当前电话的calltype</span><br>    log(<span class="hljs-string">'eventGuid: '</span> + eventGuid + <span class="hljs-string">'    callType: '</span> + callType);<span class="hljs-comment">//日志输出获取到的信息</span><br>    R.var.callInfo = callInfo;<span class="hljs-comment">//把callInfo对象赋值给当前runtime的var.callInfo变量上</span><br>    sandbox.docommand(<span class="hljs-string">'12345'</span>);<span class="hljs-comment">//调用当前组件或者当前动态页面的12345命令组</span><br>});<br></code></pre>
+
+<ul><li><strong>getAgentStateAndMode</strong> -  获取agentState和agentMode <br>
+<strong>agentState包括：</strong> <br>
+//    EAS_UNKNOWN: 0, <br>
+//    EAS_LOGOUT: 1, <br>
+//    EAS_READY: 2, <br>
+//    EAS_NOTREADY: 3, <br>
+//    EAS_BUSY: 4, <br>
+//    EAS_MAX: 5 <br>
+<strong>agentMode包括：</strong> <br>
+//    EAM_UNKNOWN: 0, <br>
+//    EAM_AUTOIN: 1, <br>
+//    EAM_MANUALIN: 2, <br>
+//    EAM_AUX: 3, <br>
+//    EAM_ACW: 4, <br>
+//    EAM_NOCALLDISCONNECT: 5, <br>
+//    EAM_MAX: 6</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.getAgentStateAndMode(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">stateAndMode</span>)</span>{<br>    <span class="hljs-comment">//stateAndMode是个json对象，包含了：</span><br>    <span class="hljs-comment">//{</span><br>    <span class="hljs-comment">//    agentState : 1,</span><br>    <span class="hljs-comment">//    agentMode: 4</span><br>    <span class="hljs-comment">//}</span><br>    R.var.stateAndMode= stateAndMode;<span class="hljs-comment">//把stateAndMode对象赋值给当前runtime的var.stateAndMode变量上</span><br>    sandbox.docommand(<span class="hljs-string">'12345'</span>);<span class="hljs-comment">//调用当前组件或者当前动态页面的12345命令组</span><br>});<br></code></pre>
+
+<ul><li><strong>makeCall</strong> -  拨打电话</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.makeCall(<span class="hljs-string">'13916312345'</span>, <span class="hljs-string">'a=1|b=2'</span>); <span class="hljs-comment">//第一个参数是电话号码。第二参数是随路数据，key=value多个用竖线分割</span><br></code></pre>
+
+<ul><li><strong>releaseCall</strong> - 挂断电话</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.releaseCall();<br></code></pre>
+
+<ul><li><strong>answerCall</strong> - 接起电话</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.answerCall();<br></code></pre>
+
+<ul><li><strong>holdCall</strong> - 保持电话</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.holdCall();<br></code></pre>
+
+<ul><li><strong>retrieveCall</strong> - 接回电话</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.holdCall();<br></code></pre>
+
+<ul><li><strong>initConference</strong> - 发出会议</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.initConference(<span class="hljs-string">'13916312345'</span>, <span class="hljs-string">'a=1|b=2'</span>); <span class="hljs-comment">//第一个参数是电话号码。第二参数是随路数据，key=value多个用竖线分割</span><br></code></pre>
+
+<ul><li><strong>completeConference</strong> - 完成会议</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.completeConference();<br></code></pre>
+
+<ul><li><strong>initTransfer</strong> - 发出转接</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.initTransfer(<span class="hljs-string">'13916312345'</span>, <span class="hljs-string">'a=1|b=2'</span>); <span class="hljs-comment">//第一个参数是电话号码。第二参数是随路数据，key=value多个用竖线分割</span><br></code></pre>
+
+<ul><li><strong>completeTransfer</strong> - 完成转接</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.completeConference();<br></code></pre>
+
+<ul><li><strong>muteTransfer</strong> - 直接转</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.muteTransfer(<span class="hljs-string">'13916312345'</span>, <span class="hljs-string">'a=1|b=2'</span>); <span class="hljs-comment">//第一个参数是电话号码。第二参数是随路数据，key=value多个用竖线分割</span><br></code></pre>
+
+<ul><li><strong>reconnect</strong> - 取消转接或会议</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.reconnect();<br></code></pre>
+
+<ul><li><strong>ready</strong> - 准备好</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.ready();<br></code></pre>
+
+<ul><li><strong>notReady</strong> - 未准备好</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.notReady();<br></code></pre>
+
+<ul><li><strong>breaks</strong> - 小修</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.breaks();<br></code></pre>
+
+<ul><li><strong>mute</strong> - 静音</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.mute();<br></code></pre>
+
+<ul><li><strong>unMute</strong> - 取消静音</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.unMute();<br></code></pre>
+
+<ul><li><strong>notifyWorkStart</strong> - 通知工作开始 <br>
+   “WT-OB”, // 外呼 <br>
+   “WT-IB”, // 呼入 <br>
+   “WT_PDS_OB” // PDS外呼</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.notifyWorkStart(<span class="hljs-string">'WT-OB'</span>);<span class="hljs-comment">//需要传递工作类型</span><br></code></pre>
+
+<ul><li><strong>notifyWorkEnd</strong> - 通知工作结束</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.notifyWorkEnd();<br></code></pre>
+
+<ul><li><strong>allAttachDatas</strong> - 获取所有随路数据</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.allAttachDatas(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">attachDatas</span>)</span>{<br>    log(attachDatas);<span class="hljs-comment">//获取返回的随路数据json字符串，日志打印出来看看</span><br>    R.var.attachDatas= attachDatas;<span class="hljs-comment">//把attachDatas对象赋值给当前runtime的var.attachDatas变量上</span><br>    sandbox.docommand(<span class="hljs-string">'12345'</span>);<span class="hljs-comment">//调用当前组件或者当前动态页面的12345命令组</span><br>});<br></code></pre>
+
+<ul><li><strong>attachData</strong> - 获取指定key的随路数据</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.attachData(<span class="hljs-string">'key'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">attachData</span>)</span>{<br>    log(attachData);<span class="hljs-comment">//获取给定key的随路数据值，日志打印出来看看</span><br>    R.var.key = attachData;<span class="hljs-comment">//把attachData对象赋值给当前runtime的var.key变量上</span><br>    sandbox.docommand(<span class="hljs-string">'12345'</span>);<span class="hljs-comment">//调用当前组件或者当前动态页面的12345命令组</span><br>});<br></code></pre>
+
+<ul><li><strong>getAgentId</strong> - 获取工号</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.getAgentId(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">agentId</span>)</span>{<br>    log(agentId);<span class="hljs-comment">//获取工号，日志打印出来看看</span><br>    R.var.agentId= agentId;<span class="hljs-comment">//把agentId对象赋值给当前runtime的var.agentId变量上</span><br>});<br></code></pre>
+
+<ul><li><strong>getExtension</strong> - 获取分机号</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.getExtension(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">extension</span>)</span>{<br>    log(extension);<span class="hljs-comment">//获取分机号，日志打印出来看看</span><br>    R.var.extension= extension;<span class="hljs-comment">//把extension对象赋值给当前runtime的var.extension变量上</span><br>});<br></code></pre>
+
+<ul><li><strong>getRecordGuid</strong> - 获取录音guid</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.getRecordGuid(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">recordGuid</span>)</span>{<br>    log(recordGuid);<span class="hljs-comment">//获取录音guid，日志打印出来看看</span><br>    R.var.recordGuid= recordGuid;<span class="hljs-comment">//把recordGuid对象赋值给当前runtime的var.recordGuid变量上</span><br>});<br></code></pre>
+
+<ul><li><strong>forceAgentLogout</strong> - 强退</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.forceAgentLogout(<span class="hljs-string">'分机号'</span>, <span class="hljs-string">'工号'</span>);<br></code></pre>
+
+<ul><li><strong>forceAgentNotReady</strong> - 强忙</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.forceAgentNotReady(<span class="hljs-string">'分机号'</span>, <span class="hljs-string">'工号'</span>);<br></code></pre>
+
+<ul><li><strong>forceAgentReady</strong> - 强闲</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.forceAgentReady(<span class="hljs-string">'分机号'</span>, <span class="hljs-string">'工号'</span>);<br></code></pre>
+
+<ul><li><strong>listen</strong> - 监听</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.listen(<span class="hljs-string">'分机号'</span>);<br></code></pre>
+
+<ul><li><strong>intercept</strong> - 强拆</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.intercept(<span class="hljs-string">'工号'</span>);<br></code></pre>
+
+<ul><li><strong>forceDisconnectAgentByDN</strong> - 强断</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.forceDisconnectAgentByDN(<span class="hljs-string">'分机号'</span>);<br></code></pre>
+
+<ul><li><strong>forceHangUp</strong> - 板卡挂断</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.forceHangUp();<br></code></pre>
+
+<ul><li><strong>bargeIn</strong> - 强插</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.bargeIn(<span class="hljs-string">'分机号'</span>);<br></code></pre>
+
+<ul><li><strong>takeOver</strong> - 拦截</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.takeOver(<span class="hljs-string">'分机号'</span>, <span class="hljs-string">'工号'</span>);<br></code></pre>
+
+<ul><li><strong>coach</strong> - 暗语</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.coach(<span class="hljs-string">'分机号'</span>, <span class="hljs-string">'工号'</span>);<br></code></pre>
+
+<ul><li><strong>sendDTMF</strong> - 发送DTMF数据</li>
+</ul>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">$softphone.sendDTMF(<span class="hljs-string">'123'</span>);<br></code></pre></div></body></html>
