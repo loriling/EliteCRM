@@ -23,4 +23,29 @@ log4j官网上找到如下描述
 > 
 > Loggers have their additivity flag set to true by default.
 
-**默认情况下子Logger会继承父Logger的appender，也就是说子Logger会在父Logger的appender里输出。若是additivity设为false，则子Logger只会在自己的appender里输出，而不会在父Logger的appender里输出**
+意思就是：**默认情况下子Logger会继承父Logger的appender，也就是说子Logger会在父Logger的appender里输出。若是additivity设为false，则子Logger只会在自己的appender里输出，而不会在父Logger的appender里输出**
+
+###二. log4j与commons-logging的关系，且在websphere中使用的注意点。
+
+简单理解，commons-logging提供了一套logger的接口，而log4j是具体的实现。详细说明，可以参考：
+[http://zachary-guo.iteye.com/blog/361177](http://zachary-guo.iteye.com/blog/361177 "http://zachary-guo.iteye.com/blog/361177")
+
+在websphere中，有默认的org.apache.commons.logging.LogFactory的实现，所以如果使用了commons-logging的api去输出日志时候，需要需要增加配置,二选一即可：
+
+1.添加commons-logging.properties文件到classpath下
+
+	priority=1
+	org.apache.commons.logging.Log=org.apache.commons.logging.impl.Log4JLogger
+	org.apache.commons.logging.LogFactory=org.apache.commons.logging.impl.LogFactoryImpl
+
+2.META-INF/services下，添加文件org.apache.commons.logging.LogFactory，内容为：
+
+	org.apache.commons.logging.impl.LogFactoryImpl
+
+然后需要配置**websphere的classloader优先级为使用项目的配置优先：PARENT_LAST**，就Websphere Liberty为例：
+ 
+	<Application location="webchat.war">
+    	<classloader delegation="parentLast"/>
+	</Application>
+
+这样，日志就可以正常输出了。
