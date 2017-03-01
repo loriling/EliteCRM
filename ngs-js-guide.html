@@ -128,4 +128,14 @@ NGS客户端框架是支持同时登陆多个项目的，而当前活动的项�
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">//webchat插件中，调用本地localproxy中的截图组件，截完图后上传到对应地址，方法成功后，回调自己，把上传完的图片地址作为消息内容发送</span><br>$E.wsSend(<span class="hljs-string">'captureScreen'</span>, {<br>    action : <span class="hljs-string">'capture'</span>,<br>    param : {<br>        uploadURL : uploadURL,<br>        tmpFileName : tmpFileName,<br>        style : <span class="hljs-string">'Lori'</span>,<br>        hideFlag : <span class="hljs-number">1</span><br>    }<br>}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">d</span>)</span>{<br>    <span class="hljs-keyword">var</span> content = <span class="hljs-string">'&lt;img src = "'</span> + d.url + <span class="hljs-string">'" &gt;'</span>;<br>    sendMessage(content, csId);<br>});<br></code></pre></div></body></html>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">//webchat插件中，调用本地localproxy中的截图组件，截完图后上传到对应地址，方法成功后，回调自己，把上传完的图片地址作为消息内容发送</span><br>$E.wsSend(<span class="hljs-string">'captureScreen'</span>, {<br>    action : <span class="hljs-string">'capture'</span>,<br>    param : {<br>        uploadURL : uploadURL,<br>        tmpFileName : tmpFileName,<br>        style : <span class="hljs-string">'Lori'</span>,<br>        hideFlag : <span class="hljs-number">1</span><br>    }<br>}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">d</span>)</span>{<br>    <span class="hljs-keyword">var</span> content = <span class="hljs-string">'&lt;img src = "'</span> + d.url + <span class="hljs-string">'" &gt;'</span>;<br>    sendMessage(content, csId);<br>});<br></code></pre></div></body>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?99f0858c7fc5b9df4dde5e0d76b6af1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</html>
