@@ -1,0 +1,42 @@
+<!DOCTYPE html><html><head><title>MongoDB 使用经验</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="mongodb-使用经验">MongoDB 使用经验</h1>
+
+<p>11/24/2016 11:08:12 AM</p>
+
+<h2 id="一-关于ttl索引">一. 关于TTL索引</h2>
+
+<p>可以通过创建TTL（time to live）索引来实现自动删除过期数据，索引项必须是日期类型： <br>
+<a href="https://docs.mongodb.com/v3.2/core/index-ttl/" target="_blank">https://docs.mongodb.com/v3.2/core/index-ttl/</a></p>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp">db.logs.createIndex({<span class="hljs-string">"date"</span>:<span class="hljs-number">1</span>}, {expireAfterSeconds: <span class="hljs-number">60</span>});<br></code></pre>
+
+<p>但是发现本机测试一直没有效果，找了下原因，发现启动mongo客户端时候，有一下警告，以前用过集群，后来又不用了，造成TTL collection monitor没有正确的启动</p>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp">Tue Jul  <span class="hljs-number">9</span> <span class="hljs-number">17</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46.076</span> [initandlisten] <br>Tue Jul  <span class="hljs-number">9</span> <span class="hljs-number">17</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46.076</span> [initandlisten] ** WARNING: mongod started without --replSet yet <span class="hljs-number">1</span> documents are present in local.system.replset<br>Tue Jul  <span class="hljs-number">9</span> <span class="hljs-number">17</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46.077</span> [initandlisten] **          Restart with --replSet unless you are doing maintenance and no other clients are connected.<br>Tue Jul  <span class="hljs-number">9</span> <span class="hljs-number">17</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46.077</span> [initandlisten] **          The TTL collection monitor will not start because of <span class="hljs-keyword">this</span>.<br>Tue Jul  <span class="hljs-number">9</span> <span class="hljs-number">17</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46.077</span> [initandlisten] **          For more info see http:<span class="hljs-comment">//dochub.mongodb.org/core/ttlcollections</span><br>Tue Jul  <span class="hljs-number">9</span> <span class="hljs-number">17</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46.077</span> [initandlisten] <br></code></pre>
+
+<p>通过删除local这个数据库然后重启mongo服务，来启动TTL collection monitor</p>
+
+<pre class="prettyprint hljs-dark"><code class="hljs sql"><span class="hljs-operator"><span class="hljs-keyword">use</span> <span class="hljs-keyword">local</span><br>db.dropDatabase();</span><br></code></pre>
+
+<p>相关命令</p>
+
+<pre class="prettyprint hljs-dark"><code class="hljs stata"><span class="hljs-comment">//查询logs集合，美观的打印出结果</span><br><span class="hljs-keyword">db</span>.logs.find().pretty();<br><br><span class="hljs-comment">//列出logs集合上的索引</span><br><span class="hljs-keyword">db</span>.logs.showIndexes();<br><br><span class="hljs-comment">//往test集合插入数据</span><br><span class="hljs-keyword">db</span>.<span class="hljs-keyword">test</span>.insert({<span class="hljs-string">"expireAt"</span>: new <span class="hljs-literal">Date</span>(), <span class="hljs-string">"name"</span>: <span class="hljs-string">"test1"</span>});<br><br><span class="hljs-comment">//根据条件删除记录</span><br><span class="hljs-keyword">db</span>.logs.delete({<span class="hljs-string">"date"</span>:{<span class="hljs-string">"$lt"</span>: ISODate(<span class="hljs-string">"2016-11-20T18:54:28Z"</span>)}})<br><br><span class="hljs-comment">//查看ttl进程状态，删除了多少数据，执行了几次</span><br><span class="hljs-keyword">db</span>.serverStatus().metrics.ttl;<br><span class="hljs-comment">//{ "deletedDocuments" : NumberLong(5), "passes" : NumberLong(32) }</span><br><br><span class="hljs-comment">//执行管理者命令，获取ttlMonitorEnabled参数的值</span><br><span class="hljs-keyword">db</span>.adminCommand({getParameter:1, ttlMonitorEnabled: 1});<br><span class="hljs-comment">//{ "ttlMonitorEnabled" : true, "ok" : 1 }</span><br><br><span class="hljs-comment">//开启索引相关日志，可以输出TTL相关信息</span><br><span class="hljs-keyword">db</span>.setLogLevel(1, <span class="hljs-string">"index"</span>);<br><span class="hljs-comment">//2016-11-24T10:44:01.032+0800 D INDEX    [TTLMonitor] TTL -- ns: elite.logs key: { date: 1.0 }</span><br><span class="hljs-comment">//2016-11-24T10:44:01.032+0800 D INDEX    [TTLMonitor]  TTL deleted: 0</span><br></code></pre>
+
+<p>也可以在配置文件中写如下配置，来达到同样开启index日志效果 <a href="https://docs.mongodb.com/v3.2/reference/log-messages/#log-messages-configure-verbosity" target="_blank">https://docs.mongodb.com/v3.2/reference/log-messages/#log-messages-configure-verbosity</a></p>
+
+<pre class="prettyprint hljs-dark"><code class="hljs less"><span class="hljs-attribute">systemLog</span>:<br>   <span class="hljs-attribute">component</span>:<br>      <span class="hljs-attribute">index</span>:<br>         <span class="hljs-attribute">verbosity</span>: <span class="hljs-number">1</span><br></code></pre></div></body>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?99f0858c7fc5b9df4dde5e0d76b6af1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</html>

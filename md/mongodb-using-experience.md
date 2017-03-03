@@ -1,5 +1,6 @@
-# MongoDB经验总结 #
-11/24/2016 11:08:12 AM 
+# MongoDB 使用经验 #
+
+11/24/2016 11:08:12 AM
 
 ## 一. 关于TTL索引 ##
 可以通过创建TTL（time to live）索引来实现自动删除过期数据，索引项必须是日期类型：
@@ -55,10 +56,3 @@
           index:
              verbosity: 1
 
-
-
-----------
-
-
-其他相关文章：<br>
-1.[mongodb集群配置说明](http://loriling.github.io/EliteCRM/mongodb-cluster-config.html "mongodb集群配置说明")
