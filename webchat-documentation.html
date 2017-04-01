@@ -2,11 +2,56 @@
                         
                     
 
+
+
 <h1 id="webchat-帮助文档">WebChat 帮助文档</h1>
 
+<div><div class="toc"><div class="toc">
+<ul>
+<li><a href="#webchat-帮助文档">WebChat 帮助文档</a><ul>
+<li><a href="#一-webchat中涉及到的系统参数">一. WebChat中涉及到的系统参数</a><ul>
+<li><a href="#1-webchat中独有的系统参数">1. WebChat中独有的系统参数</a><ul>
+<li><a href="#chasem-是否使用emoji表情">CHASEM 是否使用EMOJI表情</a></li>
+<li><a href="#chtsty-ngs-chat插件界面样式">CHTSTY ngs chat插件界面样式</a></li>
+<li><a href="#chassb-ngs-chat插件是否在聊天界面上直接显示转接相关按钮">CHASSB  ngs chat插件是否在聊天界面上直接显示转接相关按钮</a></li>
+<li><a href="#swaprl-ngs-chat插件左右布局位置">SWAPRL ngs chat插件左右布局位置</a></li>
+<li><a href="#chatad-ngs-chat插件访问webchat服务的地址">CHATAD ngs chat插件访问webchat服务的地址</a></li>
+<li><a href="#efsadd-ngs-中配置的ewcfront地址">EFSADD ngs 中配置的EWCFront地址</a></li>
+<li><a href="#ctacsd-ngs-chat插件关闭会话时候是否发出事件">CTACSD ngs chat插件关闭会话时候是否发出事件</a></li>
+<li><a href="#chttag-ngs-chat插件中-客户标签表名">CHTTAG ngs chat插件中 客户标签表名</a></li>
+<li><a href="#cacren-ngs-chat插件中是否开启客户评级">CACREN ngs chat插件中是否开启客户评级</a></li>
+<li><a href="#sronot-切换到机器人聊天时候的提示语">SRONOT 切换到机器人聊天时候的提示语</a></li>
+<li><a href="#chatsm-结束会话时候是否要小结或者发出相关命令组通知客户端">CHATSM 结束会话时候是否要小结或者发出相关命令组通知客户端</a></li>
+<li><a href="#srrtst-坐席是否显示满意度结果">SRRTST 坐席是否显示满意度结果</a></li>
+<li><a href="#cmaxbu-客服允许的最大置忙数">CMAXBU 客服允许的最大置忙数</a></li>
+<li><a href="#ipbpar-黑名单规则">IPBPAR 黑名单规则</a></li>
+<li><a href="#chslsc-显示历史会话内容数">CHSLSC 显示历史会话内容数</a></li>
+<li><a href="#chahat-坐席端顶部显隐控制">CHAHAT 坐席端顶部显隐控制</a></li>
+<li><a href="#chatlt-坐席端显示布局类型">CHATLT 坐席端显示布局类型</a></li>
+</ul>
+</li>
+<li><a href="#2-那些公共使用的系统参数">2. 那些公共使用的系统参数</a><ul>
+<li><a href="#logdes-des加密时候的秘钥">LOGDES DES加密时候的秘钥</a></li>
+<li><a href="#lognam-登录使用staff的agentid还是loginname">LOGNAM 登录使用staff的agent_id还是loginname</a></li>
+<li><a href="#kmrurl-知识库服务地址">KMRURL 知识库服务地址</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
 
 
-<h3 id="一-webchat中涉及到的系统参数">一. WebChat中涉及到的系统参数</h3>
+
+<h2 id="一-webchat中涉及到的系统参数">一. WebChat中涉及到的系统参数</h2>
+
+
+
+<h3 id="1-webchat中独有的系统参数">1. WebChat中独有的系统参数</h3>
 
 
 
@@ -14,9 +59,19 @@
 
 <p>引入系统参数<code>CHASEM</code>，配置为1时候，使用标准emoji作为表情包，默认时候用的qq表情包，当于rongcloud集成时候，客户端只提供了标准emoji的表情包，因此坐席端为了适配，也提供了相应的标准emoji表情。</p>
 
+
+
 <h4 id="chtsty-ngs-chat插件界面样式"><code>CHTSTY</code> ngs chat插件界面样式</h4>
 
 <p>引入系统参数<code>CHTSTY</code>(chat style)，表示使用的ngs中chat插件的样式，不配置就是默认，除了默认现在还支持一种样式:chat-white</p>
+
+
+
+<h4 id="chassb-ngs-chat插件是否在聊天界面上直接显示转接相关按钮"><code>CHASSB</code>  ngs chat插件是否在聊天界面上直接显示转接相关按钮</h4>
+
+<p>引入系统参数<code>CHASSB</code>(chat show session buttons)配置成1时候，聊天面板右上角会鲜明的显示出”会议”,”转接”,”转接组”三个按钮</p>
+
+
 
 <h4 id="swaprl-ngs-chat插件左右布局位置"><code>SWAPRL</code> ngs chat插件左右布局位置</h4>
 
@@ -28,15 +83,25 @@
 
 <p>系统参数<code>CHATAD</code>，需要配置chat的服务地址，比如：<a href="http://192.168.2.80:8080/WebChat" target="_blank">http://192.168.2.80:8080/WebChat</a></p>
 
+
+
+<h4 id="efsadd-ngs-中配置的ewcfront地址"><code>EFSADD</code> ngs 中配置的EWCFront地址</h4>
+
+<p>在还没有使用mongodb作为公共缓存方式时候，没有真正意义上的负载均衡，那时候是通过一个前置服务EWCFront，每次请求webchat之前，通过这个服务的一个接口，获取到一个正真可用的webchat地址，而这个系统参数，就是用来配置这个EWCFront服务的地址的（现在版本都已经不使用这个了）</p>
+
+
+
 <h4 id="ctacsd-ngs-chat插件关闭会话时候是否发出事件"><code>CTACSD</code> ngs chat插件关闭会话时候是否发出事件</h4>
 
 <p>引入系统参数<code>CTACSD</code>，配置成0时候，在chat界面关闭聊天时候，会发出事件，而不是直接关闭</p>
+
+
 
 <pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">//注册会话需要关闭事件</span><br>$project.events.register($CONST.ChatEvent.CHAT_SESSION_NEED_CLOSE, <span class="hljs-string">'dynPage'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)</span>{<br>    <span class="hljs-keyword">var</span> sessionId = data.sessionId;<br>    <span class="hljs-comment">//自己的逻辑判断，这个会话是不是可以关闭，如果可以，</span><br>    <span class="hljs-comment">//就调用关闭的命令：project.events.notify(window.$CONST.ChatEvent.CLOSE_SESSION, {sessionId: 111});</span><br>    <span class="hljs-comment">//如果不可以，就给出提示，让用户先去做小结。 </span><br>});<br></code></pre>
 
 
 
-<h4 id="chttag-客户标签表名"><code>CHTTAG</code> 客户标签表名</h4>
+<h4 id="chttag-ngs-chat插件中-客户标签表名"><code>CHTTAG</code> ngs chat插件中 客户标签表名</h4>
 
 <p>ngs的chat插件添加客户标签的支持，引入系统参数<code>CHTTAG</code> 配置为对应tag表的表名，当配置了此参数，就会去读取相关tag信息。</p>
 
@@ -48,7 +113,7 @@
 
 
 
-<h4 id="cacren-是否开启客户评级"><code>CACREN</code> 是否开启客户评级</h4>
+<h4 id="cacren-ngs-chat插件中是否开启客户评级"><code>CACREN</code> ngs chat插件中是否开启客户评级</h4>
 
 
 
@@ -113,6 +178,8 @@ h5动态页面中P-240命令组新增参数ACTION，根据不同ACTION来做不�
 <li><strong>blacklistValidityElasped</strong>表示加入chat_ip_blacklist的有效期持续多久，默认是1小时，单位是秒，-1表示永久</li>
 </ul>
 
+
+
 <h4 id="chslsc-显示历史会话内容数"><code>CHSLSC</code> 显示历史会话内容数</h4>
 
 <p>引入系统参数<code>CHSLSC</code>(chat show last session count)，配置一个大于0的数字，在新请求进入时候，会查询进入的客户对应的历史会话内容，显示对应个数的会话。</p>
@@ -123,9 +190,33 @@ h5动态页面中P-240命令组新增参数ACTION，根据不同ACTION来做不�
 
 <p>引入系统参数<code>CHAHAT</code>，配置成0，表示坐席端聊天页面顶部logo条隐藏。</p>
 
+
+
 <h4 id="chatlt-坐席端显示布局类型"><code>CHATLT</code> 坐席端显示布局类型</h4>
 
-<p>引入系统参数<code>CHATLT</code>（chat layout type）,不再需要手动去修改agentScript.js上的_layoutType参数了。</p></div></body>
+<p>引入系统参数<code>CHATLT</code>（chat layout type）,不再需要手动去修改agentScript.js上的_layoutType参数了。</p>
+
+
+
+<h3 id="2-那些公共使用的系统参数">2. 那些公共使用的系统参数</h3>
+
+
+
+<h4 id="logdes-des加密时候的秘钥"><code>LOGDES</code> DES加密时候的秘钥</h4>
+
+<p>登录验证时候，如果面使用的DES加密，则相关秘钥就存在<code>LOGDES</code>系统参数中。</p>
+
+
+
+<h4 id="lognam-登录使用staff的agentid还是loginname"><code>LOGNAM</code> 登录使用staff的agent_id还是loginname</h4>
+
+<p>和所有其他服务一样，通过此参数来决定staff登录时候用agent_id字段还是loginname字段来作为登录名。</p>
+
+
+
+<h4 id="kmrurl-知识库服务地址"><code>KMRURL</code> 知识库服务地址</h4>
+
+<p>这个在配置文件中有kmURL的配置项，用来配置知识库的地址。而<code>KMRURL</code>也是配置的知识库地址，优先级高于配置文件中的。</p></div></body>
 <script>
 var _hmt = _hmt || [];
 (function() {
