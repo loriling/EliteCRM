@@ -11,12 +11,14 @@
 <li><a href="#webchat-帮助文档">WebChat 帮助文档</a><ul>
 <li><a href="#一-webchat中涉及到的系统参数">一. WebChat中涉及到的系统参数</a><ul>
 <li><a href="#1-webchat中独有的系统参数">1. WebChat中独有的系统参数</a><ul>
+<li><a href="#chaton-ngs-chat插件中是否显示客户的来源类型">CHATON ngs chat插件中是否显示客户的来源类型</a></li>
+<li><a href="#chaecs-ngs-chat插件是否与软电话互斥">CHAECS ngs chat插件是否与软电话互斥</a></li>
 <li><a href="#chasem-是否使用emoji表情">CHASEM 是否使用EMOJI表情</a></li>
 <li><a href="#chtsty-ngs-chat插件界面样式">CHTSTY ngs chat插件界面样式</a></li>
 <li><a href="#chassb-ngs-chat插件是否在聊天界面上直接显示转接相关按钮">CHASSB  ngs chat插件是否在聊天界面上直接显示转接相关按钮</a></li>
 <li><a href="#swaprl-ngs-chat插件左右布局位置">SWAPRL ngs chat插件左右布局位置</a></li>
 <li><a href="#chatad-ngs-chat插件访问webchat服务的地址">CHATAD ngs chat插件访问webchat服务的地址</a></li>
-<li><a href="#efsadd-ngs-中配置的ewcfront地址">EFSADD ngs 中配置的EWCFront地址</a></li>
+<li><a href="#efsadd-ngs-chat插件中配置的ewcfront地址">EFSADD ngs chat插件中配置的EWCFront地址</a></li>
 <li><a href="#ctacsd-ngs-chat插件关闭会话时候是否发出事件">CTACSD ngs chat插件关闭会话时候是否发出事件</a></li>
 <li><a href="#chttag-ngs-chat插件中-客户标签表名">CHTTAG ngs chat插件中 客户标签表名</a></li>
 <li><a href="#cacren-ngs-chat插件中是否开启客户评级">CACREN ngs chat插件中是否开启客户评级</a></li>
@@ -55,6 +57,23 @@
 
 
 
+<h4 id="chaton-ngs-chat插件中是否显示客户的来源类型"><code>CHATON</code> ngs chat插件中是否显示客户的来源类型</h4>
+
+<p>引入系统参数<code>CHATON</code>(chat show type on name)，配置为1时候会显示客户来源类型(微信，手机，APP，还是PC，PC默认就不显示)。</p>
+
+
+
+<h4 id="chaecs-ngs-chat插件是否与软电话互斥"><code>CHAECS</code> ngs chat插件是否与软电话互斥</h4>
+
+<p>引入系统参数<code>CHAECS</code>(chat exclusion)，如果配置为1，表示chat和softphone不能同时为准备好状态。 <br>
+这个配置包括了：</p>
+
+<ol><li rel="1">当chat登录并且准备好时候，软电话点击登录按钮，会提示不能登录。</li>
+<li rel="2">当chat登录并且准备好时候，如果软电话登录且为未准备好，这时候点击准备好按钮提示错误，不能准备好。</li>
+<li rel="3">当softphone登录且状态为准备好时候，点击打开chat，提示不能打开chat。</li>
+<li rel="4">当softphone登录且状态为准备好时候，如果这个时候chat为未准备好状态，点击切换到准备状态时候报错，不让起切换到准备好。</li>
+</ol>
+
 <h4 id="chasem-是否使用emoji表情"><code>CHASEM</code> 是否使用EMOJI表情</h4>
 
 <p>引入系统参数<code>CHASEM</code>，配置为1时候，使用标准emoji作为表情包，默认时候用的qq表情包，当于rongcloud集成时候，客户端只提供了标准emoji的表情包，因此坐席端为了适配，也提供了相应的标准emoji表情。</p>
@@ -64,8 +83,6 @@
 <h4 id="chtsty-ngs-chat插件界面样式"><code>CHTSTY</code> ngs chat插件界面样式</h4>
 
 <p>引入系统参数<code>CHTSTY</code>(chat style)，表示使用的ngs中chat插件的样式，不配置就是默认，除了默认现在还支持一种样式:chat-white</p>
-
-
 
 <h4 id="chassb-ngs-chat插件是否在聊天界面上直接显示转接相关按钮"><code>CHASSB</code>  ngs chat插件是否在聊天界面上直接显示转接相关按钮</h4>
 
@@ -85,11 +102,9 @@
 
 
 
-<h4 id="efsadd-ngs-中配置的ewcfront地址"><code>EFSADD</code> ngs 中配置的EWCFront地址</h4>
+<h4 id="efsadd-ngs-chat插件中配置的ewcfront地址"><code>EFSADD</code> ngs chat插件中配置的EWCFront地址</h4>
 
 <p>在还没有使用mongodb作为公共缓存方式时候，没有真正意义上的负载均衡，那时候是通过一个前置服务EWCFront，每次请求webchat之前，通过这个服务的一个接口，获取到一个正真可用的webchat地址，而这个系统参数，就是用来配置这个EWCFront服务的地址的（现在版本都已经不使用这个了）</p>
-
-
 
 <h4 id="ctacsd-ngs-chat插件关闭会话时候是否发出事件"><code>CTACSD</code> ngs chat插件关闭会话时候是否发出事件</h4>
 
