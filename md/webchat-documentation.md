@@ -1,6 +1,22 @@
 #WebChat 帮助文档
 
-###一. WebChat中涉及到的系统参数
+[TOC]
+
+##一. WebChat中涉及到的系统参数
+
+###1. WebChat中独有的系统参数
+
+####`CHATON` ngs chat插件中是否显示客户的来源类型
+引入系统参数`CHATON`(chat show type on name)，配置为1时候会显示客户来源类型(微信，手机，APP，还是PC，PC默认就不显示)。
+
+####`CHAECS` ngs chat插件是否与软电话互斥
+引入系统参数`CHAECS`(chat exclusion)，如果配置为1，表示chat和softphone不能同时为准备好状态。
+这个配置包括了：
+1. 当chat登录并且准备好时候，软电话点击登录按钮，会提示不能登录。
+2. 当chat登录并且准备好时候，如果软电话登录且为未准备好，这时候点击准备好按钮提示错误，不能准备好。
+3. 当softphone登录且状态为准备好时候，点击打开chat，提示不能打开chat。
+4. 当softphone登录且状态为准备好时候，如果这个时候chat为未准备好状态，点击切换到准备状态时候报错，不让起切换到准备好。
+
 
 ####`CHASEM` 是否使用EMOJI表情
 引入系统参数`CHASEM`，配置为1时候，使用标准emoji作为表情包，默认时候用的qq表情包，当于rongcloud集成时候，客户端只提供了标准emoji的表情包，因此坐席端为了适配，也提供了相应的标准emoji表情。
@@ -8,11 +24,17 @@
 ####`CHTSTY` ngs chat插件界面样式
 引入系统参数`CHTSTY`(chat style)，表示使用的ngs中chat插件的样式，不配置就是默认，除了默认现在还支持一种样式:chat-white
 
+####`CHASSB`  ngs chat插件是否在聊天界面上直接显示转接相关按钮
+引入系统参数`CHASSB`(chat show session buttons)配置成1时候，聊天面板右上角会鲜明的显示出"会议","转接","转接组"三个按钮
+
 ####`SWAPRL` ngs chat插件左右布局位置
 引入系统参数`SWAPRL`，配置为1时候可以让左侧动态页面区域和右侧chat区域互换位置。
 
 ####`CHATAD` ngs chat插件访问webchat服务的地址
 系统参数`CHATAD`，需要配置chat的服务地址，比如：http://192.168.2.80:8080/WebChat
+
+####`EFSADD` ngs chat插件中配置的EWCFront地址
+在还没有使用mongodb作为公共缓存方式时候，没有真正意义上的负载均衡，那时候是通过一个前置服务EWCFront，每次请求webchat之前，通过这个服务的一个接口，获取到一个正真可用的webchat地址，而这个系统参数，就是用来配置这个EWCFront服务的地址的（现在版本都已经不使用这个了）
 
 ####`CTACSD` ngs chat插件关闭会话时候是否发出事件
 引入系统参数`CTACSD`，配置成0时候，在chat界面关闭聊天时候，会发出事件，而不是直接关闭
@@ -26,14 +48,14 @@ $project.events.register($CONST.ChatEvent.CHAT_SESSION_NEED_CLOSE, 'dynPage', fu
 });
 ```
 
-####`CHTTAG` 客户标签表名
+####`CHTTAG` ngs chat插件中 客户标签表名
 ngs的chat插件添加客户标签的支持，引入系统参数`CHTTAG` 配置为对应tag表的表名，当配置了此参数，就会去读取相关tag信息。
 ``` sql
 select lt.labelid, lt.labelcomment, lt.labelbgcolor, lt.labelcolor from " + tagTableName + "${epid} l left join customerlabeltype${epid} lt on l.relation_labelid = lt.labelid where l.relation_guid = ?
 ```
 根据这句sql查询出对应的标签用来显示
 
-####`CACREN` 是否开启客户评级
+####`CACREN` ngs chat插件中是否开启客户评级
 ``` sql
 dbpatch: alter table customer add webchat_rating float;
 ```
@@ -92,4 +114,16 @@ dbpatch:
 
 ####`CHATLT` 坐席端显示布局类型
 引入系统参数`CHATLT`（chat layout type）,不再需要手动去修改agentScript.js上的_layoutType参数了。
+
+
+### 2. 那些公共使用的系统参数
+
+####`LOGDES` DES加密时候的秘钥
+登录验证时候，如果面使用的DES加密，则相关秘钥就存在`LOGDES`系统参数中。
+
+####`LOGNAM` 登录使用staff的agent_id还是loginname
+和所有其他服务一样，通过此参数来决定staff登录时候用agent_id字段还是loginname字段来作为登录名。
+
+####`KMRURL` 知识库服务地址
+这个在配置文件中有kmURL的配置项，用来配置知识库的地址。而`KMRURL`也是配置的知识库地址，优先级高于配置文件中的。
 
