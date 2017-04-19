@@ -24,6 +24,14 @@ commonCall是软电话的一个非常重要且通用的方法，通常为了不�
 <pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">//通过commonCall来调用setevent，给当前event赋值</span><br><span class="hljs-keyword">var</span> param = <span class="hljs-string">"customer_guid="</span> + R.temp.cust_customer_guid + <span class="hljs-string">"|event_guid="</span> + R.temp.event_guid;<br>$softphone.simpleCommonCall(<span class="hljs-string">'setevent'</span>, <span class="hljs-string">'param'</span>);<br><br><span class="hljs-comment">//通过commonCall来通知软电话项目改变</span><br>$softphone.simpleCommonCall(<span class="hljs-string">'changeproject'</span>, <span class="hljs-string">'ProjectId=gzl111'</span>);<br><br><span class="hljs-comment">//通过commonCall发起转ivr, 从项目上抄来，仅供参考，具体写法可能根据CTI不同或者其他什么不同，要咨询jeff</span><br>$softphone.simpleCommonCall(<span class="hljs-string">'ConferenceIVR'</span>, <span class="hljs-string">'Dest=7006|nodeCode=1001|idNo=[Temp.CUST_CUSTOMERID]'</span>);<br><br><span class="hljs-comment">//通过commonCall重置作息技能队列。</span><br><span class="hljs-comment">//从项目上抄来，仅供参考，具体可以咨询jeff或max</span><br>$softphone.simpleCommonCall(<span class="hljs-string">'CTICommonCall'</span>, <span class="hljs-string">'CTICallName=RESETAGENTSKILL|AgentID=[Temp.agent_id]|AgentGroup=[Temp.skill_end]|Permanent=0'</span>);<br></code></pre>
 
 <ul><li><strong>getCallInfo</strong> -  获取callInfo</li>
+<strong>callState包括：</strong> <br>
+//    ECT_UNKNOWN: 0, <br>
+//    ECT_RINGING: 1, <br>
+//    ECT_TALKING: 2, <br>
+//    ECT_HOLD: 3, <br>
+//    ECT_DIALING: 4, <br>
+//    ECT_TALKINGHOLD: 32, <br>
+//    ECT_DIALINGHOLD: 34 <br>
 </ul>
 
 
