@@ -205,6 +205,22 @@
 >         message: "success"
 >     }
 
+- 客户改变请求
+>     http://xxxxx/EliteWebChat/tpi
+>     发送参数:
+>     {
+>         type: 5002,//客户改变的消息类型
+>         sessionId: 1299,//会话id
+>         clientId: "xxxxxxxxxx"//改变后客户的id
+>     }
+>     返回参数:
+>     {
+>         result: 1,
+>         message: "success",
+>         clientId: "xxxxxxxxxx",
+>         sessionId: 1299
+>     }
+
 ## 二. 请求代码与相应结果代码 ##
 - request中的type
 >      CHAT_REQUEST = 1000;

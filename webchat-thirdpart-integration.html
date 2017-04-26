@@ -289,17 +289,24 @@ img {
   max-width: 100%
 }
 </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?99f0858c7fc5b9df4dde5e0d76b6af1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 </head>
 <body>
-<h1>WebChat第三方客户端接入说明</h1>
+<h1 id="webchat-">WebChat第三方客户端接入说明</h1>
 <p>10/24/2016 10:30:30 AM </p>
-<h3>EliteWebChat提供整套从客服端到客户端的界面与展示解决方案，同时也可以支持与第三方客户端的对接。其中成功案例就有与小米的米聊对接，与livebot的微信服务对接等。</h3>
-<h2>一. http对接接口说明</h2>
-<p>接口才用http协议，包括了webchat端提供的接口与第三方提供的接口，数据传输使用json格式。
-下面从模拟整个聊天过程的方式来介绍这些接口：</p>
+<h3 id="elitewebchat-livebot-">EliteWebChat提供整套从客服端到客户端的界面与展示解决方案，同时也可以支持与第三方客户端的对接。其中成功案例就有与小米的米聊对接，与livebot的微信服务对接等。</h3>
+<h2 id="-http-">一. http对接接口说明</h2>
+<p>接口才用http协议，包括了webchat端提供的接口与第三方提供的接口，数据传输使用json格式。<br>下面从模拟整个聊天过程的方式来介绍这些接口：</p>
 <ul>
-<li>客户从网页或者微信端发出聊天请求： </li>
-</ul>
+<li><p>客户从网页或者微信端发出聊天请求： </p>
 <blockquote>
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数：
@@ -319,13 +326,10 @@ img {
     requestId: 103, //请求id号，如果发起请求成功，就会返回这个id
     queueLength: 3, //队列长度
     continueLastSession: false//是不是继续上一次的会话，（可选）如果有且为true，表示这个请求是继续之前一个会话的，可能是之前那个会话没有正确的关闭掉造成的
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>更新聊天排队情况： </li>
-</ul>
+</li>
+<li><p>更新聊天排队情况： </p>
 <blockquote>
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数：
@@ -339,32 +343,26 @@ img {
     message: &quot;success&quot;,//成功或失败的消息
     requestStatus: 1,//请求状态，具体状态码看下方说明（三. 聊天请求状态码）
     queueLength: 2//当前排队长度
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户在排队中，就想发起消息，如果排队排上，之前的消息就会一起一次性发送给对应坐席： </li>
-</ul>
+</li>
+<li><p>客户在排队中，就想发起消息，如果排队排上，之前的消息就会一起一次性发送给对应坐席： </p>
 <blockquote>
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数：
 {
     type: 2005,//发送预消息
     requestId: 103,//请求id（发起聊天请求成功后会返回这个id）
-    text: 'xxxxxx'
+    text: &#39;xxxxxx&#39;
 }
 返回参数：
 {
     result: 1,//请求发送成功（1）或失败（0）
     message: &quot;success&quot;//成功或失败的消息
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户排队时间过长，想取消排队： </li>
-</ul>
+</li>
+<li><p>客户排队时间过长，想取消排队： </p>
 <blockquote>
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数：
@@ -376,13 +374,10 @@ img {
 {
     result: 1,//请求发送成功（1）或失败（0）
     message: &quot;success&quot;//成功或失败的消息
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li><div style="color:#0086b3">webchat端路由请求到某个客服后，创建出聊天会话，通知第三方可以开始聊天了</div></li>
-</ul>
+</li>
+<li><p><div style="color:#0086b3">webchat端路由请求到某个客服后，创建出聊天会话，通知第三方可以开始聊天了</div></p>
 <blockquote>
 <pre><code>http://xxxxx/ThirdPartService/create
 发送参数：
@@ -392,11 +387,11 @@ img {
     agentId:&quot;SELITE&quot;,
     agentName:&quot;Elite&quot;, //坐席昵称(webchat_alias)
     agent: {
-          id: &quot;SELITE&quot;,
-          name: &quot;Elite&quot;, //坐席昵称(webchat_alias)
-          alias: &quot;坐席A&quot;, //坐席别名(staffname)
-          icon: &quot;http://xxxx/xxx/xx.png&quot;, //坐席头像url
-          commonts: &quot;备注信息&quot; //备注信息
+        id: &quot;SELITE&quot;,
+        name: &quot;Elite&quot;, //坐席昵称(webchat_alias)
+        alias: &quot;坐席A&quot;, //坐席别名(staffname)
+        icon: &quot;http://xxxx/xxx/xx.png&quot;, //坐席头像url
+        commonts: &quot;备注信息&quot; //备注信息
     },
     clientId:&quot;xxxxxxxxx&quot;,
     sessionId: 1299,
@@ -406,13 +401,10 @@ img {
 {
     result:1,
     message:&quot;success&quot;
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户发送文本消息给客服</li>
-</ul>
+</li>
+<li><p>客户发送文本消息给客服</p>
 <blockquote>
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -427,13 +419,10 @@ img {
 {
     result: 1,
     message: &quot;&quot;
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户发送图片消息给客服</li>
-</ul>
+</li>
+<li><p>客户发送图片消息给客服</p>
 <blockquote>
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -449,13 +438,10 @@ img {
 {
     result: 1,
     message: &quot;&quot;
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li><div style="color:#0086b3">客服发送消息给客户</div></li>
-</ul>
+</li>
+<li><p><div style="color:#0086b3">客服发送消息给客户</div></p>
 <blockquote>
 <pre><code>http://xxxxx/ThirdPartService/msg
 {
@@ -473,32 +459,26 @@ img {
 {
     result: 1,
     message: &quot;success&quot;
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li><div style="color:#0086b3">客服推送满意度给客户</div></li>
-</ul>
+</li>
+<li><p><div style="color:#0086b3">客服推送满意度给客户</div></p>
 <blockquote>
 <pre><code>http://xxxxx/ThirdPartService/pushRating
 发送参数:
 {
     sessionId: 1299,
-    agentId: 'SELITE',
-    clientId: 'xxxxxxxxxx'//（备用，可能不传）
+    agentId: &#39;SELITE&#39;,
+    clientId: &#39;xxxxxxxxxx&#39;//（备用，可能不传）
 }
 返回参数:
 {
     result: 1,
     message: &quot;success&quot;
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户结束聊天</li>
-</ul>
+</li>
+<li><p>客户结束聊天</p>
 <blockquote>
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -511,33 +491,27 @@ img {
 {
     result:1,
     message:&quot;&quot;
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li><div style="color:#0086b3">客服关闭聊天会话</div></li>
-</ul>
+</li>
+<li><p><div style="color:#0086b3">客服关闭聊天会话</div></p>
 <blockquote>
 <pre><code>http://xxxxx/ThirdPartService/close
 发送参数:
 {
     sessionId: 1299,
-    agentId: 'SELITE',
-    clientId: 'xxxxxxxxxx',//（备用，可能不传）
+    agentId: &#39;SELITE&#39;,
+    clientId: &#39;xxxxxxxxxx&#39;,//（备用，可能不传）
     time: 1400913830109
 }
 返回参数:
 {
     result: 1,
     message: &quot;success&quot;
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户发出满意度评价请求</li>
-</ul>
+</li>
+<li><p>客户发出满意度评价请求</p>
 <blockquote>
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -551,14 +525,31 @@ img {
 {
     result: 1,
     message: &quot;success&quot;
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<h2>二. 请求代码与相应结果代码</h2>
-<ul>
-<li>request中的type</li>
+</li>
+<li><p>客户改变请求</p>
+<blockquote>
+<pre><code>http://xxxxx/EliteWebChat/tpi
+发送参数:
+{
+    type: 5002,//客户改变的消息类型
+    sessionId: 1299,//会话id
+    clientId: &quot;xxxxxxxxxx&quot;//改变后客户的id
+}
+返回参数:
+{
+    result: 1,
+    message: &quot;success&quot;,
+    clientId: &quot;xxxxxxxxxx&quot;,
+    sessionId: 1299
+}</code></pre>
+</blockquote>
+</li>
 </ul>
+<h2 id="-">二. 请求代码与相应结果代码</h2>
+<ul>
+<li><p>request中的type</p>
 <blockquote>
 <pre><code> CHAT_REQUEST = 1000;
  CHAT_REQUEST_STATE_UPDATE = 1001;
@@ -567,13 +558,10 @@ img {
  MSG_IMG_REQUEST = 2002;
  PRE_MSG_REQUEST = 2005
  CLOSE_REQUEST = 4001;
- RATING_REQUEST = 5001;
-</code></pre>
-
+ RATING_REQUEST = 5001;</code></pre>
 </blockquote>
-<ul>
-<li>response中的result</li>
-</ul>
+</li>
+<li><p>response中的result</p>
 <blockquote>
 <pre><code> SUCCESS = 1;
  REQUEST_ALREADY_IN_ROULTING = -1;
@@ -587,11 +575,11 @@ img {
  INVAILD_TO_USER_ID = -9;
  INVAILD_CHAT_REQUEST_ID = -10;
  INVAILD_CHAT_SESSION_ID = -11;
- INTERNAL_ERROR = -100;
-</code></pre>
-
+ INTERNAL_ERROR = -100;</code></pre>
 </blockquote>
-<h2>三. 聊天请求状态码</h2>
+</li>
+</ul>
+<h2 id="-">三. 聊天请求状态码</h2>
 <blockquote>
 <pre><code> WAITING = 0;
  ACCEPTED = 1;
@@ -601,14 +589,11 @@ img {
  NO_AGENT_ONLINE = 5;
  OFF_HOUR = 6;
  CANCELED_BY_CLIENT = 7;
- ENTERPRISE_WECHAT_ACCEPTED = 11;
-</code></pre>
-
+ ENTERPRISE_WECHAT_ACCEPTED = 11;</code></pre>
 </blockquote>
-<h2>四. 消息体中表情的定义</h2>
+<h2 id="-">四. 消息体中表情的定义</h2>
 <blockquote>
-<p>聊天消息中支持发送表情，比如，发送/::)，就表示微笑，一共支持如下105个表情，包括发送和接受都应该按这个规则来处理表情。
-如果需要支持自定义表情，则只能通过&lt;img src='自定义表情.gif'&gt;方式来发送。</p>
+<p>聊天消息中支持发送表情，比如，发送/::)，就表示微笑，一共支持如下105个表情，包括发送和接受都应该按这个规则来处理表情。<br>如果需要支持自定义表情，则只能通过&lt;img src=&#39;自定义表情.gif&#39;&gt;方式来发送。</p>
 </blockquote>
 <pre><code>  0 : &quot;/::)&quot;, // 微笑
   1 : &quot;/::~&quot;, // 撇嘴
@@ -619,7 +604,7 @@ img {
   6 : &quot;/::$&quot;, // 害羞
   7 : &quot;/::X&quot;, // 闭嘴
   8 : &quot;/::Z&quot;, // 睡
-  9 : &quot;/::'(&quot;, // 大哭
+  9 : &quot;/::&#39;(&quot;, // 大哭
   10 : &quot;/::-|&quot;, // 尴尬
   11 : &quot;/::@&quot;, // 发怒
   12 :&quot;/::P&quot;, // 调皮
@@ -660,7 +645,7 @@ img {
   47 : &quot;/::-O&quot;, // 哈欠
   48 : &quot;/:&gt;-|&quot;, // 鄙视
   49 : &quot;/:P-(&quot;, // 委屈
-  50 : &quot;/::'|&quot;, // 快哭了
+  50 : &quot;/::&#39;|&quot;, // 快哭了
   51 : &quot;/:X-)&quot;, // 阴险
   52 : &quot;/::*&quot;, // 亲亲
   53 : &quot;/:@x&quot;, // 吓
@@ -714,19 +699,8 @@ img {
   101 : &quot;/:hiphot&quot;, // 乱舞
   102 : &quot;/:kiss&quot;, // 献吻
   103 : &quot;/:&lt;&amp;&quot;, // 左太极
-  104 : &quot;/:&amp;&gt;&quot; // 右太极
-</code></pre>
-
+  104 : &quot;/:&amp;&gt;&quot; // 右太极</code></pre>
 
 </body>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?99f0858c7fc5b9df4dde5e0d76b6af1c";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 </html>
 <!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
