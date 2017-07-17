@@ -301,6 +301,54 @@ var _hmt = _hmt || [];
 </head>
 <body>
 <h1 id="elasticsearch-ngs-">ElasticSearch在NGS中的使用</h1>
+<h2 id="-elasticsearch-">一. 安装elasticsearch服务</h2>
+<p>所有需要的文件，dev的ftp中都可以下载到</p>
+<h3 id="1-elasticsearch-https-www-elastic-co-downloads-elasticsearch-elasticsearch-5-5-0-">1. 先下载elasticsearch服务：<a href="https://www.elastic.co/downloads/elasticsearch">https://www.elastic.co/downloads/elasticsearch</a> （就写此文档的时候，elasticsearch服务版本为5.5.0）</h3>
+<p>解压后，配置 config/elasticsearch.yml<br>在文件最后添加如下配置，用来支持http-restful接口的跨域请求</p>
+<pre><code>http.cors.enabled: true
+http.cors.allow-origin: &quot;*&quot;</code></pre>
+<p>通过bin/elasticsearch.bat （linux为elasticsearch.sh）启动服务。</p>
+<h3 id="2-ik-analyzer-https-github-com-medcl-elasticsearch-analysis-ik">2. 下载ik-analyzer：<a href="https://github.com/medcl/elasticsearch-analysis-ik">https://github.com/medcl/elasticsearch-analysis-ik</a></h3>
+<p>找到elasticsearch/plugins目录，在这个目录下创建ik目录，然后把下载的ik-analyzer相关文件解压到此目录中<br>重启elasticsearch服务即可起效。</p>
+<h3 id="3-elasticsearch-">3. elasticsearch集群部署</h3>
+<p>如果需要集群部署，就需要修改 config/elasticsearch.yml</p>
+<pre><code># ---------------------------------- Cluster -----------------------------------
+#
+# Use a descriptive name for your cluster:
+#
+cluster.name: elite-application
+#
+# ------------------------------------ Node ------------------------------------
+#
+# Use a descriptive name for the node:
+#
+node.name: node-1
+# ---------------------------------- Network -----------------------------------
+#
+# Set the bind address to a specific IP (IPv4 or IPv6):
+#
+#network.host: 192.168.0.1
+#
+# Set a custom port for HTTP:
+#
+http.port: 9200
+transport.tcp.port: 9300
+# --------------------------------- Discovery ----------------------------------
+#
+# Pass an initial list of hosts to perform discovery when new node is started:
+# The default list of hosts is [&quot;127.0.0.1&quot;, &quot;[::1]&quot;]
+#
+discovery.zen.ping.unicast.hosts: [&quot;127.0.0.1:9300&quot;, &quot;127.0.0.1:9301&quot;]</code></pre>
+<p><strong>cluster.name</strong> 需要两台一致，表示这两台是一个集群中的<br><strong>node.name</strong> 需要两台不同，分别表示自己节点的名称<br><strong>http.port和transport.tcp.port</strong> 如果需要修改，可以自己修改，http.port表示http的restful接口的端口，transport.tcp.port表示集群间tcp通讯的端口<br><strong>discovery.zen.ping.unicast.hosts</strong> 这个配置的就是每个节点对应的ip地址和transport.tcp.port的地址，告知集群中一共有哪几个节点</p>
+<h3 id="4-elasticsearch-head-elasticsearch-">4. 通过elasticsearch-head来监控与管理elasticsearch集群</h3>
+<p>需要有安装node，解压相关文件，然后按如下步骤打开即可</p>
+<ul>
+<li>cd elasticsearch-head</li>
+<li>npm install</li>
+<li>npm run start</li>
+<li>open <a href="http://localhost:9100/">http://localhost:9100/</a></li>
+</ul>
+<h2 id="-">二. 客户端配置与使用</h2>
 <p>引入系统参数ELASEA，配置成elasticsearch服务的创建config json字符串比如：{&quot;hosts&quot;:&quot;139.196.108.236:9200&quot;,&quot;log&quot;:&quot;trace&quot;}<br>这样就表示启用elasticsearch服务，客户端就会去加载相关js文件<br>通过：<strong>$E.getActiveProject().esc</strong> 就可以获取到当前elasticsearchclient对象，该对象包括如下方法：</p>
 <p>1.查询方法</p>
 <pre><code>/**

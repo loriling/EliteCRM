@@ -1,5 +1,69 @@
 #ElasticSearch在NGS中的使用
 
+## 一. 安装elasticsearch服务
+###1. 先下载elasticsearch服务：https://www.elastic.co/downloads/elasticsearch （就写此文档的时候，elasticsearch服务版本为5.5.0）
+解压后，配置 config/elasticsearch.yml
+在文件最后添加如下配置，用来支持http-restful接口的跨域请求
+
+	http.cors.enabled: true
+	http.cors.allow-origin: "*"
+
+通过bin/elasticsearch.bat （linux为elasticsearch.sh）启动服务。
+
+
+
+###2. 下载ik-analyzer：https://github.com/medcl/elasticsearch-analysis-ik
+
+找到elasticsearch/plugins目录，在这个目录下创建ik目录，然后把下载的ik-analyzer相关文件解压到此目录中
+重启elasticsearch服务即可起效。
+
+###3. elasticsearch集群部署
+如果需要集群部署，就需要修改 config/elasticsearch.yml
+
+	# ---------------------------------- Cluster -----------------------------------
+	#
+	# Use a descriptive name for your cluster:
+	#
+	cluster.name: elite-application
+	#
+	# ------------------------------------ Node ------------------------------------
+	#
+	# Use a descriptive name for the node:
+	#
+	node.name: node-1
+	# ---------------------------------- Network -----------------------------------
+	#
+	# Set the bind address to a specific IP (IPv4 or IPv6):
+	#
+	#network.host: 192.168.0.1
+	#
+	# Set a custom port for HTTP:
+	#
+	http.port: 9200
+	transport.tcp.port: 9300
+	# --------------------------------- Discovery ----------------------------------
+	#
+	# Pass an initial list of hosts to perform discovery when new node is started:
+	# The default list of hosts is ["127.0.0.1", "[::1]"]
+	#
+	discovery.zen.ping.unicast.hosts: ["127.0.0.1:9300", "127.0.0.1:9301"]
+
+**cluster.name** 需要两台一致，表示这两台是一个集群中的
+**node.name** 需要两台不同，分别表示自己节点的名称
+**http.port和transport.tcp.port** 如果需要修改，可以自己修改，http.port表示http的restful接口的端口，transport.tcp.port表示集群间tcp通讯的端口
+**discovery.zen.ping.unicast.hosts** 这个配置的就是每个节点对应的ip地址和transport.tcp.port的地址，告知集群中一共有哪几个节点
+
+###4. 通过elasticsearch-head来监控与管理elasticsearch集群
+需要有安装node，解压相关文件，然后按如下步骤打开即可
+- cd elasticsearch-head
+- npm install
+- npm run start
+- open http://localhost:9100/
+
+
+
+
+## 二. 客户端配置与使用
 引入系统参数ELASEA，配置成elasticsearch服务的创建config json字符串比如：{"hosts":"139.196.108.236:9200","log":"trace"}
 这样就表示启用elasticsearch服务，客户端就会去加载相关js文件
 通过：**$E.getActiveProject().esc** 就可以获取到当前elasticsearchclient对象，该对象包括如下方法：
