@@ -1,6 +1,8 @@
 #ElasticSearch在NGS中的使用
 
 ## 一. 安装elasticsearch服务
+所有需要的文件，dev的ftp中都可以下载到
+
 ###1. 先下载elasticsearch服务：https://www.elastic.co/downloads/elasticsearch （就写此文档的时候，elasticsearch服务版本为5.5.0）
 解压后，配置 config/elasticsearch.yml
 在文件最后添加如下配置，用来支持http-restful接口的跨域请求
@@ -60,15 +62,56 @@
 - npm run start
 - open http://localhost:9100/
 
+###5. 通过http接口创建一些索引和一些映射 （可选配置）
+在使用之前，我们可能需要先创建索引，并对某些字段设置mapping。如果这里不直接通过restful接口配置，则需要后面在浏览器里调用js方法去配置
+
+	//创建一个名字为chat的index，并且设置了mappings，type为1的里面，属性是content时候，使用ik_max_word这个分词器
+	//可以通过fiddler或者postman工具，发出一个put请求，内容如下示例
+	PUT http://139.196.108.236:9200/chat
+	body为：
+	{
+	  "mappings": {
+	    "1": {
+	      "properties": {
+	        "content": {
+	          "type":     "text",
+	          "analyzer": "ik_max_word"
+	        }
+	      }
+	    }
+	  }
+	}
 
 
+## 二. 客户端配置与使用 
 
-## 二. 客户端配置与使用
 引入系统参数ELASEA，配置成elasticsearch服务的创建config json字符串比如：{"hosts":"139.196.108.236:9200","log":"trace"}
 这样就表示启用elasticsearch服务，客户端就会去加载相关js文件
 通过：**$E.getActiveProject().esc** 就可以获取到当前elasticsearchclient对象，该对象包括如下方法：
 
-1.查询方法
+1.创建索引和mapping
+
+	//创建一个叫做chat的索引，并配置type为1中字段是content的类型是text，且analyzer是ik的分词器
+	//这个只需要创建一次，第一次创建完了之后就可以使用了，可以自己在chrome的console执行以下
+	$E.getActiveProject().esc.client.indices.create({
+		index: "chat",
+		body: {
+			"mappings": {
+				"1":{
+					"properties": {
+						"content": {
+							"type" : "text", 
+							"analyzer" : "ik_max_word"
+						}
+					}
+				}
+			}
+		}
+	});
+
+
+
+2.查询方法
 
 	/**
 	 * 根据内容检索
@@ -98,7 +141,7 @@
 
 
 
-2.创建或者更新索引方法
+3.创建或者更新索引方法
 
 	/**
 	 * 对内容做索引，创建或者更新
@@ -110,7 +153,7 @@
 	 */
 	index : function (id, content, callback, index, type)
 
-3.删除索引方法
+4.删除索引方法
 
 	/**
 	 * 删除索引
@@ -121,7 +164,7 @@
 	 */
 	deleteIndex : function(id, callback, index, type)
 
-4.elasticsearch还有很多功能，从esc对象上还可以拿到标准的elasticsearch的client对象，就可以直接调用其本身的api
+5.elasticsearch还有很多功能，从esc对象上还可以拿到标准的elasticsearch的client对象，就可以直接调用其本身的api
 
 	$E.getActiveProject().esc.client
 

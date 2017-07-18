@@ -348,9 +348,45 @@ discovery.zen.ping.unicast.hosts: [&quot;127.0.0.1:9300&quot;, &quot;127.0.0.1:9
 <li>npm run start</li>
 <li>open <a href="http://localhost:9100/">http://localhost:9100/</a></li>
 </ul>
+<h3 id="5-http-">5. 通过http接口创建一些索引和一些映射 （可选配置）</h3>
+<p>在使用之前，我们可能需要先创建索引，并对某些字段设置mapping。如果这里不直接通过restful接口配置，则需要后面在浏览器里调用js方法去配置</p>
+<pre><code>//创建一个名字为chat的index，并且设置了mappings，type为1的里面，属性是content时候，使用ik_max_word这个分词器
+//可以通过fiddler或者postman工具，发出一个put请求，内容如下示例
+PUT http://139.196.108.236:9200/chat
+body为：
+{
+  &quot;mappings&quot;: {
+    &quot;1&quot;: {
+      &quot;properties&quot;: {
+        &quot;content&quot;: {
+          &quot;type&quot;:     &quot;text&quot;,
+          &quot;analyzer&quot;: &quot;ik_max_word&quot;
+        }
+      }
+    }
+  }
+}</code></pre>
 <h2 id="-">二. 客户端配置与使用</h2>
 <p>引入系统参数ELASEA，配置成elasticsearch服务的创建config json字符串比如：{&quot;hosts&quot;:&quot;139.196.108.236:9200&quot;,&quot;log&quot;:&quot;trace&quot;}<br>这样就表示启用elasticsearch服务，客户端就会去加载相关js文件<br>通过：<strong>$E.getActiveProject().esc</strong> 就可以获取到当前elasticsearchclient对象，该对象包括如下方法：</p>
-<p>1.查询方法</p>
+<p>1.创建索引和mapping</p>
+<pre><code>//创建一个叫做chat的索引，并配置type为1中字段是content的类型是text，且analyzer是ik的分词器
+//这个只需要创建一次，第一次创建完了之后就可以使用了，可以自己在chrome的console执行以下
+$E.getActiveProject().esc.client.indices.create({
+    index: &quot;chat&quot;,
+    body: {
+        &quot;mappings&quot;: {
+            &quot;1&quot;:{
+                &quot;properties&quot;: {
+                    &quot;content&quot;: {
+                        &quot;type&quot; : &quot;text&quot;, 
+                        &quot;analyzer&quot; : &quot;ik_max_word&quot;
+                    }
+                }
+            }
+        }
+    }
+});</code></pre>
+<p>2.查询方法</p>
 <pre><code>/**
  * 根据内容检索
  * @param content 需要查询的内容，可以是字符串，也可以是json对象，字符串的话，就代表去查询字段是content上的内容，如果要查询其他字段上内容，就要自己传递json对象：
@@ -376,7 +412,7 @@ esc.search(&#39;服务&#39;, function (resp) {
 }, function(err){
     console.error(err);
 });</code></pre>
-<p>2.创建或者更新索引方法</p>
+<p>3.创建或者更新索引方法</p>
 <pre><code>/**
  * 对内容做索引，创建或者更新
  * @param id 索引id
@@ -386,7 +422,7 @@ esc.search(&#39;服务&#39;, function (resp) {
  * @param type 索引类型(optional)
  */
 index : function (id, content, callback, index, type)</code></pre>
-<p>3.删除索引方法</p>
+<p>4.删除索引方法</p>
 <pre><code>/**
  * 删除索引
  * @param id 索引id
@@ -395,7 +431,7 @@ index : function (id, content, callback, index, type)</code></pre>
  * @param type 索引类型(optional)
  */
 deleteIndex : function(id, callback, index, type)</code></pre>
-<p>4.elasticsearch还有很多功能，从esc对象上还可以拿到标准的elasticsearch的client对象，就可以直接调用其本身的api</p>
+<p>5.elasticsearch还有很多功能，从esc对象上还可以拿到标准的elasticsearch的client对象，就可以直接调用其本身的api</p>
 <pre><code>$E.getActiveProject().esc.client</code></pre>
 <p>可以查阅相关文档：<a href="https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-cluster-getsettings"><a href="https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-cluster-getsettings">https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-cluster-getsettings</a></a> 来获取到client对象上所有的方法</p>
 
