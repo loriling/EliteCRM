@@ -93,6 +93,8 @@
 
 	//创建一个叫做chat的索引，并配置type为1中字段是content的类型是text，且analyzer是ik的分词器
 	//这个只需要创建一次，第一次创建完了之后就可以使用了，可以自己在chrome的console执行以下
+	//注意这里的ik_max_word: 中文分词器ik_analyzer提供了两种分词策略： 
+	//ik_max_word和ik_smart，区别在于ik_max_word会尽量多的去分，而ik_smart则更智能的去分，这里可以自行选择一种
 	$E.getActiveProject().esc.client.indices.create({
 		index: "chat",
 		body: {
@@ -101,7 +103,7 @@
 					"properties": {
 						"content": {
 							"type" : "text", 
-							"analyzer" : "ik_max_word"
+							"analyzer" : "ik_max_word" 
 						}
 					}
 				}
@@ -109,6 +111,27 @@
 		}
 	});
 
+> ik_max_word: 繁琐会被分词为： 繁琐，繁，琐
+> ik_smart: 繁琐会被分词为：繁琐
+
+	可以通过http接口：http://localhost:9200/chat/_analyze?analyzer=ik_smart&pretty=true 自己去查看分词结果
+	body:
+	{
+		"text":"繁琐"
+	}
+
+	response:
+	{
+	    "tokens": [
+	        {
+	            "token": "繁琐",
+	            "start_offset": 0,
+	            "end_offset": 2,
+	            "type": "CN_WORD",
+	            "position": 0
+	        }
+	    ]
+	}
 
 
 2.查询方法
