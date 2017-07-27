@@ -65,7 +65,9 @@
 ###5. 通过http接口创建一些索引和一些映射 （可选配置）
 在使用之前，我们可能需要先创建索引，并对某些字段设置mapping。如果这里不直接通过restful接口配置，则需要后面在浏览器里调用js方法去配置
 
-	//创建一个名字为chat的index，并且设置了mappings，type为1的里面，属性是content时候，使用ik_max_word这个分词器
+	//创建一个名字为chat的index，并且设置了mappings，type为1的里面，
+	//属性是content时候，使用ik_max_word这个分词器
+	//属性是user_id时候，类型是keyword，也就是不去分词
 	//可以通过fiddler或者postman工具，发出一个put请求，内容如下示例
 	PUT http://139.196.108.236:9200/chat
 	body为：
@@ -76,7 +78,10 @@
 	        "content": {
 	          "type":     "text",
 	          "analyzer": "ik_max_word"
-	        }
+	        },
+			"user_id": {
+				"type" : "keyword"
+			}
 	      }
 	    }
 	  }
