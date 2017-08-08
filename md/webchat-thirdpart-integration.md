@@ -6,14 +6,41 @@
 接口才用http协议，包括了webchat端提供的接口与第三方提供的接口，数据传输使用json格式。
 下面从模拟整个聊天过程的方式来介绍这些接口：
 
+- 客户发出登录请求： 
+> 	http://xxxxx/EliteWebChat/tpi
+> 	发送参数：
+> 	{
+> 		type: 1,//登录请求
+> 		loginName: "lori",//客户登录名
+> 		password: "xxxxx"//客户密码
+> 	}
+> 	返回参数：
+> 	{
+> 		result: 1, //登录成功（1）或登录验证失败（-20）
+> 		token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B" //登录成功后返回的token，用来之后请求时候传递
+> 	}
+
+- 客户发出登录或者注册请求，如果不需要登录验证，并且希望新客户自动创建的话，就调用这个接口： 
+> 	http://xxxxx/EliteWebChat/tpi
+> 	发送参数：
+> 	{
+> 		type: 3,//登录或注册
+> 		loginName: "lori",//客户登录名
+> 		name: "罗瑞",//客户姓名
+> 		portraitUri: "http://139.196.108.236/ngs/fs/get?file=headimg/979DEECA-80C4-F7D5-D9F2-A8D4C071BEA6.png"//头像地址
+> 	}
+> 	返回参数：
+> 	{
+> 		result: 1, //登录成功
+> 		token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B" //登录成功后返回的token，用来之后请求时候传递
+> 	}
 
 - 客户从网页或者微信端发出聊天请求： 
 > 	http://xxxxx/EliteWebChat/tpi
 > 	发送参数：
 > 	{
 > 		type: 1000,//发出聊天的请求
-> 		clientId: "xxxxxxxxx",//客户的唯一标示
-> 		nickname: "lori",//客户昵称（微信昵称）
+> 		token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
 > 		time: 1400913140127,//发出请求的时间戳
 > 		queueId: 1,//请求的队列号
 > 		from: "APP",//请求来源，分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
@@ -33,6 +60,7 @@
 > 	发送参数：
 > 	{
 > 		type: 1001,//查看聊天请求当前状态的请求
+> 		token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
 > 		requestId: 103//需要查看状态的请求id（发起聊天请求成功后会返回这个id）
 > 	}
 > 	返回参数：
@@ -47,7 +75,8 @@
 > 	http://xxxxx/EliteWebChat/tpi
 > 	发送参数：
 > 	{
-> 		type: 2005,//发送预消息
+> 		type: 2020,//发送预消息
+> 		token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
 > 		requestId: 103,//请求id（发起聊天请求成功后会返回这个id）
 > 		text: 'xxxxxx'
 > 	}
@@ -62,6 +91,7 @@
 > 	发送参数：
 > 	{
 > 		type: 1002,//取消聊天排队请求
+> 		token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
 > 		requestId: 103//取消取消的请求id（发起聊天请求成功后会返回这个id）
 > 	}
 > 	返回参数：
@@ -100,8 +130,8 @@
 >     发送参数:
 >     {
 >         type: 2001,//发送文本消息请求
+>         token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
 >         sessionId: 1299,
->         clientId: "xxxxxxxxxx",
 >         time: 1400913830109,
 >         text: "你好，请问xxxxx"
 >     }
@@ -116,17 +146,92 @@
 >     发送参数:
 >     {
 >         type: 2002,//发送图片消息请求
+>         token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
 >         sessionId: 1299,
->         clientId: "xxxxxxxxxx",
 >         time: 1400913830109,
->         imgName: "IMG_001",
->         imgData: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//图片dataURI，标准的html5中dataURI的格式
+>         imageUri: "http://xxxxxx/xxx.png", //具体图片文件的url
+>         thumbData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//缩略图的base64编码
+>     }
+>     返回参数：
+>     {
+>         result: 1, // 也可能是-22 表示图片存储失败
+>         message: ""
+>     }
+
+
+- 客户发送语音消息给客服
+>     http://xxxxx/EliteWebChat/tpi
+>     发送参数:
+>     {
+>         type: 2003,//发送语音消息请求
+>         token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
+>         sessionId: 1299,
+>         time: 1400913830109,
+>         voiceLength: 33, //语音长度，单位是秒
+>         voiceData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//语音文件的base64编码，语音文件只支持接收amr格式的文件
+>     }
+>     返回参数：
+>     {
+>         result: 1, // 也可能是-23 表示语音存储失败
+>         message: ""
+>     }
+
+
+- 客户发送地图消息给客服
+>     http://xxxxx/EliteWebChat/tpi
+>     发送参数:
+>     {
+>         type: 2004,//发送地图消息请求
+>         token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
+>         sessionId: 1299,
+>         time: 1400913830109,
+>         latitude: 34.12, //纬度值
+>         longitude: 131.24, //经度值
+>         poi: "上海市中山西路2025号", //地址描述（可选）
+>         map: "baidu", //地图类型，默认是高德地图，也可以传递baidu，表示百度地图（可选）
+>         thumbData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//地图的缩率图的base64编码（可选）
 >     }
 >     返回参数：
 >     {
 >         result: 1,
 >         message: ""
 >     }
+
+- 客户发送文件消息给客服
+>     http://xxxxx/EliteWebChat/tpi
+>     发送参数:
+>     {
+>         type: 2005,//发送地图消息请求
+>         token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
+>         sessionId: 1299,
+>         time: 1400913830109,
+>         name: "xxx.docx", //文件名
+>         fileUrl: "http://xxxxx/xxx.docx" //文件url地址
+>     }
+>     返回参数：
+>     {
+>         result: 1,
+>         message: ""
+>     }
+
+- 客户上传文件给chat服务: http://xxxxx/EliteWebChat/tpiu
+这个接口用来给客户上传图片，附件等相关信息，配合了发送图片接口和发送附件接口，通常先调用此接口上传需要发的文件，然后获取到上传成功后文件的url地址，再调用发送相关的消息接口，把对应文件url传递过来
+> 
+```
+//用java代码为例，主要需要两部分参数，一部分就是文件本身，一部分就是之前登录成功后的token值
+//这里只是一个示例，具体开发过程中可能是其他语言，按规则传递参数就好了
+HttpClient httpclient = getHttpClient();
+httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+HttpPost httppost = new HttpPost(serverUrl);
+File file = new File(fileToUpload);
+MultipartEntity mpEntity = new MultipartEntity();
+ContentBody cbFile = new FileBody(file);
+mpEntity.addPart("fileToUpload", cbFile); // 对应的文件
+mpEntity.addPart("token", new StringBody(token)); // 获取到的token
+httppost.setEntity(mpEntity);
+HttpResponse response = httpclient.execute(httppost);
+```
+			
 
 - <div style="color:#0086b3">客服发送消息给客户</div>
 >     http://xxxxx/ThirdPartService/msg
@@ -166,6 +271,7 @@
 >     发送参数:
 >     {
 >         type: 4001,
+>         token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
 >         sessionId: 1299,
 >         time: 1400913830109
 >     }
@@ -195,9 +301,11 @@
 >     发送参数:
 >     {
 >         type: 5001,//满意度评价请求
+>         token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
 >         sessionId: 1299,
 >         ratingId: 1,//具体id值对应的含义需要询问具体项目人员
->         ratingComments: "服务非常满意"
+>         ratingComments: "服务非常满意",
+>         ratingExtends: {}//扩展信息，具体按相关项目自己定义传递
 >     }
 >     返回参数:
 >     {
@@ -210,6 +318,7 @@
 >     发送参数:
 >     {
 >         type: 5002,//客户改变的消息类型
+>         token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
 >         sessionId: 1299,//会话id
 >         clientId: "xxxxxxxxxx"//改变后客户的id
 >     }
@@ -223,12 +332,18 @@
 
 ## 二. 请求代码与相应结果代码 ##
 - request中的type
+>      LOGON_REQUEST = 1;
+>      LOGOUT_REQUEST = 2;
+>      LOGON_OR_REGISTER_REQUEST = 3;
 >      CHAT_REQUEST = 1000;
 >      CHAT_REQUEST_STATE_UPDATE = 1001;
 >      CANCEL_CHAT_REQUEST = 1002;
 >      MSG_REQUEST = 2001;
 >      MSG_IMG_REQUEST = 2002;
->      PRE_MSG_REQUEST = 2005
+>      MSG_VOICE_REQUEST = 2003;
+>      MSG_LOCATION_REQUEST = 2004;
+>      MSG_FILE_REQUEST = 2005;
+>      PRE_MSG_REQUEST = 2020;
 >      CLOSE_REQUEST = 4001;
 >      RATING_REQUEST = 5001;
 
@@ -245,6 +360,19 @@
 >      INVAILD_TO_USER_ID = -9;
 >      INVAILD_CHAT_REQUEST_ID = -10;
 >      INVAILD_CHAT_SESSION_ID = -11;
+>      int UPLOAD_FILE_FAILED = -13;
+>      INVAILD_MESSAGE_TYPE = -12;
+>      INVAILD_PARAMETER = -14;
+>      INVAILD_TOKEN = -15;
+>      INVAILD_FILE_EXTENSION = -16;
+>      EMPTY_MESSAGE = -17;
+>      INVAILD_SESSION_TYPE = -18;
+>      INVAILD_REQUEST_TYPE = -19;
+>      INVAILD_LOGINNAME_OR_PASSWORD = -20;
+>      INVAILD_FILE_SIZE = -21;
+>      UPLOAD_IMAGE_FAILED = -22;
+>      UPLOAD_VOICE_FAILED = -23;
+>      INVAILD_SIGN = -30;
 >      INTERNAL_ERROR = -100;
 
 ## 三. 聊天请求状态码 ##
