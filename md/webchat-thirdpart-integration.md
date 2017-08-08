@@ -216,21 +216,28 @@
 
 - 客户上传文件给chat服务: http://xxxxx/EliteWebChat/tpiu
 这个接口用来给客户上传图片，附件等相关信息，配合了发送图片接口和发送附件接口，通常先调用此接口上传需要发的文件，然后获取到上传成功后文件的url地址，再调用发送相关的消息接口，把对应文件url传递过来
-> 
-```
-//用java代码为例，主要需要两部分参数，一部分就是文件本身，一部分就是之前登录成功后的token值
-//这里只是一个示例，具体开发过程中可能是其他语言，按规则传递参数就好了
-HttpClient httpclient = getHttpClient();
-httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-HttpPost httppost = new HttpPost(serverUrl);
-File file = new File(fileToUpload);
-MultipartEntity mpEntity = new MultipartEntity();
-ContentBody cbFile = new FileBody(file);
-mpEntity.addPart("fileToUpload", cbFile); // 对应的文件
-mpEntity.addPart("token", new StringBody(token)); // 获取到的token
-httppost.setEntity(mpEntity);
-HttpResponse response = httpclient.execute(httppost);
-```
+
+	```
+	//用java代码为例，主要需要两部分参数，一部分就是文件本身，一部分就是之前登录成功后的token值
+	//这里只是一个示例，具体开发过程中可能是其他语言，按规则传递参数就好了
+	HttpClient httpclient = getHttpClient();
+	httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+	HttpPost httppost = new HttpPost(serverUrl);
+	File file = new File(fileToUpload);
+	MultipartEntity mpEntity = new MultipartEntity();
+	ContentBody cbFile = new FileBody(file);
+	mpEntity.addPart("fileToUpload", cbFile); // 对应的文件
+	mpEntity.addPart("token", new StringBody(token)); // 获取到的token
+	httppost.setEntity(mpEntity);
+	HttpResponse response = httpclient.execute(httppost);
+	```
+	而这个请求的response：
+>     返回参数：
+>     {
+>         result: 1, // 1表示上传成功，其他失败码看附录，当失败的时候会有message属性来描述失败原因
+>         fileName: "xxx.docx", //文件名
+>         url: "/xxx/xxx.docx" //上传成功后会返回文件相对路径,之后发送附件消息或者图片消息时候，需要拿着这个返回的url，拼接上前面的webchat服务地址，再传递过来
+>     }
 			
 
 - <div style="color:#0086b3">客服发送消息给客户</div>
