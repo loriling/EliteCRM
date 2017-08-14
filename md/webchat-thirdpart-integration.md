@@ -17,6 +17,7 @@
 > 	返回参数：
 > 	{
 > 		result: 1, //登录成功（1）或登录验证失败（-20）
+> 		clientId: "xxxxxxxxxx", //用户的唯一标示，与后面开始会话接口中的clientId对应
 > 		token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B" //登录成功后返回的token，用来之后请求时候传递
 > 	}
 
@@ -32,6 +33,7 @@
 > 	返回参数：
 > 	{
 > 		result: 1, //登录成功
+> 		clientId: "xxxxxxxxxx", //用户的唯一标示，与后面开始会话接口中的clientId对应
 > 		token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B" //登录成功后返回的token，用来之后请求时候传递
 > 	}
 
