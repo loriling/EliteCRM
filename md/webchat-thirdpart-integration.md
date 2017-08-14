@@ -27,7 +27,7 @@
 > 	{
 > 		type: 3,//登录或注册
 > 		loginName: "lori",//客户登录名
-> 		name: "罗瑞",//客户姓名
+> 		name: "罗瑞",//客户姓名（昵称）
 > 		portraitUri: "http://139.196.108.236/ngs/fs/get?file=headimg/979DEECA-80C4-F7D5-D9F2-A8D4C071BEA6.png"//头像地址
 > 	}
 > 	返回参数：
