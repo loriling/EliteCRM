@@ -180,7 +180,7 @@
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 工单下送<br> * @param comments 备注信息<br> * @param toStep 下送的步骤 （可以为空，如果是空就会通过当前步骤来获取应该下送到的步骤）<br> * @param toGrp 下送的组 （可以为空）<br> * @param toBy 下送的人 （可以为空）<br> * @param operateTaskGuid 需要操作的taskId<br> * @param dbpool<br> * @returns {number}<br> */</span><br>wosend : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">comments, toStep, toGrp, toBy, operateTaskGuid, dbpool</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 工单下送<br> * @param comments 备注信息<br> * @param toStep 下送的步骤 （可以为空，如果是空就会通过当前步骤来获取应该下送到的步骤）<br> * @param toGrp 下送的组 （可以为空）<br> * @param toBy 下送的人 （可以为空）<br> * @param operateTaskGuid 需要操作的taskId<br> * @param dbpool<br> * @param toRole 下送的角色 （可以为空）<br> * @returns {number}<br> */</span><br>wosend : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">comments, toStep, toGrp, toBy, operateTaskGuid, dbpool, toRole</span>)</span><br></code></pre>
 
 <ul><li><strong>wocd 工单催单</strong> </li>
 </ul>
