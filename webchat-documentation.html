@@ -18,10 +18,13 @@
 <li><a href="#chassb-ngs-chat插件是否在聊天界面上直接显示转接相关按钮">CHASSB  ngs chat插件是否在聊天界面上直接显示转接相关按钮</a></li>
 <li><a href="#swaprl-ngs-chat插件左右布局位置">SWAPRL ngs chat插件左右布局位置</a></li>
 <li><a href="#chatad-ngs-chat插件访问webchat服务的地址">CHATAD ngs chat插件访问webchat服务的地址</a></li>
-<li><a href="#efsadd-ngs-chat插件中配置的ewcfront地址">EFSADD ngs chat插件中配置的EWCFront地址</a></li>
+<li><a href="#efsadd-ngs-chat插件中配置的ewcfront地址已经过时">EFSADD ngs chat插件中配置的EWCFront地址(已经过时)</a></li>
 <li><a href="#ctacsd-ngs-chat插件关闭会话时候是否发出事件">CTACSD ngs chat插件关闭会话时候是否发出事件</a></li>
 <li><a href="#chttag-ngs-chat插件中-客户标签表名">CHTTAG ngs chat插件中 客户标签表名</a></li>
 <li><a href="#cacren-ngs-chat插件中是否开启客户评级">CACREN ngs chat插件中是否开启客户评级</a></li>
+<li><a href="#chasae-ngs-chat插件中客户会话标签页控制">CHASAE ngs chat插件中客户会话标签页控制</a></li>
+<li><a href="#chaltt-ngs-chat插件中上一个消息收到到现在多长时间需要给出警示颜色单位秒">CHALTT ngs chat插件中上一个消息收到到现在多长时间，需要给出警示颜色（单位秒）</a></li>
+<li><a href="#chasse-ngs-chat插件中是否启用建议搜索功能">CHASSE ngs chat插件中是否启用建议搜索功能</a></li>
 <li><a href="#sronot-切换到机器人聊天时候的提示语">SRONOT 切换到机器人聊天时候的提示语</a></li>
 <li><a href="#chatsm-结束会话时候是否要小结或者发出相关命令组通知客户端">CHATSM 结束会话时候是否要小结或者发出相关命令组通知客户端</a></li>
 <li><a href="#srrtst-坐席是否显示满意度结果">SRRTST 坐席是否显示满意度结果</a></li>
@@ -38,6 +41,21 @@
 <li><a href="#kmrurl-知识库服务地址">KMRURL 知识库服务地址</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#服务端部署配置">服务端部署配置：</a><ul>
+<li><a href="#1web-infapplicationcontextxml">1.WEB-INF/applicationContext.xml</a><ul>
+<li><a href="#mongodb配置">mongodb配置</a></li>
+<li><a href="#jdbc数据库配置">jdbc数据库配置</a></li>
+<li><a href="#公众号微信livebot配置">公众号微信livebot配置</a></li>
+<li><a href="#企业微信livebot配置">企业微信livebot配置</a></li>
+<li><a href="#标准客户端相关配置">标准客户端相关配置</a></li>
+<li><a href="#ftp相关配置">ftp相关配置</a></li>
+</ul>
+</li>
+<li><a href="#2web-infclasseslog4jproperties">2.WEB-INF/classes/log4j.properties</a></li>
+<li><a href="#3web-infclassesapplicationproperties资源文件配置">3.WEB-INF/classes/application.properties资源文件配置</a></li>
+<li><a href="#4web-infstruts-configxml">4.WEB-INF/struts-config.xml</a></li>
 </ul>
 </li>
 </ul>
@@ -74,6 +92,8 @@
 <li rel="4">当softphone登录且状态为准备好时候，如果这个时候chat为未准备好状态，点击切换到准备状态时候报错，不让起切换到准备好。</li>
 </ol>
 
+
+
 <h4 id="chasem-是否使用emoji表情"><code>CHASEM</code> 是否使用EMOJI表情</h4>
 
 <p>引入系统参数<code>CHASEM</code>，配置为1时候，使用标准emoji作为表情包，默认时候用的qq表情包，当于rongcloud集成时候，客户端只提供了标准emoji的表情包，因此坐席端为了适配，也提供了相应的标准emoji表情。</p>
@@ -83,6 +103,8 @@
 <h4 id="chtsty-ngs-chat插件界面样式"><code>CHTSTY</code> ngs chat插件界面样式</h4>
 
 <p>引入系统参数<code>CHTSTY</code>(chat style)，表示使用的ngs中chat插件的样式，不配置就是默认，除了默认现在还支持一种样式:chat-white</p>
+
+
 
 <h4 id="chassb-ngs-chat插件是否在聊天界面上直接显示转接相关按钮"><code>CHASSB</code>  ngs chat插件是否在聊天界面上直接显示转接相关按钮</h4>
 
@@ -102,9 +124,11 @@
 
 
 
-<h4 id="efsadd-ngs-chat插件中配置的ewcfront地址"><code>EFSADD</code> ngs chat插件中配置的EWCFront地址</h4>
+<h4 id="efsadd-ngs-chat插件中配置的ewcfront地址已经过时"><code>EFSADD</code> ngs chat插件中配置的EWCFront地址(已经过时)</h4>
 
 <p>在还没有使用mongodb作为公共缓存方式时候，没有真正意义上的负载均衡，那时候是通过一个前置服务EWCFront，每次请求webchat之前，通过这个服务的一个接口，获取到一个正真可用的webchat地址，而这个系统参数，就是用来配置这个EWCFront服务的地址的（现在版本都已经不使用这个了）</p>
+
+
 
 <h4 id="ctacsd-ngs-chat插件关闭会话时候是否发出事件"><code>CTACSD</code> ngs chat插件关闭会话时候是否发出事件</h4>
 
@@ -112,7 +136,14 @@
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">//注册会话需要关闭事件</span><br>$project.events.register($CONST.ChatEvent.CHAT_SESSION_NEED_CLOSE, <span class="hljs-string">'dynPage'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)</span>{<br>    <span class="hljs-keyword">var</span> sessionId = data.sessionId;<br>    <span class="hljs-comment">//自己的逻辑判断，这个会话是不是可以关闭，如果可以，</span><br>    <span class="hljs-comment">//就调用关闭的命令：project.events.notify(window.$CONST.ChatEvent.CLOSE_SESSION, {sessionId: 111});</span><br>    <span class="hljs-comment">//如果不可以，就给出提示，让用户先去做小结。 </span><br>});<br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">//注册会话需要关闭事件</span>
+</div><div class="hljs-line">$project.events.register($CONST.ChatEvent.CHAT_SESSION_NEED_CLOSE, <span class="hljs-string">'dynPage'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)</span>{
+</div><div class="hljs-line">    <span class="hljs-keyword">var</span> sessionId = data.sessionId;
+</div><div class="hljs-line">    <span class="hljs-comment">//自己的逻辑判断，这个会话是不是可以关闭，如果可以，</span>
+</div><div class="hljs-line">    <span class="hljs-comment">//就调用关闭的命令：project.events.notify(window.$CONST.ChatEvent.CLOSE_SESSION, {sessionId: 111});</span>
+</div><div class="hljs-line">    <span class="hljs-comment">//如果不可以，就给出提示，让用户先去做小结。 </span>
+</div><div class="hljs-line">});
+</div></code></pre>
 
 
 
@@ -122,7 +153,8 @@
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-sql hljs"><span class="hljs-operator"><span class="hljs-keyword">select</span> lt.labelid, lt.labelcomment, lt.labelbgcolor, lt.labelcolor <span class="hljs-keyword">from</span> <span class="hljs-string">" + tagTableName + "</span>${epid} <span class="hljs-keyword">l</span> <span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> customerlabeltype${epid} lt <span class="hljs-keyword">on</span> <span class="hljs-keyword">l</span>.relation_labelid = lt.labelid <span class="hljs-keyword">where</span> <span class="hljs-keyword">l</span>.relation_guid = ?</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-sql hljs"><div class="hljs-line"><span class="hljs-keyword">select</span> lt.labelid, lt.labelcomment, lt.labelbgcolor, lt.labelcolor <span class="hljs-keyword">from</span> <span class="hljs-string">" + tagTableName + "</span>${epid} l <span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> customerlabeltype${epid} lt <span class="hljs-keyword">on</span> l.relation_labelid = lt.labelid <span class="hljs-keyword">where</span> l.relation_guid = ?
+</div></code></pre>
 
 <p>根据这句sql查询出对应的标签用来显示</p>
 
@@ -132,12 +164,28 @@
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-sql hljs">dbpatch: <span class="hljs-operator"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> customer <span class="hljs-keyword">add</span> webchat_rating <span class="hljs-built_in">float</span>;</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-sql hljs"><div class="hljs-line">dbpatch: <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> customer <span class="hljs-keyword">add</span> webchat_rating <span class="hljs-built_in">float</span>;
+</div></code></pre>
 
 <p>新增客户评级的属性，在ngs的chat插件中，可以给当前聊天客户评级。 <br>
 配合系统参数<code>CACREN</code>，配置1时候，启用此功能。</p>
 
+<h4 id="chasae-ngs-chat插件中客户会话标签页控制"><code>CHASAE</code> ngs chat插件中客户会话标签页控制</h4>
 
+<p>配置成1时候，结束的会话tab标签会沉到活动会话的下面去</p>
+
+<h4 id="chaltt-ngs-chat插件中上一个消息收到到现在多长时间需要给出警示颜色单位秒"><code>CHALTT</code> ngs chat插件中上一个消息收到到现在多长时间，需要给出警示颜色（单位秒）</h4>
+
+<p>配置一个时间秒数，当收到客户发来的消息，消息距离现在时间超过这个秒数后，chatItem上的消息时间变红色</p>
+
+
+
+<h4 id="chasse-ngs-chat插件中是否启用建议搜索功能"><code>CHASSE</code> ngs chat插件中是否启用建议搜索功能</h4>
+
+<p>支持了聊天输入框建议功能。此功能需要配合ELASEA系统参数，开启elasticsearch功能后才能使用。 <br>
+引入系统参数CHASSE，配置成一个json，格式如下： <br>
+{“enabled”: true, “maxWordLength”: 10} <br>
+目前支持这两个属性，enabled表示是否启用，maxWordLength表示超过多少个字符后，就不再给出建议</p>
 
 <h4 id="sronot-切换到机器人聊天时候的提示语"><code>SRONOT</code> 切换到机器人聊天时候的提示语</h4>
 
@@ -155,7 +203,12 @@ h5动态页面中P-240命令组新增参数ACTION，根据不同ACTION来做不�
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">instance.doCmd(<span class="hljs-string">"P-240"</span>, {<br>    ACTION : <span class="hljs-string">"checkCloseEnabled"</span>, <br>    CUSTOMER_GUID : _currentCustomerGuid,<br>    SESSION_ID : _currentSessionId<br>})<br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line">instance.doCmd(<span class="hljs-string">"P-240"</span>, {
+</div><div class="hljs-line">    <span class="hljs-attr">ACTION</span> : <span class="hljs-string">"checkCloseEnabled"</span>, 
+</div><div class="hljs-line">    <span class="hljs-attr">CUSTOMER_GUID</span> : _currentCustomerGuid,
+</div><div class="hljs-line">    <span class="hljs-attr">SESSION_ID</span> : _currentSessionId
+</div><div class="hljs-line">})
+</div></code></pre>
 
 <ul><li>ACTION固定为checkCloseEnabled，当前的CUSTOMER_GUID和SESSION_ID也会传递过去</li>
 <li>同时接受返回参数，CLOSE_DISABLED和CLOSE_DISABLED_MSG 如果CLOSE_DISABLED为1，则不允许关闭，</li>
@@ -184,7 +237,15 @@ h5动态页面中P-240命令组新增参数ACTION，根据不同ACTION来做不�
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-sql hljs">dbpatch:<br>    <span class="hljs-operator"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> chat_ip_blacklist <span class="hljs-keyword">add</span> validity <span class="hljs-built_in">bigint</span>;</span><br>    <span class="hljs-operator"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> chat_ip_visit_his(<br>        guid <span class="hljs-built_in">char</span>(<span class="hljs-number">36</span>),<br>        ip <span class="hljs-built_in">varchar</span>(<span class="hljs-number">30</span>),<br>        proxy_ip <span class="hljs-built_in">varchar</span>(<span class="hljs-number">30</span>),<br>        creation_time <span class="hljs-built_in">bigint</span><br>    )</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-sql hljs"><div class="hljs-line">dbpatch:
+</div><div class="hljs-line">    <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> chat_ip_blacklist <span class="hljs-keyword">add</span> validity <span class="hljs-built_in">bigint</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> chat_ip_visit_his(
+</div><div class="hljs-line">        guid <span class="hljs-built_in">char</span>(<span class="hljs-number">36</span>),
+</div><div class="hljs-line">        ip <span class="hljs-built_in">varchar</span>(<span class="hljs-number">30</span>),
+</div><div class="hljs-line">        proxy_ip <span class="hljs-built_in">varchar</span>(<span class="hljs-number">30</span>),
+</div><div class="hljs-line">        creation_time <span class="hljs-built_in">bigint</span>
+</div><div class="hljs-line">    )
+</div></code></pre>
 
 <p>引入系统参数<code>IPBPAR</code>(ip blacklist params)，配置成一个json，类似: {checkIpTimeThreshold: 60, checkIpCountThreshold: 10, blacklistValidityElasped: 3600}</p>
 
@@ -231,7 +292,51 @@ h5动态页面中P-240命令组新增参数ACTION，根据不同ACTION来做不�
 
 <h4 id="kmrurl-知识库服务地址"><code>KMRURL</code> 知识库服务地址</h4>
 
-<p>这个在配置文件中有kmURL的配置项，用来配置知识库的地址。而<code>KMRURL</code>也是配置的知识库地址，优先级高于配置文件中的。</p></div></body>
+<p>这个在配置文件中有kmURL的配置项，用来配置知识库的地址。而<code>KMRURL</code>也是配置的知识库地址，优先级高于配置文件中的。</p>
+
+
+
+<h2 id="服务端部署配置">服务端部署配置：</h2>
+
+
+
+<h3 id="1web-infapplicationcontextxml">1.WEB-INF/applicationContext.xml</h3>
+
+
+
+<h4 id="mongodb配置">mongodb配置</h4>
+
+
+
+<h4 id="jdbc数据库配置">jdbc数据库配置</h4>
+
+
+
+<h4 id="公众号微信livebot配置">公众号微信livebot配置</h4>
+
+
+
+<h4 id="企业微信livebot配置">企业微信livebot配置</h4>
+
+
+
+<h4 id="标准客户端相关配置">标准客户端相关配置</h4>
+
+
+
+<h4 id="ftp相关配置">ftp相关配置</h4>
+
+
+
+<h3 id="2web-infclasseslog4jproperties">2.WEB-INF/classes/log4j.properties</h3>
+
+
+
+<h3 id="3web-infclassesapplicationproperties资源文件配置">3.WEB-INF/classes/application.properties资源文件配置</h3>
+
+
+
+<h3 id="4web-infstruts-configxml">4.WEB-INF/struts-config.xml</h3></div></body>
 <script>
 var _hmt = _hmt || [];
 (function() {
