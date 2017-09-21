@@ -10,7 +10,7 @@
 	http.cors.enabled: true
 	http.cors.allow-origin: "*"
 
-通过bin/elasticsearch.bat （linux为elasticsearch.sh）启动服务。
+通过bin/elasticsearch.bat （linux为elasticsearch）启动服务。
 
 
 
@@ -37,7 +37,7 @@
 	#
 	# Set the bind address to a specific IP (IPv4 or IPv6):
 	#
-	#network.host: 192.168.0.1
+	network.host: 192.168.2.80
 	#
 	# Set a custom port for HTTP:
 	#
@@ -52,6 +52,7 @@
 
 **cluster.name** 需要两台一致，表示这两台是一个集群中的
 **node.name** 需要两台不同，分别表示自己节点的名称
+**network.host** 当前服务器的ip地址或者域名地址，配置了这个，远端客户端才可以访问到，不然只能本机访问
 **http.port和transport.tcp.port** 如果需要修改，可以自己修改，http.port表示http的restful接口的端口，transport.tcp.port表示集群间tcp通讯的端口
 **discovery.zen.ping.unicast.hosts** 这个配置的就是每个节点对应的ip地址和transport.tcp.port的地址，告知集群中一共有哪几个节点
 

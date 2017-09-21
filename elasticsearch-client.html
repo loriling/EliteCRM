@@ -307,7 +307,7 @@ var _hmt = _hmt || [];
 <p>解压后，配置 config/elasticsearch.yml<br>在文件最后添加如下配置，用来支持http-restful接口的跨域请求</p>
 <pre><code>http.cors.enabled: true
 http.cors.allow-origin: &quot;*&quot;</code></pre>
-<p>通过bin/elasticsearch.bat （linux为elasticsearch.sh）启动服务。</p>
+<p>通过bin/elasticsearch.bat （linux为elasticsearch）启动服务。</p>
 <h3 id="2-ik-analyzer-https-github-com-medcl-elasticsearch-analysis-ik">2. 下载ik-analyzer：<a href="https://github.com/medcl/elasticsearch-analysis-ik">https://github.com/medcl/elasticsearch-analysis-ik</a></h3>
 <p>找到elasticsearch/plugins目录，在这个目录下创建ik目录，然后把下载的ik-analyzer相关文件解压到此目录中<br>重启elasticsearch服务即可起效。</p>
 <h3 id="3-elasticsearch-">3. elasticsearch集群部署</h3>
@@ -327,7 +327,7 @@ node.name: node-1
 #
 # Set the bind address to a specific IP (IPv4 or IPv6):
 #
-#network.host: 192.168.0.1
+network.host: 192.168.2.80
 #
 # Set a custom port for HTTP:
 #
@@ -339,7 +339,7 @@ transport.tcp.port: 9300
 # The default list of hosts is [&quot;127.0.0.1&quot;, &quot;[::1]&quot;]
 #
 discovery.zen.ping.unicast.hosts: [&quot;127.0.0.1:9300&quot;, &quot;127.0.0.1:9301&quot;]</code></pre>
-<p><strong>cluster.name</strong> 需要两台一致，表示这两台是一个集群中的<br><strong>node.name</strong> 需要两台不同，分别表示自己节点的名称<br><strong>http.port和transport.tcp.port</strong> 如果需要修改，可以自己修改，http.port表示http的restful接口的端口，transport.tcp.port表示集群间tcp通讯的端口<br><strong>discovery.zen.ping.unicast.hosts</strong> 这个配置的就是每个节点对应的ip地址和transport.tcp.port的地址，告知集群中一共有哪几个节点</p>
+<p><strong>cluster.name</strong> 需要两台一致，表示这两台是一个集群中的<br><strong>node.name</strong> 需要两台不同，分别表示自己节点的名称<br><strong>network.host</strong> 当前服务器的ip地址或者域名地址，配置了这个，远端客户端才可以访问到，不然只能本机访问<br><strong>http.port和transport.tcp.port</strong> 如果需要修改，可以自己修改，http.port表示http的restful接口的端口，transport.tcp.port表示集群间tcp通讯的端口<br><strong>discovery.zen.ping.unicast.hosts</strong> 这个配置的就是每个节点对应的ip地址和transport.tcp.port的地址，告知集群中一共有哪几个节点</p>
 <h3 id="4-elasticsearch-head-elasticsearch-">4. 通过elasticsearch-head来监控与管理elasticsearch集群</h3>
 <p>需要有安装node，解压相关文件，然后按如下步骤打开即可</p>
 <ul>
