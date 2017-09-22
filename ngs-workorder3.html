@@ -18,78 +18,159 @@
   <p>工单对象，包含了所有工单相关操作，在动态页面中，可以通过：<strong>$instance.workorder</strong>  获取到当前工单对象。注意：当前动态页面，需要是个工单，而不是普通的动态页面。</p>
 </blockquote>
 
-<ul><li><strong>woBoundData</strong> 当前工单的boundData对象，关联的就是objective表。</li>
+<ul><li><strong>objective</strong> 当前工单objective的boundData对象，关联的就是objective表。</li>
 <li><strong>taskBoundData</strong> 当前工单task的boundData对象，关联到elitetask表。</li>
 </ul>
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">//可以直接从workorder上获取到woBoundData和taskBoundData，并可以通过boundData对象的getValue和setValue方法去赋值或者去取值</span><br><span class="hljs-comment">//赋值过的字段，最后动态页面保存时候，都会自动记录到数据库中去</span><br>$instance.workorder.woBoundData.getValue(<span class="hljs-string">'objective_guid'</span>);<br>$instance.workorder.woBoundData.setValue(<span class="hljs-string">'curstep_id_map'</span>, <span class="hljs-string">'xxxxx'</span>);<br>$instance.workorder.taskBoundData.getValue(<span class="hljs-string">'map_id'</span>);<br>$instance.workorder.taskBoundData.setValue(<span class="hljs-string">'comments'</span>, <span class="hljs-string">'xxxxx'</span>);<br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">//可以直接从workorder上获取到objective和taskBoundData，并可以通过boundData对象的getValue和setValue方法去赋值或者去取值</span>
+</div><div class="hljs-line"><span class="hljs-comment">//赋值过的字段，最后动态页面保存时候，都会自动记录到数据库中去</span>
+</div><div class="hljs-line">$instance.workorder.objective.getValue(<span class="hljs-string">'objective_guid'</span>);
+</div><div class="hljs-line">$instance.workorder.objective.setValue(<span class="hljs-string">'curstep_id_map'</span>, <span class="hljs-string">'xxxxx'</span>);
+</div><div class="hljs-line">$instance.workorder.taskBoundData.getValue(<span class="hljs-string">'map_id'</span>);
+</div><div class="hljs-line">$instance.workorder.taskBoundData.setValue(<span class="hljs-string">'comments'</span>, <span class="hljs-string">'xxxxx'</span>);
+</div></code></pre>
 
 <ul><li><strong>loadByObjectiveGuid 根据objective_guid加载工单</strong>  此方法主要是在工单内部调用，通常我们动态页面中不需要直接调用此方法，这里主要用来说明，帮助理解</li>
 </ul>
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 根据oId打开工单<br> * @param objectiveGuid 市场活动guid<br> * @param taskId task的guid<br> * @param addinId 工单模块id<br> * @param tabName tab的名字<br> * @param parameters 参数<br> * @param notifyId 提醒的guid<br> * @returns {number} -1表示失败，如果成功会返回响应创建出来的instance实例<br> */</span><br><span class="hljs-keyword">this</span>.loadByObjectiveGuid = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">objectiveGuid, taskId, addinId, tabName, parameters, notifyId</span>) </span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 根据oId打开工单
+</div><div class="hljs-line"> * @param objectiveGuid 市场活动guid
+</div><div class="hljs-line"> * @param taskId task的guid
+</div><div class="hljs-line"> * @param addinId 工单模块id
+</div><div class="hljs-line"> * @param tabName tab的名字
+</div><div class="hljs-line"> * @param parameters 参数
+</div><div class="hljs-line"> * @param notifyId 提醒的guid
+</div><div class="hljs-line"> * @returns {number} -1表示失败，如果成功会返回响应创建出来的instance实例
+</div><div class="hljs-line"> */
+</div><div class="hljs-line"><span class="hljs-keyword">this</span>.loadByObjectiveGuid = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">objectiveGuid, taskId, addinId, tabName, parameters, notifyId</span>) </span>
+</div></code></pre>
 
 <p>动态页面中是通过事件的方式，发出工单3打开的事件，来实现调用上面的方法，上面的方法中，需要先有一个workorder对象，才能去打开工单，而事件的方式，<strong>可以不需要有workorder对象</strong>，直接调用即可：</p>
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">//打开工单命令，其实是发出一个工单3打开的事件到project</span><br>$project.event.notify(<span class="hljs-built_in">window</span>.$CONST.EVENT.OPEN_WO3, {<br>      addinId : <span class="hljs-string">'AddinWO3'</span>,<br>      tabName : <span class="hljs-string">'xxxx'</span>,<br>      oId: <span class="hljs-string">''</span>,<span class="hljs-comment">//需要打开的市场活动guid</span><br>      taskId: <span class="hljs-string">''</span>, <span class="hljs-comment">//需要打开的工单任务guid</span><br>      notifyId: <span class="hljs-string">''</span> <span class="hljs-comment">//相关提醒的guid，非必传</span><br> });<br></code></pre>
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">//打开工单命令，其实是发出一个工单3打开的事件到project</span>
+</div><div class="hljs-line">$project.event.notify(<span class="hljs-built_in">window</span>.$CONST.EVENT.OPEN_WO3, {
+</div><div class="hljs-line">      <span class="hljs-attr">addinId</span> : <span class="hljs-string">'AddinWO3'</span>,
+</div><div class="hljs-line">      <span class="hljs-attr">tabName</span> : <span class="hljs-string">'xxxx'</span>,
+</div><div class="hljs-line">      <span class="hljs-attr">oId</span>: <span class="hljs-string">''</span>,<span class="hljs-comment">//需要打开的市场活动guid</span>
+</div><div class="hljs-line">      taskId: <span class="hljs-string">''</span>, <span class="hljs-comment">//需要打开的工单任务guid</span>
+</div><div class="hljs-line">      notifyId: <span class="hljs-string">''</span> <span class="hljs-comment">//相关提醒的guid，非必传</span>
+</div><div class="hljs-line"> });
+</div></code></pre>
 
 <ul><li><strong>loadByOtId 根据mapId打开工单</strong> 此方法主要是在工单内部调用，通常我们动态页面中不需要直接调用此方法，这里主要用来说明，帮助理解</li>
 </ul>
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 根据otId打开工单，可能是新建工单(其实是根据mapId打开)<br> * @param mapId 工单的mapId<br> * @param dupFlag 是否允许重复的标志 1表示允许重复，当前客户已经有此objective时候还是会新建一个，0表示不允许<br> * @param addinId 模块id<br> * @param tabName tab名字<br> * @param parameters 参数<br> * @returns {number} -1表示失败，如果成功会返回响应创建出来的instance实例<br> */</span><br><span class="hljs-keyword">this</span>.loadByOtId = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">mapId, dupFlag, addinId, tabName, parameters</span>)</span><br></code></pre>
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 根据otId打开工单，可能是新建工单(其实是根据mapId打开)
+</div><div class="hljs-line"> * @param mapId 工单的mapId
+</div><div class="hljs-line"> * @param dupFlag 是否允许重复的标志 1表示允许重复，当前客户已经有此objective时候还是会新建一个，0表示不允许
+</div><div class="hljs-line"> * @param addinId 模块id
+</div><div class="hljs-line"> * @param tabName tab名字
+</div><div class="hljs-line"> * @param parameters 参数
+</div><div class="hljs-line"> * @returns {number} -1表示失败，如果成功会返回响应创建出来的instance实例
+</div><div class="hljs-line"> */
+</div><div class="hljs-line"><span class="hljs-keyword">this</span>.loadByOtId = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">mapId, dupFlag, addinId, tabName, parameters</span>)</span>
+</div></code></pre>
 
 <p>动态页面中是通过另外一个事件：</p>
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">//根据mapId打开工单命令，可能是新建工单</span><br>$project.event.notify(<span class="hljs-built_in">window</span>.$CONST.EVENT.OPEN_WO3, {<br>    addinId : <span class="hljs-string">'AddinWO3'</span>,<br>    tabName : <span class="hljs-string">'xxxx'</span>,<br>    otId: <span class="hljs-string">''</span> <span class="hljs-comment">//需要打开的市场活动类型id</span><br>});<br></code></pre>
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">//根据mapId打开工单命令，可能是新建工单</span>
+</div><div class="hljs-line">$project.event.notify(<span class="hljs-built_in">window</span>.$CONST.EVENT.OPEN_WO3, {
+</div><div class="hljs-line">    <span class="hljs-attr">addinId</span> : <span class="hljs-string">'AddinWO3'</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">tabName</span> : <span class="hljs-string">'xxxx'</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">otId</span>: <span class="hljs-string">''</span> <span class="hljs-comment">//需要打开的市场活动类型id</span>
+</div><div class="hljs-line">});
+</div></code></pre>
 
 <ul><li><strong>getCurrentMpaExtends 获取当前工单主结构上的扩展字段</strong> 根据名字获取扩展字段值</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 获取当前流程的自定义扩展属性值<br> * @param name<br> */</span><br><span class="hljs-keyword">this</span>.getCurrentMapExtends = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 获取当前流程的自定义扩展属性值
+</div><div class="hljs-line"> * @param name
+</div><div class="hljs-line"> */
+</div><div class="hljs-line"><span class="hljs-keyword">this</span>.getCurrentMapExtends = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>getCurrentNodeExtends 获取工单当前结点上的扩展字段</strong> 根据名字获取扩展字段值</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 获取当前节点的自定义扩展属性值<br> * @param name<br> */</span><br><span class="hljs-keyword">this</span>.getCurrentNodeExtends = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 获取当前节点的自定义扩展属性值
+</div><div class="hljs-line"> * @param name
+</div><div class="hljs-line"> */
+</div><div class="hljs-line"><span class="hljs-keyword">this</span>.getCurrentNodeExtends = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>getNodeExtends 获取当前工单指定节点上的扩展字段</strong> 根据名字获取扩展字段值</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 获取指定节点的自定义扩展属性值<br> * @param nodeMapId <br> * @param name<br> */</span><br> <span class="hljs-keyword">this</span>.getNodeExtends = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeMapId, name</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 获取指定节点的自定义扩展属性值
+</div><div class="hljs-line"> * @param nodeMapId 
+</div><div class="hljs-line"> * @param name
+</div><div class="hljs-line"> */
+</div><div class="hljs-line"> <span class="hljs-keyword">this</span>.getNodeExtends = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeMapId, name</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>calculateExpectEndTime 根据给定时间来计算期望结束时间</strong> </li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 根据给定时间来计算期望结束时间<br> * @param baseTime 基准时间<br> * @param stepId （可选）步骤id，如果不传递默认为当前步骤<br> */</span><br><span class="hljs-keyword">this</span>.calculateExpectEndTime = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">baseTime, stepId</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 根据给定时间来计算期望结束时间
+</div><div class="hljs-line"> * @param baseTime 基准时间
+</div><div class="hljs-line"> * @param stepId （可选）步骤id，如果不传递默认为当前步骤
+</div><div class="hljs-line"> */
+</div><div class="hljs-line"><span class="hljs-keyword">this</span>.calculateExpectEndTime = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">baseTime, stepId</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>getNextNode 获取下一个节点</strong> 根据当前工单信息计算出下送的下一个节点</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 获取下一个节点<br> */</span><br> <span class="hljs-keyword">this</span>.getNextNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 获取下一个节点
+</div><div class="hljs-line"> */
+</div><div class="hljs-line"> <span class="hljs-keyword">this</span>.getNextNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>
+</div></code></pre>
 
 <ul><li><strong>getPrevNode 获取上一个节点id</strong> 根据当前工单path3表信息，获取上一个步骤的步骤id</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 获取上一个节点id<br> */</span><br><span class="hljs-keyword">this</span>.getPrevNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 获取上一个节点id
+</div><div class="hljs-line"> */
+</div><div class="hljs-line"><span class="hljs-keyword">this</span>.getPrevNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>
+</div></code></pre>
 
 <ul><li><strong>setOBFlagByNodeMapId 设置obflag的值</strong> 根据给定的节点id获取obflag扩展字段的值，并赋值给taskBoundData</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 根据给定的节点id获取obflag扩展字段的值，并赋值task表的obflag字段<br> */</span><br><span class="hljs-keyword">this</span>.setOBFlagByNodeMapId = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeMapId</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 根据给定的节点id获取obflag扩展字段的值，并赋值task表的obflag字段
+</div><div class="hljs-line"> */
+</div><div class="hljs-line"><span class="hljs-keyword">this</span>.setOBFlagByNodeMapId = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeMapId</span>)</span>
+</div></code></pre>
 
 <hr>
 
@@ -107,35 +188,246 @@
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">getStruct : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)<br><br>//获取到的<span class="hljs-title">struct</span>，就是一个标准的<span class="hljs-title">json</span>对象，长成类似如下的样子：<br></span>{<br>    <span class="hljs-string">"MAP_ID"</span> : <span class="hljs-string">"S6LZUU"</span>,<br>    <span class="hljs-string">"MAPNAME"</span> : <span class="hljs-string">"项目管理"</span>,<br>    <span class="hljs-string">"FOLDER_ID"</span> : <span class="hljs-string">"66A30AB0-55FE-B487-3956-CD85BF0E82FF"</span>,<br>    <span class="hljs-string">"WORKORDERFRAME_ID"</span> : <span class="hljs-string">"8DTGAK"</span>,<br>    <span class="hljs-string">"CATEGORY"</span> : <span class="hljs-string">"WORDER"</span>,<br>    <span class="hljs-string">"PRIORITY_ID"</span> : <span class="hljs-string">"NORMAL"</span>,<br>    <span class="hljs-string">"EXPIREDPERIODTYPE_ID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"EXPIREDPERIOD"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"FORECASTUNIT"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"FORECASTLEN"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"CUSTOMERFLAG"</span> : <span class="hljs-number">2</span>,<br>    <span class="hljs-string">"CUSTOMER_GUID"</span> : <span class="hljs-string">"1"</span>,<br>    <span class="hljs-string">"GROUP_IDA"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"SHOWTRACEFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"CANGENERATEOB"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"GENERATERATE"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"GROUP_IDA2"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"CREATEDBY"</span> : <span class="hljs-string">"B2QOBF"</span>,<br>    <span class="hljs-string">"CREATEDDATE"</span> : <span class="hljs-string">"2016-07-31 01:00:39"</span>,<br>    <span class="hljs-string">"MODIFIEDBY"</span> : <span class="hljs-string">"SPDU74"</span>,<br>    <span class="hljs-string">"MODIFIEDDATE"</span> : <span class="hljs-string">"2016-10-20 14:58:10"</span>,<br>    <span class="hljs-string">"OBJECTIVESTATUS"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"HISTORYFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"DUPLICATE"</span> : <span class="hljs-number">1</span>,<br>    <span class="hljs-string">"DEFAULTHANDLEGROUP_ID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"DEFAULTHANDLEBY_ID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"DELAYDATE"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"EXPECTQUOTA"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"CURRENTQUOTA"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"PDSFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"STRINGFIELDKST"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"AVAYAPDSPATH"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"MAXTRYTIMES"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"SCRIPTID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"PDSSQL"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"OBTYPE"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"ADDIN_ID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"ADDINCOMMENT"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"ADDINCOMMENT_ID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"CHANNELSEQUENCE"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"TEL_1STARTTIME"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"TEL_1ENDTIME"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"TEL_2STARTTIME"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"TEL_2ENDTIME"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"MOBILESTARTTIME"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"MOBILEENDTIME"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"DOCGROUP_ID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"DOCTEMPLATE_ID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"OBJECTIVEFOLD_GUID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"QUESTIONAREFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"OBJECTIVETYPESTATUS"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"CUSTOMERCOUNT"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"OBORDERBY"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"ADDGETPERSONALDATASQL"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"ADDOBHEADFORMAT"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"GETDATASQL"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"OBSHOWCOLS"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"ONCERECORD"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"MAXCACHEREC"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"MINCACHEREC"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"PERSONGETFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"PERSONSHOWROWS"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"PERSONMAXCACHE"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"PERSONMINCACHE"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"PERSONGETDATASQL"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"PEFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"IMPDEFAULTFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"IMPFILTER"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"MAXFAILURETRYTIMES"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"ATTEMPTFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"CALLBYROUND"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"MPEFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"REASSIGNTARGET"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"ADDIN_ID_SAAS"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"ADDINCOMMENT_ID_SAAS"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"ADDINCOMMENT_SAAS"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"EXPIREDDATE"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"REAL_GROUP_IDA"</span> : <span class="hljs-string">"ZIVA22"</span>,<br>    <span class="hljs-string">"REAL_GROUP_IDA2"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"REAL_GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"nodes"</span> : [{<br>            <span class="hljs-string">"NODEMAP_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,<br>            <span class="hljs-string">"NODEMAPNAME"</span> : <span class="hljs-string">"项目管理"</span>,<br>            <span class="hljs-string">"MAP_ID"</span> : <span class="hljs-string">"S6LZUU"</span>,<br>            <span class="hljs-string">"WORKORDERFRAME_ID"</span> : <span class="hljs-string">"8DTGAK"</span>,<br>            <span class="hljs-string">"WORKORDERNODE_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,<br>            <span class="hljs-string">"PRIORITY_ID"</span> : <span class="hljs-string">"NORMAL"</span>,<br>            <span class="hljs-string">"KEEPSTAYTIME"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"NEXTBEGINTIME"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"EXPIREDPERIODTYPE_ID"</span> : <span class="hljs-string">"M"</span>,<br>            <span class="hljs-string">"EXPIREDPERIOD"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"FORECASTUNIT"</span> : <span class="hljs-string">""</span>,<br>            <span class="hljs-string">"FORECASTLEN"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"CANSENDBACK"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"CANBACKTOBY"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"CANCLOSE"</span> : <span class="hljs-number">1</span>,<br>            <span class="hljs-string">"CANSKIP"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"CANMODIFY"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"TICKOFFFLAG"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"MODULETYPE"</span> : <span class="hljs-string">"DYN"</span>,<br>            <span class="hljs-string">"DOCTEMPLATE"</span> : <span class="hljs-string">""</span>,<br>            <span class="hljs-string">"OPFLAG"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"GROUP_IDA"</span> : <span class="hljs-string">""</span>,<br>            <span class="hljs-string">"GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,<br>            <span class="hljs-string">"RETURNOLDSTEP"</span> : <span class="hljs-string">""</span>,<br>            <span class="hljs-string">"RETURNGROUPFLAG"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"HANDLEGROUP_ID"</span> : <span class="hljs-string">"SYSTEM"</span>,<br>            <span class="hljs-string">"HANDLEBY_ID"</span> : <span class="hljs-string">""</span>,<br>            <span class="hljs-string">"EXPIREDHANDLEGROUP_ID"</span> : <span class="hljs-string">""</span>,<br>            <span class="hljs-string">"EXPIREDHANDLEBY_ID"</span> : <span class="hljs-string">""</span>,<br>            <span class="hljs-string">"EMAILNOTIFY"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"SMSNOTIFY"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"NODETOP"</span> : <span class="hljs-number">100</span>,<br>            <span class="hljs-string">"NODELEFT"</span> : <span class="hljs-number">240</span>,<br>            <span class="hljs-string">"FOLLOWROLE"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"MULTITASK"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"TASKFLAG"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"ADVANCEFLAG"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"REAL_GROUP_IDA"</span> : <span class="hljs-string">"ZIVA22"</span>,<br>            <span class="hljs-string">"REAL_MODULETYPE"</span> : <span class="hljs-string">"DYN"</span>,<br>            <span class="hljs-string">"REAL_GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,<br>            <span class="hljs-string">"nodeMapExtends"</span> : {}<br>        },<br>        ...<br>    ],<br>    <span class="hljs-string">"links"</span> : [{<br>            <span class="hljs-string">"LINKMAP_ID"</span> : <span class="hljs-string">"XJGT9T"</span>,<br>            <span class="hljs-string">"LINKMAPNAME"</span> : <span class="hljs-string">"链路"</span>,<br>            <span class="hljs-string">"MAP_ID"</span> : <span class="hljs-string">"S6LZUU"</span>,<br>            <span class="hljs-string">"WORKORDERFRAME_ID"</span> : <span class="hljs-string">"8DTGAK"</span>,<br>            <span class="hljs-string">"TARGET_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,<br>            <span class="hljs-string">"SOURCE_ID"</span> : <span class="hljs-string">"BEGIN"</span>,<br>            <span class="hljs-string">"ALWAYSOPEN"</span> : <span class="hljs-number">1</span>,<br>            <span class="hljs-string">"ADVANCEFLAG"</span> : <span class="hljs-number">0</span>,<br>            <span class="hljs-string">"ADDINVARIANT"</span> : <span class="hljs-string">""</span>,<br>            <span class="hljs-string">"COMPARETYPE"</span> : <span class="hljs-string">""</span>,<br>            <span class="hljs-string">"VARIANTVALUE"</span> : <span class="hljs-string">""</span><br>        },<br>        ...<br>    ],<br>    <span class="hljs-string">"mapExtends"</span> : {}<br>}<br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line">getStruct : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)
+</span></div><div class="hljs-line">
+</div><div class="hljs-line">//获取到的<span class="hljs-title">struct</span>，就是一个标准的<span class="hljs-title">json</span>对象，长成类似如下的样子：
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-string">"MAP_ID"</span> : <span class="hljs-string">"S6LZUU"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MAPNAME"</span> : <span class="hljs-string">"项目管理"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"FOLDER_ID"</span> : <span class="hljs-string">"66A30AB0-55FE-B487-3956-CD85BF0E82FF"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"WORKORDERFRAME_ID"</span> : <span class="hljs-string">"8DTGAK"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CATEGORY"</span> : <span class="hljs-string">"WORDER"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"PRIORITY_ID"</span> : <span class="hljs-string">"NORMAL"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"EXPIREDPERIODTYPE_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"EXPIREDPERIOD"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"FORECASTUNIT"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"FORECASTLEN"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CUSTOMERFLAG"</span> : <span class="hljs-number">2</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CUSTOMER_GUID"</span> : <span class="hljs-string">"1"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"GROUP_IDA"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"SHOWTRACEFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CANGENERATEOB"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"GENERATERATE"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"GROUP_IDA2"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CREATEDBY"</span> : <span class="hljs-string">"B2QOBF"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CREATEDDATE"</span> : <span class="hljs-string">"2016-07-31 01:00:39"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MODIFIEDBY"</span> : <span class="hljs-string">"SPDU74"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MODIFIEDDATE"</span> : <span class="hljs-string">"2016-10-20 14:58:10"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"OBJECTIVESTATUS"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"HISTORYFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"DUPLICATE"</span> : <span class="hljs-number">1</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"DEFAULTHANDLEGROUP_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"DEFAULTHANDLEBY_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"DELAYDATE"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"EXPECTQUOTA"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CURRENTQUOTA"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"PDSFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"STRINGFIELDKST"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"AVAYAPDSPATH"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MAXTRYTIMES"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"SCRIPTID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"PDSSQL"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"OBTYPE"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ADDIN_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ADDINCOMMENT"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ADDINCOMMENT_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CHANNELSEQUENCE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"TEL_1STARTTIME"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"TEL_1ENDTIME"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"TEL_2STARTTIME"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"TEL_2ENDTIME"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MOBILESTARTTIME"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MOBILEENDTIME"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"DOCGROUP_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"DOCTEMPLATE_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"OBJECTIVEFOLD_GUID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"QUESTIONAREFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"OBJECTIVETYPESTATUS"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CUSTOMERCOUNT"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"OBORDERBY"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ADDGETPERSONALDATASQL"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ADDOBHEADFORMAT"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"GETDATASQL"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"OBSHOWCOLS"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ONCERECORD"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MAXCACHEREC"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MINCACHEREC"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"PERSONGETFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"PERSONSHOWROWS"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"PERSONMAXCACHE"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"PERSONMINCACHE"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"PERSONGETDATASQL"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"PEFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"IMPDEFAULTFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"IMPFILTER"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MAXFAILURETRYTIMES"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ATTEMPTFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CALLBYROUND"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MPEFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"REASSIGNTARGET"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ADDIN_ID_SAAS"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ADDINCOMMENT_ID_SAAS"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ADDINCOMMENT_SAAS"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"EXPIREDDATE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"REAL_GROUP_IDA"</span> : <span class="hljs-string">"ZIVA22"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"REAL_GROUP_IDA2"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"REAL_GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"nodes"</span> : [{
+</div><div class="hljs-line">            <span class="hljs-string">"NODEMAP_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"NODEMAPNAME"</span> : <span class="hljs-string">"项目管理"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"MAP_ID"</span> : <span class="hljs-string">"S6LZUU"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"WORKORDERFRAME_ID"</span> : <span class="hljs-string">"8DTGAK"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"WORKORDERNODE_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"PRIORITY_ID"</span> : <span class="hljs-string">"NORMAL"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"KEEPSTAYTIME"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"NEXTBEGINTIME"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"EXPIREDPERIODTYPE_ID"</span> : <span class="hljs-string">"M"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"EXPIREDPERIOD"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"FORECASTUNIT"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"FORECASTLEN"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"CANSENDBACK"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"CANBACKTOBY"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"CANCLOSE"</span> : <span class="hljs-number">1</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"CANSKIP"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"CANMODIFY"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"TICKOFFFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"MODULETYPE"</span> : <span class="hljs-string">"DYN"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"DOCTEMPLATE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"OPFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"GROUP_IDA"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"RETURNOLDSTEP"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"RETURNGROUPFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"HANDLEGROUP_ID"</span> : <span class="hljs-string">"SYSTEM"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"HANDLEBY_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"EXPIREDHANDLEGROUP_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"EXPIREDHANDLEBY_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"EMAILNOTIFY"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"SMSNOTIFY"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"NODETOP"</span> : <span class="hljs-number">100</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"NODELEFT"</span> : <span class="hljs-number">240</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"FOLLOWROLE"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"MULTITASK"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"TASKFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"ADVANCEFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"REAL_GROUP_IDA"</span> : <span class="hljs-string">"ZIVA22"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"REAL_MODULETYPE"</span> : <span class="hljs-string">"DYN"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"REAL_GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"nodeMapExtends"</span> : {}
+</div><div class="hljs-line">        },
+</div><div class="hljs-line">        ...
+</div><div class="hljs-line">    ],
+</div><div class="hljs-line">    <span class="hljs-string">"links"</span> : [{
+</div><div class="hljs-line">            <span class="hljs-string">"LINKMAP_ID"</span> : <span class="hljs-string">"XJGT9T"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"LINKMAPNAME"</span> : <span class="hljs-string">"链路"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"MAP_ID"</span> : <span class="hljs-string">"S6LZUU"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"WORKORDERFRAME_ID"</span> : <span class="hljs-string">"8DTGAK"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"TARGET_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"SOURCE_ID"</span> : <span class="hljs-string">"BEGIN"</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"ALWAYSOPEN"</span> : <span class="hljs-number">1</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"ADVANCEFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"ADDINVARIANT"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"COMPARETYPE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">            <span class="hljs-string">"VARIANTVALUE"</span> : <span class="hljs-string">""</span>
+</div><div class="hljs-line">        },
+</div><div class="hljs-line">        ...
+</div><div class="hljs-line">    ],
+</div><div class="hljs-line">    <span class="hljs-string">"mapExtends"</span> : {}
+</div><div class="hljs-line">}
+</div></code></pre>
 
 <ul><li><strong>getOneNode 根据步骤id获取当前Node对象</strong> </li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">getOneNode : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">stepId</span>)<br><br>//获取到的<span class="hljs-title">node</span>对象，也是一个标准<span class="hljs-title">json</span>，长成类似如下的样子：<br></span>{<br>    <span class="hljs-string">"NODEMAP_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,<br>    <span class="hljs-string">"NODEMAPNAME"</span> : <span class="hljs-string">"项目管理"</span>,<br>    <span class="hljs-string">"MAP_ID"</span> : <span class="hljs-string">"S6LZUU"</span>,<br>    <span class="hljs-string">"WORKORDERFRAME_ID"</span> : <span class="hljs-string">"8DTGAK"</span>,<br>    <span class="hljs-string">"WORKORDERNODE_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,<br>    <span class="hljs-string">"PRIORITY_ID"</span> : <span class="hljs-string">"NORMAL"</span>,<br>    <span class="hljs-string">"KEEPSTAYTIME"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"NEXTBEGINTIME"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"EXPIREDPERIODTYPE_ID"</span> : <span class="hljs-string">"M"</span>,<br>    <span class="hljs-string">"EXPIREDPERIOD"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"FORECASTUNIT"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"FORECASTLEN"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"CANSENDBACK"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"CANBACKTOBY"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"CANCLOSE"</span> : <span class="hljs-number">1</span>,<br>    <span class="hljs-string">"CANSKIP"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"CANMODIFY"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"TICKOFFFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"MODULETYPE"</span> : <span class="hljs-string">"DYN"</span>,<br>    <span class="hljs-string">"DOCTEMPLATE"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"OPFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"GROUP_IDA"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"RETURNOLDSTEP"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"RETURNGROUPFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"HANDLEGROUP_ID"</span> : <span class="hljs-string">"SYSTEM"</span>,<br>    <span class="hljs-string">"HANDLEBY_ID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"EXPIREDHANDLEGROUP_ID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"EXPIREDHANDLEBY_ID"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"EMAILNOTIFY"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"SMSNOTIFY"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"NODETOP"</span> : <span class="hljs-number">100</span>,<br>    <span class="hljs-string">"NODELEFT"</span> : <span class="hljs-number">240</span>,<br>    <span class="hljs-string">"FOLLOWROLE"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"MULTITASK"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"TASKFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"ADVANCEFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"REAL_GROUP_IDA"</span> : <span class="hljs-string">"ZIVA22"</span>,<br>    <span class="hljs-string">"REAL_MODULETYPE"</span> : <span class="hljs-string">"DYN"</span>,<br>    <span class="hljs-string">"REAL_GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"nodeMapExtends"</span> : {}<br>}<br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line">getOneNode : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">stepId</span>)
+</span></div><div class="hljs-line">
+</div><div class="hljs-line">//获取到的<span class="hljs-title">node</span>对象，也是一个标准<span class="hljs-title">json</span>，长成类似如下的样子：
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-string">"NODEMAP_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"NODEMAPNAME"</span> : <span class="hljs-string">"项目管理"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MAP_ID"</span> : <span class="hljs-string">"S6LZUU"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"WORKORDERFRAME_ID"</span> : <span class="hljs-string">"8DTGAK"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"WORKORDERNODE_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"PRIORITY_ID"</span> : <span class="hljs-string">"NORMAL"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"KEEPSTAYTIME"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"NEXTBEGINTIME"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"EXPIREDPERIODTYPE_ID"</span> : <span class="hljs-string">"M"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"EXPIREDPERIOD"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"FORECASTUNIT"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"FORECASTLEN"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CANSENDBACK"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CANBACKTOBY"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CANCLOSE"</span> : <span class="hljs-number">1</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CANSKIP"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"CANMODIFY"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"TICKOFFFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MODULETYPE"</span> : <span class="hljs-string">"DYN"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"DOCTEMPLATE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"OPFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"GROUP_IDA"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"RETURNOLDSTEP"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"RETURNGROUPFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"HANDLEGROUP_ID"</span> : <span class="hljs-string">"SYSTEM"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"HANDLEBY_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"EXPIREDHANDLEGROUP_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"EXPIREDHANDLEBY_ID"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"EMAILNOTIFY"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"SMSNOTIFY"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"NODETOP"</span> : <span class="hljs-number">100</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"NODELEFT"</span> : <span class="hljs-number">240</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"FOLLOWROLE"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MULTITASK"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"TASKFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ADVANCEFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"REAL_GROUP_IDA"</span> : <span class="hljs-string">"ZIVA22"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"REAL_MODULETYPE"</span> : <span class="hljs-string">"DYN"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"REAL_GROUPIDAMOBILE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"nodeMapExtends"</span> : {}
+</div><div class="hljs-line">}
+</div></code></pre>
 
 <ul><li><strong>getAllLinks 获取当前工单的所有Link对象</strong> 就是获取工单主结构上的links属性，是由多个link对象组成的一个数组</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">getAllLinks : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)<br><br>//单个<span class="hljs-title">link</span>对象长成如下：<br></span>{<br>    <span class="hljs-string">"LINKMAP_ID"</span> : <span class="hljs-string">"XJGT9T"</span>,<br>    <span class="hljs-string">"LINKMAPNAME"</span> : <span class="hljs-string">"链路"</span>,<br>    <span class="hljs-string">"MAP_ID"</span> : <span class="hljs-string">"S6LZUU"</span>,<br>    <span class="hljs-string">"WORKORDERFRAME_ID"</span> : <span class="hljs-string">"8DTGAK"</span>,<br>    <span class="hljs-string">"TARGET_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,<br>    <span class="hljs-string">"SOURCE_ID"</span> : <span class="hljs-string">"BEGIN"</span>,<br>    <span class="hljs-string">"ALWAYSOPEN"</span> : <span class="hljs-number">1</span>,<br>    <span class="hljs-string">"ADVANCEFLAG"</span> : <span class="hljs-number">0</span>,<br>    <span class="hljs-string">"ADDINVARIANT"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"COMPARETYPE"</span> : <span class="hljs-string">""</span>,<br>    <span class="hljs-string">"VARIANTVALUE"</span> : <span class="hljs-string">""</span><br>}<br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line">getAllLinks : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)
+</span></div><div class="hljs-line">
+</div><div class="hljs-line">//单个<span class="hljs-title">link</span>对象长成如下：
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-string">"LINKMAP_ID"</span> : <span class="hljs-string">"XJGT9T"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"LINKMAPNAME"</span> : <span class="hljs-string">"链路"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"MAP_ID"</span> : <span class="hljs-string">"S6LZUU"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"WORKORDERFRAME_ID"</span> : <span class="hljs-string">"8DTGAK"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"TARGET_ID"</span> : <span class="hljs-string">"F50ZGG"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"SOURCE_ID"</span> : <span class="hljs-string">"BEGIN"</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ALWAYSOPEN"</span> : <span class="hljs-number">1</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ADVANCEFLAG"</span> : <span class="hljs-number">0</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"ADDINVARIANT"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"COMPARETYPE"</span> : <span class="hljs-string">""</span>,
+</div><div class="hljs-line">    <span class="hljs-string">"VARIANTVALUE"</span> : <span class="hljs-string">""</span>
+</div><div class="hljs-line">}
+</div></code></pre>
 
 <ul><li><strong>getAllNodes 获取当前工单的所有Node对象</strong>  就是获取工单主结构上的nodes属性，是由多个node对象组成的一个数组</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">getAllNodes : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line">getAllNodes : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>
+</div></code></pre>
 
 <ul><li><strong>getFirstNode 获取当前工单的起始节点对象</strong> 也就是从所有的link中找到 <strong>link.SOURCE_ID</strong> 是<code>BEGIN</code>的，然后取这个 <strong>link.TARGET_ID</strong></li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">getFirstNode : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line">getFirstNode : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>
+</div></code></pre>
 
 <hr>
 
@@ -152,98 +444,193 @@
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 加载工单<br> * @param oId objective的guid<br> * @param taskId elitetask的guid<br> * @returns {number}<br> */</span><br>woload : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">oId, taskId</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 加载工单
+</div><div class="hljs-line"> * @param oId objective的guid
+</div><div class="hljs-line"> * @param taskId elitetask的guid
+</div><div class="hljs-line"> * @returns {number}
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">woload : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">oId, taskId</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>wonew 新建工单</strong> 当然，除了加载，也可以通过新建工单方式，给objective和elitetask的bounddata对象初始化数据</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 新建工单<br> * @param mapId 工单mapid<br> * @param customerGuid 客户guid<br> * @returns {*}<br> */</span><br>wonew : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">mapId, customerGuid</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 新建工单
+</div><div class="hljs-line"> * @param mapId 工单mapid
+</div><div class="hljs-line"> * @param customerGuid 客户guid
+</div><div class="hljs-line"> * @returns {*}
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">wonew : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">mapId, customerGuid</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>wosave 工单保存</strong> 加载完工单或者新建完工单，就可以开始调用工单的那些个方法了</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 工单保存<br> * @param comments 备注信息<br> * @param dbpool<br> * @returns {number}<br> */</span><br>wosave : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">comments, dbpool</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 工单保存
+</div><div class="hljs-line"> * @param comments 备注信息
+</div><div class="hljs-line"> * @param dbpool
+</div><div class="hljs-line"> * @returns {number}
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">wosave : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">comments, dbpool</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>woclose 工单结案</strong></li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 工单结案<br> * @param comments 备注信息<br> * @param dbpool<br> * @returns {number}<br> */</span><br>woclose : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">comments, dbpool</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 工单结案
+</div><div class="hljs-line"> * @param comments 备注信息
+</div><div class="hljs-line"> * @param dbpool
+</div><div class="hljs-line"> * @returns {number}
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">woclose : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">comments, dbpool</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>wosend 工单下送</strong> 可以加载一次，下送多次，这样可以实现给多个人同时下送工单，相同的objective，不同的elitetask</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 工单下送<br> * @param comments 备注信息<br> * @param toStep 下送的步骤 （可以为空，如果是空就会通过当前步骤来获取应该下送到的步骤）<br> * @param toGrp 下送的组 （可以为空）<br> * @param toBy 下送的人 （可以为空）<br> * @param operateTaskGuid 需要操作的taskId<br> * @param dbpool<br> * @param toRole 下送的角色 （可以为空）<br> * @returns {number}<br> */</span><br>wosend : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">comments, toStep, toGrp, toBy, operateTaskGuid, dbpool, toRole</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 工单下送
+</div><div class="hljs-line"> * @param comments 备注信息
+</div><div class="hljs-line"> * @param toStep 下送的步骤 （可以为空，如果是空就会通过当前步骤来获取应该下送到的步骤）
+</div><div class="hljs-line"> * @param toGrp 下送的组 （可以为空）
+</div><div class="hljs-line"> * @param toBy 下送的人 （可以为空）
+</div><div class="hljs-line"> * @param operateTaskGuid 需要操作的taskId
+</div><div class="hljs-line"> * @param dbpool
+</div><div class="hljs-line"> * @returns {number}
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">wosend : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">comments, toStep, toGrp, toBy, operateTaskGuid, dbpool</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>wocd 工单催单</strong> </li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 工单催单<br> * @param comments 备注信息<br> * @param dbpool<br> * @returns {number}<br> */</span><br>wocd : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">comments, dbpool</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 工单催单
+</div><div class="hljs-line"> * @param comments 备注信息
+</div><div class="hljs-line"> * @param dbpool
+</div><div class="hljs-line"> * @returns {number}
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">wocd : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">comments, dbpool</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>woclear 清空工单缓存</strong> 包括了objective和elitetask的bounddata对象，和工单结构</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs">WO3.woclear(mapId, customerGuid);<br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line">WO3.woclear(mapId, customerGuid);
+</div></code></pre>
 
 <ul><li><strong>wosetobj 给objective的bounddata对象属性赋值</strong> 加载完工单后，需要给对应的objective表某些字段赋值，就调用此方法，然后可以wosave保存到数据库 </li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 给objective表赋值<br> * @param field 字段名<br> * @param value 字段值<br> * @returns {number}<br> */</span><br>wosetobj : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">field, value</span>)</span>{<br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 给objective表赋值
+</div><div class="hljs-line"> * @param field 字段名
+</div><div class="hljs-line"> * @param value 字段值
+</div><div class="hljs-line"> * @returns {number}
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">wosetobj : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">field, value</span>)</span>{
+</div></code></pre>
 
 <ul><li><strong>wosettask 给elitetask的bounddata对象属性赋值</strong> 除了objective表，当然还有elitetask表 </li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 本来是setinfo，3里面变成settask了<br> * 给task表赋值<br> * @param field 字段名<br> * @param value 字段值<br> * @returns {number}<br> */</span><br>wosettask : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">field, value</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 本来是setinfo，3里面变成settask了
+</div><div class="hljs-line"> * 给task表赋值
+</div><div class="hljs-line"> * @param field 字段名
+</div><div class="hljs-line"> * @param value 字段值
+</div><div class="hljs-line"> * @returns {number}
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">wosettask : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">field, value</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>wosettabc 给tabc表相关的bounddata对象属性赋值</strong> 随便几个tabc表都可以这里赋值</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 给tabc表赋值<br> * @param tbName 表名<br> * @param field 字段名<br> * @param value 字段值<br> * @returns {number}<br> */</span><br>wosettabc : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">tbName, field, value</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 给tabc表赋值
+</div><div class="hljs-line"> * @param tbName 表名
+</div><div class="hljs-line"> * @param field 字段名
+</div><div class="hljs-line"> * @param value 字段值
+</div><div class="hljs-line"> * @returns {number}
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">wosettabc : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">tbName, field, value</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>getStruct 获取当前工单的工单结构对象</strong> 当加载过或者新建过工单后，就可以通过这个方法获取到工单结构对象</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 获取当前工单的工单结构对象<br> */</span><br>getStruct : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 获取当前工单的工单结构对象
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">getStruct : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>
+</div></code></pre>
 
 <ul><li><strong>getNextNode 获取下送到的下个步骤的id</strong> 根据工单结构，当前步骤id，当前substatus获取下一步下送到的步骤id</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 获取下一步节点的stepId<br> * @param struct 工单结构<br> * @param currentStepId 当前步骤id<br> * @param substatus 子状态id<br> * @returns {*}<br> */</span><br>getNextNode : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">struct, currentStepId, substatus</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 获取下一步节点的stepId
+</div><div class="hljs-line"> * @param struct 工单结构
+</div><div class="hljs-line"> * @param currentStepId 当前步骤id
+</div><div class="hljs-line"> * @param substatus 子状态id
+</div><div class="hljs-line"> * @returns {*}
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">getNextNode : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">struct, currentStepId, substatus</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>getNodeExtends 获取指定步骤的扩展属性值</strong> 扩展属性是根据node结构，nodeMap结构上综合后得到的值，优先nodeMap的配置，当nodeMap上没有时候才获取node上的配置。这里的mapId不是必传的，当工单加载过或者新建过后，缓存中已经有了当前工单的结构信息，就可以不传递此参数。</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 根据工单mapid，节点mapId和扩展属性名，来获取节点上的对应扩展属性的值<br> * @param nodeMapId 步骤id<br> * @param name 扩展属性名<br> * @param mapId 工单mapId （非必传）<br> * @returns {*}<br> */</span><br>getNodeExtends : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeMapId, name, mapId</span>)</span><br></code></pre>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 根据工单mapid，节点mapId和扩展属性名，来获取节点上的对应扩展属性的值
+</div><div class="hljs-line"> * @param nodeMapId 步骤id
+</div><div class="hljs-line"> * @param name 扩展属性名
+</div><div class="hljs-line"> * @param mapId 工单mapId （非必传）
+</div><div class="hljs-line"> * @returns {*}
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">getNodeExtends : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeMapId, name, mapId</span>)</span>
+</div></code></pre>
 
 <ul><li><strong>setOBFlagByNodeMapId 给指定的步骤id赋值obflag这个扩展属性</strong> 其实就是利用了getNdeExtends方法获取到相关配置的值后，set到当前工单的taskBoundData上去</li>
 </ul>
 
 
 
-<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment">/**<br> * 根据节点mapid设置obflag<br> * @param nodeMapId 步骤id<br> */</span><br>setOBFlagByNodeMapId : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeMapId</span>)</span><br></code></pre></div></body>
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/**
+</span></div><div class="hljs-line"> * 根据节点mapid设置obflag
+</div><div class="hljs-line"> * @param nodeMapId 步骤id
+</div><div class="hljs-line"> */
+</div><div class="hljs-line">setOBFlagByNodeMapId : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeMapId</span>)</span>
+</div></code></pre></div></body>
 <script>
 var _hmt = _hmt || [];
 (function() {
