@@ -311,7 +311,7 @@ var _hmt = _hmt || [];
             console.log(&quot;收到坐席的系统信息&quot; + JSON.stringify(data));
              switch(data.noticeType){
                 case EliteIMClient.$E.CONSTANTS.NOTICETYPE.INPUTING:
-                    // data.content =&gt; 系统提示信息 坐席正在输入提示内容
+                    // data.content.content =&gt; 系统提示信息 坐席正在输入提示内容
                     //TODO
                     break;
                 default:
@@ -327,28 +327,24 @@ var _hmt = _hmt || [];
                     //TODO
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.IMG:
-                    // data.content.imgUrl =&gt; 图片地址
-                    // data.content.imgName =&gt; 图片名字
+                    // data.content.url =&gt; 图片地址
+                    // data.content.name =&gt; 图片名字
                     //TODO
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.FILE:
-                    // data.content.fileUrl =&gt; 附件地址
-                    // data.content.fileName =&gt; 附件名称
+                    // data.content.url =&gt; 附件地址
+                    // data.content.name =&gt; 附件名称
                     //do something……
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.LOCATION:
                     // data.content.longitude =&gt; 位置经度
                     // data.content.latitude =&gt; 位置纬度
-                    // data.content.locationAddress =&gt; 位置名称
-                    //TODO
-                    break;
-                case EliteIMClient.CONSTANTS.MESSAGECODE.VIDEO:
-                    // data.content =&gt; 消息内容
+                    // data.content.poi =&gt; 位置名称
                     //TODO
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.VOICE:
-                    // data.content.voiceData =&gt; 语音内容
-                    //data.content.voiceLength =&gt; 语音长度
+                    // data.content.data =&gt; 语音内容
+                    //data.content.length =&gt; 语音长度
                     //TODO
                     break;
                 default:

@@ -14,7 +14,7 @@
             console.log("收到坐席的系统信息" + JSON.stringify(data));
              switch(data.noticeType){
                 case EliteIMClient.$E.CONSTANTS.NOTICETYPE.INPUTING:
-                    // data.content => 系统提示信息 坐席正在输入提示内容
+                    // data.content.content => 系统提示信息 坐席正在输入提示内容
                     //TODO
                     break;
                 default:
@@ -30,28 +30,24 @@
                     //TODO
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.IMG:
-                    // data.content.imgUrl => 图片地址
-                    // data.content.imgName => 图片名字
+                    // data.content.url => 图片地址
+                    // data.content.name => 图片名字
                     //TODO
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.FILE:
-                    // data.content.fileUrl => 附件地址
-                    // data.content.fileName => 附件名称
+                    // data.content.url => 附件地址
+                    // data.content.name => 附件名称
                     //do something……
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.LOCATION:
                     // data.content.longitude => 位置经度
                     // data.content.latitude => 位置纬度
-                    // data.content.locationAddress => 位置名称
-                    //TODO
-                    break;
-                case EliteIMClient.CONSTANTS.MESSAGECODE.VIDEO:
-                    // data.content => 消息内容
+                    // data.content.poi => 位置名称
                     //TODO
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.VOICE:
-                    // data.content.voiceData => 语音内容
-                    //data.content.voiceLength => 语音长度
+                    // data.content.data => 语音内容
+                    //data.content.length => 语音长度
                     //TODO
                     break;
                 default:
