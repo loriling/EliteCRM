@@ -289,23 +289,32 @@ img {
   max-width: 100%
 }
 </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?99f0858c7fc5b9df4dde5e0d76b6af1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 </head>
 <body>
-<h1>WebChat第三方客户端接入说明（WebSocket版本）</h1>
+<h1 id="webchat-websocket-">WebChat第三方客户端接入说明（WebSocket版本）</h1>
 <p>11/16/2016 5:33:49 PM </p>
-<h3>为了满足更高的消息时效性，websocket版本的接口应运而生</h3>
+<h3 id="-websocket-">为了满足更高的消息时效性，websocket版本的接口应运而生</h3>
 <p>登录接口与一些特殊接口（入文件上传）使用http协议，其余消息接口都是基于WebSocket协议，数据均采用json格式传输</p>
-<h2>一. 客户端登录并连接上websocket</h2>
+<h2 id="-websocket">一. 客户端登录并连接上websocket</h2>
 <ul>
-<li>客户端登录，登录采用http接口，url为： http://xxxx/webchat/tpi，参数是如下json</li>
+<li>客户端登录，登录采用http接口，url为： <a href="http://xxxx/webchat/tpi，参数是如下json">http://xxxx/webchat/tpi，参数是如下json</a></li>
 </ul>
 <blockquote>
 <pre><code>请求示例：
 var params = {
     type: 1,
-    loginName: 'lori',//登录名
-    password: '',//密码
-    epid: ''//企业号
+    loginName: &#39;lori&#39;,//登录名
+    password: &#39;&#39;,//密码
+    epid: &#39;&#39;//企业号
 };
 $.ajax({
     url: &quot;http://127.0.0.1:8980/webchat/tpi&quot;,
@@ -315,361 +324,317 @@ $.ajax({
 响应参数示例：
 {
     result: 1, // 1成功 0失败
-    message: '', // 失败消息
-    token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168'//成功后，会返回token作为之后的接口凭据
+    message: &#39;&#39;, // 失败消息
+    token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;//成功后，会返回token作为之后的接口凭据
     config: {
         //相关配置信息，暂无，待扩展
     }
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
 <ul>
 <li>当登录成功后，就可以去连接websocket了：</li>
 </ul>
 <blockquote>
 <pre><code>//这里需要传递登录成功后获取的token参数，不然没法正确握手
-ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.token);
-</code></pre>
-
+ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.token);</code></pre>
 </blockquote>
-<h2>二. 连上websocket后，就可以开始发送消息了</h2>
+<h2 id="-websocket-">二. 连上websocket后，就可以开始发送消息了</h2>
 <ul>
-<li>客户端登出： </li>
-</ul>
+<li><p>客户端登出： </p>
 <blockquote>
 <pre><code>{
     messageId: 1,//消息id，唯一标示此消息，消息从服务端返回时候，也会带上此id，这样客户端就可以知道返回的消息是对应到客户端发出的哪个消息了
     type: 2,//登录
     time: 1400913140127,//时间戳
-    token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168'//登录成功后获取到的凭据
-}
-</code></pre>
-
+    token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;//登录成功后获取到的凭据
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户端发出聊天排队请求： </li>
-</ul>
+</li>
+<li><p>客户端发出聊天排队请求： </p>
 <blockquote>
 <pre><code>{
     messageId: 2,//消息id，唯一标示此消息
     type: 101,//人工聊天请求
-    token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
+    token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
     time: 1400913140127,//时间戳
     queueId: 1, //排队的队列号
     from: &quot;APP&quot; //请求来源 分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户端发出取消聊天排队请求： </li>
-</ul>
+</li>
+<li><p>客户端发出取消聊天排队请求： </p>
 <blockquote>
 <pre><code>{
     messageId: 3,//消息id，唯一标示此消息
     type: 102,//取消请求
-    token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
+    token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
     time: 1400913140127,//时间戳
     requestId: 724//排队成功后，获取到的排队号
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户端发出结束聊天请求： </li>
-</ul>
+</li>
+<li><p>客户端发出结束聊天请求： </p>
 <blockquote>
 <pre><code>{
     messageId: 4,//消息id，唯一标示此消息
     type: 103,//结束聊天
-    token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
+    token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
     time: 1400913140127,//时间戳
     sessionId: 68//排到队后，聊天开始时，获取到的会话id
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户端发出满意度评价请求： </li>
-</ul>
+</li>
+<li><p>客户端发出满意度评价请求： </p>
 <blockquote>
 <pre><code>{
     messageId: 5,//消息id，唯一标示此消息
     type: 104,//满意度发送
-    token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
+    token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
     time: 1400913140127,//时间戳
     sessionId: 68，//排到队后，聊天开始时，获取到的会话id
     rating: {
         id: 1,//满意度评分
-        comments: ''//备注
+        comments: &#39;&#39;//备注
     }
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户端发出聊天消息： </li>
-</ul>
+</li>
+<li><p>客户端发出聊天消息： </p>
 <blockquote>
 <pre><code>{
     messageId: 6,//消息id，唯一标示此消息
     type: 110,//发送消息
-    token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
+    token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
     time: 1400913140127,//发出请求的时间戳
     sessionId: 120,//聊天会话号，排队成功后返回
     msg: {
         type: 1,//消息类型：1:文本, 2:图片, 3:文件, 4:位置, 5:语音 目前有这五种类型
-        content: ''//具体消息内容：图片和语音都是对应的base64码，位置是对应的json，文件需要调用额外的上传接口，上传成功后这里的内容为文件相关信息的json
+        content: {}//具体消息内容
     }
+}
+文本的content:
+{
+    content: &#39;你好&#39;,//文本消息内容
+    extra: &#39;&#39;//额外消息
 }
 图片的content:
 {
-    name: 'xxx.png',//图片名称
-    url: 'http://xxxx/xxx.png'//图片url地址
+    name: &#39;xxx.png&#39;,//图片名称
+    url: &#39;http://xxxx/xxx.png&#39;,//图片url地址
+    thumbData: &#39;xxxxx&#39;, //缩率图的base64
+    extra: &#39;&#39;//额外消息
 }
 文件的content:
 {
-    name: 'xxx.doc',
-    url: 'http://xxxxx/xxx.doc'
+    name: &#39;xxx.doc&#39;,
+    url: &#39;http://xxxxx/xxx.doc&#39;,
+    size: 1024, //文件大小
+    type: &#39;zip&#39;, //文件类型
+    extra: &#39;&#39;//额外消息
 }
 位置的content:
 {
-    locationAddress: '',
-    longitude: 180.345,
-    latitude: 45.234
+    poi: &#39;&#39;,//地址
+    longitude: 180.345,//经度
+    latitude: 45.234,//纬度
+    map: &#39;baidu&#39;, //地图类型
+    thumbData: &#39;xxxxx&#39;, //缩略图的base64
+    extra: &#39;&#39;//额外信息
 }
 语音的content:
 {
     length: 28,//语音时长，单位秒
-    url: 'xxxxx'//语音文件url地址
-}
-</code></pre>
-
+    data: &#39;xxxxx&#39;//语音的base64
+    extra: &#39;&#39;//额外信息
+}</code></pre>
 </blockquote>
-<ul>
-<li>上传文件接口（http）url为： http://xxxx/webchat/tpiu?token=xxxxxxxx</li>
-</ul>
+</li>
+<li><p>上传文件接口（http）url为： <a href="http://xxxx/webchat/tpiu?token=xxxxxxxx">http://xxxx/webchat/tpiu?token=xxxxxxxx</a></p>
 <blockquote>
 <pre><code>请求时候需要带上token参数，请求体就是需要上传附件的byte
 
 响应参数示例：
 {
     result: 1, // 1成功 0失败
-    message: '', // 失败消息
-    url: '/webchat/xxxxx.jpg', //文件url地址
-    fileName: 'xxxxx.jpg' //文件名字
-}
-</code></pre>
-
+    message: &#39;&#39;, // 失败消息
+    url: &#39;/webchat/xxxxx.jpg&#39;, //文件url地址
+    fileName: &#39;xxxxx.jpg&#39; //文件名字
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户端发出预聊天消息（排队中，客户可以先发送消息，排上队后，之前发送的预消息会一次性发送给排到的坐席）： </li>
+</li>
 </ul>
-<blockquote>
+<ul>
+<li>客户端发出预聊天消息（排队中，客户可以先发送消息，排上队后，之前发送的预消息会一次性发送给排到的坐席）： <blockquote>
 <pre><code>{
     messageId: 7,//消息id，唯一标示此消息
     type: 111,//发送预消息
-    token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
+    token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
     time: 1400913140127,//时间戳
     requestId: 724,//排队成功后，获取到的排队号
-    content: 'xxxxxxxx'//发送的消息内容
-}
-</code></pre>
-
+    content: &#39;xxxxxxxx&#39;//发送的消息内容
+}</code></pre>
 </blockquote>
-<h2>三. 客户端接收消息接口说明</h2>
+</li>
+</ul>
+<h2 id="-">三. 客户端接收消息接口说明</h2>
 <p><strong>一. 每个客户端发出的请求都会有响应的消息返回，表示发送成功还是失败</strong></p>
 <ul>
-<li>客户端登出结果： </li>
-</ul>
+<li><p>客户端登出结果： </p>
 <blockquote>
 <pre><code>{
     messageId: 1,//消息id，这里的id就是之前调用此接口时候传递过来的id，客户端可以通过此id来知道是哪个请求的返回内容
     type: 2,//登出
     result: 1, // 1成功 0失败
-    message: '', // 失败消息
-}
-</code></pre>
-
+    message: &#39;&#39;, // 失败消息
+}</code></pre>
 </blockquote>
-<ul>
-<li>发出聊天排队请求结果： </li>
-</ul>
+</li>
+<li><p>发出聊天排队请求结果： </p>
 <blockquote>
 <pre><code>{
     messageId: 2,//消息id，唯一标示此消息
     type: 101,
     result: 1, //结果代码
-    message: ''//结果描述
-}
-</code></pre>
-
-<ul>
-<li>
-取消请求结果： 
-{
-	messageId: 3,//消息id，唯一标示此消息
-	type: 102,
-	result: 1, //结果代码
-	message: ''//结果描述
-}
-</li>
-</ul>
+    message: &#39;&#39;//结果描述
+}</code></pre>
 </blockquote>
-<ul>
-<li>结束会话结果： </li>
-</ul>
+</li>
+<li><p>取消请求结果： </p>
+<blockquote>
+<pre><code>{
+    messageId: 3,//消息id，唯一标示此消息
+    type: 102,
+    result: 1, //结果代码
+    message: &#39;&#39;//结果描述
+}</code></pre>
+</blockquote>
+</li>
+<li><p>结束会话结果： </p>
 <blockquote>
 <pre><code>{
     messageId: 4,//消息id，唯一标示此消息
     type: 103,
     result: 1, //结果代码
-    message: ''//结果描述
-}
-</code></pre>
-
+    message: &#39;&#39;//结果描述
+}</code></pre>
 </blockquote>
-<ul>
-<li>满意度评价结果： </li>
-</ul>
+</li>
+<li><p>满意度评价结果： </p>
 <blockquote>
 <pre><code>{
     messageId: 5,//消息id，唯一标示此消息
     type: 104,
     result: 1, //结果代码
-    message: ''//结果描述
-}
-</code></pre>
-
+    message: &#39;&#39;//结果描述
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户端发出聊天消息结果： </li>
-</ul>
+</li>
+<li><p>客户端发出聊天消息结果： </p>
 <blockquote>
 <pre><code>{
     messageId: 6,//消息id，唯一标示此消息
     type: 110,//发送消息
     result: 1, //结果代码
-    message: ''//结果描述
-}
-</code></pre>
-
+    message: &#39;&#39;//结果描述
+}</code></pre>
 </blockquote>
-<ul>
-<li>客户端发出预聊天消息结果： </li>
-</ul>
+</li>
+<li><p>客户端发出预聊天消息结果： </p>
 <blockquote>
 <pre><code>{
     messageId: 7,//消息id，唯一标示此消息
     type: 111,//发送消息
     result: 1, //结果代码
-    message: ''//结果描述
-}
-</code></pre>
-
+    message: &#39;&#39;//结果描述
+}</code></pre>
 </blockquote>
-<hr />
+</li>
+</ul>
+<hr>
 <p><strong>二. 客户端直接收到的相关消息</strong></p>
 <ul>
-<li>通知客户端聊天排队状态更新： </li>
-</ul>
+<li><p>通知客户端聊天排队状态更新： </p>
 <blockquote>
 <pre><code>{
     type: 201,//排队状态更新
     requestId: 724, //请求id号，如果发起请求成功，就会返回这个id
     requestStatus: 0,//当前请求状态
     queueLength: 3 //当前排到第几位
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>通知客户端排队最终结果： </li>
-</ul>
+</li>
+<li><p>通知客户端排队最终结果： </p>
 <blockquote>
 <pre><code>{
     type: 202,//通知排队结果
     sessionId: 68, //会话id号，排到队后会返回这个id
     agents: [
         {
-            id: 'SELITE',
-            name: 'Elite',//名字
-            icon: 'http://xxxx/head.png',//头像地址
-            comments: ''//备注信息
+            id: &#39;SELITE&#39;,
+            name: &#39;Elite&#39;,//名字
+            icon: &#39;http://xxxx/head.png&#39;,//头像地址
+            comments: &#39;&#39;//备注信息
         }
     ]
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>坐席推送了满意度给客户： </li>
-</ul>
+</li>
+<li><p>坐席推送了满意度给客户： </p>
 <blockquote>
 <pre><code>{
     type: 203,//推送满意度
     sessionId: 68, //会话id号，排到队后会返回这个id
-    agentId: 'SELITE'//发出消息的坐席id
-}
-</code></pre>
-
+    agentId: &#39;SELITE&#39;//发出消息的坐席id
+}</code></pre>
 </blockquote>
-<ul>
-<li>坐席人员信息变更，可能是修改了头像，可能是修改了名字，可能是换了个坐席，也可能是增加了一个坐席变成了会议方式聊天： </li>
-</ul>
+</li>
+<li><p>坐席人员信息变更，可能是修改了头像，可能是修改了名字，可能是换了个坐席，也可能是增加了一个坐席变成了会议方式聊天： </p>
 <blockquote>
 <pre><code>{
     type: 204,//坐席人员信息变更
     sessionId: 68, //会话id号，排到队后会返回这个id
     agents: [
         {
-            id: 'SELITE',
-            name: 'Elite',//名字
-            icon: 'http://xxxx/head.png',//头像地址
-            comments: ''//备注信息
+            id: &#39;SELITE&#39;,
+            name: &#39;Elite&#39;,//名字
+            icon: &#39;http://xxxx/head.png&#39;,//头像地址
+            comments: &#39;&#39;//备注信息
         },
         {
-            id: 'A00001',
-            name: 'Lori',//名字
-            icon: 'http://xxxx/lori.png',//头像地址
-            comments: '小组长'//备注信息
+            id: &#39;A00001&#39;,
+            name: &#39;Lori&#39;,//名字
+            icon: &#39;http://xxxx/lori.png&#39;,//头像地址
+            comments: &#39;小组长&#39;//备注信息
         }
     ]
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<ul>
-<li>坐席结束了会话： </li>
-</ul>
+</li>
+<li><p>坐席结束了会话： </p>
 <blockquote>
 <pre><code>{
     type: 205,//会话被结束
     sessionId: 68, //会话id号，排到队后会返回这个id
-    agentId: 'SELITE'//发出消息的坐席id
-}
-</code></pre>
-
+    agentId: &#39;SELITE&#39;//发出消息的坐席id
+}</code></pre>
 </blockquote>
-<ul>
-<li>收到坐席聊天消息： </li>
-</ul>
+</li>
+<li><p>收到坐席聊天消息： </p>
 <blockquote>
 <pre><code>{
     type: 210,//收到坐席聊天消息
     sessionId: 68, //会话id号，排到队后会返回这个id
-    agentId: 'SELITE'//发出消息的坐席id
+    agentId: &#39;SELITE&#39;//发出消息的坐席id
     msg: {
         type: 1,//消息类型：1:文本, 2:图片, 3:文件, 4:位置, 5:语音, 99:系统通知 
-        content: ''//具体消息内容：图片和语音都是对应的base64码，位置是对应的json，文件需要调用额外的上传接口，上传成功后这里的内容为文件相关信息的json
+        content: &#39;&#39;//具体消息内容：图片和语音都是对应的base64码，位置是对应的json，文件需要调用额外的上传接口，上传成功后这里的内容为文件相关信息的json
     }
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<h2>四. 机器人聊天接口</h2>
-<p>机器人接口采用http方式，调用URL： http://xxxx/webchat/robotSearch</p>
+</li>
+</ul>
+<h2 id="-">四. 机器人聊天接口</h2>
+<p>机器人接口采用http方式，调用URL： <a href="http://xxxx/webchat/robotSearch">http://xxxx/webchat/robotSearch</a></p>
 <ul>
 <li>机器人查询接口</li>
 </ul>
@@ -705,88 +670,74 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
     },
     &quot;result&quot; : 1,
     &quot;message&quot; : &quot;&quot;
-}
-</code></pre>
-
+}</code></pre>
 </blockquote>
-<h2>五. 常量说明</h2>
+<h2 id="-">五. 常量说明</h2>
 <ol>
-<li>
-<p>websocket消息类型说明</p>
-<pre><code>//发送和接收通用消息
-int LOGON = 1;
-int LOGOUT = 2;
-int REGISTER = 3;
+<li><p>websocket消息类型说明</p>
+<pre><code> //发送和接收通用消息
+ int LOGON = 1;
+ int LOGOUT = 2;
+ int REGISTER = 3;
 
-//客户发送
-int SEND_CHAT_REQUEST = 101;//发出聊天请求
-int CANCEL_CHAT_REQUEST = 102;//取消聊天请求
-int CLOSE_SESSION = 103;//结束聊天
-int RATE_SESSION = 104;//满意度评价
-int SEND_CHAT_MESSAGE = 110;//发送聊天消息
-int SEND_PRE_CHAT_MESSAGE = 111;//发送预消息（还没排完队时候的消息）
+ //客户发送
+ int SEND_CHAT_REQUEST = 101;//发出聊天请求
+ int CANCEL_CHAT_REQUEST = 102;//取消聊天请求
+ int CLOSE_SESSION = 103;//结束聊天
+ int RATE_SESSION = 104;//满意度评价
+ int SEND_CHAT_MESSAGE = 110;//发送聊天消息
+ int SEND_PRE_CHAT_MESSAGE = 111;//发送预消息（还没排完队时候的消息）
 
-//客户接受
-int CHAT_REQUEST_STATUS_UPDATE = 201;//聊天排队状态更新
-int CHAT_STARTED = 202;//通知客户端可以开始聊天
-int AGENT_PUSH_RATING = 203;//坐席推送了满意度
-int AGENT_UPDATED = 204;//坐席人员变更
-int AGENT_CLOSE_SESSION = 205;//坐席关闭
-int RECEIVE_MESSAGE = 210;//收到聊天消息
-</code></pre>
-
+ //客户接受
+ int CHAT_REQUEST_STATUS_UPDATE = 201;//聊天排队状态更新
+ int CHAT_STARTED = 202;//通知客户端可以开始聊天
+ int AGENT_PUSH_RATING = 203;//坐席推送了满意度
+ int AGENT_UPDATED = 204;//坐席人员变更
+ int AGENT_CLOSE_SESSION = 205;//坐席关闭
+ int RECEIVE_MESSAGE = 210;//收到聊天消息</code></pre>
 </li>
-<li>
-<p>聊天消息类型说明</p>
-<pre><code>int TEXT = 1;
-int IMG = 2;
-int FILE = 3;
-int LOCATION = 4;
-int VOICE = 5;
-int VIDEO = 6;
-int SYSTEM_NOTICE = 99;
-</code></pre>
-
+<li><p>聊天消息类型说明</p>
+<pre><code> int TEXT = 1;
+ int IMG = 2;
+ int FILE = 3;
+ int LOCATION = 4;
+ int VOICE = 5;
+ int VIDEO = 6;
+ int SYSTEM_NOTICE = 99;</code></pre>
 </li>
-<li>
-<p>聊天请求状态码</p>
-<pre><code>WAITING = 0;//等待中
-ACCEPTED = 1;//坐席接受
-REFUSED = 2;//坐席拒绝
-TIMEOUT = 3;//排队超时
-DROPPED = 4;//异常丢失
-NO_AGENT_ONLINE = 5;
-OFF_HOUR = 6;//不在工作时间
-CANCELED_BY_CLIENT = 7;//被客户取消
-ENTERPRISE_WECHAT_ACCEPTED = 11;//坐席企业号接收
-</code></pre>
-
+<li><p>聊天请求状态码</p>
+<pre><code> WAITING = 0;//等待中
+ ACCEPTED = 1;//坐席接受
+ REFUSED = 2;//坐席拒绝
+ TIMEOUT = 3;//排队超时
+ DROPPED = 4;//异常丢失
+ NO_AGENT_ONLINE = 5;
+ OFF_HOUR = 6;//不在工作时间
+ CANCELED_BY_CLIENT = 7;//被客户取消
+ ENTERPRISE_WECHAT_ACCEPTED = 11;//坐席企业号接收</code></pre>
 </li>
-<li>
-<p>异常编码</p>
-<pre><code>SUCCESS = 1;
-REQUEST_ALREADY_IN_ROULTING = -1;
-ALREADY_IN_CHATTING = -2;
-NOT_IN_WORKTIME = -3;
-INVAILD_SKILLGROUP = -4;
-NO_AGENT_ONLINE = -5;
-INVAILD_CLIENT_ID = -6;
-INVAILD_QUEUE_ID = -7;
-REQUEST_ERROR = -8;
-INVAILD_TO_USER_ID = -9;
-INVAILD_CHAT_REQUEST_ID = -10;
-INVAILD_CHAT_SESSION_ID = -11;
-INVAILD_MESSAGE_TYPE = -12;
-UPLOAD_FILE_FAILED = -13;
-INVAILD_PARAMETER = -14;
-INVAILD_TOKEN = -15;
-INVAILD_FILE_EXTENSION = -16;
-EMPTY_MESSAGE = -17;
-INVAILD_LOGINNAME_OR_PASSWORD = -20;
-INVAILD_SIGN = -30
-INTERNAL_ERROR = -100;
-</code></pre>
-
+<li><p>异常编码</p>
+<pre><code> SUCCESS = 1;
+ REQUEST_ALREADY_IN_ROULTING = -1;
+ ALREADY_IN_CHATTING = -2;
+ NOT_IN_WORKTIME = -3;
+ INVAILD_SKILLGROUP = -4;
+ NO_AGENT_ONLINE = -5;
+ INVAILD_CLIENT_ID = -6;
+ INVAILD_QUEUE_ID = -7;
+ REQUEST_ERROR = -8;
+ INVAILD_TO_USER_ID = -9;
+ INVAILD_CHAT_REQUEST_ID = -10;
+ INVAILD_CHAT_SESSION_ID = -11;
+ INVAILD_MESSAGE_TYPE = -12;
+ UPLOAD_FILE_FAILED = -13;
+ INVAILD_PARAMETER = -14;
+ INVAILD_TOKEN = -15;
+ INVAILD_FILE_EXTENSION = -16;
+ EMPTY_MESSAGE = -17;
+ INVAILD_LOGINNAME_OR_PASSWORD = -20;
+ INVAILD_SIGN = -30
+ INTERNAL_ERROR = -100;</code></pre>
 </li>
 </ol>
 

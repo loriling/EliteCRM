@@ -95,29 +95,43 @@
 > 		sessionId: 120,//聊天会话号，排队成功后返回
 > 		msg: {
 > 		    type: 1,//消息类型：1:文本, 2:图片, 3:文件, 4:位置, 5:语音 目前有这五种类型
-> 		    content: ''//具体消息内容：图片和语音都是对应的base64码，位置是对应的json，文件需要调用额外的上传接口，上传成功后这里的内容为文件相关信息的json
+> 		    content: {}//具体消息内容
 > 		}
+> 	}
+> 	文本的content:
+> 	{
+> 	    content: '你好',//文本消息内容
+> 	    extra: ''//额外消息
 > 	}
 > 	图片的content:
 > 	{
 > 	    name: 'xxx.png',//图片名称
-> 	    url: 'http://xxxx/xxx.png'//图片url地址
+> 	    url: 'http://xxxx/xxx.png',//图片url地址
+> 	    thumbData: 'xxxxx', //缩率图的base64
+> 	    extra: ''//额外消息
 > 	}
 > 	文件的content:
 > 	{
 > 	    name: 'xxx.doc',
-> 	    url: 'http://xxxxx/xxx.doc'
+> 	    url: 'http://xxxxx/xxx.doc',
+> 	    size: 1024, //文件大小
+> 	    type: 'zip', //文件类型
+> 	    extra: ''//额外消息
 > 	}
 > 	位置的content:
 > 	{
-> 	    locationAddress: '',
-> 	    longitude: 180.345,
-> 	    latitude: 45.234
+> 	    poi: '',//地址
+> 	    longitude: 180.345,//经度
+> 	    latitude: 45.234,//纬度
+> 	    map: 'baidu', //地图类型
+> 	    thumbData: 'xxxxx', //缩略图的base64
+> 	    extra: ''//额外信息
 > 	}
 > 	语音的content:
 > 	{
 > 	    length: 28,//语音时长，单位秒
-> 	    url: 'xxxxx'//语音文件url地址
+> 	    data: 'xxxxx'//语音的base64
+> 	    extra: ''//额外信息
 > 	}
 
 - 上传文件接口（http）url为： http://xxxx/webchat/tpiu?token=xxxxxxxx
