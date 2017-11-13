@@ -106,7 +106,7 @@
 > 	图片的content:
 > 	{
 > 	    name: 'xxx.png',//图片名称
-> 	    url: 'http://xxxx/xxx.png',//图片url地址
+> 	    imageUri: 'http://xxxx/xxx.png',//图片url地址
 > 	    thumbData: 'xxxxx', //缩率图的base64
 > 	    extra: ''//额外消息
 > 	}
@@ -129,8 +129,8 @@
 > 	}
 > 	语音的content:
 > 	{
-> 	    length: 28,//语音时长，单位秒
-> 	    data: 'xxxxx'//语音的base64
+> 	    voiceLength: 28,//语音时长，单位秒
+> 	    voiceData: 'xxxxx'//语音的base64
 > 	    extra: ''//额外信息
 > 	}
 

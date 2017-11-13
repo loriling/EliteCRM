@@ -420,7 +420,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 图片的content:
 {
     name: &#39;xxx.png&#39;,//图片名称
-    url: &#39;http://xxxx/xxx.png&#39;,//图片url地址
+    imageUri: &#39;http://xxxx/xxx.png&#39;,//图片url地址
     thumbData: &#39;xxxxx&#39;, //缩率图的base64
     extra: &#39;&#39;//额外消息
 }
@@ -443,8 +443,8 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 }
 语音的content:
 {
-    length: 28,//语音时长，单位秒
-    data: &#39;xxxxx&#39;//语音的base64
+    voiceLength: 28,//语音时长，单位秒
+    voiceData: &#39;xxxxx&#39;//语音的base64
     extra: &#39;&#39;//额外信息
 }</code></pre>
 </blockquote>
