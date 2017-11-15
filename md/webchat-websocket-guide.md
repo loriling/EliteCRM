@@ -14,22 +14,22 @@ var params = {
     type: 1,//登录
     loginName: 'lori',//登录名
     password: '',//密码
-    epid: ''//企业号
+    epid: ''//企业号(可选)
 };
 //也可以是登录加注册，如果有这个用户名的用户就直接使用，如果没有就直接注册一个新的
 var params = {
     type: 3,//登录或者注册
     loginName: 'lori',//登录名
-    name: '罗瑞',//姓名
-	portraitUri： '',//头像地址
-    epid: ''//企业号
+    name: '罗瑞',//姓名（可选）
+	portraitUri： '',//头像地址（可选）
+    epid: ''//企业号（可选）
 };
 //如果是匿名访客登录
 var params = {
     type: 4,//匿名访客登录
     visitorId: 'xxxxxxxx',//访客唯一标示guid
-    ipAddr: '',//访客请求过来的ip地址
-    epid: ''//企业号
+    ipAddr: '',//访客请求过来的ip地址（可选）
+    epid: ''//企业号（可选）
 };
 
 //发出请求
@@ -74,7 +74,8 @@ $.ajax({
 > 		token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
 > 		time: 1400913140127,//时间戳
 > 		queueId: 1, //排队的队列号
-> 		from: "APP" //请求来源 分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
+> 		from: "APP" //（可选）请求来源 分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
+> 		toUserId: "SELITE"//（可选）直接指明排队给某个坐席的坐席id，不传递则由系统自动分配
 > 	}
 
 - 客户端发出取消聊天排队请求： 
@@ -103,8 +104,8 @@ $.ajax({
 > 		time: 1400913140127,//时间戳
 > 		sessionId: 68，//排到队后，聊天开始时，获取到的会话id
 > 		rating: {
-> 		    id: 1,//满意度评分
-> 		    comments: ''//备注
+> 		    ratingId: 1,//满意度评分
+> 		    ratingComments: ''//（可选）备注
 > 		}
 > 	}
 
@@ -123,37 +124,37 @@ $.ajax({
 > 	文本的content:
 > 	{
 > 	    text: '你好',//文本消息内容
-> 	    extra: ''//额外消息
+> 	    extra: ''//（可选）额外消息
 > 	}
 > 	图片的content:
 > 	{
 > 	    name: 'xxx.png',//图片名称
 > 	    imageUri: 'http://xxxx/xxx.png',//图片url地址
-> 	    thumbData: 'xxxxx', //缩率图的base64
-> 	    extra: ''//额外消息
+> 	    thumbData: 'xxxxx', //（可选）缩率图的base64
+> 	    extra: ''//（可选）额外消息
 > 	}
 > 	文件的content:
 > 	{
 > 	    name: 'xxx.doc',
 > 	    url: 'http://xxxxx/xxx.doc',
-> 	    size: 1024, //文件大小
-> 	    type: 'zip', //文件类型
-> 	    extra: ''//额外消息
+> 	    size: 1024, //（可选）文件大小
+> 	    type: 'zip', //（可选）文件类型
+> 	    extra: ''//（可选）额外消息
 > 	}
 > 	位置的content:
 > 	{
-> 	    poi: '',//地址
+> 	    poi: '',//（可选）地址
 > 	    longitude: 180.345,//经度
 > 	    latitude: 45.234,//纬度
-> 	    map: 'baidu', //地图类型
-> 	    thumbData: 'xxxxx', //缩略图的base64
-> 	    extra: ''//额外信息
+> 	    map: 'baidu', //（可选）地图类型
+> 	    thumbData: 'xxxxx', //（可选）缩略图的base64
+> 	    extra: ''//（可选）额外信息
 > 	}
 > 	语音的content:
 > 	{
 > 	    voiceLength: 28,//语音时长，单位秒
 > 	    voiceData: 'xxxxx'//语音的base64
-> 	    extra: ''//额外信息
+> 	    extra: ''//（可选）额外信息
 > 	}
 
 - 上传文件接口（http）url为： http://xxxx/webchat/tpiu?token=xxxxxxxx
@@ -361,9 +362,10 @@ $.ajax({
 1. websocket消息类型说明
 
 		//发送和接收通用消息
-		int LOGON = 1;
-		int LOGOUT = 2;
-		int REGISTER = 3;
+		int LOGON = 1;//登录
+		int LOGOUT = 2;//登出
+		int LOGON_OR_REGISTER_REQUEST = 3;//登录或者注册
+		int VISITOR_LOGON = 4;//匿名访客登录
 		
 		//客户发送
 		int SEND_CHAT_REQUEST = 101;//发出聊天请求

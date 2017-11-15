@@ -314,22 +314,22 @@ var params = {
     type: 1,//登录
     loginName: &#39;lori&#39;,//登录名
     password: &#39;&#39;,//密码
-    epid: &#39;&#39;//企业号
+    epid: &#39;&#39;//企业号(可选)
 };
 //也可以是登录加注册，如果有这个用户名的用户就直接使用，如果没有就直接注册一个新的
 var params = {
     type: 3,//登录或者注册
     loginName: &#39;lori&#39;,//登录名
-    name: &#39;罗瑞&#39;,//姓名
-    portraitUri： &#39;&#39;,//头像地址
-    epid: &#39;&#39;//企业号
+    name: &#39;罗瑞&#39;,//姓名（可选）
+    portraitUri： &#39;&#39;,//头像地址（可选）
+    epid: &#39;&#39;//企业号（可选）
 };
 //如果是匿名访客登录
 var params = {
     type: 4,//匿名访客登录
     visitorId: &#39;xxxxxxxx&#39;,//访客唯一标示guid
-    ipAddr: &#39;&#39;,//访客请求过来的ip地址
-    epid: &#39;&#39;//企业号
+    ipAddr: &#39;&#39;,//访客请求过来的ip地址（可选）
+    epid: &#39;&#39;//企业号（可选）
 };
 
 //发出请求
@@ -376,7 +376,8 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
     token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
     time: 1400913140127,//时间戳
     queueId: 1, //排队的队列号
-    from: &quot;APP&quot; //请求来源 分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
+    from: &quot;APP&quot; //（可选）请求来源 分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
+    toUserId: &quot;SELITE&quot;//（可选）直接指明排队给某个坐席的坐席id，不传递则由系统自动分配
 }</code></pre>
 </blockquote>
 </li>
@@ -411,8 +412,8 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
     time: 1400913140127,//时间戳
     sessionId: 68，//排到队后，聊天开始时，获取到的会话id
     rating: {
-        id: 1,//满意度评分
-        comments: &#39;&#39;//备注
+        ratingId: 1,//满意度评分
+        ratingComments: &#39;&#39;//（可选）备注
     }
 }</code></pre>
 </blockquote>
@@ -433,37 +434,37 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 文本的content:
 {
     text: &#39;你好&#39;,//文本消息内容
-    extra: &#39;&#39;//额外消息
+    extra: &#39;&#39;//（可选）额外消息
 }
 图片的content:
 {
     name: &#39;xxx.png&#39;,//图片名称
     imageUri: &#39;http://xxxx/xxx.png&#39;,//图片url地址
-    thumbData: &#39;xxxxx&#39;, //缩率图的base64
-    extra: &#39;&#39;//额外消息
+    thumbData: &#39;xxxxx&#39;, //（可选）缩率图的base64
+    extra: &#39;&#39;//（可选）额外消息
 }
 文件的content:
 {
     name: &#39;xxx.doc&#39;,
     url: &#39;http://xxxxx/xxx.doc&#39;,
-    size: 1024, //文件大小
-    type: &#39;zip&#39;, //文件类型
-    extra: &#39;&#39;//额外消息
+    size: 1024, //（可选）文件大小
+    type: &#39;zip&#39;, //（可选）文件类型
+    extra: &#39;&#39;//（可选）额外消息
 }
 位置的content:
 {
-    poi: &#39;&#39;,//地址
+    poi: &#39;&#39;,//（可选）地址
     longitude: 180.345,//经度
     latitude: 45.234,//纬度
-    map: &#39;baidu&#39;, //地图类型
-    thumbData: &#39;xxxxx&#39;, //缩略图的base64
-    extra: &#39;&#39;//额外信息
+    map: &#39;baidu&#39;, //（可选）地图类型
+    thumbData: &#39;xxxxx&#39;, //（可选）缩略图的base64
+    extra: &#39;&#39;//（可选）额外信息
 }
 语音的content:
 {
     voiceLength: 28,//语音时长，单位秒
     voiceData: &#39;xxxxx&#39;//语音的base64
-    extra: &#39;&#39;//额外信息
+    extra: &#39;&#39;//（可选）额外信息
 }</code></pre>
 </blockquote>
 </li>
@@ -694,9 +695,10 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 <ol>
 <li><p>websocket消息类型说明</p>
 <pre><code> //发送和接收通用消息
- int LOGON = 1;
- int LOGOUT = 2;
- int REGISTER = 3;
+ int LOGON = 1;//登录
+ int LOGOUT = 2;//登出
+ int LOGON_OR_REGISTER_REQUEST = 3;//登录或者注册
+ int VISITOR_LOGON = 4;//匿名访客登录
 
  //客户发送
  int SEND_CHAT_REQUEST = 101;//发出聊天请求
