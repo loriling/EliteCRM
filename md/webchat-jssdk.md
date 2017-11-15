@@ -1,10 +1,10 @@
 
-##ELiteWebChat jssdk 文档说明
+## ELiteWebChat jssdk 文档说明
 
 网聊的 [WebSocket版本](http://loriling.github.io/EliteCRM/webchat-websocket-guide.html) 
 
-####接口方法说明：
-######引入 SDK
+#### 接口方法说明：
+###### 引入 SDK
     <script src="http://www.elitecrm.com:9997/webchat/js/sdk/EliteIMLib.min.js"></script>
 
 1、设置监听
@@ -342,7 +342,7 @@
 ```
 
 
-##聊天插件配置：
+## 聊天插件配置：
 chat插件是通过vue开发出来的，如果需要使用插件需要通过vue来引入插件并且需要引入几个必须的css 和 js：
 
 ```
