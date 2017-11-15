@@ -122,7 +122,7 @@
 
 	var token = "";
     EliteIMClient.connect({
-    				"token": token
+    			"token": token,
                 	"url": ""
                     }, function() {
                     	//TODO open websocket 之后执行的内容
