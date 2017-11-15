@@ -587,14 +587,21 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 <pre><code>{
     type: 202,//通知排队结果
     sessionId: 68, //会话id号，排到队后会返回这个id
-    agents: [
+    users: [//这个会话中所有人员的信息，坐席的话会有comments，客户没有
         {
-            id: &#39;SELITE&#39;,
+            id: &#39;SELITE&#39;,//坐席id，通常是6位
             name: &#39;Elite&#39;,//名字
             icon: &#39;http://xxxx/head.png&#39;,//头像地址
             comments: &#39;&#39;//备注信息
+        },
+        {
+            id: &#39;A9BA8B8A-A888-9888-8BBA-BABB9A88BB98&#39;,//客户guid，通常36位
+            name: &#39;客户1&#39;,//名字
+            icon: &#39;http://xxxx/head.png&#39;//头像地址
         }
-    ]
+    ],
+    ratings: [],//满意度评价相关信息，用来告诉客户端目前所有的可选的满意度选项，这个仅用于参考，客户端可以不考虑这个配置信息
+    fileAcceptExtensionsArr: &quot;zip,rar,jpg,jpeg,png,gif,bmp,doc&quot;//所有允许的上传的附件的扩展名,字符串,多个用逗号分隔
 }</code></pre>
 </blockquote>
 </li>
