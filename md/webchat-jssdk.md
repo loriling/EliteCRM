@@ -1,5 +1,5 @@
 
-##WebChat jssdk 文档说明
+##ELiteWebChat jssdk 文档说明
 
 网聊的 [WebSocket版本](http://loriling.github.io/EliteCRM/webchat-websocket-guide.html) 
 
@@ -14,7 +14,7 @@
             console.log("收到坐席的系统信息" + JSON.stringify(data));
              switch(data.noticeType){
                 case EliteIMClient.$E.CONSTANTS.NOTICETYPE.INPUTING:
-                    // data.content.content => 系统提示信息 坐席正在输入提示内容
+                    // data.content => 系统提示信息 坐席正在输入提示内容
                     //TODO
                     break;
                 default:
@@ -30,24 +30,28 @@
                     //TODO
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.IMG:
-                    // data.content.url => 图片地址
-                    // data.content.name => 图片名字
+                    // data.content.imgUrl => 图片地址
+                    // data.content.imgName => 图片名字
                     //TODO
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.FILE:
-                    // data.content.url => 附件地址
-                    // data.content.name => 附件名称
+                    // data.content.fileUrl => 附件地址
+                    // data.content.fileName => 附件名称
                     //do something……
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.LOCATION:
                     // data.content.longitude => 位置经度
                     // data.content.latitude => 位置纬度
-                    // data.content.poi => 位置名称
+                    // data.content.locationAddress => 位置名称
+                    //TODO
+                    break;
+                case EliteIMClient.CONSTANTS.MESSAGECODE.VIDEO:
+                    // data.content => 消息内容
                     //TODO
                     break;
                 case EliteIMClient.CONSTANTS.MESSAGECODE.VOICE:
-                    // data.content.data => 语音内容
-                    //data.content.length => 语音长度
+                    // data.content.voiceData => 语音内容
+                    //data.content.voiceLength => 语音长度
                     //TODO
                     break;
                 default:
@@ -69,8 +73,8 @@
 2、获取token
 ```javascript
    EliteIMClient.getToken({
-        url: '/webchat',  //聊天类型  目前只有 1
-        type: EliteIMClient.CONSTANTS.CHATTYPE.CUST_SERVICE,
+        url: '/webchat',
+        type: EliteIMClient.CONSTANTS.CHATTYPE.CUST_SERVICE,  //聊天类型  目前只有 1
         loginName: '111',
         password: '',
         urlFrom: 'WEB',
@@ -115,11 +119,19 @@
 
 3、 连接服务器
 ```javascript
-    EliteIMClient.connect(token);
+
+	var token = "";
+    EliteIMClient.connect({
+    				"token": token
+                	"url": ""
+                    }, function() {
+                    	//TODO open websocket 之后执行的内容
+                    });
 ```
 
 4、获取到用户信息
 ```javascript
+
     EliteIMClient.config.getFileAcceptExtensionArr(); //获取到上传附件所允许的格式
     EliteIMClient.config.getClient(); //获取到客户信息
     EliteIMClient.config.getAgent(); //获取坐席的信息
@@ -127,11 +139,35 @@
     EliteIMClient.config.getUploadUrl(); // 获取到文件上传的服务地址
 ```
 
-5、发送信息
+5、发送请求
 ```javascript
+
+	var token = "******";
+	var queue = 1;
+    EliteIMClient.sendRequest({
+        token: token,
+        queue: queue,
+        onSuccess: function (data) {
+            console.log(data);
+            if (data.result == 1) {
+                console.log("[ 发送聊天请求成功 ]");
+                isLiving = true;
+                self.uiData.notice.show = true;
+                self.uiData.notice.text = data.message;
+            } else {
+                console.log("[ 发送聊天请求失败 ]");
+            }
+        }
+    });
+```
+
+6、发送信息
+```javascript
+
     //发送TEXT 信息
     var text = '*****'; //文本内容
-    var msg = new EliteIMClient.TextMessage(text);
+    var extra = '***'; // 扩展信息
+    var msg = new EliteIMClient.TextMessage(text, extra);
     EliteIMClient.sendMessage({
         token: this.token,
         msg: msg,
@@ -147,9 +183,9 @@
     //发送IMG信息
     var name = '***'; // 图片名称
     var thumbData = '***'; // 图片base64编码
-    var url = '***'; // 图片地址
+    var imageUri = '***'; // 图片地址
     var extra = '***'; // 扩展信息
-    var msg = new EliteIMClient.ImgMessage(name, thumbData, url, extra);
+    var msg = new EliteIMClient.ImgMessage(name, thumbData, imageUri, extra);
     EliteIMClient.sendMessage({
         token: this.token,
         msg: msg,
@@ -164,8 +200,10 @@
     //发送FILE信息
     var name = '***'; // 附件名称
     var url = '***'; // 附件地址
+    var size = '***'; // 附件大小
+    var type = '***'; // 附件类型
     var extra = '***'; // 扩展信息
-    var msg = new EliteIMClient.FileMessage(name, url, extra);
+    var msg = new EliteIMClient.FileMessage(name, url, size, type, extra);
     EliteIMClient.sendMessage({
         token: this.token,
         msg: msg,
@@ -199,10 +237,10 @@
     });
 
     //发送VOICE信息
-    var length = '***'; // 语音长度
-    var thumbData = '***'; // 语音编码
+    var voiceLength = '***'; // 语音长度
+    var voiceData = '***'; // 语音编码
     var extra = '***'; // 扩展信息
-    var msg = new EliteIMClient.VoiceMessage(length, thumbData, extra) ;
+    var msg = new EliteIMClient.VoiceMessage(voiceLength, voiceData, extra) ;
     EliteIMClient.sendMessage({
         token: this.token,
         msg: msg,
@@ -216,16 +254,18 @@
     });
 ```
 
-6、表情转换
+7、表情转换
 ```javascript
-// 需要引入的css http://host:port/webchat/css/emotions.css
-var content = '[跳跳]';
-msgHtml = EliteIMClient.filterEmojis(content);
-//结果为："<img class="qqemoji qqemoji92" src="../../jsp/common/images/spacer.gif" height="1" width="1" />"
+
+	// 需要引入的css http://host:port/webchat/css/emotions.css
+	var content = '[跳跳]';
+	msgHtml = EliteIMClient.filterEmojis(content);
+	//结果为："<img class="qqemoji qqemoji92" src="../../jsp/common/images/spacer.gif" height="1" width="1" />"
 ```
 
-7、取消聊天
+8、取消聊天
 ```javascript
+
     EliteIMClient.cancelRequest({
             onSuccess: function (data) {
                 if (data.result == 1) {
@@ -237,8 +277,9 @@ msgHtml = EliteIMClient.filterEmojis(content);
     });
 ```
 
-8、推送满意度
+9、推送满意度
    ```javascript
+   
        var token = '***';
        var sessionId = '***';  //聊天的sessionId
        var rateId = '***'; //满意度id
@@ -258,8 +299,9 @@ msgHtml = EliteIMClient.filterEmojis(content);
        });
    ```
    
-9、推送结束聊天
+10、推送结束聊天
 ```javascript
+
     var token = '***';
     var sessionId = '***';  //聊天的sessionId
     EliteIMClient.sendRating({
@@ -275,13 +317,14 @@ msgHtml = EliteIMClient.filterEmojis(content);
     });
 ```
 
-10、取消排队
+11、关闭聊天
 ```javascript
+
     var token = '***';
-    var requestId = '***';  //聊天的sessionId
+    var sessionId = '***';  //聊天的sessionId
     EliteIMClient.closeChat({
             "token": token,
-            "requestId": requestId,
+            "sessionId": sessionId,
             onSuccess: function (data) {
                 if (data.result == 1) {
                     console.log("[ 发送成功 ]");
@@ -292,8 +335,9 @@ msgHtml = EliteIMClient.filterEmojis(content);
     });
 ```
 
-11、登出
+12、登出
 ```javascript
+
     var token = '***';
     EliteIMClient.loginOut({
             "token": token,
@@ -312,6 +356,7 @@ msgHtml = EliteIMClient.filterEmojis(content);
 chat插件是通过vue开发出来的，如果需要使用插件需要通过vue来引入插件并且需要引入几个必须的css 和 js：
 
 ```
+
     <link rel="stylesheet" type="text/css" href="../../css/elite-webchat-sdk.css">  //插件显示css
     <link rel="stylesheet" type="text/css" href="../../css/emotions.css"> //表情显示的css
     <script src="../../js/jquery/jquery-1.10.2.min.js"></script> //jQuery
@@ -322,12 +367,14 @@ chat插件是通过vue开发出来的，如果需要使用插件需要通过vue�
 ```
 html代码：
 ```
+
 	<div id="chatDemo">
 		<chat queue='68' username="111" password="" epid="MAIN" urlFrom="WEBDEMO"></chat>
 	</div>
 ```
 创建vue对象：
 ```
+
 	new Vue({
 	    el: '#chatDemo'
 	});
