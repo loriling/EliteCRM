@@ -341,6 +341,23 @@ var _hmt = _hmt || [];
 }</code></pre>
 </blockquote>
 </li>
+<li><p>匿名访客想要聊天，可以发出访客进入的接口： </p>
+<blockquote>
+<pre><code>http://xxxxx/EliteWebChat/tpi
+发送参数：
+{
+    type: 4,//登录或注册
+    visitorId: &quot;xxxxxxxxxxxx&quot;,//访客的唯一标示ID，通常是个36位guid
+    ipAddr: &quot;&quot;,//访客请求过来的ip地址
+}
+返回参数：
+{
+    result: 1, //登录成功
+    clientId: &quot;xxxxxxxxxx&quot;, //用户的唯一标示，与后面开始会话接口中的clientId对应
+    token: &quot;21B92585-4FDF-EF9D-1C8E-19D34D06F34B&quot; //登录成功后返回的token，用来之后请求时候传递
+}</code></pre>
+</blockquote>
+</li>
 <li><p>客户从网页或者微信端发出聊天请求： </p>
 <blockquote>
 <pre><code>http://xxxxx/EliteWebChat/tpi

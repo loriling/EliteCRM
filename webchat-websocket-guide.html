@@ -308,20 +308,39 @@ var _hmt = _hmt || [];
 <ul>
 <li>客户端登录，登录采用http接口，url为： <a href="http://xxxx/webchat/tpi，参数是如下json">http://xxxx/webchat/tpi，参数是如下json</a></li>
 </ul>
-<blockquote>
 <pre><code>请求示例：
+//如果是登录
 var params = {
-    type: 1,
+    type: 1,//登录
     loginName: &#39;lori&#39;,//登录名
     password: &#39;&#39;,//密码
     epid: &#39;&#39;//企业号
 };
+//也可以是登录加注册，如果有这个用户名的用户就直接使用，如果没有就直接注册一个新的
+var params = {
+    type: 3,//登录或者注册
+    loginName: &#39;lori&#39;,//登录名
+    name: &#39;罗瑞&#39;,//姓名
+    portraitUri： &#39;&#39;,//头像地址
+    epid: &#39;&#39;//企业号
+};
+//如果是匿名访客登录
+var params = {
+    type: 4,//匿名访客登录
+    visitorId: &#39;xxxxxxxx&#39;,//访客唯一标示guid
+    ipAddr: &#39;&#39;,//访客请求过来的ip地址
+    epid: &#39;&#39;//企业号
+};
+
+//发出请求
 $.ajax({
     url: &quot;http://127.0.0.1:8980/webchat/tpi&quot;,
     method: &quot;post&quot;,
     data : JSON.stringify(params)
-})；
-响应参数示例：
+});
+
+
+//响应参数示例：
 {
     result: 1, // 1成功 0失败
     message: &#39;&#39;, // 失败消息
@@ -330,7 +349,6 @@ $.ajax({
         //相关配置信息，暂无，待扩展
     }
 }</code></pre>
-</blockquote>
 <ul>
 <li>当登录成功后，就可以去连接websocket了：</li>
 </ul>

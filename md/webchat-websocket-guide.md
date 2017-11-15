@@ -7,27 +7,49 @@
 
 - 客户端登录，登录采用http接口，url为： http://xxxx/webchat/tpi，参数是如下json
 
-> 	请求示例：
-> 	var params = {
-        type: 1,
-        loginName: 'lori',//登录名
-        password: '',//密码
-        epid: ''//企业号
-    };
-    $.ajax({
-        url: "http://127.0.0.1:8980/webchat/tpi",
-        method: "post",
-        data : JSON.stringify(params)
-    })；
-> 	响应参数示例：
-> 	{
-> 		result: 1, // 1成功 0失败
-> 		message: '', // 失败消息
-> 		token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168'//成功后，会返回token作为之后的接口凭据
-> 		config: {
-> 		    //相关配置信息，暂无，待扩展
-> 		}
-> 	}
+```
+请求示例：
+//如果是登录
+var params = {
+    type: 1,//登录
+    loginName: 'lori',//登录名
+    password: '',//密码
+    epid: ''//企业号
+};
+//也可以是登录加注册，如果有这个用户名的用户就直接使用，如果没有就直接注册一个新的
+var params = {
+    type: 3,//登录或者注册
+    loginName: 'lori',//登录名
+    name: '罗瑞',//姓名
+	portraitUri： '',//头像地址
+    epid: ''//企业号
+};
+//如果是匿名访客登录
+var params = {
+    type: 4,//匿名访客登录
+    visitorId: 'xxxxxxxx',//访客唯一标示guid
+    ipAddr: '',//访客请求过来的ip地址
+    epid: ''//企业号
+};
+
+//发出请求
+$.ajax({
+    url: "http://127.0.0.1:8980/webchat/tpi",
+    method: "post",
+    data : JSON.stringify(params)
+});
+
+
+//响应参数示例：
+{
+	result: 1, // 1成功 0失败
+	message: '', // 失败消息
+	token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168'//成功后，会返回token作为之后的接口凭据
+	config: {
+	    //相关配置信息，暂无，待扩展
+	}
+}
+```
 
 - 当登录成功后，就可以去连接websocket了：
 

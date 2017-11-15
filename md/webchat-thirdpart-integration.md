@@ -37,6 +37,21 @@
 > 		token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B" //登录成功后返回的token，用来之后请求时候传递
 > 	}
 
+- 匿名访客想要聊天，可以发出访客进入的接口： 
+> 	http://xxxxx/EliteWebChat/tpi
+> 	发送参数：
+> 	{
+> 		type: 4,//登录或注册
+> 		visitorId: "xxxxxxxxxxxx",//访客的唯一标示ID，通常是个36位guid
+> 		ipAddr: "",//访客请求过来的ip地址
+> 	}
+> 	返回参数：
+> 	{
+> 		result: 1, //登录成功
+> 		clientId: "xxxxxxxxxx", //用户的唯一标示，与后面开始会话接口中的clientId对应
+> 		token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B" //登录成功后返回的token，用来之后请求时候传递
+> 	}
+
 - 客户从网页或者微信端发出聊天请求： 
 > 	http://xxxxx/EliteWebChat/tpi
 > 	发送参数：
