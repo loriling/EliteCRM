@@ -13,11 +13,48 @@
         onSysNoticeReceived: function(data) {
             console.log("收到坐席的系统信息" + JSON.stringify(data));
              switch(data.noticeType){
+                case EliteIMClient.CONSTANTS.NOTICETYPE.NORMAL:
+                    // data.content => 系统提示信息 坐席正在输入提示内容
+                    //TODO
+                    break;
+                case EliteIMClient.CONSTANTS.NOTICETYPE.TRACK_CHANGE:
+                    // data.content => 系统提示信息 访客轨迹改变提示
+                    //TODO
+                    break;
                 case EliteIMClient.CONSTANTS.NOTICETYPE.INPUTING:
                     // data.content => 系统提示信息 坐席正在输入提示内容
                     //TODO
                     break;
+                case EliteIMClient.CONSTANTS.NOTICETYPE.INVITE_NOTICE:
+                    // data.content => 系统提示信息 会议后提示
+                    //TODO
+                    break;
+                case EliteIMClient.CONSTANTS.NOTICETYPE.TRANSFER_NOTICE:
+                    // data.content => 系统提示信息 转接后提示
+                    //TODO
+                    break;
+                case EliteIMClient.CONSTANTS.NOTICETYPE.USER_LEFT_NOTICE:
+                    // data.content => 系统提示信息 用户从会话中离开提示（通常在会议模式下，有坐席离开时候）
+                    //TODO
+                    break;
+                case EliteIMClient.CONSTANTS.NOTICETYPE.CUSTOM:
+                    // data.content => 系统提示信息 自定义提示
+                    //TODO
+                    break;
                 default:
+                    /**
+                    *  其他的提示  通过NGS命令
+                    *  var noticeType = 100; //这里也可以自己修改这个数字，100以上都可以作为自定义的类型值
+                    * $project.events.notify(window.$CONST.ChatEvent.SEND_MESSAGE, {
+                      		sessionId: [temp.SessionID],//会话id
+                      		content: '请填写表格',//消息文本内容
+                      		noticeType: noticeType, //（可选）
+                      		receiverId: '[temp.CHAT_CLIENTID]',
+                                  success: function(){ //发送成功后的回调函数
+                      			console.log('发送成功');
+                      		}
+                      	});
+                    */
                     //do something……
                     break;
         },
@@ -58,13 +95,13 @@
                 //do something……
         },
         onUpdateQueueStatus: function (data) {
-            //TODO something
+            //TODO something 更新排队信息
         },
         onSuccessQueue: function (sessionId) {
-            //TODO something
+            //TODO something 排队成功
         },
         onEndChat: function () {
-            //TODO something
+            //TODO something 结束聊天进行的操作
     
         }
     });
@@ -72,13 +109,29 @@
 
 2、获取token
 ```javascript
+    //普通登陆
+    var loginName = 'lori';//登录名
+    var password = '';//密码
+    var epid = '';//企业号(可选)
+    var params = EliteIMClient.LoginParam(loginName, password, epid); // 登陆客户
+    
+    //注册客户并且登陆
+    var loginName = 'lori';//登录名
+    var name = '罗瑞';//姓名（可选）
+    var portraitUri = '';//头像地址（可选）
+    var epid = '';//企业号（可选）
+    var params = EliteIMClient.RegistParam(loginName, name, portraitUri, epid); // 注册客户
+    
+    //访客模式登陆
+    var visitorId = 'xxxxxxxx';//访客唯一标示guid
+    var ipAddr = '';//访客请求过来的ip地址（可选）
+    var epid = '';//企业号（可选）
+    var params = EliteIMClient.VisitParam(visitorId, ipAddr, epid); // 访客客户
+   
+   var url = ""; //网聊的
    EliteIMClient.getToken({
-        url: '/webchat',
-        type: EliteIMClient.CONSTANTS.CHATTYPE.CUST_SERVICE,  //聊天类型  目前只有 1
-        loginName: '111',
-        password: '',
-        urlFrom: 'WEB',
-        epid: 'MAIN',
+        url: '',
+        params: params, // 创建出来的params 方法返回的结果
         statusChange: function (data) {
             switch (data.result) {
                 case EliteIMClient.CONSTANTS.CONNECT.SUCCESS:
@@ -118,10 +171,16 @@
 
 3、 连接服务器
 ```javascript
+    token可以通过两种方式来获取分为两种方式 [跨域请求] 和 [不跨域请求]:
+        1.不跨域请求方式可以直接通过jssdk中的 [获取token]的方法来获取到token
+        2.跨域的时候需要通过后台程序去调用： http://xxxx/webchat/tpi，参数是如下json 参考 网聊的 [WebSocket版本](http://loriling.github.io/EliteCRM/webchat-websocket-guide.html) 文档内部的接口说明来获取
+    注: token 有效的时间是24小时， 建议每次获取之后保存下来，当发送信息token失效之后再次重复获取   
+    
     var token = "";
+    var wsUrl = ""; // 网聊websocket地址假设网聊的地址是： http://192.168.2.99/webchat, websocket地址为 ws://192.168.2.99/webchat
     EliteIMClient.connect({
                     "token": token,
-                    "url": ""
+                    "url": wsUrl
                     }, function() {
                         //TODO open websocket 之后执行的内容
                     });
@@ -134,15 +193,28 @@
     EliteIMClient.config.getAgent(); //获取坐席的信息
     EliteIMClient.config.getRatings(); //获取到配置的满意度的内容信息
     EliteIMClient.config.getUploadUrl(); // 获取到文件上传的服务地址
+    注： 在跨域的情况下 发送附件的地址：上传文件接口（http）url为： http://xxxx/webchat/tpiu?token=xxxxxxxx
+        请求时候需要带上token参数，请求体就是需要上传附件的byte
+        
+        响应参数示例：
+        {
+            result: 1, // 1成功 0失败
+            message: '', // 失败消息
+            url: '/webchat/xxxxx.jpg', //文件url地址
+            fileName: 'xxxxx.jpg' //文件名字
+        }
 ```
 
 5、发送请求
 ```javascript
-    var token = "******";
+
     var queue = 1;
+    var token = "";  //前面获取到的token的值
+    var urlfrom = "MOBILE"; //（可选）请求来源 分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
     EliteIMClient.sendRequest({
         token: token,
         queue: queue,
+        urlfrom: urlfrom,
         onSuccess: function (data) {
             console.log("[ 发送聊天请求成功 ]" + JSON.stringify(data));
             self.uiData.notice.show = true;
@@ -164,8 +236,9 @@
     var text = '*****'; //文本内容
     var extra = '***'; // 扩展信息
     var msg = new EliteIMClient.TextMessage(text, extra);
+    var token = "";  //前面获取到的token的值
     EliteIMClient.sendMessage({
-        token: this.token,
+        token: token,
         msg: msg,
         onSuccess: function (data) {
             if (data.result == 1) {
@@ -182,8 +255,9 @@
     var imageUri = '***'; // 图片地址
     var extra = '***'; // 扩展信息
     var msg = new EliteIMClient.ImgMessage(name, thumbData, imageUri, extra);
+    var token = "";  //前面获取到的token的值
     EliteIMClient.sendMessage({
-        token: this.token,
+        token: token,
         msg: msg,
         onSuccess: function (data) {
             if (data.result == 1) {
@@ -200,8 +274,9 @@
     var type = '***'; // 附件类型
     var extra = '***'; // 扩展信息
     var msg = new EliteIMClient.FileMessage(name, url, size, type, extra);
+    var token = "";  //前面获取到的token的值
     EliteIMClient.sendMessage({
-        token: this.token,
+        token: token,
         msg: msg,
         onSuccess: function (data) {
             if (data.result == 1) {
@@ -220,8 +295,9 @@
     var thumbData = '***'; // 编码
     var extra = '***'; // 扩展信息
     var msg = new EliteIMClient.LocationMessage(poi, longitude, latitude, map, thumbData, extra) ;
+    var token = "";  //前面获取到的token的值
     EliteIMClient.sendMessage({
-        token: this.token,
+        token: token,
         msg: msg,
         onSuccess: function (data) {
             if (data.result == 1) {
@@ -237,8 +313,9 @@
     var voiceData = '***'; // 语音编码
     var extra = '***'; // 扩展信息
     var msg = new EliteIMClient.VoiceMessage(voiceLength, voiceData, extra) ;
+    var token = "";  //前面获取到的token的值
     EliteIMClient.sendMessage({
-        token: this.token,
+        token: token,
         msg: msg,
         onSuccess: function (data) {
             if (data.result == 1) {
@@ -260,7 +337,9 @@
 
 8、取消聊天
 ```javascript
+    var token = "";  //前面获取到的token的值
     EliteIMClient.cancelRequest({
+            token：token,
             onSuccess: function (data) {
                 if (data.result == 1) {
                     console.log("[ 发送成功 ]");
@@ -273,7 +352,7 @@
 
 9、推送满意度
    ```javascript
-       var token = '***';
+       var token = "";  //前面获取到的token的值
        var sessionId = '***';  //聊天的sessionId
        var rateId = '***'; //满意度id
        var rateConments = '***'; //满意度内容
@@ -294,7 +373,7 @@
    
 10、推送结束聊天
 ```javascript
-    var token = '***';
+    var token = "";  //前面获取到的token的值
     var sessionId = '***';  //聊天的sessionId
     EliteIMClient.sendRating({
             "token": token,
@@ -311,7 +390,7 @@
 
 11、关闭聊天
 ```javascript
-    var token = '***';
+    var token = "";  //前面获取到的token的值
     var sessionId = '***';  //聊天的sessionId
     EliteIMClient.closeChat({
             "token": token,
@@ -328,7 +407,7 @@
 
 12、登出
 ```javascript
-    var token = '***';
+    var token = "";  //前面获取到的token的值
     EliteIMClient.loginOut({
             "token": token,
             onSuccess: function (data) {
@@ -339,8 +418,8 @@
                 }
             }
     });
+    
 ```
-
 
 ## 聊天插件配置：
 chat插件是通过vue开发出来的，如果需要使用插件需要通过vue来引入插件并且需要引入几个必须的css 和 js：
