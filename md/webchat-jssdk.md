@@ -241,11 +241,10 @@
         token: token,
         msg: msg,
         onSuccess: function (data) {
-            if (data.result == 1) {
                 console.log("[ 发送成功 ]");
-            } else {
-                console.log("[ 发送失败 ]");
-            }
+        },
+        onFail: function(data) {
+             console.log("[ 发送失败 ]");
         }
     });
     
@@ -260,11 +259,10 @@
         token: token,
         msg: msg,
         onSuccess: function (data) {
-            if (data.result == 1) {
                 console.log("[ 发送成功 ]");
-            } else {
-                console.log("[ 发送失败 ]");
-            }
+        },
+        onFail: function(data) {
+             console.log("[ 发送失败 ]");
         }
     });
     //发送FILE信息
@@ -279,11 +277,10 @@
         token: token,
         msg: msg,
         onSuccess: function (data) {
-            if (data.result == 1) {
                 console.log("[ 发送成功 ]");
-            } else {
-                console.log("[ 发送失败 ]");
-            }
+        },
+        onFail: function(data) {
+             console.log("[ 发送失败 ]");
         }
     });
     
@@ -300,11 +297,10 @@
         token: token,
         msg: msg,
         onSuccess: function (data) {
-            if (data.result == 1) {
                 console.log("[ 发送成功 ]");
-            } else {
-                console.log("[ 发送失败 ]");
-            }
+        },
+        onFail: function(data) {
+             console.log("[ 发送失败 ]");
         }
     });
 
@@ -318,11 +314,10 @@
         token: token,
         msg: msg,
         onSuccess: function (data) {
-            if (data.result == 1) {
                 console.log("[ 发送成功 ]");
-            } else {
-                console.log("[ 发送失败 ]");
-            }
+        },
+        onFail: function(data) {
+             console.log("[ 发送失败 ]");
         }
     });
 ```
@@ -341,11 +336,10 @@
     EliteIMClient.cancelRequest({
             token：token,
             onSuccess: function (data) {
-                if (data.result == 1) {
                     console.log("[ 发送成功 ]");
-                } else {
-                    console.log("[ 发送失败 ]");
-                }
+            },
+            onFail: function(data) {
+                 console.log("[ 发送失败 ]");
             }
     });
 ```
@@ -357,17 +351,16 @@
        var rateId = '***'; //满意度id
        var rateConments = '***'; //满意度内容
        EliteIMClient.sendRating({
-               "token": token,
-               "sessionId": sessionId,
-                "rateId": rateId, 
-                "rateConments": rateConments,
-               onSuccess: function (data) {
-                   if (data.result == 1) {
-                       console.log("[ 发送成功 ]");
-                   } else {
-                       console.log("[ 发送失败 ]");
-                   }
-               }
+            "token": token,
+            "sessionId": sessionId,
+            "rateId": rateId, 
+            "rateConments": rateConments,
+            onSuccess: function (data) {
+                    console.log("[ 发送成功 ]");
+            },
+            onFail: function(data) {
+                 console.log("[ 发送失败 ]");
+            }
        });
    ```
    
@@ -379,11 +372,10 @@
             "token": token,
             "sessionId": sessionId,
             onSuccess: function (data) {
-                if (data.result == 1) {
                     console.log("[ 发送成功 ]");
-                } else {
-                    console.log("[ 发送失败 ]");
-                }
+            },
+            onFail: function(data) {
+                 console.log("[ 发送失败 ]");
             }
     });
 ```
@@ -396,11 +388,10 @@
             "token": token,
             "sessionId": sessionId,
             onSuccess: function (data) {
-                if (data.result == 1) {
                     console.log("[ 发送成功 ]");
-                } else {
-                    console.log("[ 发送失败 ]");
-                }
+            },
+            onFail: function(data) {
+                 console.log("[ 发送失败 ]");
             }
     });
 ```
@@ -411,14 +402,32 @@
     EliteIMClient.loginOut({
             "token": token,
             onSuccess: function (data) {
-                if (data.result == 1) {
                     console.log("[ 发送成功 ]");
-                } else {
-                    console.log("[ 发送失败 ]");
-                }
+            },
+            onFail: function(data) {
+                 console.log("[ 发送失败 ]");
             }
     });
     
+```
+11、聊天历史
+```javascript
+    var token = "";  //前面获取到的token的值
+    var fromMessageId = 0;  //前面获取到的token的值
+    var count = 5;  //前面获取到的token的值
+    var sessionId = '***';  //聊天的sessionId
+    EliteIMClient.closeChat({
+            "token": token,
+            "sessionId": sessionId,
+            "fromMessageId": fromMessageId,
+            "count": count,
+            onSuccess: function (data) {
+                    console.log("[ 发送成功 ]");
+            },
+            onFail: function(data) {
+                 console.log("[ 发送失败 ]");
+            }
+    });
 ```
 
 ## 聊天插件配置：
