@@ -1,0 +1,1200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>softphone-localproxy-guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?99f0858c7fc5b9df4dde5e0d76b6af1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+<h1 id="-localproxy-softphone-">基于LocalProxy的Softphone开发帮助</h1>
+<p>11/23/2017 2:33:14 PM </p>
+<ol>
+<li><a href="#connectWS">连接websocket server</a></li>
+<li><a href="#callSoftphone">软电话调用</a></li>
+<li><a href="#handleSoftphoneEvent">接收软电话事件</a></li>
+<li><a href="#constants">常量说明</a></li>
+</ol>
+<p>LocalProxy服务，其实就是一个本地vb写的一个应用程序，这个应用程序做了两件事：<br>1.自己开启一个websocket server。<br>2.开启一个ie浏览器，加载一个html，这个HTML中加载了各种ocx本地控件。</p>
+<p>这时候，chrome或者其他支持ws的浏览器就可以去连接这个本地的websocket server，从而相互通讯。<br>注意，因为是通过ws来通讯的，因此所有的方法调用，都是异步的。</p>
+<h2 id="-div-id-connectws-websocket-server-div-"><div id="connectWS">连接websocket server</div></h2>
+<p>假设这时候，你已经把LocalProxy安装完毕并且正常启动起来了，可以开始编写自己的客户端代码了。</p>
+<pre><code>//连接本地8888端口的ws，localproxy默认起的端口是8888，如果需要修改端口，可以从localproxy目录下的LocalProxy.html中修改
+var ws = new WebSocket(&#39;127.0.0.1:8888&#39;);
+//收到消息后，做相应的处理
+ws.onmessage = function(e) {
+    try {
+        var data = JSON.parse(e.data);
+        console.log(&#39;Elite - WebSocket&#39;, e.data);
+        $E.wsAsyncCallback(data);//这里我们是把消息加到一个数组里，然后
+    } catch(ex) {
+        console.err(&#39;Elite - Websocket&#39;, ex);
+    }
+};
+ws.onopen = function(e) {
+    $E.ws = ws;
+    console.log(&#39;Elite - initWebsocket&#39;, &#39;WebSocket连接成功&#39;);                    
+};</code></pre>
+<p>这时候，我们发现需要封装一下websocket相关的发消息，收消息，回调等相关的方法，下面的代码使我们自己的实现，仅供参考，不一定需要这样写，我这里展示出来方便后面的理解：</p>
+<pre><code>$E = {
+    /**
+     * Websocket请求回调队列
+     * @property wsAsyncQueue
+     * @type {array}
+     * @private
+     */
+    wsAsyncQueue : [],
+
+    /*
+     * websocket回调方法
+     */
+    wsAsyncCallback : function(e) {
+        var a = this;
+        $.each(a.wsAsyncQueue, function(i, listener) {
+            if (listener.token == e.refid) {
+                listener.callback(e.data, listener.ev);
+                if (! listener.persistence)
+                    a.wsAsyncQueue.splice(i, 1);
+                return false;
+            }
+        })
+    },
+
+    /**
+     * 通过websocket发送消息
+     * @method wsSend
+     * @param module {string} 服务名称
+     * @param data {any} 发送的消息对象
+     * @param [callback] {callback} 需要请求回调的方法
+     * @param [ev] {any} 回调的环境参数
+     */
+    wsSend : function(module, data, callback, ev) {
+        var token = Guid.raw();
+        if ($.isFunction(callback)) {
+            this.wsAsyncQueue.push({
+                token : token,
+                callback : callback,
+                ev: ev
+            });
+            data[&#39;module&#39;] = module;
+            data[&#39;refid&#39;] = token;
+        }
+        try {
+            if (! this.ws) {
+                if ($.isFunction(callback)) {
+                    $E.wsAsyncCallback({
+                        refid: token,
+                        data: {
+                            code: -1,
+                            message: &#39;WebSocket未准备就绪&#39;
+                        }
+                    })
+                }               
+            } else {
+                console.log(&#39;WebSocket - Send&#39;, JSON.stringify(data));
+                this.ws.send(JSON.stringify(data));
+            }
+        } catch (e) {
+            console.err(&#39;WebSocket - Send&#39;, e);
+            if ($.isFunction(callback)) {
+                $E.wsAsyncCallback({
+                    refid: token,
+                    data: {
+                        code: -1,
+                        message: e
+                    }
+                })
+            }               
+        }
+    }
+}</code></pre>
+<h2 id="-div-id-callsoftphone-div-"><div id="callSoftphone">软电话调用</div></h2>
+<p>既然chrome和localproxy已经通过websocket相关打通了，那后面就可以在js（chrome中）里调用软电话（localproxy中）了：</p>
+<pre><code>//先封装两个基础方法simpleActionCall和simpleCommonCall，之后所有的软电话调用，都是基于这两个方法的
+
+/**
+ * 基本的动作调用，之后很多具体操作都会调用此基础方法
+ * @param action 动作名字
+ * @param param 相关参数
+ * @param callback 回调函数
+ */
+simpleActionCall : function(action, param, callback){
+    var data = {
+        action : action,
+        param : param
+    };
+    $E.wsSend(moduleName, data, function(d){
+        if($.isFunction(callback)){
+            callback(d);
+        }
+    }, {});
+},
+/**
+ * 软电话的commonCall
+ * @param callName 名字
+ * @param callParas 参数
+ * @param callback 回调
+ */
+simpleCommonCall : function(callName, callParas, callback){
+    var data = {
+        action : &quot;CommonCall&quot;,
+        callName : callName,
+        callParas : callParas
+    };
+    $E.wsSend(moduleName, data, function(d){
+        if($.isFunction(callback)){
+            callback(d);
+        }
+    }, {});
+},</code></pre>
+<p>然后我们可以通过这两个方法去调用其他的软电话相关方法了（具体代码可以从提供的 <strong><em>softphone.api.js</em></strong> 中获取）：</p>
+<pre><code>/**
+ * 获取软电话的callInfo
+ * @param callback
+ */
+getCallInfo : function(callback){
+    this.simpleActionCall(&#39;CallInfo&#39;, {}, function(d){
+        if($.isFunction(callback)){
+            var callInfo = new CallInfo(d);
+            callback(callInfo);
+        }
+    });
+},
+/**
+ * 获取callStat
+ * @param callback
+ */
+getCallStat : function(callback){
+    this.simpleActionCall(&quot;CallStat&quot;, {}, callback);
+},
+/**
+ * 获取agentState和agentMode
+ * @param callback
+ */
+getAgentStateAndMode : function(callback){
+    this.simpleActionCall(&quot;getAgentStateAndMode&quot;, {}, callback);
+},
+/**
+ * 获取transferOnDialingHold属性值
+ * @param callback
+ */
+getTransferOnDialingHold : function(callback){
+    this.simpleActionCall(&quot;getTransferOnDialingHold&quot;, {}, callback);
+},
+/**
+ * 获取事件详细值
+ * @param callback
+ */
+getEvtDetail : function(callback){
+    this.simpleActionCall(&quot;getEvtDetail&quot;, {}, callback);
+},
+/**
+ * 获取事件
+ * @param callback
+ */
+getEvent : function(callback){
+    this.simpleCommonCall(&quot;getevent&quot;, &quot;&quot;, callback);
+},
+/**
+ * 退出
+ * @param callback
+ */
+quit : function(callback){
+    this.simpleActionCall(&quot;quit&quot;, {}, callback);
+},
+
+/**
+ * 拨打电话
+ * @param number 电话号码
+ * @param sData 随路数据
+ * @param callback 回调
+ */
+makeCall : function(number, sData, callback){
+    this.simpleActionCall(&quot;MakeCall&quot;, {
+        number : number,
+        sDataS : sData || &#39;&#39;
+    }, callback);
+},
+/**
+ * 挂断电话
+ * @param callback
+ */
+releaseCall : function(callback){
+    this.simpleActionCall(&quot;ReleaseCall&quot;, {}, callback);
+},
+/**
+ * 接起电话
+ * @param callback
+ */
+answerCall : function(callback){
+    this.simpleActionCall(&quot;AnswerCall&quot;, {}, callback);
+},
+/**
+ * 保持电话
+ * @param callback
+ */
+holdCall : function(callback){
+    this.simpleActionCall(&quot;HoldCall&quot;, {}, callback);
+},
+/**
+ * 接回电话
+ * @param callback
+ */
+retrieveCall : function(callback){
+    this.simpleActionCall(&quot;RetrieveCall&quot;, {}, callback);
+},
+/**
+ * 发起会议
+ * @param number 会议号码
+ * @param sData 随路数据
+ * @param callback
+ */
+initConference : function(number, sData, callback){
+    this.simpleActionCall(&quot;InitConference&quot;, {
+        number : number,
+        sDataS : sData?sData:this.sDataS
+    }, callback);
+},
+/**
+ * 完成会议
+ * @param callback
+ */
+completeConference : function(callback){
+    this.simpleActionCall(&quot;CompleteConference&quot;, {}, callback);
+},
+/**
+ * 发起转接
+ * @param number 转接号码
+ * @param sData 随路数据
+ * @param callback
+ */
+initTransfer : function(number, sData, callback){
+    this.simpleActionCall(&quot;InitTransfer&quot;, {
+        number : number,
+        sDataS : sData?sData:this.sDataS
+    }, callback);
+},
+/**
+ * 完成转接
+ * @param callback
+ */
+completeTransfer : function(callback){
+    this.simpleActionCall(&quot;CompleteTransfer&quot;, {}, callback);
+},
+/**
+ * 直接转
+ * @param number 转接号码
+ * @param sData 随路数据
+ * @param callback
+ */
+muteTransfer : function(number, sData, callback){
+    this.simpleActionCall(&quot;MuteTransfer&quot;, {
+        number : number,
+        sDataS : sData?sData:this.sDataS
+    }, callback);
+},
+/**
+ * 取消转接或者会议
+ * @param callback
+ */
+reconnect : function(callback){
+    this.simpleActionCall(&quot;Reconnect&quot;, {}, callback);
+},
+/**
+ * 置闲
+ * @param callback
+ */
+ready : function(callback){
+    this.simpleCommonCall(&quot;button.click&quot;, &quot;ready&quot;, callback);
+},
+/**
+ * 置忙
+ * @param callback
+ */
+notReady : function(callback){
+    this.simpleCommonCall(&quot;button.click&quot;, &quot;notready&quot;, callback);
+},
+/**
+ * 小休
+ * @param callback
+ */
+breaks : function(callback){
+    this.simpleCommonCall(&quot;button.click&quot;, &quot;break&quot;, callback);
+},
+/**
+ * 静音
+ * @param callback
+ */
+mute : function(callback){
+    this.simpleActionCall(&quot;Mute&quot;, {}, callback);
+},
+/**
+ * 取消静音
+ * @param callback
+ */
+unMute : function(callback){
+    this.simpleActionCall(&quot;UnMute&quot;, {}, callback);
+},
+/**
+ * 通知软电话工作开始
+ * @param workStatus
+ * @param callback
+ */
+notifyWorkStart : function(workStatus, callback){
+    this.simpleActionCall(&quot;NotifyWorkStart&quot;, {
+        workStatus : workStatus
+    }, callback);
+},
+/**
+ * 通知软电话工作结束
+ * @param callback
+ */
+notifyWorkEnd : function(callback){
+    this.simpleActionCall(&quot;NotifyWorkEnd&quot;, {}, callback);
+},
+/**
+ * 获取所有的随路数据
+ * @param callback
+ */
+allAttachDatas : function(callback){
+    this.simpleActionCall(&quot;AllAttachDatas&quot;, {}, callback);
+},
+/**
+ * 根据给定key获取随路数据
+ * @param key
+ * @param callback
+ */
+attachData : function(key, callback){
+    this.simpleActionCall(&quot;attachData&quot;, {
+        key : key
+    }, callback);
+},
+/**
+ * 获取工号
+ * @param callback
+ */
+getAgentId : function(callback){
+    this.simpleActionCall(&quot;getAgentId&quot;, {}, callback);
+},
+/**
+ * 获取分机
+ * @param callback
+ */
+getExtension : function(callback){
+    this.simpleActionCall(&quot;getExtension&quot;, {}, callback);
+},
+/**
+ * 获取录音guid
+ * @param callback
+ */
+getRecordGuid : function(callback){
+    this.simpleActionCall(&quot;getRecordGuid&quot;, {}, callback);
+},
+/**
+ * 强退
+ * @param dn
+ * @param agentId
+ * @param callback
+ */
+forceAgentLogout : function(dn, agentId, callback){
+    this.simpleActionCall(&quot;ForceAgentLogout&quot;, {
+        dn : dn,
+        agentId : agentId
+    }, callback);
+},
+/**
+ * 强忙
+ * @param dn
+ * @param agentId
+ * @param callback
+ */
+forceAgentNotReady : function(dn, agentId, callback){
+    this.simpleActionCall(&quot;ForceAgentNotReady&quot;, {
+        dn : dn,
+        agentId : agentId
+    }, callback);
+},
+/**
+ * 强闲
+ * @param dn
+ * @param agentId
+ * @param callback
+ */
+forceAgentReady : function(dn, agentId, callback){
+    this.simpleActionCall(&quot;ForceAgentReady&quot;, {
+        dn : dn,
+        agentId : agentId
+    }, callback);
+},
+/**
+ * 监听
+ * @param dn
+ * @param callback
+ */
+listen : function (dn, callback) {
+    this.simpleActionCall(&quot;Listen&quot;, {
+        dn : dn
+    }, callback);
+},
+/**
+ * 强拆
+ * @param agentId
+ * @param callback
+ */
+intercept : function (agentId, callback){
+    this.simpleActionCall(&quot;Intercept&quot;, {
+        agentId : agentId
+    }, callback);
+},
+/**
+ * 强断
+ * @param dn
+ * @param callback
+ */
+forceDisconnectAgentByDN : function (dn, callback){
+    this.simpleActionCall(&quot;ForceDisconnectAgentByDN&quot;, {
+        dn : dn
+    }, callback);
+},
+/**
+ * 板卡挂断
+ * @param callback
+ */
+forceHangUp : function (callback) {
+    this.simpleActionCall(&quot;ForceHangup&quot;, {
+        dn : dn
+    }, callback);
+},
+/**
+ * 强插
+ * @param dn
+ * @param callback
+ */
+bargeIn : function (dn, callback){
+    this.simpleActionCall(&quot;BargeIn&quot;, {
+        dn : dn
+    }, callback);
+},
+/**
+ * 拦截
+ * @param dn
+ * @param agentId
+ * @param callback
+ */
+takeOver : function (dn, agentId, callback){
+    this.simpleActionCall(&quot;TakeOver&quot;, {
+        dn : dn,
+        agentId : agentId
+    }, callback);
+},
+/**
+ * 暗语
+ * @param dn
+ * @param agentId
+ * @param callback
+ */
+coach : function (dn, agentId, callback){
+    this.simpleActionCall(&quot;Coach&quot;, {
+        dn : dn,
+        agentId : agentId
+    }, callback);
+},
+/**
+ * 抓屏
+ * @param ip
+ * @param port
+ * @param password
+ * @param format
+ * @param callback
+ */
+flexMonitorScreen : function (ip, port, password, format, callback) {
+    this.simpleActionCall(&quot;flexMonitorScreen&quot;, {
+        ip : ip,
+        port : port,
+        password : password,
+        format : format
+    }, callback);
+},
+
+/**
+ * 设置软电话自动应答属性
+ * @param autoAnswer
+ */
+setAutoAnswer : function(autoAnswer){
+    this.simpleActionCall(&#39;setAutoAnswer&#39;, {
+        autoAnswer : autoAnswer
+    });
+},
+
+/**
+ * 设置软电话自动添加号码头
+ * @param autoPrefix
+ */
+setAutoPrefix : function(autoPrefix){
+    this.simpleActionCall(&#39;setAutoPrefix&#39;, {
+        autoPrefix : autoPrefix
+    });
+},
+
+/**
+ * 发送DTMF数据
+ * @param number
+ * @param callback
+ */
+sendDTMF : function(number, callback){
+    this.simpleActionCall(&#39;SendDTMF&#39;, {
+        number : number
+    }, callback);
+},
+
+/**
+ * 软电话是否可用
+ * @returns {Boolean}
+ */
+available : function() {
+    if ($E.ws) {
+        return true;
+    }
+    return false;
+},
+
+/**
+ * 软电话登录
+ * @param param 登录参数，是一个json对象
+ *  {
+        agentId : agentId,         //工号
+        extension : extension,     //分机
+        queue : queue,          //队列
+        position : position,     //位置
+        password : password      //密码
+    }
+ * @param callback 登录结果回调，参数result: {true|false}
+ */
+login : function(param, callback) {
+    var data = {
+        action : &quot;Login&quot;,
+        param : param
+    };
+    $E.wsSend(moduleName, data, function(result){
+        if (callback) {
+            callback(result);
+        }
+    }, {});
+},
+
+/**
+ * 软电话登出
+ * @param callback
+ */
+logout : function(callback) {
+    this.simpleActionCall(&#39;Logout&#39;);
+},
+
+/**
+ * 获取初始化ini配置信息
+ * @param callback
+ */
+getIniInfo : function(callback) {
+    this.simpleActionCall(&#39;getIniInfo&#39;, {}, callback);
+},
+
+/**
+ * 发送消息给IVR
+ * @param message
+ * @param callback
+ */
+sendIVRMessage : function(message, callback) {
+    this.simpleActionCall(&#39;SendIVRMessage&#39;, {
+        message: message
+    }, callback);
+},
+
+/**
+ * 获取小修原因
+ * @param callback
+ */
+getReasonCode : function(callback) {
+    this.simpleActionCall(&#39;getReasonCode&#39;, {}, callback);
+}</code></pre>
+<p>其实所有的这些调用软电话的方法，都是通过发送一个websocket消息到localproxy中，localproxy会去处理消息，调用softphone.ocx的方法，然后再把返回的消息发送回来，具体的逻辑可以查看localproxy目录下的 <em>main.js</em></p>
+<h2 id="-div-id-handlesoftphoneevent-div-"><div id="handleSoftphoneEvent">接收软电话事件</div></h2>
+<p>当我们可以调用软电话方法后，还需要接收软电话发出的事件,事件主要包括了SCTIEvent和CTIEvent</p>
+<pre><code>/**
+ * 给软电话注册vblocalproxy事件
+ * @param callback 回调函数 接收参数data
+ * 主要分为：
+ * 1.data.type === &quot;SCTIEvent&quot; SCTIEvent事件
+ *      包括了：data.msg == &#39;callstatechange&#39; 电话状态变化
+ *              data.msg == &#39;agentstatechange&#39; 坐席状态变化
+ *              data.msg == &#39;OnCallStart&#39; 电话开始
+ *              data.msg == &#39;OnCallEstablish&#39; 电话接起
+ *              data.msg.startWith(&#39;OnCallAction&#39;) 一些电话行为，包括了：MakeCall，InitTransfer，InitConference，MuteTransfer，SingleStepTransfer，PhoneNo
+ *              data.msg == &#39;OnCallEnd&#39; 电话结束
+ *              data.msg == &#39;73&#39; notready
+ *              data.msg == &#39;74&#39; EVT_DATAUPDATED
+ *              data.msg == &#39;23&#39; mute
+ *              data.msg == &#39;24&#39; unmute
+ *
+ * 2.data.type === &quot;CTIEvent&quot; CTIEvent事件
+ *      CTIEvent相较于SCTIEvent来说，更底层，更全面，其中的参数也需要自己解析，解析过程可以自己尝试打印出内容查看后自行解析。主要用到了：
+ *          var parsedEvent = parseEventDetail(data.EvtDetail);//解析事件详细内容
+            var evtObj = parsedEvent.evtObj;//事件内容
+            var attachObj = parsedEvent.attachObj;//随路数据
+ *          evtObj[&quot;event&quot;] == &quot;9&quot;  partydeleted
+ *          evtObj[&quot;event&quot;] == &quot;22&quot; partychanged
+ *
+ * 3.data.type === &#39;inited&#39;
+ *      电话初始化成功后事件
+ */
+addEventListener : function(callback) {
+    var softphone = this;
+    //注册softphone事件 callback
+    $E.wsAsyncQueue.push({
+        token : $CONST.EVENT.WS_SOFTPHONE,
+        persistence : true,    // 持久化回调方法，不需要删除
+        callback : function(data, ev){
+            if (callback) {
+                callback(data, ev);
+            }
+        }
+    });
+},</code></pre>
+<p>这里给出我们自己的例子，监听SCTIEvent后，做响应的界面显示，按钮状态变化等操作：</p>
+<pre><code>/**
+ * 软电话本身处理SCTI事件
+ * @param type
+ */
+Softphone.prototype.handleSCTIEvents = function (type) {
+    var softphone = this;
+    try {
+        if (type == &quot;callstatechange&quot; || type == &quot;agentstatechange&quot;) {
+            if (type == &quot;callstatechange&quot;) {
+                softphone.getCallInfo(function (callInfo) {
+                    softphone.currentCallState = callInfo.getValue(&quot;callState2&quot;);
+                    $F.log(&quot;Softphone.callstatechange&quot;, &quot;Start to handle callState &quot; + softphone.currentCallState);
+                    if (softphone.currentCallState == CallState.ECT_TALKING) {
+                        if (!softphone.callTimeTimer.running) {
+                            softphone.baseStartTime = new Date().getTime();
+                            softphone.callTimeTimer.start();
+                        }
+                        if (softphone.agentConferenced) {
+                            softphone.agentConferenced = false;
+                        }
+                        if (softphone.agentTransfered) {
+                            softphone.agentTransfered = false;
+                        }
+                    } else if (softphone.currentCallState == CallState.ECT_UNKNOWN) {
+                        try {
+                            softphone.callTimeTimer.stop();
+                            softphone.agentConferenced = false;
+                            softphone.agentTransfered = false;
+                            if (!softphone.notClearNumberWhenECTUNKNOW) {
+                                $(BUTTONS.ANI).val(&#39;&#39;);
+                            }
+                        } catch (e) {
+                            $F.err(&quot;Softphone - callstatechange&quot;, &quot;Handle callState.ECT_UNKNOWN error:&quot; + e);
+                        }
+                    } else if (softphone.currentCallState == CallState.ECT_HOLD) {
+
+                    } else if (softphone.currentCallState == CallState.ECT_TALKINGHOLD) {
+                        if (softphone.startInitTransfer) {
+                            softphone.agentTransfered = true;
+                        } else if (softphone.startInitConference) {
+                            softphone.agentConferenced = true;
+                        }
+                    }
+                    if (softphone.currentCallState == CallState.ECT_RINGING ||
+                        softphone.currentCallState == CallState.ECT_DIALING ||
+                        softphone.currentCallState == CallState.ECT_DIALINGHOLD) {
+                        $(&quot;#c_softphone .sp_info .calltime&quot;).html(&quot;&lt;span style=&#39;color: #FBF230&#39;&gt;00:00&lt;/span&gt;&quot;);
+                        if (!softphone.hideCallNumber) {
+                            $(&quot;#c_softphone .sp_callnum&quot;).html(&quot;&lt;span style=&#39;color: #FFFFCC;font-weight: bold&#39;&gt;&quot; + softphone.currentCallNumber + &quot;&lt;/span&gt;&quot;);
+                            softphone.callNumBlinkTimer.start();
+                        }
+                    } else {
+                        if (!softphone.hideCallNumber) {
+                            softphone.callNumBlinkTimer.stop();
+                            $(&quot;#c_softphone .sp_callnum&quot;).html(&quot;&lt;span style=&#39;color: #FFFFCC;font-weight: bold&#39;&gt;&quot; + softphone.currentCallNumber + &quot;&lt;/span&gt;&quot;);
+                        }
+                    }
+                    if (softphone.currentCallState == CallState.ECT_RINGING) {
+                        softphone.answerBtnBlinkTimer.start();
+                    } else {
+                        softphone.answerBtnBlinkTimer.stop();
+                    }
+                    softphone.setAgentStateText();
+                    softphone.setBtnStatus();
+                    $F.log(&quot;Softphone.callstatechange&quot;, &quot;Handle callState &quot; + softphone.currentCallState + &quot; done.&quot;);
+                });
+            } else if (type == &quot;agentstatechange&quot;) {
+                softphone.getAgentStateAndMode(function (agentInfo) {
+                    softphone.currentAgentState = agentInfo.agentState;
+                    softphone.currentAgentMode = agentInfo.agentMode;
+                    $F.log(&quot;Softphone.agentstatechange&quot;, &quot;Start to handle agentState &quot; + softphone.currentAgentState + &quot; and agentMode &quot; + softphone.currentAgentMode);
+                    if (softphone.currentAgentState != AgentState.EAS_LOGOUT) {
+                        softphone.setAgentLogined(true);
+                        var showExtension = softphone.extension;
+                        if (softphone.getCurrentProject().getParam(&quot;EXTSHD&quot;) == &quot;1&quot;) {
+                            var extensionSheld = &quot;&quot;;
+                            for (var i = 0; i &lt; softphone.extension.length; i++) {
+                                extensionSheld += &quot;*&quot;;
+                            }
+                            showExtension = extensionSheld;
+                        }
+                        $(&quot;#c_softphone .sp_info .extension&quot;).html(showExtension);
+                        $(&quot;#c_softphone .sp_info .agent_id&quot;).html(softphone.agentId);
+                    } else {
+                        softphone.setAgentLogined(false);
+                        $(&quot;#c_softphone .sp_info .extension&quot;).text(&quot;&quot;);
+                        $(&quot;#c_softphone .sp_info .agent_id&quot;).text(&quot;&quot;);
+                    }
+                    softphone.setAgentStateText();
+                    softphone.setBtnStatus();
+                    $F.log(&quot;Softphone.agentstatechange&quot;, &quot;Handle agentState &quot; + softphone.currentAgentState + &quot; and agentMode &quot; + softphone.currentAgentMode + &quot; done.&quot;);
+                });
+            }
+
+        } else if (type == &quot;OnCallStart&quot;) {
+            softphone.getCallInfo(function (callInfo) {
+                var proj = softphone.getCurrentProject();
+                var callType = callInfo.getValue(&quot;callType&quot;);
+                if (callType == CallType.INBOUND) {
+                    var ani = callInfo.getValue(&quot;ANI&quot;);
+                    if (!$F.isNull(ani)) {
+                        softphone.currentCallNumber = $F.shieldNumber(ani,
+                            proj.getParam(&quot;TELWLD&quot;), proj.getParam(&quot;TELSHD&quot;), proj.getParam(&quot;TELWLF&quot;), proj.getParam(&quot;TELSHR&quot;));
+                        $F.log(&quot;Softphone.OnCallStart&quot;, &quot;set currentCallNumber by ani:&quot; + softphone.currentCallNumber);
+                    }
+                } else if (callType == CallType.OUTBOUND || callType == CallType.PDS_OUTBOUND) {
+                    var dnis = callInfo.getValue(&quot;DNIS&quot;);
+                    if (!$F.isNull(dnis)) {
+                        softphone.currentCallNumber = $F.shieldNumber(dnis,
+                            proj.getParam(&quot;TELWLD&quot;), proj.getParam(&quot;TELSHD&quot;), proj.getParam(&quot;TELWLF&quot;), proj.getParam(&quot;TELSHR&quot;));
+                        $F.log(&quot;Softphone.OnCallStart&quot;, &quot;set currentCallNumber by dnis:&quot; + softphone.currentCallNumber);
+                    }
+                }
+            });
+            softphone.callTimeTimer.start();
+            softphone.baseStartTime = new Date().getTime();
+        } else if (type == &quot;OnCallEstablish&quot;) {
+            softphone.callTimeTimer.reset();
+        } else if (type.startWith(&quot;OnCallAction&quot;)) {
+            var arr = type.split(&quot;,&quot;);
+            var actionType = arr[1];
+            var dest = arr[2];
+            if (actionType == &quot;MakeCall&quot; || actionType == &quot;InitTransfer&quot; || actionType == &quot;InitConference&quot; ||
+                actionType == &quot;MuteTransfer&quot; || actionType == &quot;SingleStepTransfer&quot; || actionType == &quot;PhoneNo&quot;) {
+                softphone.startInitTransfer = false;
+                softphone.startInitConference = false;
+                if (actionType == &quot;InitTransfer&quot;) {
+                    softphone.startInitTransfer = true;
+                } else if (actionType == &quot;InitConference&quot;) {
+                    softphone.startInitConference = true;
+                }
+                if (actionType == &#39;PhoneNo&#39;) {
+                    $(BUTTONS.ANI).val(dest);
+                }
+            }
+        } else if (type == &quot;OnCallEnd&quot;) {
+            softphone.getCallStat(function (callStat) {
+                softphone.refreshCallStat(callStat);
+            });
+            //电话结束时候，清空静音状态
+            if (softphone.isMute) {
+                softphone.isMute = false;
+                hideBtn($(BUTTONS.UNMUTE));
+                $(BUTTONS.MUTE).show();
+            }
+        } else if (type == &quot;73&quot;) {//notready
+            //if(softphone.currentAgentMode == AgentMode.EAM_AUX){
+            softphone.getEvtDetail(function (data) {
+                $F.log(&quot;Softphone.handleSCTIEvents&quot;, &quot;Evt detail: &quot; + data.EvtDetail);
+                if (!$F.isNull(data.EvtDetail)) {
+                    var details = data.EvtDetail.split(&quot;\|&quot;);
+                    if ($.isArray(details) &amp;&amp; details.length &gt; 0) {
+                        details.forEach(function (detail) {
+                            if (detail.toLowerCase().indexOf(&quot;reasoncode&quot;) &gt; -1) {
+                                var reasonCode = detail.substr(detail.indexOf(&quot;=&quot;) + 1);
+                                var auxDesc = softphone.auxMap[reasonCode];
+                                $F.log(&quot;Softphone.handleSCTIEvents&quot;, &quot;Find aux : &quot; + auxDesc + &quot; with reason code &quot; + reasonCode);
+                                softphone.setBreakTypeLabelText($F.parseEmpty(auxDesc));
+                            }
+                        });
+                    }
+                }
+            });
+            //}
+        } else if (type == &quot;74&quot;) {//EVT_DATAUPDATED
+            softphone.getEvtDetail(function (data) {
+                $F.log(&quot;Softphone.EVT_DATAUPDATED&quot;, &quot;SCTIEventHandler 74 event detail: &quot; + data.EvtDetail);
+                var parsedEvent = parseEventDetail(data.EvtDetail);
+                var evtObj = parsedEvent.evtObj;
+                var attachObj = parsedEvent.attachObj;
+                if (evtObj.hasOwnProperty(&quot;event&quot;)) {
+                    if (evtObj[&quot;event&quot;] == &quot;74&quot;) {
+                        softphone.getCallInfo(function (callInfo) {
+                            var callType = callInfo.getValue(&quot;callType&quot;);
+                            if (callType == CallType.INBOUND) {
+                                var newANI = attachObj[&quot;ani&quot;];
+                                if (!$F.isEmpty(newANI)) {
+                                    if (!softphone.hideCallNumber) {
+                                        $(&quot;#c_softphone .sp_callnum&quot;).html(&quot;&lt;span style=&#39;color: #FFFFCC;font-weight: bold&#39;&gt;&quot; + newANI + &quot;&lt;/span&gt;&quot;);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        } else if (type == &quot;23&quot;) {//mute
+            softphone.isMute = true;
+            hideBtn($(BUTTONS.MUTE));
+            $(BUTTONS.UNMUTE).show();
+        } else if (type == &quot;24&quot;) {//unmute
+            softphone.isMute = false;
+            hideBtn($(BUTTONS.UNMUTE))
+            $(BUTTONS.MUTE).show();
+        }
+    } catch (e) {
+        $F.err(&quot;Softphone - handleSCTIEvents&quot;, e.message);
+    }
+};</code></pre>
+<h2 id="-div-id-constants-div-"><div id="constants">常量说明</div></h2>
+<p>agentMode坐席模式</p>
+<pre><code>EAM_UNKNOWN: 0,
+EAM_AUTOIN: 1,
+EAM_MANUALIN: 2,
+EAM_AUX: 3,
+EAM_ACW: 4,
+EAM_NOCALLDISCONNECT: 5,
+EAM_MAX: 6</code></pre>
+<p>agentState坐席状态</p>
+<pre><code>EAS_UNKNOWN: 0,
+EAS_LOGOUT: 1,
+EAS_READY: 2,
+EAS_NOTREADY: 3,
+EAS_BUSY: 4,
+EAS_MAX: 5</code></pre>
+<p>callState电话状态</p>
+<pre><code>ECT_UNKNOWN: 0,
+ECT_RINGING: 1,
+ECT_TALKING: 2,
+ECT_HOLD: 3,
+ECT_DIALING: 4,
+ECT_TALKINGHOLD: 32,
+ECT_DIALINGHOLD: 34</code></pre>
+<p>calltype电话类型</p>
+<pre><code>UNKNOW : 0,
+INBOUND : 2,
+OUTBOUND : 3,
+SIMULAT_INBOUND : 4,
+PDS_OUTBOUND : 6</code></pre>
+<p>ctiStatus交换机状态</p>
+<pre><code>LOGIN : 1,
+READY: 2,
+AUX: 3,
+ACW: 4,
+BUSY: 5,
+LOGOUT: 6,
+RINGING: 20,
+HOLD: 22,
+DIALING: 23,
+CONSULTING: 25,
+OFFHOOK: 24</code></pre>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
