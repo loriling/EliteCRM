@@ -96,6 +96,20 @@
         },
         onUpdateQueueStatus: function (data) {
             //TODO something 更新排队信息
+            switch (data.requestStatus) {
+                case EliteIMClient.CONSTANTS.SENDREQUEST.REFUSED :
+                    console.log('坐席拒绝');
+                    break;
+                case EliteIMClient.CONSTANTS.SENDREQUEST.TIMEOUT :
+                    console.log('请求超时');
+                    break;
+                case EliteIMClient.CONSTANTS.SENDREQUEST.DROPPED :
+                    console.log('异常丢失');
+                    break;
+                case EliteIMClient.CONSTANTS.SENDREQUEST.ENTERPRISE_WECHAT_ACCEPTED :
+                    console.log('企业号接受信息');
+                    break;
+            }
         },
         onSuccessQueue: function (sessionId) {
             //TODO something 排队成功
@@ -216,16 +230,19 @@
         queue: queue,
         urlfrom: urlfrom,
         onSuccess: function (data) {
-            console.log("[ 发送聊天请求成功 ]" + JSON.stringify(data));
-            self.uiData.notice.show = true;
-            self.uiData.notice.text = data.message;    
-            isLiving = true;
-                
+            console.log("[ 排队中 ]" + JSON.stringify(data)); 
+        },
+        onOffhour: function (data) {
+            console.log("[ 不在工作时间 ]" + JSON.stringify(data));  
+            //TODO  something         
+        },
+        onUnline: function (data) {
+            console.log("[ 坐席不在线 ]" + JSON.stringify(data));    
+            //TODO  something          
         },
         onFail: function(data) {
             console.log("[ 发送聊天请求失败 ]" + JSON.stringify(data));
-            self.uiData.notice.show = true;
-            self.uiData.notice.text = data.message;  
+            //TODO  something
         }
     });
 ```
@@ -333,8 +350,10 @@
 8、取消聊天
 ```javascript
     var token = "";  //前面获取到的token的值
+    var requestId = 360;
     EliteIMClient.cancelRequest({
-            token：token,
+            token: token,
+            requestId: requestId
             onSuccess: function (data) {
                     console.log("[ 发送成功 ]");
             },

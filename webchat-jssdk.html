@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)file:///C:/users/admini~1/appdata/local/temp/29.html -->
+<!-- saved from url=(0052)file:///C:/users/admini~1/appdata/local/temp/39.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {
   max-width: 980px;
   border: 1px solid #ddd;
@@ -1016,10 +1016,10 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>webchat-jssdk</title></head><body><article class="markdown-body"><h2 id="elitewebchat-jssdk"><a name="user-content-elitewebchat-jssdk" href="file:///C:/users/admini~1/appdata/local/temp/29.html#elitewebchat-jssdk" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>ELiteWebChat jssdk 文档说明</h2>
+</style><title>webchat-jssdk</title></head><body><article class="markdown-body"><h2 id="elitewebchat-jssdk"><a name="user-content-elitewebchat-jssdk" href="file:///C:/users/admini~1/appdata/local/temp/39.html#elitewebchat-jssdk" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>ELiteWebChat jssdk 文档说明</h2>
 <p>网聊的 <a href="http://loriling.github.io/EliteCRM/webchat-websocket-guide.html">WebSocket版本</a> </p>
-<h4 id="_1"><a name="user-content-_1" href="file:///C:/users/admini~1/appdata/local/temp/29.html#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>接口方法说明：</h4>
-<h6 id="sdk"><a name="user-content-sdk" href="file:///C:/users/admini~1/appdata/local/temp/29.html#sdk" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>引入 SDK</h6>
+<h4 id="_1"><a name="user-content-_1" href="file:///C:/users/admini~1/appdata/local/temp/39.html#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>接口方法说明：</h4>
+<h6 id="sdk"><a name="user-content-sdk" href="file:///C:/users/admini~1/appdata/local/temp/39.html#sdk" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>引入 SDK</h6>
 <pre><code>&lt;script src="http://www.elitecrm.com:9997/webchat/js/sdk/EliteIMLib.min.js"&gt;&lt;/script&gt;
 </code></pre>
 <p>1、设置监听<br>
@@ -1110,6 +1110,20 @@ body .markdown-body
         },
         onUpdateQueueStatus: function (data) {
             //TODO something 更新排队信息
+            switch (data.requestStatus) {
+                case EliteIMClient.CONSTANTS.SENDREQUEST.REFUSED :
+                    console.log('坐席拒绝');
+                    break;
+                case EliteIMClient.CONSTANTS.SENDREQUEST.TIMEOUT :
+                    console.log('请求超时');
+                    break;
+                case EliteIMClient.CONSTANTS.SENDREQUEST.DROPPED :
+                    console.log('异常丢失');
+                    break;
+                case EliteIMClient.CONSTANTS.SENDREQUEST.ENTERPRISE_WECHAT_ACCEPTED :
+                    console.log('企业号接受信息');
+                    break;
+            }
         },
         onSuccessQueue: function (sessionId) {
             //TODO something 排队成功
@@ -1222,16 +1236,19 @@ body .markdown-body
         queue: queue,
         urlfrom: urlfrom,
         onSuccess: function (data) {
-            console.log("[ 发送聊天请求成功 ]" + JSON.stringify(data));
-            self.uiData.notice.show = true;
-            self.uiData.notice.text = data.message;    
-            isLiving = true;
-
+            console.log("[ 排队中 ]" + JSON.stringify(data)); 
+        },
+        onOffhour: function (data) {
+            console.log("[ 不在工作时间 ]" + JSON.stringify(data));  
+            //TODO  something         
+        },
+        onUnline: function (data) {
+            console.log("[ 坐席不在线 ]" + JSON.stringify(data));    
+            //TODO  something          
         },
         onFail: function(data) {
             console.log("[ 发送聊天请求失败 ]" + JSON.stringify(data));
-            self.uiData.notice.show = true;
-            self.uiData.notice.text = data.message;  
+            //TODO  something
         }
     });
 </code></pre><p></p>
@@ -1333,8 +1350,10 @@ body .markdown-body
 </code></pre><p></p>
 <p>8、取消聊天<br>
 </p><pre><code class="javascript">    var token = "";  //前面获取到的token的值
+    var requestId = 360;
     EliteIMClient.cancelRequest({
-            token：token,
+            token: token,
+            requestId: requestId
             onSuccess: function (data) {
                     console.log("[ 发送成功 ]");
             },
@@ -1420,7 +1439,7 @@ body .markdown-body
             }
     });
 </code></pre><p></p>
-<h2 id="_2"><a name="user-content-_2" href="file:///C:/users/admini~1/appdata/local/temp/29.html#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>聊天插件配置：</h2>
+<h2 id="_2"><a name="user-content-_2" href="file:///C:/users/admini~1/appdata/local/temp/39.html#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>聊天插件配置：</h2>
 <p>chat插件是通过vue开发出来的，如果需要使用插件需要通过vue来引入插件并且需要引入几个必须的css 和 js：</p>
 <p></p><pre><code>    &lt;link rel="stylesheet" type="text/css" href="../../css/elite-webchat-sdk.css"&gt;  //插件显示css
     &lt;link rel="stylesheet" type="text/css" href="../../css/emotions.css"&gt; //表情显示的css
