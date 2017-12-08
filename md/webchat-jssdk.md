@@ -194,7 +194,15 @@
     var wsUrl = ""; // 网聊websocket地址假设网聊的地址是： http://192.168.2.99/webchat, websocket地址为 ws://192.168.2.99/webchat
     EliteIMClient.connect({
                     "token": token,
-                    "url": wsUrl
+                    "url": wsUrl,
+                    onclose: function(e) {
+                        //TODO close socket do something
+                        console.log("console close by html " + e);
+                    },
+                    onerror: function() {
+                        //TODO error socket do something
+                        console.log("console error by html " + e);
+                    }
                     }, function() {
                         //TODO open websocket 之后执行的内容
                     });
@@ -242,7 +250,7 @@
         },
         onFail: function(data) {
             console.log("[ 发送聊天请求失败 ]" + JSON.stringify(data));
-            //TODO  something
+            //TODO  something   
         }
     });
 ```

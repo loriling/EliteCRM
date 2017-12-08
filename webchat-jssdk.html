@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)file:///C:/users/admini~1/appdata/local/temp/39.html -->
+<!-- saved from url=(0052)file:///C:/users/admini~1/appdata/local/temp/17.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {
   max-width: 980px;
   border: 1px solid #ddd;
@@ -1016,10 +1016,10 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>webchat-jssdk</title></head><body><article class="markdown-body"><h2 id="elitewebchat-jssdk"><a name="user-content-elitewebchat-jssdk" href="file:///C:/users/admini~1/appdata/local/temp/39.html#elitewebchat-jssdk" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>ELiteWebChat jssdk 文档说明</h2>
+</style><title>webchat-jssdk</title></head><body><article class="markdown-body"><h2 id="elitewebchat-jssdk"><a name="user-content-elitewebchat-jssdk" href="file:///C:/users/admini~1/appdata/local/temp/17.html#elitewebchat-jssdk" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>ELiteWebChat jssdk 文档说明</h2>
 <p>网聊的 <a href="http://loriling.github.io/EliteCRM/webchat-websocket-guide.html">WebSocket版本</a> </p>
-<h4 id="_1"><a name="user-content-_1" href="file:///C:/users/admini~1/appdata/local/temp/39.html#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>接口方法说明：</h4>
-<h6 id="sdk"><a name="user-content-sdk" href="file:///C:/users/admini~1/appdata/local/temp/39.html#sdk" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>引入 SDK</h6>
+<h4 id="_1"><a name="user-content-_1" href="file:///C:/users/admini~1/appdata/local/temp/17.html#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>接口方法说明：</h4>
+<h6 id="sdk"><a name="user-content-sdk" href="file:///C:/users/admini~1/appdata/local/temp/17.html#sdk" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>引入 SDK</h6>
 <pre><code>&lt;script src="http://www.elitecrm.com:9997/webchat/js/sdk/EliteIMLib.min.js"&gt;&lt;/script&gt;
 </code></pre>
 <p>1、设置监听<br>
@@ -1204,7 +1204,15 @@ body .markdown-body
     var wsUrl = ""; // 网聊websocket地址假设网聊的地址是： http://192.168.2.99/webchat, websocket地址为 ws://192.168.2.99/webchat
     EliteIMClient.connect({
                     "token": token,
-                    "url": wsUrl
+                    "url": wsUrl,
+                    onclose: function(e) {
+                        //TODO close socket do something
+                        console.log("console close by html " + e);
+                    },
+                    onerror: function() {
+                        //TODO error socket do something
+                        console.log("console error by html " + e);
+                    }
                     }, function() {
                         //TODO open websocket 之后执行的内容
                     });
@@ -1248,7 +1256,7 @@ body .markdown-body
         },
         onFail: function(data) {
             console.log("[ 发送聊天请求失败 ]" + JSON.stringify(data));
-            //TODO  something
+            //TODO  something   
         }
     });
 </code></pre><p></p>
@@ -1439,7 +1447,7 @@ body .markdown-body
             }
     });
 </code></pre><p></p>
-<h2 id="_2"><a name="user-content-_2" href="file:///C:/users/admini~1/appdata/local/temp/39.html#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>聊天插件配置：</h2>
+<h2 id="_2"><a name="user-content-_2" href="file:///C:/users/admini~1/appdata/local/temp/17.html#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>聊天插件配置：</h2>
 <p>chat插件是通过vue开发出来的，如果需要使用插件需要通过vue来引入插件并且需要引入几个必须的css 和 js：</p>
 <p></p><pre><code>    &lt;link rel="stylesheet" type="text/css" href="../../css/elite-webchat-sdk.css"&gt;  //插件显示css
     &lt;link rel="stylesheet" type="text/css" href="../../css/emotions.css"&gt; //表情显示的css
