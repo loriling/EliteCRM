@@ -391,23 +391,8 @@
        });
    ```
    
-10、推送结束聊天
-```javascript
-    var token = "";  //前面获取到的token的值
-    var sessionId = '***';  //聊天的sessionId
-    EliteIMClient.sendRating({
-            "token": token,
-            "sessionId": sessionId,
-            onSuccess: function (data) {
-                    console.log("[ 发送成功 ]");
-            },
-            onFail: function(data) {
-                 console.log("[ 发送失败 ]");
-            }
-    });
-```
 
-11、关闭聊天
+10、关闭聊天
 ```javascript
     var token = "";  //前面获取到的token的值
     var sessionId = '***';  //聊天的sessionId
@@ -423,7 +408,7 @@
     });
 ```
 
-12、登出
+11、登出
 ```javascript
     var token = "";  //前面获取到的token的值
     EliteIMClient.loginOut({
@@ -437,7 +422,7 @@
     });
     
 ```
-11、聊天历史
+12、聊天历史
 ```javascript
     var token = "";  //前面获取到的token的值
     var fromMessageId = 0;  //前面获取到的token的值
