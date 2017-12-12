@@ -428,7 +428,7 @@
     var fromMessageId = 0;  //前面获取到的token的值
     var count = 5;  //前面获取到的token的值
     var sessionId = '***';  //聊天的sessionId
-    EliteIMClient.closeChat({
+    EliteIMClient.chatHistory({
             "token": token,
             "sessionId": sessionId,
             "fromMessageId": fromMessageId,
