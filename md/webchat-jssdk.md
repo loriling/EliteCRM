@@ -408,7 +408,60 @@
     });
 ```
 
-11、登出
+
+11、发送预发信息： 在排队的过程中发送的信息
+```javascript
+    var token = "";  //前面获取到的token的值
+    var requestId = 0;  //聊天的requestId
+    var content = '***';  //发送的预发信息内容
+    EliteIMClient.advanceMessage({
+            "token": token,
+            "requestId": requestId,
+            "content": content,
+            onSuccess: function (data) {
+                    console.log("[ 发送成功 ]");
+            },
+            onFail: function(data) {
+                 console.log("[ 发送失败 ]");
+            }
+    });
+```
+
+12、发送预览信息： 坐席端可以看到客户敲打的内容
+```javascript
+    var token = "";  //前面获取到的token的值
+    var sessionId = 0;  //聊天的sessionId
+    var content = '***';  //发送的预发信息内容
+    EliteIMClient.previewMessage({
+            "token": token,
+            "sessionId": sessionId,
+            "content": content,
+            onSuccess: function (data) {
+                    console.log("[ 发送成功 ]");
+            },
+            onFail: function(data) {
+                 console.log("[ 发送失败 ]");
+            }
+    });
+```
+
+13、发送正在输入的提示信息
+```javascript
+    var token = "";  //前面获取到的token的值
+    var sessionId = 0;  //当前聊天的sessionid
+    EliteIMClient.sendTypingMessage({
+            "token": token,
+            "sessionId": sessionId,
+            onSuccess: function (data) {
+                    console.log("[ 发送成功 ]");
+            },
+            onFail: function(data) {
+                 console.log("[ 发送失败 ]");
+            }
+    });
+```
+
+14、登出
 ```javascript
     var token = "";  //前面获取到的token的值
     EliteIMClient.loginOut({
@@ -422,7 +475,7 @@
     });
     
 ```
-12、聊天历史
+15、聊天历史
 ```javascript
     var token = "";  //前面获取到的token的值
     var fromMessageId = 0;  //前面获取到的token的值
