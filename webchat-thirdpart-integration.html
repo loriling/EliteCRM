@@ -621,6 +621,32 @@ HttpResponse response = httpclient.execute(httppost);</code></pre>
   message: &quot;success&quot;
 }</code></pre>
 </li>
+<li><p><div style="color:#0086b3">会话发生转接或者会议后，坐席信息更新</div></p>
+<pre><code>http://xxxxx/ThirdPartService/agentsUpdate
+发送参数:
+{
+  sessionId: 1299,//会话id
+  agents: [//当前会话中所有坐席信息，如果是会议就存在多个坐席
+      {
+          id: &#39;SELITE&#39;,
+          name: &#39;Elite&#39;,
+          icon: &#39;http://xxxxx/xxxx.png&#39;,
+          comments: &#39;备注信息&#39;
+      },
+      {
+          id: &#39;AE1EA&#39;,
+          name: &#39;Lori&#39;,
+          icon: &#39;http://xxxxx/xxxx.png&#39;,
+          comments: &#39;备注信息&#39;
+      }
+  ]
+}
+返回参数:
+{
+  result: 1,
+  message: &quot;success&quot;
+}</code></pre>
+</li>
 </ul>
 <ul>
 <li><p><div style="color:#0086b3">客服推送满意度给客户</div></p>

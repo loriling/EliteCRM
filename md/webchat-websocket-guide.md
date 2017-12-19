@@ -312,6 +312,16 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 
 **二. 客户端直接收到的相关消息**
 
+- 客户端连上websocket之后，告知客户端相关配置信息： 
+```
+{
+	type: 200,//初始化连上ws后返回的配置信息
+	ratings: [],//满意度评价相关信息，用来告诉客户端目前所有的可选的满意度选项，这个仅用于参考，客户端可以不考虑这个配置信息
+	fileAcceptExtensionsArr: "zip,rar,jpg,jpeg,png,gif,bmp,doc",//所有允许的上传的附件的扩展名,字符串,多个用逗号分隔
+	hisSessions: [1288,1290,1310]//当登录客户的历史会话数组
+}
+```
+
 - 通知客户端聊天排队状态更新： 
 ```
 {
@@ -339,9 +349,7 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 	        name: '客户1',//名字
 	        icon: 'http://xxxx/head.png'//头像地址
 	    }
-	],
-	ratings: [],//满意度评价相关信息，用来告诉客户端目前所有的可选的满意度选项，这个仅用于参考，客户端可以不考虑这个配置信息
-	fileAcceptExtensionsArr: "zip,rar,jpg,jpeg,png,gif,bmp,doc"//所有允许的上传的附件的扩展名,字符串,多个用逗号分隔
+	]
 }
 ```
 
@@ -477,6 +485,7 @@ CUSTOM = 99;//自定义提示
 	int SEND_TYPING_NOTICE = 113;//发出正在输入提示
 	
 	//客户接受
+	int CHAT_INIT_CONFIG = 200;//初始化连上ws后返回的配置信息
 	int CHAT_REQUEST_STATUS_UPDATE = 201;//聊天排队状态更新
 	int CHAT_STARTED = 202;//通知客户端可以开始聊天
 	int AGENT_PUSH_RATING = 203;//坐席推送了满意度

@@ -360,6 +360,34 @@ http://xxxxx/ThirdPartService/msg
 }
 ```
 
+- <div style="color:#0086b3">会话发生转接或者会议后，坐席信息更新</div>
+```
+http://xxxxx/ThirdPartService/agentsUpdate
+发送参数:
+{
+	sessionId: 1299,//会话id
+	agents: [//当前会话中所有坐席信息，如果是会议就存在多个坐席
+		{
+			id: 'SELITE',
+			name: 'Elite',
+			icon: 'http://xxxxx/xxxx.png',
+			comments: '备注信息'
+		},
+		{
+			id: 'AE1EA',
+			name: 'Lori',
+			icon: 'http://xxxxx/xxxx.png',
+			comments: '备注信息'
+		}
+	]
+}
+返回参数:
+{
+    result: 1,
+    message: "success"
+}
+```
+
 
 - <div style="color:#0086b3">客服推送满意度给客户</div>
 ```
