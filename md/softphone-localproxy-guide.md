@@ -660,7 +660,7 @@ addEventListener : function(callback) {
 	var softphone = this;
 	//注册softphone事件 callback
     $E.wsAsyncQueue.push({
-        token : $CONST.EVENT.WS_SOFTPHONE,
+        token : 'WS.SOFTPHONE',
         persistence : true,	// 持久化回调方法，不需要删除
         callback : function(data, ev){
             if (callback) {
