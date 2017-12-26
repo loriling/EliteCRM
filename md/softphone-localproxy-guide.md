@@ -928,3 +928,9 @@ DIALING: 23,
 CONSULTING: 25,
 OFFHOOK: 24
 ```
+工作类型
+```
+WT_OB : "WT-OB",//外呼工作
+WT_IB : "WT-IB",//呼入工作
+WT_PDS_OB : "WT_PDS_OB"//预览外呼工作
+```
