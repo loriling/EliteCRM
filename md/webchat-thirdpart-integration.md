@@ -480,52 +480,51 @@ http://xxxxx/EliteWebChat/tpi
 ## 二. 请求代码与相应结果代码 ##
 - request中的type
 ```
-LOGON_REQUEST = 1;\\登录
-LOGOUT_REQUEST = 2;\\登出
-LOGON_OR_REGISTER_REQUEST = 3;\\登录或注册
-CHAT_REQUEST = 1000;\\发出聊天排队请求
-CHAT_REQUEST_STATE_UPDATE = 1001;\\更新聊天排队请求状态
-CANCEL_CHAT_REQUEST = 1002;\\取消聊天排队请求
-MSG_REQUEST = 2001;\\发送文本消息
-MSG_IMG_REQUEST = 2002;\\发送图片消息
-MSG_VOICE_REQUEST = 2003;\\发送语音消息
-MSG_LOCATION_REQUEST = 2004;\\发送坐标地理消息
-MSG_FILE_REQUEST = 2005;\\发送文件消息
-PRE_MSG_REQUEST = 2020;\\发送预消息，当聊天会话还没创建时候，可以通过聊天请求id来发送预消息
-PREVIEW_MSG_REQUEST = 2021;\\发送预览消息，客户打字还没发送时候，就可以预先把打字内容作为预览消息发送给客服
-TYPING_NOTICE = 2022;\\正在输入提示
-CLOSE_REQUEST = 4001;\\结束聊天
-RATING_REQUEST = 5001;\\满意度评价
+LOGON_REQUEST = 1;//登录
+LOGOUT_REQUEST = 2;//登出
+LOGON_OR_REGISTER_REQUEST = 3;//登录或注册
+CHAT_REQUEST = 1000;//发出聊天排队请求
+CHAT_REQUEST_STATE_UPDATE = 1001;//更新聊天排队请求状态
+CANCEL_CHAT_REQUEST = 1002;//取消聊天排队请求
+MSG_REQUEST = 2001;//发送文本消息
+MSG_IMG_REQUEST = 2002;//发送图片消息
+MSG_VOICE_REQUEST = 2003;//发送语音消息
+MSG_LOCATION_REQUEST = 2004;//发送坐标地理消息
+MSG_FILE_REQUEST = 2005;//发送文件消息
+PRE_MSG_REQUEST = 2020;//发送预消息，当聊天会话还没创建时候，可以通过聊天请求id来发送预消息
+PREVIEW_MSG_REQUEST = 2021;//发送预览消息，客户打字还没发送时候，就可以预先把打字内容作为预览消息发送给客服
+TYPING_NOTICE = 2022;//正在输入提示
+CLOSE_REQUEST = 4001;//结束聊天
+RATING_REQUEST = 5001;//满意度评价
 ```
 
 - response中的result
 ```
 SUCCESS = 1;
-REQUEST_ALREADY_IN_ROULTING = -1;
-ALREADY_IN_CHATTING = -2;
-NOT_IN_WORKTIME = -3;
-INVAILD_SKILLGROUP = -4;
-NO_AGENT_ONLINE = -5;
-INVAILD_CLIENT_ID = -6;
-INVAILD_QUEUE_ID = -7;
-REQUEST_ERROR = -8;
-INVAILD_TO_USER_ID = -9;
-INVAILD_CHAT_REQUEST_ID = -10;
-INVAILD_CHAT_SESSION_ID = -11;
-int UPLOAD_FILE_FAILED = -13;
-INVAILD_MESSAGE_TYPE = -12;
-INVAILD_PARAMETER = -14;
-INVAILD_TOKEN = -15;
-INVAILD_FILE_EXTENSION = -16;
-EMPTY_MESSAGE = -17;
-INVAILD_SESSION_TYPE = -18;
-INVAILD_REQUEST_TYPE = -19;
-INVAILD_LOGINNAME_OR_PASSWORD = -20;
-INVAILD_FILE_SIZE = -21;
-UPLOAD_IMAGE_FAILED = -22;
-UPLOAD_VOICE_FAILED = -23;
-INVAILD_SIGN = -30;
-INTERNAL_ERROR = -100;
+REQUEST_ALREADY_IN_ROULTING = -1;//请求已经在路由中了，意思是不用重复再次发出聊天请求
+ALREADY_IN_CHATTING = -2;//已经在聊天中，意思不用重复发起聊天请求
+NOT_IN_WORKTIME = -3;//排队返回，意思当前不是工作时间
+INVAILD_SKILLGROUP = -4;//排队返回，意思是发出的queue值不对，不是预设的某个队列的值（微信端使用）
+NO_AGENT_ONLINE = -5;//排队返回，当前没有坐席在线
+INVAILD_CLIENT_ID = -6;//非法的客户id，发出的请求中客户id不正确
+INVAILD_QUEUE_ID = -7;//非法的队列id，表示发出排队请求时候队列id传递的不对
+REQUEST_ERROR = -8;//请求错误，解析发送来的请求json内容时候出错
+INVAILD_TO_USER_ID = -9;//非法的to_user_id，发出的排队请求时候，如果带上了要排队给谁，这个谁如果没有这个人或者不在线，就会返回这个错
+INVAILD_CHAT_REQUEST_ID = -10;//发送的请求id错误，没有找到这个id的请求
+INVAILD_CHAT_SESSION_ID = -11;//发送的会话id错误，没有找到这个id的会话
+UPLOAD_FILE_FAILED = -13;//上传文件失败
+INVAILD_MESSAGE_TYPE = -12;//消息类型错误，收到的消息类型不是预设的消息类型
+INVAILD_TOKEN = -15;//非法的token，查看调用接口时候传递的token，可能需要重新获取token
+INVAILD_FILE_EXTENSION = -16;//非法的文件扩展类型，上传了某个不允许的文件类型
+EMPTY_MESSAGE = -17;//发送或收到的消息是空内容时候报错
+INVAILD_SESSION_TYPE = -18;//非法的会话类型，排队后，如果找到了一个已有的会话，但是这个会话不是需要的会话类型时候报错
+INVAILD_REQUEST_TYPE = -19;//非法的请求类型，收到的消息请求类型不是预设的类型
+INVAILD_LOGINNAME_OR_PASSWORD = -20;//登录异常，用户名或密码错误
+INVAILD_FILE_SIZE = -21;//非法的文件大小，上传的文件大小超过了配置的阈值
+UPLOAD_IMAGE_FAILED = -22;//上传图片文件失败
+UPLOAD_VOICE_FAILED = -23;//上传语音文件失败
+INVAILD_SIGN = -30;//非法的接口签名，查看签名逻辑是否正确
+INTERNAL_ERROR = -100;//内部错误，请联系管理员
 ```
 
 ## 三. 聊天请求状态码 ##
