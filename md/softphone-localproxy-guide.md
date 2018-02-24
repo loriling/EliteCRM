@@ -30,8 +30,16 @@ ws.onmessage = function(e) {
 };
 ws.onopen = function(e) {
 	$E.ws = ws;
-	console.log('Elite - initWebsocket', 'WebSocket连接成功');					
+	console.log('Elite - WebSocket', 'WebSocket连接成功');					
 };
+//处理websocket关闭事件
+ws.onclose = function() {
+	console.log('Elite - WebSocket', 'WebSocket连接断开');
+}
+//处理websocket异常事件
+ws.onerror = function() {
+	console.log('Elite - WebSocket', 'WebSocket连接断开');
+}
 ```
 这时候，我们发现需要封装一下websocket相关的发消息，收消息，回调等相关的方法，下面的代码使我们自己的实现，仅供参考，不一定需要这样写，我这里展示出来方便后面的理解：
 ```
@@ -622,6 +630,14 @@ sendIVRMessage : function(message, callback) {
 getReasonCode : function(callback) {
 	this.simpleActionCall('getReasonCode', {}, callback);
 }
+
+```
+除了这些封装好的方法之外，还有一些通过commonCall来调用的方法，包括了：
+```
+/**
+ * 调用小修，带小修原因，后面的this.value就是具体小修原因代码
+ */
+softphone.simpleCommonCall("button.click", "notreadycode_" + this.value);
 ```
 其实所有的这些调用软电话的方法，都是通过发送一个websocket消息到localproxy中，localproxy会去处理消息，调用softphone.ocx的方法，然后再把返回的消息发送回来，具体的逻辑可以查看localproxy目录下的 *main.js*
 
