@@ -337,6 +337,7 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 {
 	type: 202,//通知排队结果
 	sessionId: 68, //会话id号，排到队后会返回这个id
+	continueLastSession: false，//是否是继续的上一个会话（当用户异常断开连接后马上再次排队，这时候服务端会继续上一次会话）
 	users: [//这个会话中所有人员的信息，坐席的话会有comments，客户没有
 	    {
 	        id: 'SELITE',//坐席id，通常是6位

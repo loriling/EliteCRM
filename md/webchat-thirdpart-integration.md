@@ -149,6 +149,7 @@ http://xxxxx/ThirdPartService/create
     },
     clientId:"xxxxxxxxx",
     sessionId: 1299,
+	continueLastSession: false,//是否继续上一个会话(如果客户端异常断开后短时间内再次发出聊天请求，可能会继续上一次聊天会话)
     time: 1400913830109
 }
 返回参数:
