@@ -214,6 +214,14 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 }
 ```
 
+- 心跳请求： 
+```
+{
+	messageId: 10,//消息id，唯一标示此消息
+	type: 10//心跳检测的消息类型编号
+}
+```
+
 ## 三. 客户端接收消息接口说明 ##
 
 **一. 每个客户端发出的请求都会有响应的消息返回，表示发送成功还是失败**
@@ -292,7 +300,7 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 ```
 {
 	messageId: 8,//消息id，唯一标示此消息
-	type: 112,//发送消息
+	type: 112,
 	result: 1, //结果代码
 	message: ''//结果描述
 }
@@ -302,9 +310,18 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 ```
 {
 	messageId: 9,//消息id，唯一标示此消息
-	type: 113,//发送消息
+	type: 113,
 	result: 1, //结果代码
 	message: ''//结果描述
+}
+```
+
+- 心跳请求返回结果： 
+```
+{
+	messageId: 10,//消息id，唯一标示此消息
+	type: 10,
+	result: 1//结果代码
 }
 ```
 

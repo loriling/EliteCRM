@@ -493,6 +493,12 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
   sessionId: 120//聊天会话号，排队成功后返回
 }</code></pre>
 </li>
+<li><p>心跳请求： </p>
+<pre><code>{
+  messageId: 10,//消息id，唯一标示此消息
+  type: 10//心跳检测的消息类型编号
+}</code></pre>
+</li>
 </ul>
 <h2 id="-">三. 客户端接收消息接口说明</h2>
 <p><strong>一. 每个客户端发出的请求都会有响应的消息返回，表示发送成功还是失败</strong></p>
@@ -556,7 +562,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 <li><p>客户端发出预览消息结果： </p>
 <pre><code>{
   messageId: 8,//消息id，唯一标示此消息
-  type: 112,//发送消息
+  type: 112,
   result: 1, //结果代码
   message: &#39;&#39;//结果描述
 }</code></pre>
@@ -564,9 +570,16 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 <li><p>客户端发出正在输入结果： </p>
 <pre><code>{
   messageId: 9,//消息id，唯一标示此消息
-  type: 113,//发送消息
+  type: 113,
   result: 1, //结果代码
   message: &#39;&#39;//结果描述
+}</code></pre>
+</li>
+<li><p>心跳请求返回结果： </p>
+<pre><code>{
+  messageId: 10,//消息id，唯一标示此消息
+  type: 10,
+  result: 1//结果代码
 }</code></pre>
 </li>
 </ul>
