@@ -595,6 +595,18 @@ muteTransfer : function(number, sData, callback){
     }, callback);
 },
 /**
+ * 单步转
+ * @param number 转接号码
+ * @param sData 随路数据
+ * @param callback
+ */
+singleStepTransfer : function(number, sData, callback) {
+    softphone.singleStepTransfer(number, sData);
+    if (callback) {
+        callback();
+    }
+},
+/**
  * 取消转接或者会议
  * @param callback
  */
