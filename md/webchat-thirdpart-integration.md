@@ -366,6 +366,7 @@ http://xxxxx/ThirdPartService/msg
 http://xxxxx/ThirdPartService/agentsUpdate
 发送参数:
 {
+	clientId: "xxxxxxxxxx",
 	sessionId: 1299,//会话id
 	agents: [//当前会话中所有坐席信息，如果是会议就存在多个坐席
 		{
@@ -389,6 +390,22 @@ http://xxxxx/ThirdPartService/agentsUpdate
 }
 ```
 
+- <div style="color:#0086b3">排队后，请求状态改变的通知</div>
+```
+http://xxxxx/ThirdPartService/updateRequestStatus
+发送参数:
+{
+	clientId: "xxxxxxxxxx",
+	requestId: 103,//请求id
+	requestStatus: 1,//请求状态 0等待 1接受 2拒绝 3超时 具体可以下面的请求状态码
+	queueLength: 0// 当前队列长度
+}
+返回参数:
+{
+    result: 1,
+    message: "success"
+}
+```
 
 - <div style="color:#0086b3">客服推送满意度给客户</div>
 ```
