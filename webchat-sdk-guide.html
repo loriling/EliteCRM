@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>webchat-sdk-guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?99f0858c7fc5b9df4dde5e0d76b6af1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+<h1 id="webchat-app-sdk-">WebChat App SDK 对接说明</h1>
+<h3 id="-app-webchat-2-">在第三方的app中，可以与我们WebChat服务进行对接，其中对接方式主要有2种：</h3>
+<blockquote>
+<ol>
+<li>直接嵌入mobile的h5页面，这种方式集成方便，几乎不需要什么开发量，缺点也很明显，由于是基于h5，界面友好度不够，且只有在页面打开时候可以查看到消息，当页面关闭后，消息是没法收到的。</li>
+<li>使用我们提供的App SDK，做深度的集成。这种方式会对第三方app有一定的开发要求，针对ios和android，还需要有不同的开发集成。而这种方式的好处在于，用户体验很高，可以发送语音视频等多媒体消息，即使app没有打开，也可以收到消息等。</li>
+</ol>
+</blockquote>
+<p>这里主要讲一下App SDK的集成方式</p>
+<h2 id="-app-sdk-">基于融云的app sdk 集成</h2>
+<p>我们的移动App SDK，集成了融云的移动通讯能力。借助融云的App消息上下行的能力，实现了坐席PC与客户手机app聊天。<br>具体说明可以查看融云官网：<a href="http://www.rongcloud.cn/" title="http://www.rongcloud.cn/"><a href="http://www.rongcloud.cn/">http://www.rongcloud.cn/</a></a></p>
+<p>看这篇文档时候，假设你已经是个android开发者（或者ios），并且对融云已经有大致了解。在此基础上，我们来对具体集成步骤，加以说明：</p>
+<h3 id="-">一. 注册融云账号</h3>
+<ol>
+<li><p>在融云官网注册一个自己的账户，并创建一个app。<a href="https://developer.rongcloud.cn/app" title="https://developer.rongcloud.cn/app"><a href="https://developer.rongcloud.cn/app">https://developer.rongcloud.cn/app</a></a></p>
+</li>
+<li><p>配置服务端实时消息路由的路由地址。具体地址，由过河兵相关人员提供。<br><img src="images/webchat-sdk-guide/2.png" alt="设置服务端消息路由地址"></p>
+</li>
+</ol>
+<h3 id="-app-">二. APP 集成</h3>
+<p>这里以Android系统为例：</p>
+<ol>
+<li><p>导入融云相关的sdk模块，这里使用到了IMLib，IMKit，LocationLib，PushLib。并按文档说明配置相关参数。注意IMLib中的AndroidManifest.xml里，需要配置融云相关的APP_KEY，具体可以查看<a href="http://www.rongcloud.cn/docs/android.html" title="http://www.rongcloud.cn/docs/android.html"><a href="http://www.rongcloud.cn/docs/android.html">http://www.rongcloud.cn/docs/android.html</a></a></p>
+<pre><code class="lang-xml"> &lt;meta-data
+     android:name=&quot;RONG_CLOUD_APP_KEY&quot;
+     android:value=&quot;xxxxxxxxxxx&quot; /&gt;</code></pre>
+</li>
+<li><p>配置AndroidManifest.xml。主要是配置一个android:name=&quot;.App&quot;, 相关权限，一个会话界面的activity，一些元数据，相关的provider，receiver，service。具体看demo代码。</p>
+</li>
+<li><p>创建一个App类，其中在onCreate回调中初始化RongIM，具体看demo示例代码。</p>
+<pre><code class="lang-java"> //初始化融云
+ RongIM.init(this);
+ //注册接收消息监听器
+ RongIM.setOnReceiveMessageListener(new EliteReceiveMessageListener());
+ //注册自定义消息
+ RongIM.registerMessageType(EliteMessage.class);
+ //注册自定义用户信息提供者
+ RongIM.setUserInfoProvider(new EliteUserInfoProvider(), true);</code></pre>
+</li>
+<li><p>导入过河兵SDK相关类，这里以可以以jar包方式提供，也可以直接提供源码。导入com.elitecrm.rcclient包下的所有类，其中App.java和MainActivity.java不需要，使用自己app中的即可。<br><img src="images/webchat-sdk-guide/3.png" alt="导入过河兵SDK相关类"></p>
+</li>
+<li><p>在主Activity中，初始化并启动EliteChat</p>
+<pre><code class="lang-java"> /**
+  * EliteChat提供方法
+  * 初始化EliteChat， 获取rongcloud的token，并且启动聊天。
+  * 如果发现token已经存在并且融云连接状态还是连接中的，则直接进入聊天
+  * @param serverAddr EliteWebChat服务地址
+  * @param userId 用户登录id
+  * @param name 用户名
+  * @param portraitUri 用户头像uri
+  * @param context 当前上下文
+  * @param queueId 排队队列号
+  * @param ngsAddr ngs服务地址
+  */
+ public static void initAndStart(String serverAddr, String userId, String name, String portraitUri, String targetId, Context context, int queueId, String ngsAddr)</code></pre>
+<p>这里的EliteWebChat服务地址，需要找过河兵相关人员提供，用户登录id可以是你们系统中的用户名，不重复即可，这里会自动查询如果不存在与过河兵系统中，会自动创建相关客户。排队队列号也是找过河兵相关人员提供即可。</p>
+</li>
+</ol>
+<h3 id="-sdk-">三. SDK中更多高级方法说明</h3>
+<p>经过上述的步骤，App SDK已经可以对接起来了。客户可以发出聊天请求，排队聊天，如果有坐席接起这个聊天请求，客户就可以和坐席正常聊天了。下面再说一些高级功能：</p>
+<ol>
+<li><p>在排队之前，就发出一些预发消息</p>
+<pre><code class="lang-java"> //发送文字消息，在调用EliteChat.initAndStart之前，就可以调用此方法，之后一旦聊天建立起来后，这个预发消息会自动发出。
+ MessageUtils.sendTextMessage(&quot;firstMsg&quot;, target);
+ //发送自定义消息，这个消息内容随便自己定义，坐席端可以收到相关消息自行做对应处理。比如这里发送一个商品信息的json字符串。坐席端可以收到后显示出对应的商品信息。
+ MessageUtils.sendCustomMessage(&quot;{\&quot;name\&quot;:\&quot;xxx\&quot;}&quot;, target);</code></pre>
+</li>
+<li><p>如果客户已经进入过聊天，返回到app其他页面后，再次想打开聊天，这时候可以直接启动页面，而不需要再次发起排队了</p>
+<pre><code class="lang-java"> //先判断，当前会话是否还在活动中，如果活动中则可以不发起排队，直接显示页面
+ if (Chat.getInstance().isSessionAvailable()) {
+     if(Chat.getInstance().isTokenValid()) {
+         //显示出聊天界面
+         RongIM.getInstance().startConversation(v.getContext(), Conversation.ConversationType.PRIVATE, Chat.getInstance().getClient().getTargetId(), &quot;在线客服&quot;);
+         return;
+     }
+ }
+ //如果会话已经结束了，或者token已经失效，则重新发起聊天请求
+ EliteChat.initAndStart(getResources().getString(R.string.app_server_addr), userId, name, portraitUri, target, v.getContext(), queueId, null);</code></pre>
+</li>
+<li><p>App没有开启或者不在前台时候，手机收到消息会有提示，如果点击了提示，可以调方法直接打开聊天界面。</p>
+<pre><code class="lang-java"> /**
+  * EliteChat类方法
+  * 当收到提醒时候，onNotificationMessageClicked 方法触发，然后可以通过调用此方法来打开chat
+  * @param context
+  */
+ public static void switchToChat(Context context, String target)</code></pre>
+</li>
+<li><p>如果需要使用地图发送地图消息<br>SDK支持高德地图和百度地图两种选择，这里以百度地图为例：</p>
+<pre><code class="lang-java"> //1. 在AndroidManifest.xml中配置百度地图API_KEY
+ &lt;meta-data
+         android:name=&quot;com.baidu.lbsapi.API_KEY&quot;
+         android:value=&quot;xxxxx&quot; /&gt;
+
+ //2. 在onCreate方法里初始化百度地图
+ SDKInitializer.initialize(getApplicationContext());
+
+ //3. 在onCreate方法里，注册自定义扩展模块，先去除默认扩展，再注册自定义扩展，可以看到这里使用了我们自己的EliteExtensionModule，这里类里面就默认指定了百度地图的插件，如果要使用高德地图，可以到EliteExtensionModule类中把相关注释放开，把百度地图的注释掉，即可。
+ List&lt;IExtensionModule&gt; extensionModules = RongExtensionManager.getInstance().getExtensionModules();
+ if(extensionModules != null) {
+     for(IExtensionModule extensionModule : extensionModules) {
+         RongExtensionManager.getInstance().unregisterExtensionModule(extensionModule);
+     }
+ }
+ RongExtensionManager.getInstance().registerExtensionModule(new EliteExtensionModule());</code></pre>
+</li>
+</ol>
+<p><strong>ios同理，android中提到的方法，ios中都有相同的对应的方法</strong></p>
+<h3 id="-demo-"><strong>完整的相关代码说明都可以从demo示例代码中找到</strong></h3>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
