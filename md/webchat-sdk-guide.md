@@ -127,6 +127,8 @@ SDK支持高德地图和百度地图两种选择，这里以百度地图为例�
 
 ###**完整的相关代码说明都可以从demo示例代码中找到**
 
+ios的GitHub代码仓库地址 ：[https://github.com/jinguoxi/RyWebChat](https://github.com/jinguoxi/RyWebChat "https://github.com/jinguoxi/RyWebChat")
+android的GitHub代码仓库地址 ：[https://github.com/loriling/RCClient](https://github.com/loriling/RCClient "https://github.com/loriling/RCClient")
 
 
 
