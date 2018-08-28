@@ -24,7 +24,8 @@ http://xxxxx/webchat/createcon.do
 	requestTime: 1512026448289,//请求发出的时间戳
 	epid: "服务号的id",//（可选）
 	serviceAccount: "服务号名称",//（可选）
-	agentId: "SELITE"//（可选）要排给的坐席id，只有当要固定排给某个人时候才需要传递
+	agentId: "SELITE", //（可选）要排给的坐席id，只有当要固定排给某个人时候才需要传递
+	tracks: "" //（可选）客户浏览轨迹 json字符串，具体格式查看相关文档
 }
 
 返回参数：

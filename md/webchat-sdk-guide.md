@@ -62,8 +62,9 @@
      * @param context 当前上下文
      * @param queueId 排队队列号
      * @param ngsAddr ngs服务地址
+     * @param tracks 客户浏览轨迹 json字符串，具体格式查看相关文档
      */
-    public static void initAndStart(String serverAddr, String userId, String name, String portraitUri, String targetId, Context context, int queueId, String ngsAddr)
+    public static void initAndStart(String serverAddr, String userId, String name, String portraitUri, String targetId, Context context, int queueId, String ngsAddr, String tracks)
 ```
 这里的EliteWebChat服务地址，需要找过河兵相关人员提供，用户登录id可以是你们系统中的用户名，不重复即可，这里会自动查询如果不存在与过河兵系统中，会自动创建相关客户。排队队列号也是找过河兵相关人员提供即可。
 
