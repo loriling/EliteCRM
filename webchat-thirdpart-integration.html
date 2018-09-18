@@ -312,7 +312,8 @@ var _hmt = _hmt || [];
 {
   type: 1,//登录请求
   loginName: &quot;lori&quot;,//客户登录名
-  password: &quot;xxxxx&quot;//客户密码
+  password: &quot;xxxxx&quot;,//客户密码
+  ip: &quot;192.168.0.1&quot;//客户端ip（可选）
 }
 返回参数：
 {
@@ -328,7 +329,8 @@ var _hmt = _hmt || [];
   type: 3,//登录或注册
   loginName: &quot;lori&quot;,//客户登录名
   name: &quot;罗瑞&quot;,//客户姓名（昵称）
-  portraitUri: &quot;http://139.196.108.236/ngs/fs/get?file=headimg/979DEECA-80C4-F7D5-D9F2-A8D4C071BEA6.png&quot;//头像地址
+  portraitUri: &quot;http://139.196.108.236/ngs/fs/get?file=headimg/979DEECA-80C4-F7D5-D9F2-A8D4C071BEA6.png&quot;,//头像地址
+  ip: &quot;192.168.0.1&quot;//客户端ip（可选）
 }
 返回参数：
 {
@@ -341,9 +343,9 @@ var _hmt = _hmt || [];
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数：
 {
-  type: 4,//登录或注册
+  type: 4,//访客登录
   visitorId: &quot;xxxxxxxxxxxx&quot;,//访客的唯一标示ID，通常是个36位guid
-  ipAddr: &quot;&quot;,//访客请求过来的ip地址
+  ip: &quot;&quot;,//访客请求过来的ip地址（可选）
 }
 返回参数：
 {

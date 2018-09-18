@@ -13,7 +13,8 @@ http://xxxxx/EliteWebChat/tpi
 {
 	type: 1,//登录请求
 	loginName: "lori",//客户登录名
-	password: "xxxxx"//客户密码
+	password: "xxxxx",//客户密码
+	ip: "192.168.0.1"//客户端ip（可选）
 }
 返回参数：
 {
@@ -31,7 +32,8 @@ http://xxxxx/EliteWebChat/tpi
 	type: 3,//登录或注册
 	loginName: "lori",//客户登录名
 	name: "罗瑞",//客户姓名（昵称）
-	portraitUri: "http://139.196.108.236/ngs/fs/get?file=headimg/979DEECA-80C4-F7D5-D9F2-A8D4C071BEA6.png"//头像地址
+	portraitUri: "http://139.196.108.236/ngs/fs/get?file=headimg/979DEECA-80C4-F7D5-D9F2-A8D4C071BEA6.png",//头像地址
+	ip: "192.168.0.1"//客户端ip（可选）
 }
 返回参数：
 {
@@ -46,9 +48,9 @@ http://xxxxx/EliteWebChat/tpi
 http://xxxxx/EliteWebChat/tpi
 发送参数：
 {
-	type: 4,//登录或注册
+	type: 4,//访客登录
 	visitorId: "xxxxxxxxxxxx",//访客的唯一标示ID，通常是个36位guid
-	ipAddr: "",//访客请求过来的ip地址
+	ip: "",//访客请求过来的ip地址（可选）
 }
 返回参数：
 {
