@@ -124,6 +124,13 @@ SDK支持高德地图和百度地图两种选择，这里以百度地图为例�
     RongExtensionManager.getInstance().registerExtensionModule(new EliteExtensionModule());
 ```
 
+5. 如果希望使用小视频消息（注意小视频消息是需要额外收费的（融云收费功能）），则可以修改上述的注册插件模块方法，构造EliteExtensionModule时候传递参数true，表示开启小视频功能
+```java
+//EliteExtensionModule构造中的第一个参数，是否启用小视频，如果启用则传递true
+RongExtensionManager.getInstance().registerExtensionModule(new EliteExtensionModule(true));
+```
+
+
 **ios同理，android中提到的方法，ios中都有相同的对应的方法**
 
 ###**完整的相关代码说明都可以从demo示例代码中找到**
