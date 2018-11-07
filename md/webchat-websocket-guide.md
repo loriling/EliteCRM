@@ -167,6 +167,16 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
     extra: ''//（可选）额外信息
 }
 ```
+- 当收到坐席发送消息后，需要发送消息回执(服务端如果配置了开启回执功能的话)，通知服务器消息已经收到
+```
+{
+	messageId: 7,//消息id，唯一标示此消息
+	type: 120,//接受消息回执
+	token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
+	time: 1400913140127,//发出请求的时间戳
+	rsId: '597eb7b6-b7b5-4238-8dc8-86b739cf5788',//用来消息发送消息回执时候传递的id
+}
+```
 
 - 上传文件接口（http）url为： http://xxxx/webchat/tpiu?token=xxxxxxxx
 ```
@@ -420,6 +430,7 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 目前坐席可能发出的正常聊天消息type可能是1:文本，2:图片
 {
 	type: 210,//收到坐席聊天消息
+	rsId: '597eb7b6-b7b5-4238-8dc8-86b739cf5788',//用来消息发送消息回执时候传递的id
 	sessionId: 68, //会话id号，排到队后会返回这个id
 	agentId: 'SELITE'//发出消息的坐席id
 	msg: {
@@ -504,6 +515,8 @@ CUSTOM = 99;//自定义提示
 	int SEND_PRE_CHAT_MESSAGE = 111;//发送预消息（还没排完队时候的消息）
 	int PREVIEW_CHAT_MESSAGE = 112;//发出预览信息，客户输入的内容，这时候还没有真正发送信息，就可以先发送这个接口过来给坐席"预览"
 	int SEND_TYPING_NOTICE = 113;//发出正在输入提示
+	int MESSAGE_RECEIPT = 120;//消息回执，客户端通知服务坐席发出的消息已经收到
+	int SEND_CUSTOM_MESSAGE = 199;//发送自定义消息
 	
 	//客户接受
 	int CHAT_INIT_CONFIG = 200;//初始化连上ws后返回的配置信息
@@ -513,6 +526,9 @@ CUSTOM = 99;//自定义提示
 	int AGENT_UPDATED = 204;//坐席人员变更
 	int AGENT_CLOSE_SESSION = 205;//坐席关闭
 	int RECEIVE_MESSAGE = 210;//收到聊天消息
+
+	int ROBOT_MESSAGE = 301;//机器人相关消息
+	int ROBOT_TRANSFER_MESSAGE = 302;//机器人转人工消息
 ```
 
 2. 聊天消息类型说明
