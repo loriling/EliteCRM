@@ -174,7 +174,7 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 	type: 120,//接受消息回执
 	token: '6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168', //登录成功后获取到的凭据
 	time: 1400913140127,//发出请求的时间戳
-	rsId: '597eb7b6-b7b5-4238-8dc8-86b739cf5788',//用来消息发送消息回执时候传递的id
+	rsId: '597eb7b6-b7b5-4238-8dc8-86b739cf5788'//用来消息发送消息回执时候传递的id
 }
 ```
 
@@ -237,7 +237,7 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 
 ## 三. 客户端接收消息接口说明 ##
 
-**一. 每个客户端发出的请求都会有响应的消息返回，表示发送成功还是失败**
+**一. 每个客户端发出的请求都会有响应的消息返回，表示发送成功还是失败。**
 
 - 客户端登出结果： 
 ```
@@ -245,7 +245,7 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 	messageId: 1,//消息id，这里的id就是之前调用此接口时候传递过来的id，客户端可以通过此id来知道是哪个请求的返回内容
 	type: 2,//登出
 	result: 1, // 1成功 0失败
-	message: '', // 失败消息
+	message: '' // 失败消息
 }
 ```
 
@@ -341,6 +341,7 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 ----------
 
 **二. 客户端直接收到的相关消息**
+<span style="color:#e74c3c">如果配置了消息重发机制，每个客户端收到的消息还会多一个**rsId**的属性，客户端收到消息后，需要立即发送消息回执，并传递这个rsId回去，表示这条消息已经收到，不然时间到了没有收到回执看会触发重发机制。</span>
 
 - 客户端连上websocket之后，告知客户端相关配置信息： 
 ```
@@ -348,7 +349,8 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 	type: 200,//初始化连上ws后返回的配置信息
 	ratings: [],//满意度评价相关信息，用来告诉客户端目前所有的可选的满意度选项，这个仅用于参考，客户端可以不考虑这个配置信息
 	fileAcceptExtensionsArr: "zip,rar,jpg,jpeg,png,gif,bmp,doc",//所有允许的上传的附件的扩展名,字符串,多个用逗号分隔
-	hisSessions: [1288,1290,1310]//当登录客户的历史会话数组
+	hisSessions: [1288,1290,1310],//当登录客户的历史会话数组
+	rsId: "xxxxxxx"//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }
 ```
 
@@ -358,7 +360,8 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 	type: 201,//排队状态更新
 	requestId: 724, //请求id号，如果发起请求成功，就会返回这个id
 	requestStatus: 0,//当前请求状态，具体看：聊天请求状态码
-	queueLength: 3 //当前排到第几位
+	queueLength: 3, //当前排到第几位
+	rsId: "xxxxxxx"//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }
 ```
 
@@ -380,7 +383,8 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 	        name: '客户1',//名字
 	        icon: 'http://xxxx/head.png'//头像地址
 	    }
-	]
+	],
+	rsId: "xxxxxxx"//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }
 ```
 
@@ -389,7 +393,8 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 {
 	type: 203,//推送满意度
 	sessionId: 68, //会话id号，排到队后会返回这个id
-	agentId: 'SELITE'//发出消息的坐席id
+	agentId: 'SELITE',//发出消息的坐席id
+	rsId: "xxxxxxx"//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }
 ```
 
@@ -411,7 +416,8 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 	        icon: 'http://xxxx/lori.png',//头像地址
 	        comments: '小组长'//备注信息
 	    }
-	]
+	],
+	rsId: "xxxxxxx"//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }
 ```
 
@@ -420,7 +426,8 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 {
 	type: 205,//会话被结束
 	sessionId: 68, //会话id号，排到队后会返回这个id
-	agentId: 'SELITE'//发出消息的坐席id
+	agentId: 'SELITE',//发出消息的坐席id
+	rsId: "xxxxxxx"//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }
 ```
 
@@ -430,13 +437,13 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 目前坐席可能发出的正常聊天消息type可能是1:文本，2:图片
 {
 	type: 210,//收到坐席聊天消息
-	rsId: '597eb7b6-b7b5-4238-8dc8-86b739cf5788',//用来消息发送消息回执时候传递的id
 	sessionId: 68, //会话id号，排到队后会返回这个id
 	agentId: 'SELITE'//发出消息的坐席id
 	msg: {
 	    type: 1,//消息类型，正常消息是1或者2
 	    content: ''//具体消息内容：图片和语音都是对应的base64码，位置是对应的json，文件需要调用额外的上传接口，上传成功后这里的内容为文件相关信息的json
-	}
+	},
+	rsId: "xxxxxxx"//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }
 坐席也可能发出type是99的通知类消息，通知类消息还有个noticeType表示通知类型
 TYPING = 5;//用户正在输入提示
