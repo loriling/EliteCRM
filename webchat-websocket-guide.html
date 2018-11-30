@@ -460,7 +460,7 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
   type: 120,//接受消息回执
   token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
   time: 1400913140127,//发出请求的时间戳
-  rsId: &#39;597eb7b6-b7b5-4238-8dc8-86b739cf5788&#39;,//用来消息发送消息回执时候传递的id
+  rsId: &#39;597eb7b6-b7b5-4238-8dc8-86b739cf5788&#39;//用来消息发送消息回执时候传递的id
 }</code></pre>
 </li>
 <li><p>上传文件接口（http）url为： <a href="http://xxxx/webchat/tpiu?token=xxxxxxxx">http://xxxx/webchat/tpiu?token=xxxxxxxx</a></p>
@@ -513,14 +513,14 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </li>
 </ul>
 <h2 id="-">三. 客户端接收消息接口说明</h2>
-<p><strong>一. 每个客户端发出的请求都会有响应的消息返回，表示发送成功还是失败</strong></p>
+<p><strong>一. 每个客户端发出的请求都会有响应的消息返回，表示发送成功还是失败。</strong></p>
 <ul>
 <li><p>客户端登出结果： </p>
 <pre><code>{
   messageId: 1,//消息id，这里的id就是之前调用此接口时候传递过来的id，客户端可以通过此id来知道是哪个请求的返回内容
   type: 2,//登出
   result: 1, // 1成功 0失败
-  message: &#39;&#39;, // 失败消息
+  message: &#39;&#39; // 失败消息
 }</code></pre>
 </li>
 <li><p>发出聊天排队请求结果： </p>
@@ -596,14 +596,15 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 </li>
 </ul>
 <hr>
-<p><strong>二. 客户端直接收到的相关消息</strong></p>
+<p><strong>二. 客户端直接收到的相关消息</strong><br><span style="color:#e74c3c">如果配置了消息重发机制，每个客户端收到的消息还会多一个<strong>rsId</strong>的属性，客户端收到消息后，需要立即发送消息回执，并传递这个rsId回去，表示这条消息已经收到，不然时间到了没有收到回执看会触发重发机制。</span></p>
 <ul>
 <li><p>客户端连上websocket之后，告知客户端相关配置信息： </p>
 <pre><code>{
   type: 200,//初始化连上ws后返回的配置信息
   ratings: [],//满意度评价相关信息，用来告诉客户端目前所有的可选的满意度选项，这个仅用于参考，客户端可以不考虑这个配置信息
   fileAcceptExtensionsArr: &quot;zip,rar,jpg,jpeg,png,gif,bmp,doc&quot;,//所有允许的上传的附件的扩展名,字符串,多个用逗号分隔
-  hisSessions: [1288,1290,1310]//当登录客户的历史会话数组
+  hisSessions: [1288,1290,1310],//当登录客户的历史会话数组
+  rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }</code></pre>
 </li>
 <li><p>通知客户端聊天排队状态更新： </p>
@@ -611,7 +612,8 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
   type: 201,//排队状态更新
   requestId: 724, //请求id号，如果发起请求成功，就会返回这个id
   requestStatus: 0,//当前请求状态，具体看：聊天请求状态码
-  queueLength: 3 //当前排到第几位
+  queueLength: 3, //当前排到第几位
+  rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }</code></pre>
 </li>
 <li><p>通知客户端排队最终结果： </p>
@@ -631,14 +633,16 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
           name: &#39;客户1&#39;,//名字
           icon: &#39;http://xxxx/head.png&#39;//头像地址
       }
-  ]
+  ],
+  rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }</code></pre>
 </li>
 <li><p>坐席推送了满意度给客户： </p>
 <pre><code>{
   type: 203,//推送满意度
   sessionId: 68, //会话id号，排到队后会返回这个id
-  agentId: &#39;SELITE&#39;//发出消息的坐席id
+  agentId: &#39;SELITE&#39;,//发出消息的坐席id
+  rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }</code></pre>
 </li>
 <li><p>坐席人员信息变更，可能是修改了头像，可能是修改了名字，可能是换了个坐席，也可能是增加了一个坐席变成了会议方式聊天： </p>
@@ -658,14 +662,16 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
           icon: &#39;http://xxxx/lori.png&#39;,//头像地址
           comments: &#39;小组长&#39;//备注信息
       }
-  ]
+  ],
+  rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }</code></pre>
 </li>
 <li><p>坐席结束了会话： </p>
 <pre><code>{
   type: 205,//会话被结束
   sessionId: 68, //会话id号，排到队后会返回这个id
-  agentId: &#39;SELITE&#39;//发出消息的坐席id
+  agentId: &#39;SELITE&#39;,//发出消息的坐席id
+  rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }</code></pre>
 </li>
 <li><p>收到坐席聊天消息： </p>
@@ -673,13 +679,13 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 目前坐席可能发出的正常聊天消息type可能是1:文本，2:图片
 {
   type: 210,//收到坐席聊天消息
-  rsId: &#39;597eb7b6-b7b5-4238-8dc8-86b739cf5788&#39;,//用来消息发送消息回执时候传递的id
   sessionId: 68, //会话id号，排到队后会返回这个id
   agentId: &#39;SELITE&#39;//发出消息的坐席id
   msg: {
       type: 1,//消息类型，正常消息是1或者2
       content: &#39;&#39;//具体消息内容：图片和语音都是对应的base64码，位置是对应的json，文件需要调用额外的上传接口，上传成功后这里的内容为文件相关信息的json
-  }
+  },
+  rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
 }
 坐席也可能发出type是99的通知类消息，通知类消息还有个noticeType表示通知类型
 TYPING = 5;//用户正在输入提示
