@@ -2,11 +2,55 @@
 10/24/2016 10:30:30 AM 
 ### EliteWebChat提供整套从客服端到客户端的界面与展示解决方案，同时也可以支持与第三方客户端的对接。其中成功案例就有与小米的米聊对接，与livebot的微信服务对接等。 ###
 
+<div style="display: block;position: fixed;left: 0px;top: 10px;padding-left: 20px;max-width: 200px;">
+目录
+
+一. <a href="#">接口说明</a>
+<div style="padding-left: 20px">**客户发出请求**
+1. <a href="#login">客户发出登录</a>
+2. <a href="#loginOrRegister">客户发出登录或者注册</a>
+3. <a href="#visitorLogin">访客进入</a>
+4. <a href="#chatRequest">客户发出聊天请求</a>
+5. <a href="#checkRequestStatus">查看聊天请求当前状态</a>
+6. <a href="#sendMessageWhileQueuing">排队期间发送消息</a>
+7. <a href="#cancelRequest">取消排队请求</a>
+8. <a href="#sendTextMsg">发送文本消息</a>
+9. <a href="#sendImgMsg">发送图片消息</a>
+10. <a href="#sendVoiceMsg">发送语音消息</a>
+11. <a href="#sendLocationMsg">发送位置消息</a>
+12. <a href="#sendFileMsg">发送文件消息</a>
+13. <a href="#uploadFile">上传文件</a>
+14. <a href="#previewMessage">发送预览消息</a>
+15. <a href="#typingNotice">发送正在输入通知</a>
+16. <a href="#robotTransfer">发送转人工请求</a>
+17. <a href="#closeSession">发送结束聊天会话</a>
+18. <a href="#rating">发送满意度评价</a>
+19. <a href="#changeCustomer">发送客户改变消息</a>
+
+**坐席发送请求**
+1. <a href="#agentSendStartSession">坐席发送开始聊天通知</a>
+2. <a href="#agentSendMsg">坐席发送消息</a>
+3. <a href="#agentSendTypingNotice">坐席发送正在输入通知</a>
+4. <a href="#agentSendAgentsUpdate">坐席发送会话中坐席更新</a>
+5. <a href="#agentSendUpdateRequestStatus">坐席发送请求状态更新</a>
+6. <a href="#agentSendPushRating">坐席推送满意度评价</a>
+7. <a href="#agentSendCloseSession">坐席发起结束聊天通知</a>
+</div>
+二. <a href="#requestAndResponseCode">请求代码与相应结果代码</a>
+<div style="display: inline-block;padding-left: 20px">1. <a href="#requestCode">请求代码</a>
+2. <a href="#responseCode">响应代码</a>
+</div>
+
+三. <a href="#requestResultCode">聊天请求状态码</a>
+四. <a href="#emoji">消息体中表情的定义</a>
+
+</div>
+
 ## 一. http对接接口说明 ##
 接口才用http协议，包括了webchat端提供的接口与第三方提供的接口，数据传输使用json格式。
 下面从模拟整个聊天过程的方式来介绍这些接口：
 
-- 客户发出登录请求： 
+- <div id="login">客户发出登录请求： </div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数：
@@ -24,7 +68,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 客户发出登录或者注册请求，如果不需要登录验证，并且希望新客户自动创建的话，就调用这个接口： 
+- <div id="loginOrRegister">客户发出登录或者注册请求，如果不需要登录验证，并且希望新客户自动创建的话，就调用这个接口： </div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数：
@@ -43,7 +87,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 匿名访客想要聊天，可以发出访客进入的接口： 
+- <div id="visitorLogin">匿名访客想要聊天，可以发出访客进入的接口： </div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数：
@@ -60,7 +104,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 客户从网页或者微信端发出聊天请求： 
+- <div id="chatRequest">客户从网页或者微信端发出聊天请求： </div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数：
@@ -87,7 +131,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 更新聊天排队情况： 
+- <div id="checkRequestStatus">更新聊天排队情况： </div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数：
@@ -105,7 +149,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 	
-- 客户在排队中，就想发起消息，如果排队排上，之前的消息就会一起一次性发送给对应坐席： 
+- <div id="sendMessageWhileQueuing">客户在排队中，就想发起消息，如果排队排上，之前的消息就会一起一次性发送给对应坐席： </div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数：
@@ -122,7 +166,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 客户排队时间过长，想取消排队： 
+- <div id="cancelRequest">客户排队时间过长，想取消排队： </div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数：
@@ -138,7 +182,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- <div style="color:#0086b3">webchat端路由请求到某个客服后，创建出聊天会话，通知第三方可以开始聊天了</div>
+- <div id="agentSendStartSession" style="color:#0086b3">webchat端路由请求到某个客服后，创建出聊天会话，通知第三方可以开始聊天了</div>
 ```
 http://xxxxx/ThirdPartService/create
 发送参数：
@@ -166,7 +210,7 @@ http://xxxxx/ThirdPartService/create
 }
 ```
 
-- 客户发送文本消息给客服
+- <div id="sendTextMsg">客户发送文本消息给客服</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -185,7 +229,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 客户发送图片消息给客服
+- <div id="sendImgMsg">客户发送图片消息给客服</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -205,7 +249,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 客户发送语音消息给客服
+- <div id="sendVoiceMsg">客户发送语音消息给客服</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -225,7 +269,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 客户发送地图消息给客服
+- <div id="sendLocationMsg">客户发送地图消息给客服</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -248,7 +292,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 客户发送文件消息给客服
+- <div id="sendFileMsg">客户发送文件消息给客服</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -268,7 +312,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 客户上传文件给chat服务: http://xxxxx/EliteWebChat/tpiu
+- <div id="uploadFile">客户上传文件给chat服务: http://xxxxx/EliteWebChat/tpiu</div>
 这个接口用来给客户上传图片，附件等相关信息，配合了发送图片接口和发送附件接口，通常先调用此接口上传需要发的文件，然后获取到上传成功后文件的url地址，再调用发送相关的消息接口，把对应文件url传递过来
 ```
 //用java代码为例，主要需要两部分参数，一部分就是文件本身，一部分就是之前登录成功后的token值
@@ -294,7 +338,7 @@ HttpResponse response = httpclient.execute(httppost);
 }
 ```	
 
-- 客户输入一些内容，但是这时候还没有按发送的时候，可以发送预览消息出来，让坐席预先知道客户可能会发送什么信息（此类消息可以在客户输入内容改变时候，发送出来当前已经输入的内容，但需要注意发送频率，比如可以加个时间5秒内发送一次）
+- <div id="previewMessage">客户输入一些内容，但是这时候还没有按发送的时候，可以发送预览消息出来，让坐席预先知道客户可能会发送什么信息（此类消息可以在客户输入内容改变时候，发送出来当前已经输入的内容，但需要注意发送频率，比如可以加个时间5秒内发送一次）</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -312,7 +356,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 客户发出正在输入提示（此类消息建议在用户焦点进入输入框时候发送，需要注意发送频率，比如可以加个时间5秒内发送一次）
+- <div id="typingNotice">客户发出正在输入提示（此类消息建议在用户焦点进入输入框时候发送，需要注意发送频率，比如可以加个时间5秒内发送一次）</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -329,7 +373,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 客户转接人工（如果是机器人会话中，客户可以发起转接人工的请求）
+- <div id="robotTransfer">客户转接人工（如果是机器人会话中，客户可以发起转接人工的请求）</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -347,7 +391,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- <div style="color:#0086b3">客服发送消息给客户</div>
+- <div id="agentSendMsg" style="color:#0086b3">客服发送消息给客户</div>
 ```
 http://xxxxx/ThirdPartService/msg
 {
@@ -368,7 +412,7 @@ http://xxxxx/ThirdPartService/msg
 }
 ```
 
-- <div style="color:#0086b3">客服发送正在输入提示给客户</div>
+- <div id="agentSendTypingNotice" style="color:#0086b3">客服发送正在输入提示给客户</div>
 ```
 http://xxxxx/ThirdPartService/msg
 发送参数:
@@ -386,7 +430,7 @@ http://xxxxx/ThirdPartService/msg
 }
 ```
 
-- <div style="color:#0086b3">会话发生转接或者会议后，坐席信息更新</div>
+- <div id="agentSendAgentsUpdate" style="color:#0086b3">会话发生转接或者会议后，坐席信息更新</div>
 ```
 http://xxxxx/ThirdPartService/agentsUpdate
 发送参数:
@@ -415,7 +459,7 @@ http://xxxxx/ThirdPartService/agentsUpdate
 }
 ```
 
-- <div style="color:#0086b3">排队后，请求状态改变的通知</div>
+- <div id="agentSendUpdateRequestStatus" style="color:#0086b3">排队后，请求状态改变的通知</div>
 ```
 http://xxxxx/ThirdPartService/updateRequestStatus
 发送参数:
@@ -432,7 +476,7 @@ http://xxxxx/ThirdPartService/updateRequestStatus
 }
 ```
 
-- <div style="color:#0086b3">客服推送满意度给客户</div>
+- <div id="agentSendPushRating" style="color:#0086b3">客服推送满意度给客户</div>
 ```
 http://xxxxx/ThirdPartService/pushRating
 发送参数:
@@ -448,7 +492,7 @@ http://xxxxx/ThirdPartService/pushRating
 }
 ```
 
-- 客户结束聊天
+- <div id="closeSession">客户结束聊天</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -465,7 +509,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- <div style="color:#0086b3">客服关闭聊天会话</div>
+- <div id="agentSendCloseSession" style="color:#0086b3">客服关闭聊天会话</div>
 ```
 http://xxxxx/ThirdPartService/close
 发送参数:
@@ -482,7 +526,7 @@ http://xxxxx/ThirdPartService/close
 }
 ```
 
-- 客户发出满意度评价请求
+- <div id="rating">客户发出满意度评价请求</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -501,7 +545,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- 客户改变请求
+- <div id="changeCustomer">客户改变请求</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -520,8 +564,8 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-## 二. 请求代码与相应结果代码 ##
-- request中的type
+## <div id="requestAndResponseCode">二. 请求代码与相应结果代码</div> ##
+- <div id="requestCode">request中的type</div>
 ```
 LOGON_REQUEST = 1;//登录
 LOGOUT_REQUEST = 2;//登出
@@ -541,7 +585,7 @@ CLOSE_REQUEST = 4001;//结束聊天
 RATING_REQUEST = 5001;//满意度评价
 ```
 
-- response中的result
+- <div id="responseCode">response中的result</div>
 ```
 SUCCESS = 1;
 REQUEST_ALREADY_IN_ROULTING = -1;//请求已经在路由中了，意思是不用重复再次发出聊天请求
@@ -570,7 +614,7 @@ INVAILD_SIGN = -30;//非法的接口签名，查看签名逻辑是否正确
 INTERNAL_ERROR = -100;//内部错误，请联系管理员
 ```
 
-## 三. 聊天请求状态码 ##
+## <div id="requestResultCode">三. 聊天请求状态码</div> ##
 ```
 WAITING = 0;
 ACCEPTED = 1;
@@ -583,7 +627,7 @@ CANCELED_BY_CLIENT = 7;
 ENTERPRISE_WECHAT_ACCEPTED = 11;
 ```
 
-## 四. 消息体中表情的定义 ##
+## <div id="emoji">四. 消息体中表情的定义</div> ##
 
 > 聊天消息中支持发送表情，比如，发送/::)，就表示微笑，一共支持如下105个表情，包括发送和接受都应该按这个规则来处理表情。
 > 如果需要支持自定义表情，则只能通过&lt;img src='自定义表情.gif'&gt;方式来发送。
