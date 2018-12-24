@@ -79,7 +79,11 @@ http://xxxxx/EliteWebChat/tpi
 	message: "success", //成功或失败的消息
 	requestId: 103, //请求id号，如果发起请求成功，就会返回这个id
 	queueLength: 3, //队列长度
-	continueLastSession: false//是不是继续上一次的会话，（可选）如果有且为true，表示这个请求是继续之前一个会话的，可能是之前那个会话没有正确的关闭掉造成的
+	continueLastSession: false,//是不是继续上一次的会话，（可选）如果有且为true，表示这个请求是继续之前一个会话的，可能是之前那个会话没有正确的关闭掉造成的
+	sessionId: 10023,//如果是机器人队列，不需要经过排队过程，直接创建出会话并返回出会话id，拿到这个会话id后即可直接聊天
+	agentId: "BOT002",//如果是机器人队列，机器人坐席id
+	robotType: 2,//如果是机器人队列，机器人坐席类型
+	agentName: "小i机器人"//如果是机器人队列，机器人坐席的名字
 }
 ```
 
@@ -317,6 +321,24 @@ http://xxxxx/EliteWebChat/tpi
     token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
     sessionId: 1299,
     extra: ""//附加信息（可选）
+}
+返回参数：
+{
+    result: 1,
+    message: ""
+}
+```
+
+- 客户转接人工（如果是机器人会话中，客户可以发起转接人工的请求）
+```
+http://xxxxx/EliteWebChat/tpi
+发送参数:
+{
+    type: 2023,//正在输入提示
+    token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
+    sessionId: 1299,
+	from: ""//转人工请求来源(可选)
+    transferInfo: ""//转人工相关信息(可选)，如果转人工时候需要指定队列，就需要传递这个参数，不然转的就是开始时候排队的队列，具体格式是个json字符串，比如：{"queueId":2}
 }
 返回参数：
 {
