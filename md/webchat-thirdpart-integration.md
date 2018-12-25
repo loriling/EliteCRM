@@ -26,6 +26,7 @@
 17. <a href="#closeSession">发送结束聊天会话</a>
 18. <a href="#rating">发送满意度评价</a>
 19. <a href="#changeCustomer">发送客户改变消息</a>
+20. <a href="#queryHistoryMessages">客户查询聊天历史</a>
 
 **坐席发送请求**
 1. <a href="#agentSendStartSession">坐席发送开始聊天通知</a>
@@ -565,6 +566,56 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
+- <div id="queryHistoryMessages">查询当前客户聊天历史</div>
+```
+http://xxxxx/EliteWebChat/tpi
+发送参数:
+{
+    type: 5003,//查询当前客户聊天历史消息
+    token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
+    fromSessionId: 1299,//(可选)从哪个会话id开始往前查询，如果不传递或者传递0，则表示从最新会话开始往前搜索
+    fromMessageId: 100302,//(可选)从那条消息开始往前查询，如果不传递或者传递0，则表示从最新消息开始往前搜索
+	maxCount: 10,//(可选)最大查询消息条数，默认10条
+	permFlag: 0,//(可选)0表示普通会话，1表示持久会话，默认0
+}
+返回参数:
+{
+    result: 1,
+    message: "success",
+    hisMessages: [
+		{
+            "_id": "",
+            "contentLength": 0,
+            "createTime": {
+                "date": 25,
+                "day": 2,
+                "hours": 13,
+                "minutes": 56,
+                "month": 11,
+                "seconds": 20,
+                "time": 1545717380705,
+                "timezoneOffset": -480,
+                "year": 118
+            },
+            "extra": "",
+            "firstReply": false,
+            "id": 152814,
+            "message": "聊天小助手，很高兴为您服务！请问有什么可以帮您？",
+            "messageType": 2,
+            "postTime": 1545703462782,
+            "replyDelay": 0,
+            "revokeFlag": 0,
+            "sessionId": 0,
+            "toUserId": "",
+            "userId": "SELITE",
+            "userType": 0
+        },
+		...
+	]
+}
+```
+
+
 ## <div id="requestAndResponseCode">二. 请求代码与相应结果代码</div> ##
 - <div id="requestCode">request中的type</div>
 ```
@@ -582,8 +633,11 @@ MSG_FILE_REQUEST = 2005;//发送文件消息
 PRE_MSG_REQUEST = 2020;//发送预消息，当聊天会话还没创建时候，可以通过聊天请求id来发送预消息
 PREVIEW_MSG_REQUEST = 2021;//发送预览消息，客户打字还没发送时候，就可以预先把打字内容作为预览消息发送给客服
 TYPING_NOTICE = 2022;//正在输入提示
+ROBOT_TRANSFER = 2023;//机器人转人工
 CLOSE_REQUEST = 4001;//结束聊天
 RATING_REQUEST = 5001;//满意度评价
+CHANGE_CUSTOMER = 5002;//客户改变
+QUERY_HISTORY_SESSION = 5003;//查询历史会话消息
 ```
 
 - <div id="responseCode">response中的result</div>
