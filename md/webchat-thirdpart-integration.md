@@ -114,6 +114,7 @@ http://xxxxx/EliteWebChat/tpi
 	time: 1400913140127,//发出请求的时间戳
 	queueId: 1,//请求的队列号
 	from: "APP",//请求来源，分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
+	brand: "",//请求来源2，作为第二个来源字段（可选）
 	serverAddr: "http://www.xxxx.com", //请求方服务地址（可选）如果传递，则后面的回调都会按这个地址来
 	tracks: "" //（可选）客户浏览轨迹 json字符串，具体格式查看相关文档
 }

@@ -25,6 +25,8 @@ http://xxxxx/webchat/createcon.do
 	epid: "服务号的id",//（可选）
 	serviceAccount: "服务号名称",//（可选）
 	agentId: "SELITE", //（可选）要排给的坐席id，只有当要固定排给某个人时候才需要传递
+	from: "WECHAT", //（可选）请求来源 分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
+	brand: "",//（可选）请求来源2，作为第二个来源字段
 	tracks: "" //（可选）客户浏览轨迹 json字符串，具体格式查看相关文档
 }
 

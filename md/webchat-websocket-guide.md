@@ -76,6 +76,7 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 	time: 1400913140127,//时间戳
 	queueId: 1, //排队的队列号
 	from: "APP", //（可选）请求来源 分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
+	brand: "",//（可选）请求来源2，作为第二个来源字段
 	toUserId: "SELITE", //（可选）直接指明排队给某个坐席的坐席id，不传递则由系统自动分配
 	tracks: "" //（可选）客户浏览轨迹 json字符串，具体格式查看相关文档
 }
