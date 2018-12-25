@@ -584,31 +584,26 @@ http://xxxxx/EliteWebChat/tpi
     message: "success",
     hisMessages: [
 		{
-            "_id": "",
-            "contentLength": 0,
-            "createTime": {
-                "date": 25,
-                "day": 2,
-                "hours": 13,
-                "minutes": 56,
-                "month": 11,
-                "seconds": 20,
-                "time": 1545717380705,
-                "timezoneOffset": -480,
-                "year": 118
-            },
-            "extra": "",
-            "firstReply": false,
-            "id": 152814,
-            "message": "聊天小助手，很高兴为您服务！请问有什么可以帮您？",
-            "messageType": 2,
-            "postTime": 1545703462782,
-            "replyDelay": 0,
+            "icon": "",//发送者头像url
+            "id": 152820,//消息id
+            "messageType": 0,//消息类型，0普通消息，1通知类消息
+            "postTime": 1545705001350,//发送时间戳
+            "revokeFlag": 0,//是否被撤回，0否，1是
+            "text": "aaabbbccc",//消息内容
+            "userId": "SELITE",//发送者id
+            "userName": "Elite_alias",//发送这名字
+            "userType": 2//发送者类型，1为客户，2坐席，3班长，5管理员
+        },
+        {
+            "icon": "",
+            "id": 152819,
+            "messageType": 0,
+            "postTime": 1545704986531,
             "revokeFlag": 0,
-            "sessionId": 0,
-            "toUserId": "",
+            "text": "Hello, how are you?",
             "userId": "SELITE",
-            "userType": 0
+            "userName": "Elite_alias",
+            "userType": 2
         },
 		...
 	]

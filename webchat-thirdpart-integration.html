@@ -787,31 +787,26 @@ HttpResponse response = httpclient.execute(httppost);</code></pre>
   message: &quot;success&quot;,
   hisMessages: [
       {
-          &quot;_id&quot;: &quot;&quot;,
-          &quot;contentLength&quot;: 0,
-          &quot;createTime&quot;: {
-              &quot;date&quot;: 25,
-              &quot;day&quot;: 2,
-              &quot;hours&quot;: 13,
-              &quot;minutes&quot;: 56,
-              &quot;month&quot;: 11,
-              &quot;seconds&quot;: 20,
-              &quot;time&quot;: 1545717380705,
-              &quot;timezoneOffset&quot;: -480,
-              &quot;year&quot;: 118
-          },
-          &quot;extra&quot;: &quot;&quot;,
-          &quot;firstReply&quot;: false,
-          &quot;id&quot;: 152814,
-          &quot;message&quot;: &quot;聊天小助手，很高兴为您服务！请问有什么可以帮您？&quot;,
-          &quot;messageType&quot;: 2,
-          &quot;postTime&quot;: 1545703462782,
-          &quot;replyDelay&quot;: 0,
+          &quot;icon&quot;: &quot;&quot;,//发送者头像url
+          &quot;id&quot;: 152820,//消息id
+          &quot;messageType&quot;: 0,//消息类型，0普通消息，1通知类消息
+          &quot;postTime&quot;: 1545705001350,//发送时间戳
+          &quot;revokeFlag&quot;: 0,//是否被撤回，0否，1是
+          &quot;text&quot;: &quot;aaabbbccc&quot;,//消息内容
+          &quot;userId&quot;: &quot;SELITE&quot;,//发送者id
+          &quot;userName&quot;: &quot;Elite_alias&quot;,//发送这名字
+          &quot;userType&quot;: 2//发送者类型，1为客户，2坐席，3班长，5管理员
+      },
+      {
+          &quot;icon&quot;: &quot;&quot;,
+          &quot;id&quot;: 152819,
+          &quot;messageType&quot;: 0,
+          &quot;postTime&quot;: 1545704986531,
           &quot;revokeFlag&quot;: 0,
-          &quot;sessionId&quot;: 0,
-          &quot;toUserId&quot;: &quot;&quot;,
+          &quot;text&quot;: &quot;Hello, how are you?&quot;,
           &quot;userId&quot;: &quot;SELITE&quot;,
-          &quot;userType&quot;: 0
+          &quot;userName&quot;: &quot;Elite_alias&quot;,
+          &quot;userType&quot;: 2
       },
       ...
   ]
