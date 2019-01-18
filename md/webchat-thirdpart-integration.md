@@ -220,6 +220,7 @@ http://xxxxx/EliteWebChat/tpi
     type: 2001,//发送文本消息请求
     token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
     sessionId: 1299,
+	messageId: 123456,
     time: 1400913830109,
     text: "你好，请问xxxxx",
     extra: ""//附加信息（可选）
@@ -239,6 +240,7 @@ http://xxxxx/EliteWebChat/tpi
     type: 2002,//发送图片消息请求
     token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
     sessionId: 1299,
+	messageId: 123456,
     time: 1400913830109,
     imageUri: "http://xxxxxx/xxx.png", //具体图片文件的url
     thumbData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//缩略图的base64编码
@@ -259,6 +261,7 @@ http://xxxxx/EliteWebChat/tpi
     type: 2003,//发送语音消息请求
     token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
     sessionId: 1299,
+	messageId: 123456,
     time: 1400913830109,
     voiceLength: 33, //语音长度，单位是秒
     voiceData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//语音文件的base64编码，语音文件只支持接收amr格式的文件
@@ -279,6 +282,7 @@ http://xxxxx/EliteWebChat/tpi
     type: 2004,//发送地图消息请求
     token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
     sessionId: 1299,
+	messageId: 123456,
     time: 1400913830109,
     latitude: 34.12, //纬度值
     longitude: 131.24, //经度值
@@ -302,6 +306,7 @@ http://xxxxx/EliteWebChat/tpi
     type: 2005,//发送地图消息请求
     token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
     sessionId: 1299,
+	messageId: 123456,
     time: 1400913830109,
     name: "xxx.docx", //文件名
     fileUrl: "http://xxxxx/xxx.docx" //文件url地址
