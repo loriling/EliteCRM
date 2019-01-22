@@ -360,6 +360,7 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 {
 	type: 201,//排队状态更新
 	requestId: 724, //请求id号，如果发起请求成功，就会返回这个id
+	sessionId: 10, //（可能存在）如果是机器人转人工的请求，就会传递当前会话的sessionId
 	requestStatus: 0,//当前请求状态，具体看：聊天请求状态码
 	queueLength: 3, //当前排到第几位
 	rsId: "xxxxxxx"//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
