@@ -965,4 +965,9 @@ WT_PDS_OB : "WT_PDS_OB"//预览外呼工作
 ```
 
 ##<div id="demo">Demo</div>
-[示例下载](attachments/softphone-localproxy-demo.zip "示例下载")
+[示例下载](attachments/softphone-localproxy-demo.zip "示例下载")  
+附件解压后：
+> 1.开启localproxy，保证软电话加载正常
+> 2.可能要修改localproxy-api-demo.html中的localproxy的websocket地址：localWsAddr: 'ws://127.0.0.1:8888',
+> 3.本地打开localproxy-api-demo.html，可以看到console中提示正常连接到localproxy的websocket
+> 4.在界面上可以对软电话做相关操作了
