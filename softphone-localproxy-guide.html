@@ -307,6 +307,7 @@ var _hmt = _hmt || [];
 <li><a href="#callSoftphone">软电话调用</a></li>
 <li><a href="#handleSoftphoneEvent">接收软电话事件</a></li>
 <li><a href="#constants">常量说明</a></li>
+<li><a href="#demo">Demo</a></li>
 </ol>
 <p>LocalProxy服务，其实就是一个本地vb写的一个应用程序，这个应用程序做了两件事：<br>1.自己开启一个websocket server。<br>2.开启一个ie浏览器，加载一个html，这个HTML中加载了各种ocx本地控件。</p>
 <p>这时候，chrome或者其他支持ws的浏览器就可以去连接这个本地的websocket server，从而相互通讯。<br>注意，因为是通过ws来通讯的，因此所有的方法调用，都是异步的。</p>
@@ -1223,6 +1224,8 @@ OFFHOOK: 24</code></pre>
 <pre><code>WT_OB : &quot;WT-OB&quot;,//外呼工作
 WT_IB : &quot;WT-IB&quot;,//呼入工作
 WT_PDS_OB : &quot;WT_PDS_OB&quot;//预览外呼工作</code></pre>
+<h2 id="-div-id-demo-demo-div-"><div id="demo">Demo</div></h2>
+<p><a href="attachments/softphone-localproxy-demo.zip" title="示例下载">示例下载</a></p>
 
 </body>
 </html>

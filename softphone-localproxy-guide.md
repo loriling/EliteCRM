@@ -5,6 +5,7 @@
 2. [软电话调用](#callSoftphone)
 3. [接收软电话事件](#handleSoftphoneEvent)
 4. [常量说明](#constants)
+5. [Demo](#demo)
 
 LocalProxy服务，其实就是一个本地vb写的一个应用程序，这个应用程序做了两件事：
 1.自己开启一个websocket server。
@@ -962,3 +963,6 @@ WT_OB : "WT-OB",//外呼工作
 WT_IB : "WT-IB",//呼入工作
 WT_PDS_OB : "WT_PDS_OB"//预览外呼工作
 ```
+
+##<div id="demo">Demo</div>
+[示例下载](attachments/softphone-localproxy-demo.zip "示例下载")
