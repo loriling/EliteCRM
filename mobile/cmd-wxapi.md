@@ -6,7 +6,7 @@
 ```
 /**
  * 分享文字消息
- * @param text 消息内容
+ * @param text 消息内容(长度需大于0且不超过10KB)
  * @param scene 场景 0:好友 1:朋友圈 2:收藏
  * @return {Promise} promise的返回1，表示调用成功，0表示失败
  */
@@ -27,10 +27,10 @@ WXAPI.sendTextMsg('你好').then(function(ret){
 ```
 /**
  * 分享url消息
- * @param url url地址
- * @param title url标题
- * @param desc url描述
- * @param thumbImg 缩略图url
+ * @param url url地址(限制长度不超过10KB)
+ * @param title url标题(限制长度不超过512Bytes)
+ * @param desc url描述(限制长度不超过1KB)
+ * @param thumbImg 缩略图url(限制内容大小不超过32KB)
  * @param scene 场景 0:好友 1:朋友圈 2:收藏
  * @return {Promise}
  */
@@ -51,7 +51,7 @@ WXAPI.sendUrlMsg('http://www.elitecrm.com', '过河兵官网', '过河兵公司�
 ```
 /**
  * 分享图片消息
- * @param imgUrl 图片url
+ * @param imgUrl 图片url(内容大小不超过10MB)
  * @param scene 场景 0:好友 1:朋友圈 2:收藏
  * @return {Promise}
  */
