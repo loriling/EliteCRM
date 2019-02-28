@@ -313,12 +313,13 @@ var _hmt = _hmt || [];
 * @param cmdId {string} 文件上传完毕时执行的回调命令组或者方法，执行结果为：R.RESULT{CODE, MESSAGE, VALUE}
 * @param options {object}
 *        {
-*           mediaTypes : &#39;All&#39;,//媒体类型包括了：Images, Videos, All，默认是All
+          mediaTypes : &#39;All&#39;,//媒体类型包括了：Images, Videos, All，默认是All
           allowsEditing : true,//是否可编辑图片，默认可编辑
           quality : 1.0,//图片压缩比，0到1,1表示不压缩，默认1
           aspect : [4, 3],//如果allowsEditing配置了true，则会出现的裁剪框大小（ios不起作用，如果ios设置了可编辑，那么就是一个正方形的框框）
           base64 : false,//返回是不是图片的base64码，默认false
           mode: 0 //0 有拍照有相册， 1只有相册， 2只有拍照   默认0
+          multiple: false//true表示允许多选图片，如果是多选图片，返回的RESULT中VALUE也是一个数组，表示了每个上传图片的信息（为true时候，aspect,mode参数无效）默认false
        }
 * @return {boolean} 文件上传为异步操作，返回值为提交是否成功
 */
