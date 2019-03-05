@@ -475,7 +475,8 @@ http://xxxxx/ThirdPartService/updateRequestStatus
 	requestId: 103,//请求id
 	sessionId: 10, //（可能存在）如果是机器人转人工的请求，就会传递当前会话的sessionId
 	requestStatus: 1,//请求状态 0等待 1接受 2拒绝 3超时 具体可以下面的请求状态码
-	queueLength: 0// 当前队列长度
+	queueLength: 0,// 当前队列长度
+	message: "当前排在第0位"//提示信息，由chat服务中配置（property表id：21）
 }
 返回参数:
 {
