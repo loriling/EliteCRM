@@ -618,7 +618,10 @@ HttpResponse response = httpclient.execute(httppost);</code></pre>
 返回参数：
 {
   result: 1,
-  message: &quot;&quot;
+  message: &quot;请求已经转接给了xxx&quot;, //转接提示消息
+  requestId: 2318,//请求id
+  queueLength: 3,//(可选)排在第几位
+  positionInQueueMessage: &quot;当前排在第3位&quot;//(可选)当前队列第几位提示语，与chat服务配置中保持一致（property表id：21）
 }</code></pre>
 </li>
 <li><p><div id="agentSendMsg" style="color:#0086b3">客服发送消息给客户</div></p>

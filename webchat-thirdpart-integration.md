@@ -395,7 +395,10 @@ http://xxxxx/EliteWebChat/tpi
 返回参数：
 {
     result: 1,
-    message: ""
+    message: "请求已经转接给了xxx", //转接提示消息
+	requestId: 2318,//请求id
+	queueLength: 3,//(可选)排在第几位
+	positionInQueueMessage: "当前排在第3位"//(可选)当前队列第几位提示语，与chat服务配置中保持一致（property表id：21）
 }
 ```
 
