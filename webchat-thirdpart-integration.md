@@ -125,6 +125,7 @@ http://xxxxx/EliteWebChat/tpi
 	message: "success", //成功或失败的消息
 	requestId: 103, //请求id号，如果发起请求成功，就会返回这个id
 	queueLength: 3, //队列长度
+	positionInQueueMessage: "当前排在第3位",//当前队列第几位提示语，与chat服务配置中保持一致（property表id：21）
 	continueLastSession: false,//是不是继续上一次的会话，（可选）如果有且为true，表示这个请求是继续之前一个会话的，可能是之前那个会话没有正确的关闭掉造成的
 	sessionId: 10023,//如果是机器人队列，不需要经过排队过程，直接创建出会话并返回出会话id，拿到这个会话id后即可直接聊天
 	agentId: "BOT002",//如果是机器人队列，机器人坐席id
