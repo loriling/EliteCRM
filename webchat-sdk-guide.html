@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 <title>webchat-sdk-guide</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -289,6 +289,183 @@ img {
   max-width: 100%
 }
 </style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -304,44 +481,40 @@ var _hmt = _hmt || [];
 <h3 id="-app-webchat-2-">在第三方的app中，可以与我们WebChat服务进行对接，其中对接方式主要有2种：</h3>
 <blockquote>
 <ol>
-<li>直接嵌入mobile的h5页面，这种方式集成方便，几乎不需要什么开发量，缺点也很明显，由于是基于h5，界面友好度不够，且只有在页面打开时候可以查看到消息，当页面关闭后，消息是没法收到的。</li>
-<li>使用我们提供的App SDK，做深度的集成。这种方式会对第三方app有一定的开发要求，针对ios和android，还需要有不同的开发集成。而这种方式的好处在于，用户体验很高，可以发送语音视频等多媒体消息，即使app没有打开，也可以收到消息等。</li>
-</ol>
+<li>直接嵌入mobile的h5页面，这种方式集成方便，几乎不需要什么开发量，缺点也很明显，由于是基于h5，界面友好度不够，且只有在页面打开时候可以查看到消息，当页面关闭后，消息是没法收到的。</li><li>使用我们提供的App SDK，做深度的集成。这种方式会对第三方app有一定的开发要求，针对ios和android，还需要有不同的开发集成。而这种方式的好处在于，用户体验很高，可以发送语音视频等多媒体消息，即使app没有打开，也可以收到消息等。</li></ol>
 </blockquote>
 <p>这里主要讲一下App SDK的集成方式</p>
 <h2 id="-app-sdk-">基于融云的app sdk 集成</h2>
-<p>我们的移动App SDK，集成了融云的移动通讯能力。借助融云的App消息上下行的能力，实现了坐席PC与客户手机app聊天。<br>具体说明可以查看融云官网：<a href="http://www.rongcloud.cn/" title="http://www.rongcloud.cn/"><a href="http://www.rongcloud.cn/">http://www.rongcloud.cn/</a></a></p>
+<p>我们的移动App SDK，集成了融云的移动通讯能力。借助融云的App消息上下行的能力，实现了坐席PC与客户手机app聊天。<br>具体说明可以查看融云官网：<a href="http://www.rongcloud.cn/" title="http://www.rongcloud.cn/">http://www.rongcloud.cn/</a></p>
 <p>看这篇文档时候，假设你已经是个android开发者（或者ios），并且对融云已经有大致了解。在此基础上，我们来对具体集成步骤，加以说明：</p>
 <h3 id="-">一. 注册融云账号</h3>
 <ol>
-<li><p>在融云官网注册一个自己的账户，并创建一个app。<a href="https://developer.rongcloud.cn/app" title="https://developer.rongcloud.cn/app"><a href="https://developer.rongcloud.cn/app">https://developer.rongcloud.cn/app</a></a></p>
-</li>
-<li><p>配置服务端实时消息路由的路由地址。具体地址，由过河兵相关人员提供。<br><img src="images/webchat-sdk-guide/2.png" alt="设置服务端消息路由地址"></p>
-</li>
-</ol>
+<li><p>在融云官网注册一个自己的账户，并创建一个app。<a href="https://developer.rongcloud.cn/app" title="https://developer.rongcloud.cn/app">https://developer.rongcloud.cn/app</a></p>
+</li><li><p>配置服务端实时消息路由的路由地址。具体地址，由过河兵相关人员提供。<br><img src="images/webchat-sdk-guide/2.png" alt="设置服务端消息路由地址"></p>
+</li></ol>
 <h3 id="-app-">二. APP 集成</h3>
 <p>这里以Android系统为例：</p>
 <ol>
-<li><p>导入融云相关的sdk模块，这里使用到了IMLib，IMKit，LocationLib，PushLib。并按文档说明配置相关参数。注意IMLib中的AndroidManifest.xml里，需要配置融云相关的APP_KEY，具体可以查看<a href="http://www.rongcloud.cn/docs/android.html" title="http://www.rongcloud.cn/docs/android.html"><a href="http://www.rongcloud.cn/docs/android.html">http://www.rongcloud.cn/docs/android.html</a></a></p>
+<li><p>导入融云相关的sdk模块，这里使用到了IMLib，IMKit，LocationLib，PushLib。并按文档说明配置相关参数。注意IMLib中的AndroidManifest.xml里，需要配置融云相关的APP_KEY，具体可以查看<a href="http://www.rongcloud.cn/docs/android.html" title="http://www.rongcloud.cn/docs/android.html">http://www.rongcloud.cn/docs/android.html</a></p>
 <pre><code class="lang-xml"> &lt;meta-data
      android:name=&quot;RONG_CLOUD_APP_KEY&quot;
-     android:value=&quot;xxxxxxxxxxx&quot; /&gt;</code></pre>
-</li>
-<li><p>配置AndroidManifest.xml。主要是配置一个android:name=&quot;.App&quot;, 相关权限，一个会话界面的activity，一些元数据，相关的provider，receiver，service。具体看demo代码。</p>
-</li>
-<li><p>创建一个App类，其中在onCreate回调中初始化RongIM，具体看demo示例代码。</p>
-<pre><code class="lang-java"> //初始化融云
+     android:value=&quot;xxxxxxxxxxx&quot; /&gt;
+</code></pre>
+</li><li><p>配置AndroidManifest.xml。主要是配置一个android:name=&quot;.App&quot;, 相关权限，一个会话界面的activity，一些元数据，相关的provider，receiver，service。具体看demo代码。</p>
+</li><li><p>创建一个App类，其中在onCreate回调中初始化RongIM，具体看demo示例代码。</p>
+<pre><code class="lang-java"> //初始化chat
+ Chat.init(this);
+ //初始化融云
  RongIM.init(this);
  //注册接收消息监听器
  RongIM.setOnReceiveMessageListener(new EliteReceiveMessageListener());
  //注册自定义消息
  RongIM.registerMessageType(EliteMessage.class);
  //注册自定义用户信息提供者
- RongIM.setUserInfoProvider(new EliteUserInfoProvider(), true);</code></pre>
-</li>
-<li><p>导入过河兵SDK相关类，这里以可以以jar包方式提供，也可以直接提供源码。导入com.elitecrm.rcclient包下的所有类，其中App.java和MainActivity.java不需要，使用自己app中的即可。<br><img src="images/webchat-sdk-guide/3.png" alt="导入过河兵SDK相关类"></p>
-</li>
-<li><p>在主Activity中，初始化并启动EliteChat</p>
+ RongIM.setUserInfoProvider(new EliteUserInfoProvider(), true);
+</code></pre>
+</li><li><p>导入过河兵SDK相关类，这里以可以以jar包方式提供，也可以直接提供源码。导入com.elitecrm.rcclient包下的所有类，其中App.java和MainActivity.java不需要，使用自己app中的即可。<br><img src="images/webchat-sdk-guide/3.png" alt="导入过河兵SDK相关类"></p>
+</li><li><p>在主Activity中，初始化并启动EliteChat</p>
 <pre><code class="lang-java"> /**
   * EliteChat提供方法
   * 初始化EliteChat， 获取rongcloud的token，并且启动聊天。
@@ -355,10 +528,10 @@ var _hmt = _hmt || [];
   * @param ngsAddr ngs服务地址
   * @param tracks 客户浏览轨迹 json字符串，具体格式查看相关文档
   */
- public static void initAndStart(String serverAddr, String userId, String name, String portraitUri, String targetId, Context context, int queueId, String ngsAddr, String tracks)</code></pre>
+ public static void initAndStart(String serverAddr, String userId, String name, String portraitUri, String targetId, Context context, int queueId, String ngsAddr, String tracks)
+</code></pre>
 <p>这里的EliteWebChat服务地址，需要找过河兵相关人员提供，用户登录id可以是你们系统中的用户名，不重复即可，这里会自动查询如果不存在与过河兵系统中，会自动创建相关客户。排队队列号也是找过河兵相关人员提供即可。</p>
-</li>
-</ol>
+</li></ol>
 <h3 id="-sdk-">三. SDK中更多高级方法说明</h3>
 <p>经过上述的步骤，App SDK已经可以对接起来了。客户可以发出聊天请求，排队聊天，如果有坐席接起这个聊天请求，客户就可以和坐席正常聊天了。下面再说一些高级功能：</p>
 <ol>
@@ -366,9 +539,9 @@ var _hmt = _hmt || [];
 <pre><code class="lang-java"> //发送文字消息，在调用EliteChat.initAndStart之前，就可以调用此方法，之后一旦聊天建立起来后，这个预发消息会自动发出。
  MessageUtils.sendTextMessage(&quot;firstMsg&quot;, target);
  //发送自定义消息，这个消息内容随便自己定义，坐席端可以收到相关消息自行做对应处理。比如这里发送一个商品信息的json字符串。坐席端可以收到后显示出对应的商品信息。
- MessageUtils.sendCustomMessage(&quot;{\&quot;name\&quot;:\&quot;xxx\&quot;}&quot;, target);</code></pre>
-</li>
-<li><p>如果客户已经进入过聊天，返回到app其他页面后，再次想打开聊天，这时候可以直接启动页面，而不需要再次发起排队了</p>
+ MessageUtils.sendCustomMessage(&quot;{\&quot;name\&quot;:\&quot;xxx\&quot;}&quot;, target);
+</code></pre>
+</li><li><p>如果客户已经进入过聊天，返回到app其他页面后，再次想打开聊天，这时候可以直接启动页面，而不需要再次发起排队了</p>
 <pre><code class="lang-java"> //先判断，当前会话是否还在活动中，如果活动中则可以不发起排队，直接显示页面
  if (Chat.getInstance().isSessionAvailable()) {
      if(Chat.getInstance().isTokenValid()) {
@@ -378,17 +551,17 @@ var _hmt = _hmt || [];
      }
  }
  //如果会话已经结束了，或者token已经失效，则重新发起聊天请求
- EliteChat.initAndStart(getResources().getString(R.string.app_server_addr), userId, name, portraitUri, target, v.getContext(), queueId, null);</code></pre>
-</li>
-<li><p>App没有开启或者不在前台时候，手机收到消息会有提示，如果点击了提示，可以调方法直接打开聊天界面。</p>
+ EliteChat.initAndStart(getResources().getString(R.string.app_server_addr), userId, name, portraitUri, target, v.getContext(), queueId, null);
+</code></pre>
+</li><li><p>App没有开启或者不在前台时候，手机收到消息会有提示，如果点击了提示，可以调方法直接打开聊天界面。</p>
 <pre><code class="lang-java"> /**
   * EliteChat类方法
   * 当收到提醒时候，onNotificationMessageClicked 方法触发，然后可以通过调用此方法来打开chat
   * @param context
   */
- public static void switchToChat(Context context, String target)</code></pre>
-</li>
-<li><p>如果需要使用地图发送地图消息<br>SDK支持高德地图和百度地图两种选择，这里以百度地图为例：</p>
+ public static void switchToChat(Context context, String target)
+</code></pre>
+</li><li><p>如果需要使用地图发送地图消息<br>SDK支持高德地图和百度地图两种选择，这里以百度地图为例：</p>
 <pre><code class="lang-java"> //1. 在AndroidManifest.xml中配置百度地图API_KEY
  &lt;meta-data
          android:name=&quot;com.baidu.lbsapi.API_KEY&quot;
@@ -404,16 +577,16 @@ var _hmt = _hmt || [];
          RongExtensionManager.getInstance().unregisterExtensionModule(extensionModule);
      }
  }
- RongExtensionManager.getInstance().registerExtensionModule(new EliteExtensionModule());</code></pre>
-</li>
-<li><p>如果希望使用小视频消息（注意小视频消息是需要额外收费的（融云收费功能）），则可以修改上述的注册插件模块方法，构造EliteExtensionModule时候传递参数true，表示开启小视频功能</p>
+ RongExtensionManager.getInstance().registerExtensionModule(new EliteExtensionModule());
+</code></pre>
+</li><li><p>如果希望使用小视频消息（注意小视频消息是需要额外收费的（融云收费功能）），则可以修改上述的注册插件模块方法，构造EliteExtensionModule时候传递参数true，表示开启小视频功能</p>
 <pre><code class="lang-java">//EliteExtensionModule构造中的第一个参数，是否启用小视频，如果启用则传递true
-RongExtensionManager.getInstance().registerExtensionModule(new EliteExtensionModule(true));</code></pre>
-</li>
-</ol>
+RongExtensionManager.getInstance().registerExtensionModule(new EliteExtensionModule(true));
+</code></pre>
+</li></ol>
 <p><strong>ios同理，android中提到的方法，ios中都有相同的对应的方法</strong></p>
 <h3 id="-demo-"><strong>完整的相关代码说明都可以从demo示例代码中找到</strong></h3>
-<p>ios的GitHub代码仓库地址 ：<a href="https://github.com/jinguoxi/RyWebChat" title="https://github.com/jinguoxi/RyWebChat"><a href="https://github.com/jinguoxi/RyWebChat">https://github.com/jinguoxi/RyWebChat</a></a><br>android的GitHub代码仓库地址 ：<a href="https://github.com/loriling/RCClient" title="https://github.com/loriling/RCClient"><a href="https://github.com/loriling/RCClient">https://github.com/loriling/RCClient</a></a></p>
+<p>ios的GitHub代码仓库地址 ：<a href="https://github.com/jinguoxi/RyWebChat" title="https://github.com/jinguoxi/RyWebChat">https://github.com/jinguoxi/RyWebChat</a><br>android的GitHub代码仓库地址 ：<a href="https://github.com/loriling/RCClient" title="https://github.com/loriling/RCClient">https://github.com/loriling/RCClient</a></p>
 
 </body>
 </html>

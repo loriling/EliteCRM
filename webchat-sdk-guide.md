@@ -36,6 +36,8 @@
 
 3. 创建一个App类，其中在onCreate回调中初始化RongIM，具体看demo示例代码。
 ```java
+	//初始化chat
+    Chat.init(this);
 	//初始化融云
     RongIM.init(this);
     //注册接收消息监听器
