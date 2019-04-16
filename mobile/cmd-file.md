@@ -121,3 +121,15 @@ download(url, fileName, headers)
  */
 uploadLocal(uri, fsKey, filePath, fileName, fileType)
 ```
+
+1. <span id="File.toImgDataURL">**File.toImgDataURL**</span>: 获取图片base64
+手机特有方法
+```
+/**
+ * 图片url转base64
+ * 如果是mobile.web，必须是同域下的图片，或者其他域图片允许跨域的情况（Access-Control-Allow-Origin "*"）
+ * @param imgUri 图片uri
+ * @return Promise
+ */
+toImgDataURL(imgUri)
+```

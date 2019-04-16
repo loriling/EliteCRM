@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>cmd-file</title>
+<title>cmd-shorten</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
@@ -477,106 +477,85 @@ var _hmt = _hmt || [];
 </script>
 </head>
 <body>
-<h1 id="file-">File对象</h1>
-<h3 id="-">文件操作类</h3>
+<h1 id="shorten-">Shorten对象</h1>
+<h3 id="-">短码操作</h3>
 <ol>
-<li><p><span id="File.upload"><strong>File.upload</strong></span>: 上传文件</p>
+<li><p><span id="Shorten.get"><strong>Shorten.get</strong></span>: 获取短码</p>
 <pre><code>/**
-* 上传文件
-* @method upload
-* @param fsKey {string} 文件存储服务名，为空时取默认服务
-* @param filePath {string} 文件存储相对路径，为空时存储于temp临时目录，作为临时文件存在
-* @param fileName {string} 文件存储名，相同时覆盖。为空时由系统自动生成存储名
-* @param cmdId {string} 文件上传完毕时执行的回调命令组或者方法，执行结果为：R.RESULT{CODE, MESSAGE, VALUE}
-* @param options {object}
-*        {
-          mediaTypes : &#39;All&#39;,//媒体类型包括了：Images, Videos, All，默认是All
-          allowsEditing : true,//是否可编辑图片，默认可编辑
-          quality : 1.0,//图片压缩比，0到1,1表示不压缩，默认1
-          aspect : [4, 3],//如果allowsEditing配置了true，则会出现的裁剪框大小（ios不起作用，如果ios设置了可编辑，那么就是一个正方形的框框）
-          base64 : false,//返回是不是图片的base64码，默认false
-          mode: 0 //0 有拍照有相册， 1只有相册， 2只有拍照   默认0
-          multiple: false//true表示允许多选图片，如果是多选图片，返回的RESULT中VALUE也是一个数组，表示了每个上传图片的信息（为true时候，aspect,mode参数无效）默认false
-       }
-* @return {boolean} 文件上传为异步操作，返回值为提交是否成功
-*/
-upload(fsKey, filePath, fileName, cmdId, options)
-</code></pre></li><li><p><span id="File.remove"><strong>File.remove</strong></span>: 删除文件</p>
-<pre><code>/**
-* 删除文件
-* @method remove
-* @param filePath {string} 文件上传时获得的存储路径
-* @param cmdId {string} 文件删除后的回调方法，执行结果为：R.RESULT{CODE, MESSAGE, VALUE}
-*/
-remove(filePath, cmdId)
-</code></pre></li><li><p><span id="File.getName"><strong>File.getName</strong></span>: 从URL或者文件路径中获取文件名</p>
-<pre><code>/**
-* 从URL或者文件路径中获取文件名
-* @method getName
-* @param filepath {string} URL或者完整的文件路径
-* @return {string}
-*/
-getName(filepath)
-</code></pre></li><li><p><span id="File.getSimpleName"><strong>File.getSimpleName</strong></span>: 从URL或者文件路径中获取不带后缀的文件名</p>
-<pre><code>/**
-* 从URL或者文件路径中获取不带后缀的文件名
-* @method getSimpleName
-* @param filepath {string} URL或者完整的文件路径
-* @return {string}
-*/
-getSimpleName(filepath)
-</code></pre></li><li><p><span id="File.getExt"><strong>File.getExt</strong></span>: 从URL或者文件路径中获取文件名后缀</p>
-<pre><code>/**
-* 从URL或者文件路径中获取文件名后缀
-* @method getExt
-* @param filepath {string} URL或者完整的文件路径
-* @return {string}
-*/
-getExt(filepath)
-</code></pre></li><li><p><span id="File.imgView"><strong>File.imgView</strong></span>: 展示图片<br>手机特有方法</p>
-<pre><code>/**
-* 展示图片
-* @param photos {string|array} 支持传递单个图片url字符串，也支持传递数组
-*/
-imgView(photos)
-</code></pre></li><li><p><span id="File.open"><strong>File.open</strong></span>: 打开一个url<br>手机特有方法</p>
-<pre><code>/**
-* 通过OpenFile.openDoc方式，打开一个url (支持类型包括：doc, docx, xls, xlsx, ppt, pptx, pdf, mp4)
-* 如果非http开头，会自动拼接上ngs的fs的url前缀
-* @param fileUrl 文件url路径
-* @param fileName 文件名
-* @param fileType 文件类型
-* @param [callback] 回调，第一个参数是error，第二个参数是打开的实际url
-*/
-open(fileUrl, fileName, fileType, callback)
-</code></pre></li><li><p><span id="File.download"><strong>File.download</strong></span>: 下载文件到本地路径<br>手机特有方法</p>
-<pre><code>/**
-* 下载文件到本地路径
-* @param url 下载文件url
-* @param [fileName] 存本地的文件名
-* @param [headers] 下载请求的headers
-* @return {Promise}
-*/
-download(url, fileName, headers)
-</code></pre></li><li><p><span id="File.uploadLocal"><strong>File.uploadLocal</strong></span>: 上传本地文件<br>手机特有方法</p>
-<pre><code>/**
-* 上传本地文件
-* @param uri 本地文件路径
-* @param [fsKey]
-* @param [filePath] 上传路径
-* @param [fileName] 文件名
-* @param [fileType] 文件扩展名
-* @return {Promise}
-*/
-uploadLocal(uri, fsKey, filePath, fileName, fileType)
-</code></pre></li><li><p><span id="File.toImgDataURL"><strong>File.toImgDataURL</strong></span>: 获取图片base64<br>手机特有方法</p>
-<pre><code>/**
-* 图片url转base64
-* 如果是mobile.web，必须是同域下的图片，或者其他域图片允许跨域的情况（Access-Control-Allow-Origin &quot;*&quot;）
-* @param imgUri 图片uri
+* 短码编码
+* @param content {string|object} 编码的内容
+* @param [ttl] {int} 存活期（单位秒），默认为永久存活
 * @return Promise
 */
-toImgDataURL(imgUri)
+get(content, ttl)
+</code></pre><p>示例：</p>
+<pre><code>//免登录打开某个动态页面
+Shorten.get({
+ ds: &#39;EliteCRM&#39;,//数据源
+ epid: &#39;E00008&#39;,//企业id
+ ai: &#39;D0D0PU&#39;,//动态页面id
+ q: &#39;sp&#39;,//单页面模式
+ user: &#39;luo&#39;,//登录名
+ pwd: &#39;&#39;,//登录密码
+ mt: &#39;r&#39;,//手机mobile.web方式
+ params: {}
+}, 36000).then(function(ret) {
+ console.log(&#39;shorten url: &#39; + Shorten.url(ret));
+});
+</code></pre><pre><code>//内置账号打开某个动态页面
+Shorten.get({
+ ds: &#39;EliteCRM&#39;,//数据源
+ epid: &#39;E00008&#39;,//企业id
+ ai: &#39;D0D0PU&#39;,//动态页面id
+ q: &#39;sp&#39;,//单页面模式
+ mt: &#39;r&#39;,//手机mobile.web方式
+ params: {}
+}, 36000).then(function(ret) {
+ console.log(&#39;shorten url: &#39; + Shorten.url(ret));
+});
+</code></pre><pre><code>//打开某个工单
+Shorten.get({
+ ds:&#39;gl2019&#39;,//数据源
+ at: &#39;wo3&#39;,//工单
+ user: &#39;lydia&#39;,//登录名
+ grp: &#39;SYSTEM&#39;,//登录组
+ pwd: &#39;1&#39;,//密码
+ mt: &#39;r&#39;,//手机mobile.web方式
+ ai: &#39;DAE213B9-77EF-4E45-A5C2-3A70846A4814&#39;,//工单objective的guid
+ cid: &#39;4a4f0d08-3168-4103-b9e1-b5cacc9fd92c&#39;,//客户guid
+ params: {
+     f1: &#39;03293C8B-A293-6EEB-4B55-6308FBB4C8D7&#39;//工单task的guid
+ }
+});
+</code></pre></li><li><p><span id="Shorten.url"><strong>Shorten.url</strong></span>: 获取访问短码url</p>
+<pre><code>/**
+* 获取访问短码的url
+* @param code
+* @return {string}
+*/
+url(code)
+</code></pre></li><li><p><span id="Shorten.make"><strong>Shorten.make</strong></span>: 获取短码（已经过时）</p>
+<pre><code>/**
+* 生成直接访问的短链接（必须指定登录用户）
+* @param jsonObject {object}
+*        mobile: {integer}, 可选，指定访问的类型。默认是0，为1时代表访问 /m/nl, 否则访问/nl
+*        language: {string}, 可选，指定语言
+*        mode: {integer}, 可选，模式
+*        user: {string}, 可选，指定用户
+*        pwd: {string}, 可选，指定用户的密码
+*        prj: {string}, 可选，指定登录的项目
+*        grp: {string}, 可选，指定登录的组
+*        epid: {string}, 可选，指定登录的企业号
+*        q: {string}, 可选，运行模式
+*        at: {string}, 可选，页面类型。默认为dyn
+*        ai: {string},  必填，页面ID
+*        ap: {string}, 可选，页面入参
+*        cid: {string}, 可选，客户GUID
+*        params: {string}, 可选，需要提供的更多入参。
+*            参数从f1开始编号，多个参数直接以&#39;&amp;&#39;号分割，例如 &#39;f1=a&amp;f2=23&amp;f3=0&#39;
+* @return Promise 生成的短码字符串
+*/
+make(jsonObject)
 </code></pre></li></ol>
 
 </body>

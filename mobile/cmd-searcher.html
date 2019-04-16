@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>cmd-file</title>
+<title>cmd-searcher</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
@@ -477,106 +477,70 @@ var _hmt = _hmt || [];
 </script>
 </head>
 <body>
-<h1 id="file-">File对象</h1>
-<h3 id="-">文件操作类</h3>
+<h1 id="searcher-">Searcher对象</h1>
+<h3 id="es-">ES全文检索操作类</h3>
+<p>这里封装了一些elasticsearch操作的方法，如果想要更多es方法，可以直接使用$project.esc对象上的方法</p>
 <ol>
-<li><p><span id="File.upload"><strong>File.upload</strong></span>: 上传文件</p>
+<li><p><span id="Searcher.index"><strong>Searcher.index</strong></span>: 新增或者更新索引</p>
 <pre><code>/**
-* 上传文件
-* @method upload
-* @param fsKey {string} 文件存储服务名，为空时取默认服务
-* @param filePath {string} 文件存储相对路径，为空时存储于temp临时目录，作为临时文件存在
-* @param fileName {string} 文件存储名，相同时覆盖。为空时由系统自动生成存储名
-* @param cmdId {string} 文件上传完毕时执行的回调命令组或者方法，执行结果为：R.RESULT{CODE, MESSAGE, VALUE}
-* @param options {object}
-*        {
-          mediaTypes : &#39;All&#39;,//媒体类型包括了：Images, Videos, All，默认是All
-          allowsEditing : true,//是否可编辑图片，默认可编辑
-          quality : 1.0,//图片压缩比，0到1,1表示不压缩，默认1
-          aspect : [4, 3],//如果allowsEditing配置了true，则会出现的裁剪框大小（ios不起作用，如果ios设置了可编辑，那么就是一个正方形的框框）
-          base64 : false,//返回是不是图片的base64码，默认false
-          mode: 0 //0 有拍照有相册， 1只有相册， 2只有拍照   默认0
-          multiple: false//true表示允许多选图片，如果是多选图片，返回的RESULT中VALUE也是一个数组，表示了每个上传图片的信息（为true时候，aspect,mode参数无效）默认false
+* 对内容做索引，创建或者更新
+* @param id 索引id
+* @param content 索引内容
+* @param cmdId 回调命令组的id
+* @param index 索引类型(optional)
+* @param type 索引类型(optional)
+*/
+index(id, content, cmdId, index, type)
+</code></pre></li><li><p><span id="Searcher.search"><strong>Searcher.search</strong></span>: 查询索引</p>
+<pre><code>/**
+* 根据内容检索
+* @param content 需要查询的内容，可以是字符串，也可以是json对象，字符串的话，就代表去查询字段是content上的内容，如果要查询其他字段上内容，就要自己传递json对象：
+* {
+         query: {
+             match: {
+                 content: content
+             }
+         }
+     }
+//满足woId字段必须是xxxx，同时content字段全文检索&quot;可以&quot;
+{
+         &quot;query&quot;: {
+             &quot;bool&quot; : {
+               &quot;must&quot; : {
+                 &quot;term&quot; : { &quot;woId&quot; : &quot;xxxx&quot; }
+               },
+               &quot;filter&quot;: {
+                 &quot;match&quot; : { &quot;content&quot; : &quot;可以&quot; }
+               }
+             }
+         }
+     }
+//检索user_id字段等于SELITE，同时内容存在xxx的
+{
+       &quot;query&quot;: {
+         &quot;bool&quot;: {
+           &quot;must&quot;: [
+             { &quot;match&quot;: { &quot;user_id&quot;: &quot;SELITE&quot; } },
+             { &quot;match&quot;: { &quot;content&quot;: &quot;xxx&quot; } }
+           ]
+         }
        }
-* @return {boolean} 文件上传为异步操作，返回值为提交是否成功
+     }
+* @param cmdId 回调命令组的id 成功会有RESULT，失败会有ERROR
+* @param index 索引类型(optional)
+* @param type 索引类型(optional)
+* @returns {*|Promise.&lt;T&gt;}
 */
-upload(fsKey, filePath, fileName, cmdId, options)
-</code></pre></li><li><p><span id="File.remove"><strong>File.remove</strong></span>: 删除文件</p>
+search(content, cmdId, index, type)
+</code></pre></li><li><p><span id="Searcher.deleteIndex"><strong>Searcher.deleteIndex</strong></span>: 删除索引</p>
 <pre><code>/**
-* 删除文件
-* @method remove
-* @param filePath {string} 文件上传时获得的存储路径
-* @param cmdId {string} 文件删除后的回调方法，执行结果为：R.RESULT{CODE, MESSAGE, VALUE}
+* 删除索引
+* @param id 索引id
+* @param [cmdId] 回调(optional)
+* @param [index] 索引类型(optional)
+* @param [type] 索引类型(optional)
 */
-remove(filePath, cmdId)
-</code></pre></li><li><p><span id="File.getName"><strong>File.getName</strong></span>: 从URL或者文件路径中获取文件名</p>
-<pre><code>/**
-* 从URL或者文件路径中获取文件名
-* @method getName
-* @param filepath {string} URL或者完整的文件路径
-* @return {string}
-*/
-getName(filepath)
-</code></pre></li><li><p><span id="File.getSimpleName"><strong>File.getSimpleName</strong></span>: 从URL或者文件路径中获取不带后缀的文件名</p>
-<pre><code>/**
-* 从URL或者文件路径中获取不带后缀的文件名
-* @method getSimpleName
-* @param filepath {string} URL或者完整的文件路径
-* @return {string}
-*/
-getSimpleName(filepath)
-</code></pre></li><li><p><span id="File.getExt"><strong>File.getExt</strong></span>: 从URL或者文件路径中获取文件名后缀</p>
-<pre><code>/**
-* 从URL或者文件路径中获取文件名后缀
-* @method getExt
-* @param filepath {string} URL或者完整的文件路径
-* @return {string}
-*/
-getExt(filepath)
-</code></pre></li><li><p><span id="File.imgView"><strong>File.imgView</strong></span>: 展示图片<br>手机特有方法</p>
-<pre><code>/**
-* 展示图片
-* @param photos {string|array} 支持传递单个图片url字符串，也支持传递数组
-*/
-imgView(photos)
-</code></pre></li><li><p><span id="File.open"><strong>File.open</strong></span>: 打开一个url<br>手机特有方法</p>
-<pre><code>/**
-* 通过OpenFile.openDoc方式，打开一个url (支持类型包括：doc, docx, xls, xlsx, ppt, pptx, pdf, mp4)
-* 如果非http开头，会自动拼接上ngs的fs的url前缀
-* @param fileUrl 文件url路径
-* @param fileName 文件名
-* @param fileType 文件类型
-* @param [callback] 回调，第一个参数是error，第二个参数是打开的实际url
-*/
-open(fileUrl, fileName, fileType, callback)
-</code></pre></li><li><p><span id="File.download"><strong>File.download</strong></span>: 下载文件到本地路径<br>手机特有方法</p>
-<pre><code>/**
-* 下载文件到本地路径
-* @param url 下载文件url
-* @param [fileName] 存本地的文件名
-* @param [headers] 下载请求的headers
-* @return {Promise}
-*/
-download(url, fileName, headers)
-</code></pre></li><li><p><span id="File.uploadLocal"><strong>File.uploadLocal</strong></span>: 上传本地文件<br>手机特有方法</p>
-<pre><code>/**
-* 上传本地文件
-* @param uri 本地文件路径
-* @param [fsKey]
-* @param [filePath] 上传路径
-* @param [fileName] 文件名
-* @param [fileType] 文件扩展名
-* @return {Promise}
-*/
-uploadLocal(uri, fsKey, filePath, fileName, fileType)
-</code></pre></li><li><p><span id="File.toImgDataURL"><strong>File.toImgDataURL</strong></span>: 获取图片base64<br>手机特有方法</p>
-<pre><code>/**
-* 图片url转base64
-* 如果是mobile.web，必须是同域下的图片，或者其他域图片允许跨域的情况（Access-Control-Allow-Origin &quot;*&quot;）
-* @param imgUri 图片uri
-* @return Promise
-*/
-toImgDataURL(imgUri)
+deleteIndex(id, cmdId, index, type)
 </code></pre></li></ol>
 
 </body>
