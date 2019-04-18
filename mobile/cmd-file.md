@@ -123,7 +123,6 @@ uploadLocal(uri, fsKey, filePath, fileName, fileType)
 ```
 
 1. <span id="File.toImgDataURL">**File.toImgDataURL**</span>: 获取图片base64
-手机特有方法
 ```
 /**
  * 图片url转base64
@@ -132,4 +131,32 @@ uploadLocal(uri, fsKey, filePath, fileName, fileType)
  * @return Promise
  */
 toImgDataURL(imgUri)
+```
+
+1. <span id="File.saveFragment">**File.saveFragment**</span>: 保存片段
+```
+/**
+ * 保存文本片段到文件服务器
+ *
+ * @method saveFragment
+ * @param content {string} 文本片段字符串
+ * @param [cmdId] {string | int} 回调命令，命令中通过R.RESULT获取文件名
+ * @param [path] {string} 指定存储路径
+ * @param [saveName] {string} 指定存储文件名
+ * @return Promise
+ */
+saveFragment(content, cmdId, path, saveName)
+```
+
+1. <span id="File.readFragment">**File.readFragment**</span>: 读取片段
+```
+/**
+ * 从文件服务器读取文本片段
+ *
+ * @method readFragment
+ * @param filepath {string} 保存文本片段获取的文件存储路径
+ * @param [cmdId] {string | int} 回调命令，命令中通过R.RESULT获取文本片段字符串
+ * @return Promise
+ */
+readFragment(filepath, cmdId) 
 ```

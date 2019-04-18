@@ -569,7 +569,7 @@ download(url, fileName, headers)
 * @return {Promise}
 */
 uploadLocal(uri, fsKey, filePath, fileName, fileType)
-</code></pre></li><li><p><span id="File.toImgDataURL"><strong>File.toImgDataURL</strong></span>: 获取图片base64<br>手机特有方法</p>
+</code></pre></li><li><p><span id="File.toImgDataURL"><strong>File.toImgDataURL</strong></span>: 获取图片base64</p>
 <pre><code>/**
 * 图片url转base64
 * 如果是mobile.web，必须是同域下的图片，或者其他域图片允许跨域的情况（Access-Control-Allow-Origin &quot;*&quot;）
@@ -577,6 +577,28 @@ uploadLocal(uri, fsKey, filePath, fileName, fileType)
 * @return Promise
 */
 toImgDataURL(imgUri)
+</code></pre></li><li><p><span id="File.saveFragment"><strong>File.saveFragment</strong></span>: 保存片段</p>
+<pre><code>/**
+* 保存文本片段到文件服务器
+*
+* @method saveFragment
+* @param content {string} 文本片段字符串
+* @param [cmdId] {string | int} 回调命令，命令中通过R.RESULT获取文件名
+* @param [path] {string} 指定存储路径
+* @param [saveName] {string} 指定存储文件名
+* @return Promise
+*/
+saveFragment(content, cmdId, path, saveName)
+</code></pre></li><li><p><span id="File.readFragment"><strong>File.readFragment</strong></span>: 读取片段</p>
+<pre><code>/**
+* 从文件服务器读取文本片段
+*
+* @method readFragment
+* @param filepath {string} 保存文本片段获取的文件存储路径
+* @param [cmdId] {string | int} 回调命令，命令中通过R.RESULT获取文本片段字符串
+* @return Promise
+*/
+readFragment(filepath, cmdId)
 </code></pre></li></ol>
 
 </body>
