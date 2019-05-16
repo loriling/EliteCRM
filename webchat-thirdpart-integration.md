@@ -10,23 +10,24 @@
 1. <a href="#login">客户发出登录</a>
 2. <a href="#loginOrRegister">客户发出登录或者注册</a>
 3. <a href="#visitorLogin">访客进入</a>
-4. <a href="#chatRequest">客户发出聊天请求</a>
-5. <a href="#checkRequestStatus">查看聊天请求当前状态</a>
-6. <a href="#sendMessageWhileQueuing">排队期间发送消息</a>
-7. <a href="#cancelRequest">取消排队请求</a>
-8. <a href="#sendTextMsg">发送文本消息</a>
-9. <a href="#sendImgMsg">发送图片消息</a>
-10. <a href="#sendVoiceMsg">发送语音消息</a>
-11. <a href="#sendLocationMsg">发送位置消息</a>
-12. <a href="#sendFileMsg">发送文件消息</a>
-13. <a href="#uploadFile">上传文件</a>
-14. <a href="#previewMessage">发送预览消息</a>
-15. <a href="#typingNotice">发送正在输入通知</a>
-16. <a href="#robotTransfer">发送转人工请求</a>
-17. <a href="#closeSession">发送结束聊天会话</a>
-18. <a href="#rating">发送满意度评价</a>
-19. <a href="#changeCustomer">发送客户改变消息</a>
-20. <a href="#queryHistoryMessages">客户查询聊天历史</a>
+4. <a href="#agentLogin">坐席进入</a>
+5. <a href="#chatRequest">客户发出聊天请求</a>
+6. <a href="#checkRequestStatus">查看聊天请求当前状态</a>
+7. <a href="#sendMessageWhileQueuing">排队期间发送消息</a>
+8. <a href="#cancelRequest">取消排队请求</a>
+9. <a href="#sendTextMsg">发送文本消息</a>
+10. <a href="#sendImgMsg">发送图片消息</a>
+11. <a href="#sendVoiceMsg">发送语音消息</a>
+12. <a href="#sendLocationMsg">发送位置消息</a>
+13. <a href="#sendFileMsg">发送文件消息</a>
+14. <a href="#uploadFile">上传文件</a>
+15. <a href="#previewMessage">发送预览消息</a>
+16. <a href="#typingNotice">发送正在输入通知</a>
+17. <a href="#robotTransfer">发送转人工请求</a>
+18. <a href="#closeSession">发送结束聊天会话</a>
+19. <a href="#rating">发送满意度评价</a>
+20. <a href="#changeCustomer">发送客户改变消息</a>
+21. <a href="#queryHistoryMessages">客户查询聊天历史</a>
 
 **坐席发送请求**
 1. <a href="#agentSendStartSession">坐席发送开始聊天通知</a>
@@ -101,6 +102,23 @@ http://xxxxx/EliteWebChat/tpi
 {
 	result: 1, //登录成功
 	clientId: "xxxxxxxxxx", //用户的唯一标示，与后面开始会话接口中的clientId对应
+	token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B" //登录成功后返回的token，用来之后请求时候传递
+}
+```
+
+- <div id="agentLogin">如果有其他坐席想要加入到某个聊天，则需要先登录获取token： </div>
+```
+http://xxxxx/EliteWebChat/tpi
+发送参数：
+{
+	type: 5,//坐席登录
+	userName: "lori",//坐席登录名
+	password: "",//坐席密码
+}
+返回参数：
+{
+	result: 1, //登录成功
+	userId: "A00001", //坐席的id
 	token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B" //登录成功后返回的token，用来之后请求时候传递
 }
 ```
@@ -224,7 +242,8 @@ http://xxxxx/EliteWebChat/tpi
 	messageId: 123456,
     time: 1400913830109,
     text: "你好，请问xxxxx",
-    extra: ""//附加信息（可选）
+    extra: ""//附加信息（可选）,
+	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
 }
 返回参数：
 {
@@ -245,7 +264,8 @@ http://xxxxx/EliteWebChat/tpi
     time: 1400913830109,
     imageUri: "http://xxxxxx/xxx.png", //具体图片文件的url
     thumbData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//缩略图的base64编码
-    extra: ""//附加信息（可选）
+    extra: ""//附加信息（可选）,
+	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
 }
 返回参数：
 {
@@ -266,7 +286,8 @@ http://xxxxx/EliteWebChat/tpi
     time: 1400913830109,
     voiceLength: 33, //语音长度，单位是秒
     voiceData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//语音文件的base64编码，语音文件只支持接收amr格式的文件
-    extra: ""//附加信息（可选）
+    extra: ""//附加信息（可选）,
+	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
 }
 返回参数：
 {
@@ -290,7 +311,8 @@ http://xxxxx/EliteWebChat/tpi
     poi: "上海市中山西路2025号", //地址描述（可选）
     map: "baidu", //地图类型，默认是高德地图，也可以传递baidu，表示百度地图（可选）
     thumbData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//地图的缩率图的base64编码（可选）
-    extra: ""//附加信息（可选）
+    extra: ""//附加信息（可选）,
+	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
 }
 返回参数：
 {
@@ -311,7 +333,8 @@ http://xxxxx/EliteWebChat/tpi
     time: 1400913830109,
     name: "xxx.docx", //文件名
     fileUrl: "http://xxxxx/xxx.docx" //文件url地址
-    extra: ""//附加信息（可选）
+    extra: ""//附加信息（可选）,
+	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
 }
 返回参数：
 {
@@ -628,6 +651,8 @@ http://xxxxx/EliteWebChat/tpi
 LOGON_REQUEST = 1;//登录
 LOGOUT_REQUEST = 2;//登出
 LOGON_OR_REGISTER_REQUEST = 3;//登录或注册
+VISITOR_LOGON = 4;//访客登录
+AGENT_LOGON = 5;//坐席登录
 CHAT_REQUEST = 1000;//发出聊天排队请求
 CHAT_REQUEST_STATE_UPDATE = 1001;//更新聊天排队请求状态
 CANCEL_CHAT_REQUEST = 1002;//取消聊天排队请求
@@ -672,6 +697,11 @@ INVAILD_FILE_SIZE = -21;//非法的文件大小，上传的文件大小超过了
 UPLOAD_IMAGE_FAILED = -22;//上传图片文件失败
 UPLOAD_VOICE_FAILED = -23;//上传语音文件失败
 INVAILD_SIGN = -30;//非法的接口签名，查看签名逻辑是否正确
+TRANSFER_ERROR = -31;//转接异常
+ALREADY_IN_OTHER_CHATTING = -32;//已经在其他聊天中
+INVAILD_MESSAGE_ID = -33;//非法的消息id
+CLIENT_UNTOUCHABLE = -34;//客户不可接触
+DIFFERENT_SESSION_TYPE = -35;//会话类型不同
 INTERNAL_ERROR = -100;//内部错误，请联系管理员
 ```
 
