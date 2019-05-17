@@ -28,6 +28,7 @@
 19. <a href="#rating">发送满意度评价</a>
 20. <a href="#changeCustomer">发送客户改变消息</a>
 21. <a href="#queryHistoryMessages">客户查询聊天历史</a>
+22. <a href="#sendNoticeMessage">发送通知类消息</a>
 
 **坐席发送请求**
 1. <a href="#agentSendStartSession">坐席发送开始聊天通知</a>
@@ -45,6 +46,7 @@
 
 三. <a href="#requestResultCode">聊天请求状态码</a>
 四. <a href="#emoji">消息体中表情的定义</a>
+五. <a href="#noticeType">notice消息的类型</a>
 
 </div>
 
@@ -340,6 +342,24 @@ http://xxxxx/EliteWebChat/tpi
 {
     result: 1,
     message: ""
+}
+```
+
+- <div id="sendNoticeMessage">客户发送通知消息</div>
+
+```
+http://xxxxx/EliteWebChat/tpi
+发送参数:
+{
+	type: 2024,//发送通知类消息
+    sessionId: 1299,
+    noticeType: 99,// 通知类型，99表示自定义通知类型，具体可以传递哪些看<a href="#noticeType">notice消息的类型</a>
+    notice: "通知内容",//发送的通知内容(可选)
+}
+返回参数:
+{
+    result: 1,
+    message: "success"
 }
 ```
 
@@ -829,4 +849,16 @@ ENTERPRISE_WECHAT_ACCEPTED = 11;
 102 : "/:kiss", // 献吻
 103 : "/:<&", // 左太极
 104 : "/:&>" // 右太极
+```
+
+## <div id="noticeType">五. notice消息的类型</div> ##
+```
+NORMAL = 0;
+TRACK_CHANGE = 1;//访客轨迹改变提示
+TYPING = 5;//用户正在输入提示
+REVOKE_MESSAGE = 6;//消息撤回
+INVITE_NOTICE = 10;//会议后提示
+TRANSFER_NOTICE = 11;//转接后提示
+USER_LEFT_NOTICE = 12;//用户从会话中离开提示（通常在会议模式下，有坐席离开时候）
+CUSTOM = 99;//自定义提示
 ```
