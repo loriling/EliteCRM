@@ -116,7 +116,7 @@ http://xxxxx/EliteWebChat/tpi
 发送参数：
 {
 	type: 5,//坐席登录
-	userName: "lori",//坐席登录名
+	loginName: "lori",//坐席登录名
 	password: "",//坐席密码
 }
 返回参数：
