@@ -348,12 +348,12 @@ http://xxxxx/EliteWebChat/tpi
 ```
 
 - <div id="sendNoticeMessage">客户发送通知消息</div>
-
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
 {
 	type: 2024,//发送通知类消息
+	token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
     sessionId: 1299,
     noticeType: 99,// 通知类型，99表示自定义通知类型，具体可以传递哪些看<a href="#noticeType">notice消息的类型</a>
     notice: "通知内容",//发送的通知内容(可选)

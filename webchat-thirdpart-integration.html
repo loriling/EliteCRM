@@ -737,24 +737,22 @@ var _hmt = _hmt || [];
   result: 1,
   message: &quot;&quot;
 }
-</code></pre></li><li><div id="sendNoticeMessage">客户发送通知消息</div>
-
-</li></ul>
+</code></pre></li><li><p><div id="sendNoticeMessage">客户发送通知消息</div></p>
 <pre><code>http://xxxxx/EliteWebChat/tpi
 发送参数:
 {
-    type: 2024,//发送通知类消息
-    sessionId: 1299,
-    noticeType: 99,// 通知类型，99表示自定义通知类型，具体可以传递哪些看&lt;a href=&quot;#noticeType&quot;&gt;notice消息的类型&lt;/a&gt;
-    notice: &quot;通知内容&quot;,//发送的通知内容(可选)
+  type: 2024,//发送通知类消息
+  token: &quot;21B92585-4FDF-EF9D-1C8E-19D34D06F34B&quot;,//登录成功后获取的token值
+  sessionId: 1299,
+  noticeType: 99,// 通知类型，99表示自定义通知类型，具体可以传递哪些看&lt;a href=&quot;#noticeType&quot;&gt;notice消息的类型&lt;/a&gt;
+  notice: &quot;通知内容&quot;,//发送的通知内容(可选)
 }
 返回参数:
 {
-    result: 1,
-    message: &quot;success&quot;
+  result: 1,
+  message: &quot;success&quot;
 }
-</code></pre><ul>
-<li><p><div id="uploadFile">客户上传文件给chat服务: <a href="http://xxxxx/EliteWebChat/tpiu">http://xxxxx/EliteWebChat/tpiu</a></div><br>这个接口用来给客户上传图片，附件等相关信息，配合了发送图片接口和发送附件接口，通常先调用此接口上传需要发的文件，然后获取到上传成功后文件的url地址，再调用发送相关的消息接口，把对应文件url传递过来</p>
+</code></pre></li><li><p><div id="uploadFile">客户上传文件给chat服务: <a href="http://xxxxx/EliteWebChat/tpiu">http://xxxxx/EliteWebChat/tpiu</a></div><br>这个接口用来给客户上传图片，附件等相关信息，配合了发送图片接口和发送附件接口，通常先调用此接口上传需要发的文件，然后获取到上传成功后文件的url地址，再调用发送相关的消息接口，把对应文件url传递过来</p>
 <pre><code>//用java代码为例，主要需要两部分参数，一部分就是文件本身，一部分就是之前登录成功后的token值
 //这里只是一个示例，具体开发过程中可能是其他语言，按规则传递参数就好了
 HttpClient httpclient = getHttpClient();
