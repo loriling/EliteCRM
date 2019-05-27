@@ -369,8 +369,6 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-videoUrl
-
 - <div id="sendNoticeMessage">客户发送通知消息</div>
 ```
 http://xxxxx/EliteWebChat/tpi
