@@ -1,5 +1,5 @@
 # WebChat第三方客户端接入说明 #
-10/24/2016 10:30:30 AM 
+
 ### EliteWebChat提供整套从客服端到客户端的界面与展示解决方案，同时也可以支持与第三方客户端的对接。其中成功案例就有与小米的米聊对接，与livebot的微信服务对接等。 ###
 
 [示例代码](https://github.com/loriling/chat.client "Demo")
