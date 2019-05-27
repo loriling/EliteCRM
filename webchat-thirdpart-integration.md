@@ -4,7 +4,7 @@
 
 [示例代码](https://github.com/loriling/chat.client "Demo")
 
-<div style="display: block;position: fixed;left: 0px;top: 10px;padding-left: 20px;max-width: 200px;">
+
 目录
 
 一. <a href="#">接口说明</a>
@@ -50,8 +50,6 @@
 三. <a href="#requestResultCode">聊天请求状态码</a>
 四. <a href="#emoji">消息体中表情的定义</a>
 五. <a href="#noticeType">notice消息的类型</a>
-
-</div>
 
 ## 一. http对接接口说明 ##
 接口才用http协议，包括了webchat端提供的接口与第三方提供的接口，数据传输使用json格式。
