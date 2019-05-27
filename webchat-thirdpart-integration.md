@@ -22,15 +22,16 @@
 11. <a href="#sendVoiceMsg">发送语音消息</a>
 12. <a href="#sendLocationMsg">发送位置消息</a>
 13. <a href="#sendFileMsg">发送文件消息</a>
-14. <a href="#uploadFile">上传文件</a>
-15. <a href="#previewMessage">发送预览消息</a>
-16. <a href="#typingNotice">发送正在输入通知</a>
-17. <a href="#robotTransfer">发送转人工请求</a>
-18. <a href="#closeSession">发送结束聊天会话</a>
-19. <a href="#rating">发送满意度评价</a>
-20. <a href="#changeCustomer">发送客户改变消息</a>
-21. <a href="#queryHistoryMessages">客户查询聊天历史</a>
-22. <a href="#sendNoticeMessage">发送通知类消息</a>
+14. <a href="#sendVideoMsg">发送视频消息</a>
+15. <a href="#uploadFile">上传文件</a>
+16. <a href="#previewMessage">发送预览消息</a>
+17. <a href="#typingNotice">发送正在输入通知</a>
+18. <a href="#robotTransfer">发送转人工请求</a>
+19. <a href="#closeSession">发送结束聊天会话</a>
+20. <a href="#rating">发送满意度评价</a>
+21. <a href="#changeCustomer">发送客户改变消息</a>
+22. <a href="#queryHistoryMessages">客户查询聊天历史</a>
+23. <a href="#sendNoticeMessage">发送通知类消息</a>
 
 **坐席发送请求**
 1. <a href="#agentSendStartSession">坐席发送开始聊天通知</a>
@@ -330,7 +331,7 @@ http://xxxxx/EliteWebChat/tpi
 http://xxxxx/EliteWebChat/tpi
 发送参数:
 {
-    type: 2005,//发送地图消息请求
+    type: 2005,//发送文件消息
     token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
     sessionId: 1299,
 	messageId: 123456,
@@ -346,6 +347,29 @@ http://xxxxx/EliteWebChat/tpi
     message: ""
 }
 ```
+
+- <div id="sendVideoMsg">客户发送视频消息给客服</div>
+```
+http://xxxxx/EliteWebChat/tpi
+发送参数:
+{
+    type: 2006,//发送视频消息
+    token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
+    sessionId: 1299,
+	messageId: 123456,
+    time: 1400913830109,
+    videoUrl: "http://xxxxx/xxx.mp4" //视频url地址
+    extra: ""//附加信息（可选）,
+	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
+}
+返回参数：
+{
+    result: 1,
+    message: ""
+}
+```
+
+videoUrl
 
 - <div id="sendNoticeMessage">客户发送通知消息</div>
 ```
