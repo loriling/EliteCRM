@@ -22,7 +22,7 @@
 11. <a href="#sendVoiceMsg">发送语音消息</a>
 12. <a href="#sendLocationMsg">发送位置消息</a>
 13. <a href="#sendFileMsg">发送文件消息</a>
-14. <a href="#sendVideoMsg">发送视频消息</a>
+14. <a href="#sendSightMsg">发送视频消息</a>
 15. <a href="#uploadFile">上传文件</a>
 16. <a href="#previewMessage">发送预览消息</a>
 17. <a href="#typingNotice">发送正在输入通知</a>
