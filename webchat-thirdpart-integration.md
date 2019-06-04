@@ -266,8 +266,11 @@ http://xxxxx/EliteWebChat/tpi
 	messageId: 123456,
     time: 1400913830109,
     imageUri: "http://xxxxxx/xxx.png", //具体图片文件的url
-    thumbData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//缩略图的base64编码
-    extra: ""//附加信息（可选）,
+    thumbData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//缩略图的base64编码(可选)
+	thumbUri: "http://xxxxx/xxx.jpg",//缩率图uri(可选)如果与thumbData同时存在，则thumbData优先
+	thumbWidth: 300,//缩率图宽度(可选)
+	thumbHeight: 200,//缩率图高度(可选)
+    extra: "",//附加信息(可选)
 	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
 }
 返回参数：
@@ -278,6 +281,7 @@ http://xxxxx/EliteWebChat/tpi
 ```
 
 - <div id="sendVoiceMsg">客户发送语音消息给客服</div>
+语音信息格式约定为amr
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -288,8 +292,9 @@ http://xxxxx/EliteWebChat/tpi
 	messageId: 123456,
     time: 1400913830109,
     voiceLength: 33, //语音长度，单位是秒
-    voiceData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//语音文件的base64编码，语音文件只支持接收amr格式的文件
-    extra: ""//附加信息（可选）,
+    voiceData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",//语音文件的base64编码，语音文件只支持接收amr格式的文件(可选)
+	voiceUri: "http://xxxxxx/xxx.amr",//语音信息uri，如果和voiceData同时存在，voiceData优先(可选)
+    extra: "",//附加信息(可选）
 	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
 }
 返回参数：
@@ -346,7 +351,7 @@ http://xxxxx/EliteWebChat/tpi
 }
 ```
 
-- <div id="sendVideoMsg">客户发送视频消息给客服</div>
+- <div id="sendSightMsg">客户发送视频消息给客服</div>
 ```
 http://xxxxx/EliteWebChat/tpi
 发送参数:
@@ -356,8 +361,14 @@ http://xxxxx/EliteWebChat/tpi
     sessionId: 1299,
 	messageId: 123456,
     time: 1400913830109,
-    videoUrl: "http://xxxxx/xxx.mp4" //视频url地址
-    extra: ""//附加信息（可选）,
+    sightUri: "http://xxxxx/xxx.mp4", //视频uri地址
+	thumbData: "",//视频开始播放前的缩率图base64(可选)
+	thumbUri: "",//视频开始播放前的缩率图uri(可选)，如果thumbData存在，优先thumbData，允许thumbData和thumbUri都不传递
+	thumbWidth: 300,//视频缩率图宽度(可选)
+	thumbHeight: 200,//视频缩率图高度
+	sightLength: 50,//视频长度，单位秒(可选)
+	sightName: "xxx",//视频名称(可选)
+    extra: "",//附加信息(可选)
 	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
 }
 返回参数：
