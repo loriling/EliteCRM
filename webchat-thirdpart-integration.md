@@ -270,6 +270,7 @@ http://xxxxx/EliteWebChat/tpi
 	thumbUri: "http://xxxxx/xxx.jpg",//缩率图uri(可选)如果与thumbData同时存在，则thumbData优先
 	thumbWidth: 300,//缩率图宽度(可选)
 	thumbHeight: 200,//缩率图高度(可选)
+	saveImage: false,//是否要把图片和缩率图存到chat本地，默认false不存(可选)
     extra: "",//附加信息(可选)
 	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
 }
@@ -294,6 +295,7 @@ http://xxxxx/EliteWebChat/tpi
     voiceLength: 33, //语音长度，单位是秒
     voiceData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",//语音文件的base64编码，语音文件只支持接收amr格式的文件(可选)
 	voiceUri: "http://xxxxxx/xxx.amr",//语音信息uri，如果和voiceData同时存在，voiceData优先(可选)
+	voiceType: "amr",//语音文件类型，默认amr，如果传递mp3，则系统不会对文件做amr转mp3的操作(可选)
     extra: "",//附加信息(可选）
 	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
 }
@@ -368,6 +370,7 @@ http://xxxxx/EliteWebChat/tpi
 	thumbHeight: 200,//视频缩率图高度
 	sightLength: 50,//视频长度，单位秒(可选)
 	sightName: "xxx",//视频名称(可选)
+	saveSight: false,//是否保存视频和缩率图文件到本地，默认false(可选)
     extra: "",//附加信息(可选)
 	userType: 0//发送消息的人的类型（可选，当坐席发送消息时候，需要传递为2，客户默认不需要传递）
 }
