@@ -482,7 +482,7 @@ var _hmt = _hmt || [];
 <p><a href="https://github.com/loriling/chat.client" title="Demo">示例代码</a></p>
 <p>目录</p>
 <p>一. <a href="#">接口说明</a></p>
-<div style="padding-left: 20px"><strong>客户发出请求</strong><br>1. <a href="#login">客户发出登录</a><br>2. <a href="#loginOrRegister">客户发出登录或者注册</a><br>3. <a href="#visitorLogin">访客进入</a><br>4. <a href="#agentLogin">坐席进入</a><br>5. <a href="#chatRequest">客户发出聊天请求</a><br>6. <a href="#checkRequestStatus">查看聊天请求当前状态</a><br>7. <a href="#sendMessageWhileQueuing">排队期间发送消息</a><br>8. <a href="#cancelRequest">取消排队请求</a><br>9. <a href="#sendTextMsg">发送文本消息</a><br>10. <a href="#sendImgMsg">发送图片消息</a><br>11. <a href="#sendVoiceMsg">发送语音消息</a><br>12. <a href="#sendLocationMsg">发送位置消息</a><br>13. <a href="#sendFileMsg">发送文件消息</a><br>14. <a href="#sendSightMsg">发送视频消息</a><br>15. <a href="#uploadFile">上传文件</a><br>16. <a href="#previewMessage">发送预览消息</a><br>17. <a href="#typingNotice">发送正在输入通知</a><br>18. <a href="#robotTransfer">发送转人工请求</a><br>19. <a href="#closeSession">发送结束聊天会话</a><br>20. <a href="#rating">发送满意度评价</a><br>21. <a href="#changeCustomer">发送客户改变消息</a><br>22. <a href="#queryHistoryMessages">客户查询聊天历史</a><br>23. <a href="#sendNoticeMessage">发送通知类消息</a><br><br><strong>坐席发送请求</strong><br>1. <a href="#agentSendStartSession">坐席发送开始聊天通知</a><br>2. <a href="#agentSendMsg">坐席发送消息</a><br>3. <a href="#agentSendTypingNotice">坐席发送正在输入通知</a><br>4. <a href="#agentSendAgentsUpdate">坐席发送会话中坐席更新</a><br>5. <a href="#agentSendUpdateRequestStatus">坐席发送请求状态更新</a><br>6. <a href="#agentSendPushRating">坐席推送满意度评价</a><br>7. <a href="#agentSendCloseSession">坐席发起结束聊天通知</a><br></div><br>二. <a href="#requestAndResponseCode">请求代码与相应结果代码</a><br><div style="display: inline-block;padding-left: 20px">1. <a href="#requestCode">请求代码</a><br>2. <a href="#responseCode">响应代码</a><br></div>
+<div style="padding-left: 20px"><strong>客户发出请求</strong><br>1. <a href="#login">客户发出登录</a><br>2. <a href="#loginOrRegister">客户发出登录或者注册</a><br>3. <a href="#visitorLogin">访客进入</a><br>4. <a href="#agentLogin">坐席进入</a><br>5. <a href="#chatRequest">客户发出聊天请求</a><br>6. <a href="#checkRequestStatus">查看聊天请求当前状态</a><br>7. <a href="#sendMessageWhileQueuing">排队期间发送消息</a><br>8. <a href="#cancelRequest">取消排队请求</a><br>9. <a href="#sendTextMsg">发送文本消息</a><br>10. <a href="#sendImgMsg">发送图片消息</a><br>11. <a href="#sendVoiceMsg">发送语音消息</a><br>12. <a href="#sendLocationMsg">发送位置消息</a><br>13. <a href="#sendFileMsg">发送文件消息</a><br>14. <a href="#sendSightMsg">发送视频消息</a><br>15. <a href="#uploadFile">上传文件</a><br>16. <a href="#previewMessage">发送预览消息</a><br>17. <a href="#typingNotice">发送正在输入通知</a><br>18. <a href="#robotTransfer">发送转人工请求</a><br>19. <a href="#closeSession">发送结束聊天会话</a><br>20. <a href="#rating">发送满意度评价</a><br>21. <a href="#changeCustomer">发送客户改变消息</a><br>22. <a href="#queryHistoryMessages">客户查询聊天历史</a><br>23. <a href="#sendNoticeMessage">发送通知类消息</a><br>24. <a href="#queryRealtimeAvailableAgents">获取实时可用坐席</a><br><br><strong>坐席发送请求</strong><br>1. <a href="#agentSendStartSession">坐席发送开始聊天通知</a><br>2. <a href="#agentSendMsg">坐席发送消息</a><br>3. <a href="#agentSendTypingNotice">坐席发送正在输入通知</a><br>4. <a href="#agentSendAgentsUpdate">坐席发送会话中坐席更新</a><br>5. <a href="#agentSendUpdateRequestStatus">坐席发送请求状态更新</a><br>6. <a href="#agentSendPushRating">坐席推送满意度评价</a><br>7. <a href="#agentSendCloseSession">坐席发起结束聊天通知</a><br></div><br>二. <a href="#requestAndResponseCode">请求代码与相应结果代码</a><br><div style="display: inline-block;padding-left: 20px">1. <a href="#requestCode">请求代码</a><br>2. <a href="#responseCode">响应代码</a><br></div>
 
 <p>三. <a href="#requestResultCode">聊天请求状态码</a><br>四. <a href="#emoji">消息体中表情的定义</a><br>五. <a href="#noticeType">notice消息的类型</a></p>
 <h2 id="-http-">一. http对接接口说明</h2>
@@ -839,7 +839,8 @@ HttpResponse response = httpclient.execute(httppost);
   type: 2023,//正在输入提示
   token: &quot;21B92585-4FDF-EF9D-1C8E-19D34D06F34B&quot;,//登录成功后获取的token值
   sessionId: 1299,
-  from: &quot;&quot;//转人工请求来源(可选)
+  from: &quot;&quot;,//转人工请求来源(可选)
+  toUserId: &quot;A00001&quot;,//转给的坐席id(可选)，不传递则表示按系统规则排队
   transferInfo: &quot;&quot;//转人工相关信息(可选)，如果转人工时候需要指定队列，就需要传递这个参数，不然转的就是开始时候排队的队列，具体格式是个json字符串，比如：{&quot;queueId&quot;:2}
 }
 返回参数：
@@ -1035,6 +1036,32 @@ HttpResponse response = httpclient.execute(httppost);
           &quot;userId&quot;: &quot;SELITE&quot;,
           &quot;userName&quot;: &quot;Elite_alias&quot;,
           &quot;userType&quot;: 2
+      },
+      ...
+  ]
+}
+</code></pre></li><li><p><div id="queryRealtimeAvailableAgents">获取实时可用坐席信息</div></p>
+<pre><code>http://xxxxx/EliteWebChat/tpi
+发送参数:
+{
+  type: 5004,//获取实时可用坐席信息
+  token: &quot;21B92585-4FDF-EF9D-1C8E-19D34D06F34B&quot;,//登录成功后获取的token值
+  queueId: 1//队列id
+}
+返回参数:
+{
+  result: 1,
+  message: &quot;success&quot;,
+  agents: [
+      {
+          &quot;id&quot;: &quot;A00001&quot;,//坐席id
+          &quot;activeSessions&quot;: 1,//当前活动会话数
+          &quot;maxActiveSessions&quot;: 5,//最大活动会话数
+      },
+      {
+          &quot;id&quot;: &quot;A00002&quot;,//坐席id
+          &quot;activeSessions&quot;: 2,//当前活动会话数
+          &quot;maxActiveSessions&quot;: 5,//最大活动会话数
       },
       ...
   ]

@@ -32,6 +32,7 @@
 21. <a href="#changeCustomer">发送客户改变消息</a>
 22. <a href="#queryHistoryMessages">客户查询聊天历史</a>
 23. <a href="#sendNoticeMessage">发送通知类消息</a>
+24. <a href="#queryRealtimeAvailableAgents">获取实时可用坐席</a>
 
 **坐席发送请求**
 1. <a href="#agentSendStartSession">坐席发送开始聊天通知</a>
@@ -468,7 +469,8 @@ http://xxxxx/EliteWebChat/tpi
     type: 2023,//正在输入提示
     token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
     sessionId: 1299,
-	from: ""//转人工请求来源(可选)
+	from: "",//转人工请求来源(可选)
+	toUserId: "A00001",//转给的坐席id(可选)，不传递则表示按系统规则排队
     transferInfo: ""//转人工相关信息(可选)，如果转人工时候需要指定队列，就需要传递这个参数，不然转的就是开始时候排队的队列，具体格式是个json字符串，比如：{"queueId":2}
 }
 返回参数：
@@ -699,6 +701,36 @@ http://xxxxx/EliteWebChat/tpi
 	]
 }
 ```
+
+- <div id="queryRealtimeAvailableAgents">获取实时可用坐席信息</div>
+```
+http://xxxxx/EliteWebChat/tpi
+发送参数:
+{
+    type: 5004,//获取实时可用坐席信息
+    token: "21B92585-4FDF-EF9D-1C8E-19D34D06F34B",//登录成功后获取的token值
+    queueId: 1//队列id
+}
+返回参数:
+{
+    result: 1,
+    message: "success",
+    agents: [
+		{
+            "id": "A00001",//坐席id
+            "activeSessions": 1,//当前活动会话数
+            "maxActiveSessions": 5,//最大活动会话数
+        },
+        {
+            "id": "A00002",//坐席id
+            "activeSessions": 2,//当前活动会话数
+            "maxActiveSessions": 5,//最大活动会话数
+        },
+		...
+	]
+}
+```
+
 
 
 ## <div id="requestAndResponseCode">二. 请求代码与相应结果代码</div> ##
