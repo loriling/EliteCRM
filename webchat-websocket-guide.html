@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 <title>webchat-websocket-guide</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -289,6 +289,183 @@ img {
   max-width: 100%
 }
 </style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -301,7 +478,7 @@ var _hmt = _hmt || [];
 </head>
 <body>
 <h1 id="webchat-websocket-">WebChat第三方客户端接入说明（WebSocket版本）</h1>
-<p>11/16/2016 5:33:49 PM </p>
+<p>11/16/2016 5<img src="https://assets-cdn.github.com/images/icons/emoji/33.png" alt=":33:" title=":33:" class="emoji" align="absmiddle" height="20" width="20">49 PM </p>
 <h3 id="-websocket-">为了满足更高的消息时效性，websocket版本的接口应运而生</h3>
 <p>登录接口与一些特殊接口（入文件上传）使用http协议，其余消息接口都是基于WebSocket协议，数据均采用json格式传输</p>
 <h2 id="-websocket">一. 客户端登录并连接上websocket</h2>
@@ -346,13 +523,11 @@ $.ajax({
   config: {
       //相关配置信息，暂无，待扩展
   }
-}</code></pre>
-</li>
-<li><p>当登录成功后，就可以去连接websocket了：</p>
+}
+</code></pre></li><li><p>当登录成功后，就可以去连接websocket了：</p>
 <pre><code>//这里需要传递登录成功后获取的token参数，不然没法正确握手
-ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.token);</code></pre>
-</li>
-</ul>
+ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.token);
+</code></pre></li></ul>
 <h2 id="-websocket-">二. 连上websocket后，就可以开始发送消息了</h2>
 <ul>
 <li><p>客户端登出： </p>
@@ -361,9 +536,8 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
   type: 2,//登出
   time: 1400913140127,//时间戳
   token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;//登录成功后获取到的凭据
-}</code></pre>
-</li>
-<li><p>客户端发出聊天排队请求： </p>
+}
+</code></pre></li><li><p>客户端发出聊天排队请求： </p>
 <pre><code>{
   messageId: 2,//消息id，唯一标示此消息
   type: 101,//人工聊天请求
@@ -374,27 +548,24 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
   brand: &quot;&quot;,//（可选）请求来源2，作为第二个来源字段
   toUserId: &quot;SELITE&quot;, //（可选）直接指明排队给某个坐席的坐席id，不传递则由系统自动分配
   tracks: &quot;&quot; //（可选）客户浏览轨迹 json字符串，具体格式查看相关文档
-}</code></pre>
-</li>
-<li><p>客户端发出取消聊天排队请求： </p>
+}
+</code></pre></li><li><p>客户端发出取消聊天排队请求： </p>
 <pre><code>{
   messageId: 3,//消息id，唯一标示此消息
   type: 102,//取消请求
   token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
   time: 1400913140127,//时间戳
   requestId: 724//排队成功后，获取到的排队号
-}</code></pre>
-</li>
-<li><p>客户端发出结束聊天请求： </p>
+}
+</code></pre></li><li><p>客户端发出结束聊天请求： </p>
 <pre><code>{
   messageId: 4,//消息id，唯一标示此消息
   type: 103,//结束聊天
   token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
   time: 1400913140127,//时间戳
   sessionId: 68//排到队后，聊天开始时，获取到的会话id
-}</code></pre>
-</li>
-<li><p>客户端发出满意度评价请求： </p>
+}
+</code></pre></li><li><p>客户端发出满意度评价请求： </p>
 <pre><code>{
   messageId: 5,//消息id，唯一标示此消息
   type: 104,//满意度发送
@@ -405,9 +576,8 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
       ratingId: 1,//满意度评分
       ratingComments: &#39;&#39;//（可选）备注
   }
-}</code></pre>
-</li>
-<li><p>客户端发出聊天消息： </p>
+}
+</code></pre></li><li><p>客户端发出聊天消息： </p>
 <pre><code>{
   messageId: 6,//消息id，唯一标示此消息
   type: 110,//发送消息
@@ -428,7 +598,11 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 {
   name: &#39;xxx.png&#39;,//图片名称
   imageUri: &#39;http://xxxx/xxx.png&#39;,//图片url地址
-  thumbData: &#39;xxxxx&#39;, //（可选）缩率图的base64
+  thumbData: &quot;iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==&quot;//缩略图的base64编码(可选)
+  thumbUri: &quot;http://xxxxx/xxx.jpg&quot;,//缩率图uri(可选)如果与thumbData同时存在，则thumbData优先
+  thumbWidth: 300,//缩率图宽度(可选)
+  thumbHeight: 200,//缩率图高度(可选)
+  saveImage: false,//是否要把图片和缩率图存到chat本地，默认false不存(可选)
   extra: &#39;&#39;//（可选）额外消息
 }
 文件的content:
@@ -452,19 +626,19 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
 {
   voiceLength: 28,//语音时长，单位秒
   voiceData: &#39;xxxxx&#39;//语音的base64
+  voiceUri: &quot;http://xxxxxx/xxx.amr&quot;,//语音信息uri，如果和voiceData同时存在，voiceData优先(可选)
+  voiceType: &quot;amr&quot;,//语音文件类型，默认amr，如果传递mp3，则系统不会对文件做amr转mp3的操作(可选)
   extra: &#39;&#39;//（可选）额外信息
-}</code></pre>
-</li>
-<li><p>当收到坐席发送消息后，需要发送消息回执(服务端如果配置了开启回执功能的话)，通知服务器消息已经收到</p>
+}
+</code></pre></li><li><p>当收到坐席发送消息后，需要发送消息回执(服务端如果配置了开启回执功能的话)，通知服务器消息已经收到</p>
 <pre><code>{
   messageId: 7,//消息id，唯一标示此消息
   type: 120,//接受消息回执
   token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
   time: 1400913140127,//发出请求的时间戳
   rsId: &#39;597eb7b6-b7b5-4238-8dc8-86b739cf5788&#39;//用来消息发送消息回执时候传递的id
-}</code></pre>
-</li>
-<li><p>上传文件接口（http）url为： <a href="http://xxxx/webchat/tpiu?token=xxxxxxxx">http://xxxx/webchat/tpiu?token=xxxxxxxx</a></p>
+}
+</code></pre></li><li><p>上传文件接口（http）url为： <a href="http://xxxx/webchat/tpiu?token=xxxxxxxx">http://xxxx/webchat/tpiu?token=xxxxxxxx</a></p>
 <pre><code>请求时候需要带上token参数，请求体就是需要上传附件的byte
 响应参数示例：
 {
@@ -472,9 +646,8 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
   message: &#39;&#39;, // 失败消息
   url: &#39;/webchat/xxxxx.jpg&#39;, //文件url地址
   fileName: &#39;xxxxx.jpg&#39; //文件名字
-}</code></pre>
-</li>
-</ul>
+}
+</code></pre></li></ul>
 <ul>
 <li><p>客户端发出预聊天消息（排队中，客户可以先发送消息，排上队后，之前发送的预消息会一次性发送给排到的坐席）： </p>
 <pre><code>{
@@ -484,9 +657,8 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
   time: 1400913140127,//时间戳
   requestId: 724,//排队成功后，获取到的排队号
   content: &#39;xxxxxxxx&#39;//发送的消息内容
-}</code></pre>
-</li>
-<li><p>客户端发出预览消息</p>
+}
+</code></pre></li><li><p>客户端发出预览消息</p>
 <pre><code>//客户输入一些内容，但是这时候还没有按发送的时候，可以发送预览消息出来，让坐席预先知道客户可能会发送什么信息
 //（此类消息可以在客户输入内容改变时候，发送出来当前已经输入的内容，但需要注意发送频率，比如可以加个时间5秒内发送一次）
 {
@@ -495,24 +667,21 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
   token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
   sessionId: 120,//聊天会话号，排队成功后返回
   content: &quot;xxxxx&quot;//预览的消息内容
-}</code></pre>
-</li>
-<li><p>客户端发出正在输入提示</p>
+}
+</code></pre></li><li><p>客户端发出正在输入提示</p>
 <pre><code>//（此类消息建议在用户焦点进入输入框时候发送，需要注意发送频率，比如可以加个时间5秒内发送一次）
 {
   messageId: 9,//消息id，唯一标示此消息
   type: 113,//发送预消息
   token: &#39;6CF7BBEB-8D6B-A4DF-D80C-D04FF1016168&#39;, //登录成功后获取到的凭据
   sessionId: 120//聊天会话号，排队成功后返回
-}</code></pre>
-</li>
-<li><p>心跳请求： </p>
+}
+</code></pre></li><li><p>心跳请求： </p>
 <pre><code>{
   messageId: 10,//消息id，唯一标示此消息
   type: 10//心跳检测的消息类型编号
-}</code></pre>
-</li>
-</ul>
+}
+</code></pre></li></ul>
 <h2 id="-">三. 客户端接收消息接口说明</h2>
 <p><strong>一. 每个客户端发出的请求都会有响应的消息返回，表示发送成功还是失败。</strong></p>
 <ul>
@@ -522,80 +691,70 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
   type: 2,//登出
   result: 1, // 1成功 0失败
   message: &#39;&#39; // 失败消息
-}</code></pre>
-</li>
-<li><p>发出聊天排队请求结果： </p>
+}
+</code></pre></li><li><p>发出聊天排队请求结果： </p>
 <pre><code>{
   messageId: 2,//消息id，唯一标示此消息
   type: 101,
   result: 1, //结果代码
   message: &#39;&#39;//结果描述
-}</code></pre>
-</li>
-<li><p>取消请求结果： </p>
+}
+</code></pre></li><li><p>取消请求结果： </p>
 <pre><code>{
   messageId: 3,//消息id，唯一标示此消息
   type: 102,
   result: 1, //结果代码
   message: &#39;&#39;//结果描述
-}</code></pre>
-</li>
-<li><p>结束会话结果： </p>
+}
+</code></pre></li><li><p>结束会话结果： </p>
 <pre><code>{
   messageId: 4,//消息id，唯一标示此消息
   type: 103,
   result: 1, //结果代码
   message: &#39;&#39;//结果描述
-}</code></pre>
-</li>
-<li><p>满意度评价结果： </p>
+}
+</code></pre></li><li><p>满意度评价结果： </p>
 <pre><code>{
   messageId: 5,//消息id，唯一标示此消息
   type: 104,
   result: 1, //结果代码
   message: &#39;&#39;//结果描述
-}</code></pre>
-</li>
-<li><p>客户端发出聊天消息结果： </p>
+}
+</code></pre></li><li><p>客户端发出聊天消息结果： </p>
 <pre><code>{
   messageId: 6,//消息id，唯一标示此消息
   type: 110,//发送消息
   result: 1, //结果代码
   message: &#39;&#39;//结果描述
-}</code></pre>
-</li>
-<li><p>客户端发出预聊天消息结果： </p>
+}
+</code></pre></li><li><p>客户端发出预聊天消息结果： </p>
 <pre><code>{
   messageId: 7,//消息id，唯一标示此消息
   type: 111,//发送消息
   result: 1, //结果代码
   message: &#39;&#39;//结果描述
-}</code></pre>
-</li>
-<li><p>客户端发出预览消息结果： </p>
+}
+</code></pre></li><li><p>客户端发出预览消息结果： </p>
 <pre><code>{
   messageId: 8,//消息id，唯一标示此消息
   type: 112,
   result: 1, //结果代码
   message: &#39;&#39;//结果描述
-}</code></pre>
-</li>
-<li><p>客户端发出正在输入结果： </p>
+}
+</code></pre></li><li><p>客户端发出正在输入结果： </p>
 <pre><code>{
   messageId: 9,//消息id，唯一标示此消息
   type: 113,
   result: 1, //结果代码
   message: &#39;&#39;//结果描述
-}</code></pre>
-</li>
-<li><p>心跳请求返回结果： </p>
+}
+</code></pre></li><li><p>心跳请求返回结果： </p>
 <pre><code>{
   messageId: 10,//消息id，唯一标示此消息
   type: 10,
   result: 1//结果代码
-}</code></pre>
-</li>
-</ul>
+}
+</code></pre></li></ul>
 <hr>
 <p><strong>二. 客户端直接收到的相关消息</strong><br><span style="color:#e74c3c">如果配置了消息重发机制，每个客户端收到的消息还会多一个<strong>rsId</strong>的属性，客户端收到消息后，需要立即发送消息回执，并传递这个rsId回去，表示这条消息已经收到，不然时间到了没有收到回执看会触发重发机制。</span></p>
 <ul>
@@ -606,9 +765,8 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
   fileAcceptExtensionsArr: &quot;zip,rar,jpg,jpeg,png,gif,bmp,doc&quot;,//所有允许的上传的附件的扩展名,字符串,多个用逗号分隔
   hisSessions: [1288,1290,1310],//当登录客户的历史会话数组
   rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
-}</code></pre>
-</li>
-<li><p>通知客户端聊天排队状态更新： </p>
+}
+</code></pre></li><li><p>通知客户端聊天排队状态更新： </p>
 <pre><code>{
   type: 201,//排队状态更新
   requestId: 724, //请求id号，如果发起请求成功，就会返回这个id
@@ -616,9 +774,8 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
   requestStatus: 0,//当前请求状态，具体看：聊天请求状态码
   queueLength: 3, //当前排到第几位
   rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
-}</code></pre>
-</li>
-<li><p>通知客户端排队最终结果： </p>
+}
+</code></pre></li><li><p>通知客户端排队最终结果： </p>
 <pre><code>{
   type: 202,//通知排队结果
   sessionId: 68, //会话id号，排到队后会返回这个id
@@ -637,17 +794,15 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
       }
   ],
   rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
-}</code></pre>
-</li>
-<li><p>坐席推送了满意度给客户： </p>
+}
+</code></pre></li><li><p>坐席推送了满意度给客户： </p>
 <pre><code>{
   type: 203,//推送满意度
   sessionId: 68, //会话id号，排到队后会返回这个id
   agentId: &#39;SELITE&#39;,//发出消息的坐席id
   rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
-}</code></pre>
-</li>
-<li><p>坐席人员信息变更，可能是修改了头像，可能是修改了名字，可能是换了个坐席，也可能是增加了一个坐席变成了会议方式聊天： </p>
+}
+</code></pre></li><li><p>坐席人员信息变更，可能是修改了头像，可能是修改了名字，可能是换了个坐席，也可能是增加了一个坐席变成了会议方式聊天： </p>
 <pre><code>{
   type: 204,//坐席人员信息变更
   sessionId: 68, //会话id号，排到队后会返回这个id
@@ -666,17 +821,15 @@ ws = new WebSocket(&quot;ws://127.0.0.1:8980/webchat/cws?token=&quot; + data.tok
       }
   ],
   rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
-}</code></pre>
-</li>
-<li><p>坐席结束了会话： </p>
+}
+</code></pre></li><li><p>坐席结束了会话： </p>
 <pre><code>{
   type: 205,//会话被结束
   sessionId: 68, //会话id号，排到队后会返回这个id
   agentId: &#39;SELITE&#39;,//发出消息的坐席id
   rsId: &quot;xxxxxxx&quot;//如果配置重发机制就会此属性,用来消息发送消息回执时候传递的id
-}</code></pre>
-</li>
-<li><p>收到坐席聊天消息： </p>
+}
+</code></pre></li><li><p>收到坐席聊天消息： </p>
 <pre><code>消息类型一共有：1:文本, 2:图片, 3:文件, 4:位置, 5:语音, 99:系统通知 
 目前坐席可能发出的正常聊天消息type可能是1:文本，2:图片
 {
@@ -704,9 +857,8 @@ CUSTOM = 99;//自定义提示
       noticeType: 5,//通知类型, 5表示坐席正在输入内容
       content: &quot;&quot;//通知内容
   }
-}</code></pre>
-</li>
-</ul>
+}
+</code></pre></li></ul>
 <h2 id="-">四. 机器人聊天接口</h2>
 <p>机器人接口采用http方式，调用URL： <a href="http://xxxx/webchat/robotSearch">http://xxxx/webchat/robotSearch</a></p>
 <ul>
@@ -741,9 +893,8 @@ CUSTOM = 99;//自定义提示
       },
       &quot;result&quot; : 1,
       &quot;message&quot; : &quot;&quot;
-  }</code></pre>
-</li>
-</ul>
+  }
+</code></pre></li></ul>
 <h2 id="-">五. 常量说明</h2>
 <ol>
 <li><p>websocket消息类型说明</p>
@@ -775,18 +926,16 @@ CUSTOM = 99;//自定义提示
  int RECEIVE_MESSAGE = 210;//收到聊天消息
 
  int ROBOT_MESSAGE = 301;//机器人相关消息
- int ROBOT_TRANSFER_MESSAGE = 302;//机器人转人工消息</code></pre>
-</li>
-<li><p>聊天消息类型说明</p>
+ int ROBOT_TRANSFER_MESSAGE = 302;//机器人转人工消息
+</code></pre></li><li><p>聊天消息类型说明</p>
 <pre><code> int TEXT = 1;
  int IMG = 2;
  int FILE = 3;
  int LOCATION = 4;
  int VOICE = 5;
  int VIDEO = 6;
- int SYSTEM_NOTICE = 99;</code></pre>
-</li>
-<li><p>聊天请求状态码</p>
+ int SYSTEM_NOTICE = 99;
+</code></pre></li><li><p>聊天请求状态码</p>
 <pre><code> WAITING = 0;//等待中
  ACCEPTED = 1;//坐席接受
  REFUSED = 2;//坐席拒绝
@@ -795,9 +944,8 @@ CUSTOM = 99;//自定义提示
  NO_AGENT_ONLINE = 5;//无坐席在线
  OFF_HOUR = 6;//不在工作时间
  CANCELED_BY_CLIENT = 7;//被客户取消
- ENTERPRISE_WECHAT_ACCEPTED = 11;//坐席企业号接收</code></pre>
-</li>
-<li><p>异常编码</p>
+ ENTERPRISE_WECHAT_ACCEPTED = 11;//坐席企业号接收
+</code></pre></li><li><p>异常编码</p>
 <pre><code> SUCCESS = 1;
  REQUEST_ALREADY_IN_ROULTING = -1;
  ALREADY_IN_CHATTING = -2;
@@ -821,9 +969,8 @@ CUSTOM = 99;//自定义提示
  UPLOAD_IMAGE_FAILED = -22;
  UPLOAD_VOICE_FAILED = -23;
  INVAILD_SIGN = -30
- INTERNAL_ERROR = -100;</code></pre>
-</li>
-</ol>
+ INTERNAL_ERROR = -100;
+</code></pre></li></ol>
 
 </body>
 </html>

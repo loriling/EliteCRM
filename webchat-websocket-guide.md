@@ -141,7 +141,11 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 {
     name: 'xxx.png',//图片名称
     imageUri: 'http://xxxx/xxx.png',//图片url地址
-    thumbData: 'xxxxx', //（可选）缩率图的base64
+	thumbData: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="//缩略图的base64编码(可选)
+	thumbUri: "http://xxxxx/xxx.jpg",//缩率图uri(可选)如果与thumbData同时存在，则thumbData优先
+	thumbWidth: 300,//缩率图宽度(可选)
+	thumbHeight: 200,//缩率图高度(可选)
+	saveImage: false,//是否要把图片和缩率图存到chat本地，默认false不存(可选)
     extra: ''//（可选）额外消息
 }
 文件的content:
@@ -165,6 +169,8 @@ ws = new WebSocket("ws://127.0.0.1:8980/webchat/cws?token=" + data.token);
 {
     voiceLength: 28,//语音时长，单位秒
     voiceData: 'xxxxx'//语音的base64
+	voiceUri: "http://xxxxxx/xxx.amr",//语音信息uri，如果和voiceData同时存在，voiceData优先(可选)
+	voiceType: "amr",//语音文件类型，默认amr，如果传递mp3，则系统不会对文件做amr转mp3的操作(可选)
     extra: ''//（可选）额外信息
 }
 ```
