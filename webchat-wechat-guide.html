@@ -1,497 +1,364 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<title>webchat-wechat-guide</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<style type="text/css">
-/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
-/* Author: Nicolas Hery - http://nicolashery.com */
-/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
-/* Source: https://github.com/nicolahery/markdownpad-github */
-
-/* RESET
-=============================================================================*/
-
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-/* BODY
-=============================================================================*/
-
-body {
-  font-family: Helvetica, arial, freesans, clean, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #333;
-  background-color: #fff;
-  padding: 20px;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-body>*:first-child {
-  margin-top: 0 !important;
-}
-
-body>*:last-child {
-  margin-bottom: 0 !important;
-}
-
-/* BLOCKS
-=============================================================================*/
-
-p, blockquote, ul, ol, dl, table, pre {
-  margin: 15px 0;
-}
-
-/* HEADERS
-=============================================================================*/
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 20px 0 10px;
-  padding: 0;
-  font-weight: bold;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
-  font-size: inherit;
-}
-
-h1 {
-  font-size: 28px;
-  color: #000;
-}
-
-h2 {
-  font-size: 24px;
-  border-bottom: 1px solid #ccc;
-  color: #000;
-}
-
-h3 {
-  font-size: 18px;
-}
-
-h4 {
-  font-size: 16px;
-}
-
-h5 {
-  font-size: 14px;
-}
-
-h6 {
-  color: #777;
-  font-size: 14px;
-}
-
-body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
-  margin-top: 0;
-  padding-top: 0;
-}
-
-a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
-  margin-top: 0;
-  padding-top: 0;
-}
-
-h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
-  margin-top: 10px;
-}
-
-/* LINKS
-=============================================================================*/
-
-a {
-  color: #4183C4;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* LISTS
-=============================================================================*/
-
-ul, ol {
-  padding-left: 30px;
-}
-
-ul li > :first-child, 
-ol li > :first-child, 
-ul li ul:first-of-type, 
-ol li ol:first-of-type, 
-ul li ol:first-of-type, 
-ol li ul:first-of-type {
-  margin-top: 0px;
-}
-
-ul ul, ul ol, ol ol, ol ul {
-  margin-bottom: 0;
-}
-
-dl {
-  padding: 0;
-}
-
-dl dt {
-  font-size: 14px;
-  font-weight: bold;
-  font-style: italic;
-  padding: 0;
-  margin: 15px 0 5px;
-}
-
-dl dt:first-child {
-  padding: 0;
-}
-
-dl dt>:first-child {
-  margin-top: 0px;
-}
-
-dl dt>:last-child {
-  margin-bottom: 0px;
-}
-
-dl dd {
-  margin: 0 0 15px;
-  padding: 0 15px;
-}
-
-dl dd>:first-child {
-  margin-top: 0px;
-}
-
-dl dd>:last-child {
-  margin-bottom: 0px;
-}
-
-/* CODE
-=============================================================================*/
-
-pre, code, tt {
-  font-size: 12px;
-  font-family: Consolas, "Liberation Mono", Courier, monospace;
-}
-
-code, tt {
-  margin: 0 0px;
-  padding: 0px 0px;
-  white-space: nowrap;
-  border: 1px solid #eaeaea;
-  background-color: #f8f8f8;
-  border-radius: 3px;
-}
-
-pre>code {
-  margin: 0;
-  padding: 0;
-  white-space: pre;
-  border: none;
-  background: transparent;
-}
-
-pre {
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-  font-size: 13px;
-  line-height: 19px;
-  overflow: auto;
-  padding: 6px 10px;
-  border-radius: 3px;
-}
-
-pre code, pre tt {
-  background-color: transparent;
-  border: none;
-}
-
-kbd {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    background-color: #DDDDDD;
-    background-image: linear-gradient(#F1F1F1, #DDDDDD);
-    background-repeat: repeat-x;
-    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
-    border-image: none;
-    border-radius: 2px 2px 2px 2px;
-    border-style: solid;
-    border-width: 1px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    line-height: 10px;
-    padding: 1px 4px;
-}
-
-/* QUOTES
-=============================================================================*/
-
-blockquote {
-  border-left: 4px solid #DDD;
-  padding: 0 15px;
-  color: #777;
-}
-
-blockquote>:first-child {
-  margin-top: 0px;
-}
-
-blockquote>:last-child {
-  margin-bottom: 0px;
-}
-
-/* HORIZONTAL RULES
-=============================================================================*/
-
-hr {
-  clear: both;
-  margin: 15px 0;
-  height: 0px;
-  overflow: hidden;
-  border: none;
-  background: transparent;
-  border-bottom: 4px solid #ddd;
-  padding: 0;
-}
-
-/* TABLES
-=============================================================================*/
-
-table th {
-  font-weight: bold;
-}
-
-table th, table td {
-  border: 1px solid #ccc;
-  padding: 6px 13px;
-}
-
-table tr {
-  border-top: 1px solid #ccc;
-  background-color: #fff;
-}
-
-table tr:nth-child(2n) {
-  background-color: #f8f8f8;
-}
-
-/* IMAGES
-=============================================================================*/
-
-img {
-  max-width: 100%
-}
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>WebChat与微信公众号对接接口说明</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?99f0858c7fc5b9df4dde5e0d76b6af1c";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-</head>
-<body>
-<h1 id="webchat-">WebChat与微信公众号对接接口说明</h1>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body class="vscode-light">
+        <p>#WebChat与微信公众号对接接口说明</p>
 <p>webchat已经可以和我们自己的livebot(微信公众号托管服务)对接，实现在微信公众号界面直接与客服聊天，如果其他公众号也想实现此功能，就需要按如下接口来实现。</p>
-<p>接口都是使用http协议，post方式，参数直接通过body中传递json格式字符串（content-type: application/json）<br>主要分两部分：</p>
+<p>接口都是使用http协议，post方式，参数直接通过body中传递json格式字符串（content-type: application/json）
+主要分两部分：</p>
 <blockquote>
-<p>一部分是webchat提供的接口，让微信托管服务来调用，这部分我们已经提供<br>另一部分是微信托管服务提供，让webchat来调用，这部分需要对方实现</p>
+<p>一部分是webchat提供的接口，让微信托管服务来调用，这部分我们已经提供
+另一部分是微信托管服务提供，让webchat来调用，这部分需要对方实现</p>
 </blockquote>
 <p>具体接口定义如下：</p>
-<h2 id="-webchat-webchat-">一.webchat端提供的接口（从微信托管服务发送请求到webchat)</h2>
+<p>##一.webchat端提供的接口（从微信托管服务发送请求到webchat)</p>
 <ul>
 <li>从微信端发出聊天开始请求，通常发出后返回一个当前的排队位置</li>
 </ul>
-<pre><code>http://xxxxx/webchat/createcon.do
+<pre><code><code><div>http://xxxxx/webchat/createcon.do
 接收参数:
 {
-    openId: &quot;xxxxx&quot;,//当前微信用户的openId
-    skillGroup: 1,//chat排队的队列号
-    nickname: &quot;昵称&quot;,//（可选）
-    headImgUrl: &quot;头像地址&quot;,//（可选）
-    requestTime: 1512026448289,//请求发出的时间戳
-    epid: &quot;服务号的id&quot;,//（可选）
-    serviceAccount: &quot;服务号名称&quot;,//（可选）
-    agentId: &quot;SELITE&quot;, //（可选）要排给的坐席id，只有当要固定排给某个人时候才需要传递
-    from: &quot;WECHAT&quot;, //（可选）请求来源 分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
-    brand: &quot;&quot;,//（可选）请求来源2，作为第二个来源字段
-    tracks: &quot;&quot; //（可选）客户浏览轨迹 json字符串，具体格式查看相关文档
+	openId: &quot;xxxxx&quot;,//当前微信用户的openId
+	skillGroup: 1,//chat排队的队列号
+	nickname: &quot;昵称&quot;,//（可选）
+	headImgUrl: &quot;头像地址&quot;,//（可选）
+	requestTime: 1512026448289,//请求发出的时间戳
+	epid: &quot;服务号的id&quot;,//（可选）
+	serviceAccount: &quot;服务号名称&quot;,//（可选）
+	agentId: &quot;SELITE&quot;, //（可选）要排给的坐席id，只有当要固定排给某个人时候才需要传递
+	from: &quot;WECHAT&quot;, //（可选）请求来源 分为:PC MOBILE WECHAT APP 不同来源会让坐席端看到不同客户的默认头像
+	brand: &quot;&quot;,//（可选）请求来源2，作为第二个来源字段
+	tracks: &quot;&quot; //（可选）客户浏览轨迹 json字符串，具体格式查看相关文档
 }
 
 返回参数：
 {
-    result: 1,//1表示成功，详细看请求结果代码
-    message: &quot;ok&quot;,//结果的备注说明
-    queueLength: 1,//当前队列长度
-    sessionId: 123,//当持久队列中的持久会话，则直接返回此会话id（非持久会话时候是不会返回此参数）
-    agentId: &quot;SELITE&quot;,//专属坐席id（非持久会话时候是不会返回此参数）
-    agentName: &quot;伊力特&quot;//专属坐席名称（非持久会话时候是不会返回此参数）
-}</code></pre>
+	result: 1,//1表示成功，详细看请求结果代码
+	message: &quot;ok&quot;,//结果的备注说明
+	queueLength: 1,//当前队列长度
+	sessionId: 123,//当持久队列中的持久会话，则直接返回此会话id（非持久会话时候是不会返回此参数）
+	agentId: &quot;SELITE&quot;,//专属坐席id（非持久会话时候是不会返回此参数）
+	agentName: &quot;伊力特&quot;//专属坐席名称（非持久会话时候是不会返回此参数）
+}
+
+</div></code></code></pre>
 <ul>
 <li>从微信端发消息给坐席，有的多媒体消息会有一个媒体id，webchat之后会通过这个媒体id去微信服务器上获取真正的媒体文件</li>
 </ul>
-<pre><code>http://xxxxx/webchat/getmsg.do
+<pre><code><code><div>http://xxxxx/webchat/getmsg.do
 接收参数：
 {
-    sessionId: 123,//会话id
-    epid: &quot;服务号id&quot;,//(可选)
-    agentId: &quot;SELITE&quot;,//坐席id
-    openId: &quot;xxxxx&quot;,//
-    msgType: &quot;text&quot;,//消息类型，包括了（text，image，voice，video，link，location）
-    content: &quot;&quot;//消息内容，不同消息类型，消息的内容格式也不同，除了text直接是字符串，其他都是一个json对象
+	sessionId: 123,//会话id
+	epid: &quot;服务号id&quot;,//(可选)
+	agentId: &quot;SELITE&quot;,//坐席id
+	openId: &quot;xxxxx&quot;,//
+	msgType: &quot;text&quot;,//消息类型，包括了（text，image，voice，video，link，location）
+	content: &quot;&quot;//消息内容，不同消息类型，消息的内容格式也不同，除了text直接是字符串，其他都是一个json对象
 }
 
 image的content:
 {
-    mediaId: &quot;&quot;//图片对应的微信媒体id
+	mediaId: &quot;&quot;//图片对应的微信媒体id
 }
 voice的content:
 {
-    recognition: &quot;&quot;,//语音识别出来的文字
-    format: &quot;&quot;,//语音文件格式
-    mediaId: &quot;&quot;//语音对应的微信媒体id
+	recognition: &quot;&quot;,//语音识别出来的文字
+	format: &quot;&quot;,//语音文件格式
+	mediaId: &quot;&quot;//语音对应的微信媒体id
 }
 video的content:
 {
-    thumbMediaId: &quot;&quot;,//缩略图的微信媒体id
-    mediaId: &quot;&quot;//视频对应的微信媒体id
+	thumbMediaId: &quot;&quot;,//缩略图的微信媒体id
+	mediaId: &quot;&quot;//视频对应的微信媒体id
 }
 link的content:
 {
-    url: &quot;&quot;,//链接url
-    title: &quot;&quot;,//链接标题
-    description: &quot;&quot;//描述信息
+	url: &quot;&quot;,//链接url
+	title: &quot;&quot;,//链接标题
+	description: &quot;&quot;//描述信息
 }
 location的content:
 {
-    x: 121.23,//经度
-    y: 34.213,//纬度
-    scale: 1,//坐标地图大小
-    label: &quot;&quot;//坐标标签
+	x: 121.23,//经度
+	y: 34.213,//纬度
+	scale: 1,//坐标地图大小
+	label: &quot;&quot;//坐标标签
 }
 
 返回参数：
 {
-    result: 1,
-    message: &quot;ok&quot;
-}</code></pre>
+	result: 1,
+	message: &quot;ok&quot;
+}
+
+</div></code></code></pre>
 <ul>
 <li>从微信端结束聊天</li>
 </ul>
-<pre><code>http://xxxx/webchat/closecon.do
+<pre><code><code><div>http://xxxx/webchat/closecon.do
 接收参数
 {
-    sessionId: 123,//会话id
-    epid: &quot;服务号id&quot;//(可选)
+	sessionId: 123,//会话id
+	epid: &quot;服务号id&quot;//(可选)
 }
 
 返回参数：
 {
-    result: 1,
-    message: &quot;ok&quot;
-}</code></pre>
+	result: 1,
+	message: &quot;ok&quot;
+}
+
+</div></code></code></pre>
 <ul>
 <li>从微信端提交满意度</li>
 </ul>
-<pre><code>http://xxxx/webchat/ratesession.do
+<pre><code><code><div>http://xxxx/webchat/ratesession.do
 接收参数
 {
-    chatSessionId: 123,//会话id
-    ratingId: 1,//满意度评分，具体值由具体项目业务决定
-    ratingComment: &quot;&quot;,//满意度备注信息
-    epid: &quot;服务号id&quot;,//(可选)
+	chatSessionId: 123,//会话id
+	ratingId: 1,//满意度评分，具体值由具体项目业务决定
+	ratingComment: &quot;&quot;,//满意度备注信息
+	epid: &quot;服务号id&quot;,//(可选)
 }
 
 返回参数：
 {
-    result: 1,
-    message: &quot;ok&quot;
-}</code></pre>
-<h2 id="-webchat-">二. 微信托管服务提供的接口（从webchat端发消息给微信托管服务）</h2>
+	result: 1,
+	message: &quot;ok&quot;
+}
+
+</div></code></code></pre>
+<ul>
+<li>从微信端发送机器人转接到人工客服的接口信息</li>
+</ul>
+<pre><code><code><div>http://xxxx/webchat/transferCon.do
+接收参数
+{
+	sessionId: 123,//会话id
+	openId: 1,//满意度评分，具体值由具体项目业务决定
+	createTime: &quot;&quot;,//当前时间
+	transferInfo: &quot;&quot;,//转接信息内容
+	epid: &quot;服务号id&quot;,//(可选)
+}
+
+返回参数：
+{
+	result: 1,//1表示成功，详细看请求结果代码
+	message: &quot;ok&quot;,//结果的备注说明
+	queueLength: 1,//当前队列长度
+	sessionId: 123,//当持久队列中的持久会话，则直接返回此会话id（非持久会话时候是不会返回此参数）
+	agentId: &quot;SELITE&quot;,//专属坐席id（非持久会话时候是不会返回此参数）
+	agentName: &quot;伊力特&quot;//专属坐席名称（非持久会话时候是不会返回此参数）
+}
+</div></code></code></pre>
+<ul>
+<li>从微信端发起取消聊天的接口</li>
+</ul>
+<pre><code><code><div>http://xxxx/webchat/cancelRequest.do
+接收参数
+{
+	sessionId: 123,//会话id
+	openId: 1,//满意度评分，具体值由具体项目业务决定
+	requestId: 1,//请求会话id
+	createTime: &quot;&quot;,//当前时间
+	epid: &quot;服务号id&quot;,//(可选)
+}
+
+返回参数：
+{
+	result: 1,
+	message: &quot;ok&quot;
+}
+</div></code></code></pre>
+<ul>
+<li>从微信端发送请求获取当前用户的排队的位置</li>
+</ul>
+<pre><code><code><div>    http://xxxx/webchat/getQueueLength.do
+接收参数
+{
+	requestId: 123,//请求会话id
+	epid: &quot;服务号id&quot;,//(可选)
+}
+
+返回参数：
+{
+	result: 1,
+	message: &quot;ok&quot;,
+	orderInQueue: 0, //位置信息
+}
+
+</div></code></code></pre>
+<ul>
+<li>从微信端发送请求获取当前会话的会话状态</li>
+</ul>
+<pre><code><code><div>http://xxxx/webchat/pulse.do
+接收参数
+{
+	sessionId: 123,//会话id
+	openId: 1,//满意度评分，具体值由具体项目业务决定
+	createTime: &quot;&quot;,//当前时间
+	transferInfo: &quot;&quot;,//转接信息内容
+	epid: &quot;服务号id&quot;,//(可选)
+}
+
+返回参数：
+{
+	result: 1 //返回1正在聊天中
+}
+
+</div></code></code></pre>
+<p>##二. 微信托管服务提供的接口（从webchat端发消息给微信托管服务）</p>
 <ul>
 <li>通知聊天开始。当客户发出过聊天请求后，请求经过排队，分配给了某个坐席，坐席接受了请求，这时候聊天会话就建立了，webchat也就会调用这个接口，通知微信托管服务。</li>
 </ul>
-<pre><code>http://xxxx/ari/create
+<pre><code><code><div>http://xxxx/ari/create
 接收参数：
 {
-    result: 1,//排队结果，1表示成功
-    message: &quot;ok&quot;,//备注消息
-    agentId: &quot;&quot;,//坐席id
-    agentName: &quot;&quot;,//坐席名
-    sessionId: 123,//会话id
-    responseTime: 1512026448289,//发送时间
-    openId: &quot;&quot;,//客户openId
-    epid: &quot;服务号id&quot;,
+	result: 1,//排队结果，1表示成功
+	message: &quot;ok&quot;,//备注消息
+	agentId: &quot;&quot;,//坐席id
+	agentName: &quot;&quot;,//坐席名
+	sessionId: 123,//会话id
+	responseTime: 1512026448289,//发送时间
+	openId: &quot;&quot;,//客户openId
+	epid: &quot;服务号id&quot;,
 }
 
 返回参数：
 {
-    result: 1,
-    message: &quot;ok&quot;
-}</code></pre>
+	result: 1,
+	message: &quot;ok&quot;
+}
+</div></code></code></pre>
 <ul>
 <li>发送消息给微信</li>
 </ul>
-<pre><code>http://xxxx/ari/msg
+<pre><code><code><div>http://xxxx/ari/msg
 接受参数:
 {
-    sessionId: 123,//会话id
-    agentId: &quot;SELITE&quot;,//坐席id
-    openId: &quot;&quot;,//客户openId
-    epid: &quot;&quot;,//服务号id
-    msgTime: 12341234324,//发送时间戳
-    content: &quot;&quot;//消息内容，内容是带有html片段的富文本，需要微信端自己解析其中的表情或者图片
+	sessionId: 123,//会话id
+	agentId: &quot;SELITE&quot;,//坐席id
+	openId: &quot;&quot;,//客户openId
+	epid: &quot;&quot;,//服务号id
+	msgTime: 12341234324,//发送时间戳
+	content: &quot;&quot;//消息内容，内容是带有html片段的富文本，需要微信端自己解析其中的表情或者图片
 }
 
 返回参数：
 {
-    result: 1,
-    message: &quot;ok&quot;
-}</code></pre>
+	result: 1,
+	message: &quot;ok&quot;
+}
+</div></code></code></pre>
 <ul>
 <li>坐席端通知微信聊天结束</li>
 </ul>
-<pre><code>http://xxxx/ari/close
+<pre><code><code><div>http://xxxx/ari/close
 接受参数:
 {
-    closeTime: 12341234324,//结束时间戳
-    agentId: &quot;&quot;,//坐席id
-    sessionId: 123,//会话id
-    openId: &quot;&quot;,//客户openId
-    epid: &quot;&quot;//服务号id
+	closeTime: 12341234324,//结束时间戳
+	agentId: &quot;&quot;,//坐席id
+	sessionId: 123,//会话id
+	openId: &quot;&quot;,//客户openId
+	epid: &quot;&quot;//服务号id
 }
 
 返回参数：
 {
-    result: 1,
-    message: &quot;ok&quot;
-}</code></pre>
+	result: 1,
+	message: &quot;ok&quot;
+}
+</div></code></code></pre>
+<ul>
+<li>坐席端通知微信坐席信息</li>
+</ul>
+<pre><code><code><div>http://xxxx/ari/sessionAgentsUpdate
+接受参数:
+{
+    &quot;agentId&quot;: &quot;SELITE&quot;,//坐席id
+    &quot;sessionId&quot;: 123,
+    &quot;openId&quot;: &quot;&quot;,
+    &quot;agents&quot;: [{
+            &quot;id&quot;: &quot;000169&quot;,
+            &quot;name&quot;: &quot;nsnp663&quot;
+        }
+    ]
+}
+
+返回参数：
+{
+	result: 1,
+	message: &quot;ok&quot;
+}
+</div></code></code></pre>
+<ul>
+<li>坐席端通知微信坐席推送的更新请求状态信息</li>
+</ul>
+<pre><code><code><div>http://xxxx/ari/updateRequestStatus
+
+接受参数:
+{
+    &quot;requestId&quot;: &quot;SELITE&quot;,//坐席id
+    &quot;requestStatus&quot;: 123,
+    &quot;openId&quot;: &quot;&quot;,
+    &quot;queueLength&quot;: &quot;&quot;,
+    &quot;message&quot;: &quot;&quot;
+}
+
+返回参数：
+{
+	result: 1,
+	message: &quot;ok&quot;
+}
+</div></code></code></pre>
 <ul>
 <li>获取媒体文件</li>
 </ul>
-<pre><code>http://xxxx/ari/getMedia
+<pre><code><code><div>http://xxxx/ari/getMedia
 接受参数:
 {
-    mediaId: &quot;xxx&quot;,//媒体id
-    agentId: &quot;&quot;,//坐席id
-    sessionId: 123,//会话id
-    openId: &quot;&quot;,//客户openId
-    epid: &quot;&quot;//服务号id
+	mediaId: &quot;xxx&quot;,//媒体id
+	agentId: &quot;&quot;,//坐席id
+	sessionId: 123,//会话id
+	openId: &quot;&quot;,//客户openId
+	epid: &quot;&quot;//服务号id
 }
 
-返回具体媒体文件的文件流</code></pre>
-<h2 id="-">常量说明</h2>
+返回具体媒体文件的文件流
+</div></code></code></pre>
+<p>##常量说明</p>
+<p>聊天请求状态码</p>
+<pre><code><code><div>WAITING = 0;//等待中
+ACCEPTED = 1;//坐席接受
+REFUSED = 2;//坐席拒绝
+TIMEOUT = 3;//排队超时
+DROPPED = 4;//异常丢失
+NO_AGENT_ONLINE = 5;//无坐席在线
+OFF_HOUR = 6;//不在工作时间
+CANCELED_BY_CLIENT = 7;//被客户取消
+ENTERPRISE_WECHAT_ACCEPTED = 11;//坐席企业号接收
+</div></code></code></pre>
 <p>请求结果代码</p>
-<pre><code>public static final int SUCCESS = 1;
+<pre><code><code><div>public static final int SUCCESS = 1;
 public static final int REQUEST_ALREADY_IN_ROULTING = -1;
 public static final int ALREADY_IN_CHATTING = -2;
 public static final int NOT_IN_WORKTIME = -3;
@@ -499,8 +366,8 @@ public static final int INVAILD_SKILLGROUP = -4;
 public static final int NO_AGENT_ONLINE = -5;
 public static final int INVAILD_TO_USER_ID = -9;
 public static final int NO_SERVED_AGENT_FOUND = -10;
-public static final int INTERNAL_ERROR = -100;</code></pre>
+public static final int INTERNAL_ERROR = -100;
+</div></code></code></pre>
 
-</body>
-</html>
-<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
+    </body>
+    </html>
