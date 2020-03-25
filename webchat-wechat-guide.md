@@ -138,7 +138,7 @@ http://xxxx/webchat/transferCon.do
 接收参数
 {
 	sessionId: 123,//会话id
-	openId: 1,//满意度评分，具体值由具体项目业务决定
+	openId: 1, //客户openId
 	createTime: "",//当前时间
 	transferInfo: "",//转接信息内容
 	epid: "服务号id",//(可选)
@@ -161,7 +161,7 @@ http://xxxx/webchat/cancelRequest.do
 接收参数
 {
 	sessionId: 123,//会话id
-	openId: 1,//满意度评分，具体值由具体项目业务决定
+	openId: 1,//客户openId
 	requestId: 1,//请求会话id
 	createTime: "",//当前时间
 	epid: "服务号id",//(可选)
@@ -200,7 +200,7 @@ http://xxxx/webchat/pulse.do
 接收参数
 {
 	sessionId: 123,//会话id
-	openId: 1,//满意度评分，具体值由具体项目业务决定
+	openId: 1,//客户openId
 	createTime: "",//当前时间
 	transferInfo: "",//转接信息内容
 	epid: "服务号id",//(可选)
@@ -302,6 +302,24 @@ http://xxxx/ari/sessionAgentsUpdate
 }
 ```
 
+- 坐席端通知微信坐席推送满意度
+
+```
+http://xxxx/ari//pushRating
+接受参数:
+{
+    "sessionId": 123,
+    "openId": "",
+    "ratings": [] //满意度信息
+}
+
+返回参数：
+{
+	result: 1,
+	message: "ok"
+}
+```
+
 - 坐席端通知微信坐席推送的更新请求状态信息
 
 ```
@@ -309,9 +327,9 @@ http://xxxx/ari/updateRequestStatus
 
 接受参数:
 {
-    "requestId": "SELITE",//坐席id
+    "requestId": "SELITE",//会话id
     "requestStatus": 123,
-    "openId": "",
+    "openId": "", //客户openId
     "queueLength": "",
     "message": ""
 }
