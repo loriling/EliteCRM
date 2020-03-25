@@ -131,6 +131,88 @@ http://xxxx/webchat/ratesession.do
 
 ```
 
+- 从微信端发送机器人转接到人工客服的接口信息
+
+```
+http://xxxx/webchat/transferCon.do
+接收参数
+{
+	sessionId: 123,//会话id
+	openId: 1,//满意度评分，具体值由具体项目业务决定
+	createTime: "",//当前时间
+	transferInfo: "",//转接信息内容
+	epid: "服务号id",//(可选)
+}
+
+返回参数：
+{
+	result: 1,//1表示成功，详细看请求结果代码
+	message: "ok",//结果的备注说明
+	queueLength: 1,//当前队列长度
+	sessionId: 123,//当持久队列中的持久会话，则直接返回此会话id（非持久会话时候是不会返回此参数）
+	agentId: "SELITE",//专属坐席id（非持久会话时候是不会返回此参数）
+	agentName: "伊力特"//专属坐席名称（非持久会话时候是不会返回此参数）
+}
+```
+- 从微信端发起取消聊天的接口
+
+```
+http://xxxx/webchat/cancelRequest.do
+接收参数
+{
+	sessionId: 123,//会话id
+	openId: 1,//满意度评分，具体值由具体项目业务决定
+	requestId: 1,//请求会话id
+	createTime: "",//当前时间
+	epid: "服务号id",//(可选)
+}
+
+返回参数：
+{
+	result: 1,
+	message: "ok"
+}
+```
+
+- 从微信端发送请求获取当前用户的排队的位置
+
+```
+    http://xxxx/webchat/getQueueLength.do
+接收参数
+{
+	requestId: 123,//请求会话id
+	epid: "服务号id",//(可选)
+}
+
+返回参数：
+{
+	result: 1,
+	message: "ok",
+	orderInQueue: 0, //位置信息
+}
+
+```
+
+- 从微信端发送请求获取当前会话的会话状态
+
+```
+http://xxxx/webchat/pulse.do
+接收参数
+{
+	sessionId: 123,//会话id
+	openId: 1,//满意度评分，具体值由具体项目业务决定
+	createTime: "",//当前时间
+	transferInfo: "",//转接信息内容
+	epid: "服务号id",//(可选)
+}
+
+返回参数：
+{
+	result: 1 //返回1正在聊天中
+}
+
+```
+
 ##二. 微信托管服务提供的接口（从webchat端发消息给微信托管服务）
 
 - 通知聊天开始。当客户发出过聊天请求后，请求经过排队，分配给了某个坐席，坐席接受了请求，这时候聊天会话就建立了，webchat也就会调用这个接口，通知微信托管服务。
@@ -197,6 +279,50 @@ http://xxxx/ari/close
 }
 ```
 
+- 坐席端通知微信坐席信息
+
+```
+http://xxxx/ari/sessionAgentsUpdate
+接受参数:
+{
+    "agentId": "SELITE",//坐席id
+    "sessionId": 123,
+    "openId": "",
+    "agents": [{
+            "id": "000169",
+            "name": "nsnp663"
+        }
+    ]
+}
+
+返回参数：
+{
+	result: 1,
+	message: "ok"
+}
+```
+
+- 坐席端通知微信坐席推送的更新请求状态信息
+
+```
+http://xxxx/ari/updateRequestStatus
+
+接受参数:
+{
+    "requestId": "SELITE",//坐席id
+    "requestStatus": 123,
+    "openId": "",
+    "queueLength": "",
+    "message": ""
+}
+
+返回参数：
+{
+	result: 1,
+	message: "ok"
+}
+```
+
 - 获取媒体文件
 
 ```
@@ -214,6 +340,19 @@ http://xxxx/ari/getMedia
 ```
 
 ##常量说明
+
+聊天请求状态码
+```
+WAITING = 0;//等待中
+ACCEPTED = 1;//坐席接受
+REFUSED = 2;//坐席拒绝
+TIMEOUT = 3;//排队超时
+DROPPED = 4;//异常丢失
+NO_AGENT_ONLINE = 5;//无坐席在线
+OFF_HOUR = 6;//不在工作时间
+CANCELED_BY_CLIENT = 7;//被客户取消
+ENTERPRISE_WECHAT_ACCEPTED = 11;//坐席企业号接收
+```
 
 请求结果代码
 ```
