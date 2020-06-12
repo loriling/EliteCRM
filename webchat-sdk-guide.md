@@ -38,12 +38,26 @@
 ```java
 	//初始化chat
     Chat.init(this);
+    // 集成推送，具体可以看融云文档 https://www.rongcloud.cn/docs/android_push.html
+    PushConfig config = new PushConfig.Builder()
+            .enableHWPush(true)
+            .enableMiPush("小米 appId", "小米 appKey")
+            .enableMeiZuPush("魅族 appId", "魅族 appKey")
+            .enableFCM(true)
+            .build();
+    RongPushClient.setPushConfig(config);
 	//初始化融云
     RongIM.init(this);
     //注册接收消息监听器
     RongIM.setOnReceiveMessageListener(new EliteReceiveMessageListener());
     //注册自定义消息
     RongIM.registerMessageType(EliteMessage.class);
+    //注册机器人消息
+    RongIM.registerMessageType(RobotMessage.class);
+    RongIM.registerMessageTemplate(new RobotMessageItemProvider());
+    //注册卡片消息
+    RongIM.registerMessageType(CardMessage.class);
+    RongIM.registerMessageTemplate(new CardMessageItemProvider());
     //注册自定义用户信息提供者
     RongIM.setUserInfoProvider(new EliteUserInfoProvider(), true);
 ```	
@@ -54,19 +68,21 @@
 5. 在主Activity中，初始化并启动EliteChat
 ```java
 	/**
-	 * EliteChat提供方法
-     * 初始化EliteChat， 获取rongcloud的token，并且启动聊天。
-     * 如果发现token已经存在并且融云连接状态还是连接中的，则直接进入聊天
-     * @param serverAddr EliteWebChat服务地址
+     *      ** 聊天的入口 **
+     *
+     * @param serverAddr WebChat服务地址
      * @param userId 用户登录id
      * @param name 用户名
      * @param portraitUri 用户头像uri
+     * @param targetId 窗口id
      * @param context 当前上下文
      * @param queueId 排队队列号
      * @param ngsAddr ngs服务地址
-     * @param tracks 客户浏览轨迹 json字符串，具体格式查看相关文档
+     * @param from 请求来源
+     * @param tracks 轨迹信息（可选）
+     * @param title 聊天窗口标题 （可选）
      */
-    public static void initAndStart(String serverAddr, String userId, String name, String portraitUri, String targetId, Context context, int queueId, String ngsAddr, String tracks)
+    public static void startChat(String serverAddr, String userId, String name, String portraitUri, String targetId, Context context, int queueId, String ngsAddr, String from, String tracks, String title)
 ```
 这里的EliteWebChat服务地址，需要找过河兵相关人员提供，用户登录id可以是你们系统中的用户名，不重复即可，这里会自动查询如果不存在与过河兵系统中，会自动创建相关客户。排队队列号也是找过河兵相关人员提供即可。
 
@@ -75,10 +91,13 @@
 
 1. 在排队之前，就发出一些预发消息
 ```java
-	//发送文字消息，在调用EliteChat.initAndStart之前，就可以调用此方法，之后一旦聊天建立起来后，这个预发消息会自动发出。
+	// 发送文字消息，在调用EliteChat.initAndStart之前，就可以调用此方法，之后一旦聊天建立起来后，这个预发消息会自动发出。
 	MessageUtils.sendTextMessage("firstMsg", target);
-	//发送自定义消息，这个消息内容随便自己定义，坐席端可以收到相关消息自行做对应处理。比如这里发送一个商品信息的json字符串。坐席端可以收到后显示出对应的商品信息。
+	// 发送自定义消息，这个消息内容随便自己定义，坐席端可以收到相关消息自行做对应处理。比如这里发送一个商品信息的json字符串。坐席端可以收到后显示出对应的商品信息。
 	MessageUtils.sendCustomMessage("{\"name\":\"xxx\"}", target);
+	// 发送图片消息
+	String imgPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/DCIM/chat.png";
+    MessageUtils.sendImgMessage(Uri.fromFile(new File(imgPath)), Uri.fromFile(new File(imgPath)), target);
 ```
 
 2. 如果客户已经进入过聊天，返回到app其他页面后，再次想打开聊天，这时候可以直接启动页面，而不需要再次发起排队了
@@ -116,20 +135,21 @@ SDK支持高德地图和百度地图两种选择，这里以百度地图为例�
 	//2. 在onCreate方法里初始化百度地图
 	SDKInitializer.initialize(getApplicationContext());
 
-	//3. 在onCreate方法里，注册自定义扩展模块，先去除默认扩展，再注册自定义扩展，可以看到这里使用了我们自己的EliteExtensionModule，这里类里面就默认指定了百度地图的插件，如果要使用高德地图，可以到EliteExtensionModule类中把相关注释放开，把百度地图的注释掉，即可。
+	//3. 在onCreate方法里，注册自定义扩展模块，先去除默认扩展，再注册自定义扩展
+	//注册自定义扩展模块，先去除默认扩展，再注册自定义扩展
     List<IExtensionModule> extensionModules = RongExtensionManager.getInstance().getExtensionModules();
-    if(extensionModules != null) {
-        for(IExtensionModule extensionModule : extensionModules) {
+    if (extensionModules != null) {
+        for (IExtensionModule extensionModule : extensionModules) {
             RongExtensionManager.getInstance().unregisterExtensionModule(extensionModule);
         }
     }
-    RongExtensionManager.getInstance().registerExtensionModule(new EliteExtensionModule());
-```
-
-5. 如果希望使用小视频消息（注意小视频消息是需要额外收费的（融云收费功能）），则可以修改上述的注册插件模块方法，构造EliteExtensionModule时候传递参数true，表示开启小视频功能
-```java
-//EliteExtensionModule构造中的第一个参数，是否启用小视频，如果启用则传递true
-RongExtensionManager.getInstance().registerExtensionModule(new EliteExtensionModule(true));
+    EliteExtensionModule extensionModule = EliteExtensionModule.getInstance()
+            .enableImage(true) // 加号中开启发送图片
+            .enableMap("baidu") // 加号中开启百度地图位置发送
+            .enableFile(true) // 加号中开启发送文件
+            .enableSight(true)// 加号按钮中，开启小视频功能（注意小视频消息是需要额外收费的（融云收费功能））
+            .enableCloseSession(true);// 加号按钮中，开启客户主动结束聊天功能
+    RongExtensionManager.getInstance().registerExtensionModule(extensionModule);
 ```
 
 
