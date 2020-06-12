@@ -930,3 +930,5 @@ TRANSFER_NOTICE = 11;//转接后提示
 USER_LEFT_NOTICE = 12;//用户从会话中离开提示（通常在会议模式下，有坐席离开时候）
 CUSTOM = 99;//自定义提示
 ```
+## <div id="noticeType">六. 开发导图</div> ##
+![时序图](images/third_webchat.png)
