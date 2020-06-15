@@ -19,7 +19,7 @@
 1. 在融云官网注册一个自己的账户，并创建一个app。[https://developer.rongcloud.cn/app](https://developer.rongcloud.cn/app "https://developer.rongcloud.cn/app")
 
 2. 配置服务端实时消息路由的路由地址。具体地址，由过河兵相关人员提供。
-![设置服务端消息路由地址](images/webchat-sdk-guide/2.png)
+![设置服务端消息路由地址](images/webchat-sdk-guide/4.png)
 
 ###二. APP 集成
 
