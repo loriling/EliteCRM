@@ -357,7 +357,7 @@ http://xxxx/ari/getMedia
 返回参数：
 {
 	code: 1,
-	message: "" //downloadUrl 返回当前的这个多媒体的访问地址 会拼接地址 LIVEBOT_WANADDR + "/wechat/" + serviceAccountId +  "/" + type + "?file=" + message 作为文件的访问地址
+	message: "" // downloadUrl 返回当前的这个多媒体的访问地址 会拼接地址 LIVEBOT_WANADDR + "/wechat/" + serviceAccountId +  "/" + type + "?file=" + message 作为文件的访问地址
 }
 
 ```
