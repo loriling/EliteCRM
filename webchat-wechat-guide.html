@@ -343,8 +343,8 @@ location的content:
 
 返回参数：
 {
-	result: 1,
-	message: &quot;ok&quot;
+	code: 1,
+	message: "" //downloadUrl 返回当前的这个多媒体的访问地址 会拼接地址 LIVEBOT_WANADDR + "/wechat/" + serviceAccountId +  "/" + type + "?file=" + message 作为文件的访问地址
 }
 </div></code></code></pre>
 <ul>
@@ -360,7 +360,11 @@ location的content:
 	epid: &quot;&quot;//服务号id
 }
 
-返回具体媒体文件的文件流
+返回参数：
+{
+	result: 1,
+	message: &quot;ok&quot;
+}
 </div></code></code></pre>
 <p>##常量说明</p>
 <p>聊天请求状态码</p>
