@@ -60,6 +60,8 @@
     RongIM.registerMessageTemplate(new CardMessageItemProvider());
     //注册自定义用户信息提供者
     RongIM.setUserInfoProvider(new EliteUserInfoProvider(), true);
+	// 设置语音消息是高质量语音（默认是普通语音）
+    // RongIM.getInstance().setVoiceMessageType(RongIM.VoiceMessageType.HighQuality);
 ```	
 
 4. 导入过河兵SDK相关类，这里以可以以jar包方式提供，也可以直接提供源码。导入com.elitecrm.rcclient包下的所有类，其中App.java和MainActivity.java不需要，使用自己app中的即可。
