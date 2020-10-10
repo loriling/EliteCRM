@@ -1008,6 +1008,7 @@ HttpResponse response = httpclient.execute(httppost);
   fromSessionId: 1299,//(可选)从哪个会话id开始往前查询，如果不传递或者传递0，则表示从最新会话开始往前搜索
   fromMessageId: 100302,//(可选)从那条消息开始往前查询，如果不传递或者传递0，则表示从最新消息开始往前搜索
   maxCount: 10,//(可选)最大查询消息条数，默认10条
+  continueLastSession: true, //true是返回的历史包含当前会话， false或者是不传 不加载当前数据
   permFlag: 0,//(可选)0表示普通会话，1表示持久会话，默认0
 }
 返回参数:
