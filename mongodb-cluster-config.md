@@ -121,7 +121,7 @@ Replica Set的一堆mongod的实例集合，它们有着同样的数据内容。
 	);//初始化replica，添加主member
 	rs.add("127.0.0.1:27018");//添加从member
 	rs.addArb("127.0.0.1:27019");//添加仲裁者
-	
+
 看到返回{"ok":1} 就表示配置成功了
 
 **6.修改web应用中的mongo连接配置，以webchat为例：**
@@ -158,11 +158,11 @@ Replica Set的一堆mongod的实例集合，它们有着同样的数据内容。
 	//创建出一个admin的user
 	use admin;
 	db.createUser({
-    	user: "elite",
-    	pwd: "letmein",
-    	roles: [ "userAdminAnyDatabase",
-               "dbAdminAnyDatabase",
-               "readWriteAnyDatabase"
+		user: "elite",
+		pwd: "letmein",
+		roles: [ "userAdminAnyDatabase",
+	           "dbAdminAnyDatabase",
+	           "readWriteAnyDatabase"
   	});
   	//创建webchat相关的user
 	use webchat;
@@ -201,13 +201,17 @@ Replica Set的一堆mongod的实例集合，它们有着同样的数据内容。
 	//给webchat库的elite用户添加这个role
 	use webchat;
 	db.grantRolesToUser("elite", [{role: "executeFunctions", db: "admin"}]);
-		
-	
+
+
+​	
 2.创建keyfile
 > 随便用什么方式生成一个keyfile文件，文件内容必须是6-1024个字符。<br>
 > 比如创建一个mongodb-key.keyfile文件，用nodepad++打开，随便写一段字符，比如是：letmein0308，保存。
+>
+> 如果在linux环境中，mongodb-key.keyfile的文件权限必须是 **600**
 
 3.修改conf文件
+
 > 修改每个实例的mongod.conf文件，在security节点下，增加配置  keyFile： mongodb-key.keyfile。<br>
 > 注意这里配置的是keyfile的路径，如果不在当前目录下，就需要写上绝对路径。<br>
 > 每个节点的配置文件中，都要加上这句，并且要使用相同的keyfile<br>
