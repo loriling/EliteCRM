@@ -10,7 +10,7 @@
 
 ## 工单接口头信息
 
-#### 工单接口校验规则
+### 工单接口校验规则
 
 1. token方式
 
@@ -28,17 +28,19 @@
 
    在NgsConfig的apiWhiteList中配置ip白名单
 
-   同时请求的head中传递ds，epid，dbPool，来标识出具体的数据源即可
+   同时请求的head中传递ds，epid来标识出具体的数据源，通过staffId和groupId来标识处理的人和组
 
    示例：请求的head中添加 
 
    ```
    ds=gl2019（ds数据源名）
+   staffId=SELITE
+   groupId=SYSTEM
    ```
 
 
 
-#### 其他头信息
+### 其他头信息
 
 ```
 dbPool=xxx // 数据源dbPool（可选）
@@ -77,7 +79,6 @@ url: http://xxxxx/ngs/wo/send
 	},
 	"tabc": { // 所有tabc表
 		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
-			"relation_id": "xxx", // 关联字段relation_id（此字段必填）
 			"a": 1 // 其他各种字段
 		}
 	}
