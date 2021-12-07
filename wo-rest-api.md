@@ -26,7 +26,7 @@
 
 2. 接口白名单方式
 
-   在NgsConfig的apiWhiteList中配置ip白名单
+   在**NgsConfig**的**apiWhiteList**中配置ip白名单
 
    同时请求的head中传递ds，epid来标识出具体的数据源，通过staffId和groupId来标识处理的人和组
 
@@ -81,7 +81,10 @@ url: http://xxxxx/ngs/wo/send
 		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
 			"a": 1 // 其他各种字段
 		}
-	}
+	},
+    "step": { // workorderstep3表字段传递
+        "ooo": "abc"
+    }
 }
 ```
 
