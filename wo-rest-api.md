@@ -167,7 +167,18 @@ url: http://xxxxx/ngs/wo/close
 ```json
 {
 	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4" // elitetask_guid
+	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+    "objective": { // objective表字段（可选）
+		"stringfield1": "aaa"
+	},
+	"tabc": { // 所有tabc表
+		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+			"a": 1 // 其他各种字段
+		}
+	},
+    "step": { // workorderstep3表字段传递
+        "ooo": "abc"
+    }
 }
 ```
 
@@ -195,7 +206,18 @@ url: http://xxxxx/ngs/wo/failedClose
 {
 	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
 	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-	"objectiveStatus": "xxx" // 默认不传递是FAILED，也可以自定义传递（可选）
+	"objectiveStatus": "xxx", // 默认不传递是FAILED，也可以自定义传递（可选）
+    "objective": { // objective表字段（可选）
+		"stringfield1": "aaa"
+	},
+	"tabc": { // 所有tabc表
+		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+			"a": 1 // 其他各种字段
+		}
+	},
+    "step": { // workorderstep3表字段传递
+        "ooo": "abc"
+    }
 }
 ```
 
