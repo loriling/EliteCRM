@@ -231,3 +231,124 @@ url: http://xxxxx/ngs/wo/failedClose
 }
 ```
 
+
+
+### 工单催单
+
+新增一条step记录
+
+url: http://xxxxx/ngs/wo/reminder
+
+入参：
+
+```json
+{
+	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+    "comments": "xxxxx", // 备注信息
+    "step": { // workorderstep3表字段传递
+        "ooo": "abc"
+    }
+}
+```
+
+出参：
+
+```json
+{
+	"code": 1, // 1表示成功 0表示失败
+	"message": "", // 错误信息
+	"value": null
+}
+```
+
+
+
+### 工单回退
+
+按下送的路径，回退工单
+
+如果不传递operateTaskGuid，则删除当前task后，不会新建task
+
+url: http://xxxxx/ngs/wo/back
+
+入参：
+
+```json
+{
+	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+    "operateTaskGuid": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // 需要处理的elitetask的guid（可选）
+	"toGrp": "", // 退回到的组（可选）
+	"toBy": "", // 退回到的人（可选）
+	"toRole": "", // 退回到的角色（可选）
+    "comments": "xxxxx", // 备注信息
+    "objective": { // objective表字段（可选）
+		"stringfield1": "aaa"
+	},
+    "task": { // elitetask表字段（可选）
+		"event_guid": "bbb"
+	},
+	"tabc": { // 所有tabc表
+		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+			"a": 1 // 其他各种字段
+		}
+	},
+    "step": { // workorderstep3表字段传递
+        "ooo": "abc"
+    }
+}
+```
+
+出参：
+
+```json
+{
+	"code": 1, // 1表示成功 0表示失败
+	"message": "", // 错误信息
+	"value": null
+}
+```
+
+
+
+### 工单撤单
+
+撤单的操作：根据oId删除所有现有task，然后假装做了个save操作（新生成一个task）
+
+url: http://xxxxx/ngs/wo/revoke
+
+入参：
+
+```json
+{
+	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+    "comments": "xxxxx", // 备注信息
+    "objective": { // objective表字段（可选）
+		"stringfield1": "aaa"
+	},
+    "task": { // elitetask表字段（可选）
+		"event_guid": "bbb"
+	},
+	"tabc": { // 所有tabc表
+		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+			"a": 1 // 其他各种字段
+		}
+	},
+    "step": { // workorderstep3表字段传递
+        "ooo": "abc"
+    }
+}
+```
+
+出参：
+
+```json
+{
+	"code": 1, // 1表示成功 0表示失败
+	"message": "", // 错误信息
+	"value": null
+}
+```
+
