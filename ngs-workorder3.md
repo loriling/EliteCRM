@@ -427,15 +427,14 @@ woload : function(oId, taskId)
 wonew : function(mapId, customerGuid, rolegroupId)
 ```
 - **genSave 生成工单保存bounddata对象 **
-
-  ```js
-  /**
-   * 生成工单保存bounddata对象
-   * @param comments 备注信息
-   * @return {BoundData}
-   */
-  genSave: function(comments)
-  ```
+```js
+/**
+* 生成工单保存bounddata对象
+* @param comments 备注信息
+* @return {BoundData}
+*/
+genSave: function(comments)
+```
 
 - **wosave 工单保存** 加载完工单或者新建完工单，就可以开始调用工单的那些个方法了
 ``` javascript
@@ -448,15 +447,14 @@ wonew : function(mapId, customerGuid, rolegroupId)
 wosave : function(comments, dbpool)
 ```
 - **genClose 生成结案bounddata对象** 
-
-  ```js
-  /**
-   * 生成结案bounddata对象
-   * @param comments 备注信息
-   * @return {BoundData}
-   */
-  genClose: function(comments)
-  ```
+```js
+/**
+* 生成结案bounddata对象
+* @param comments 备注信息
+* @return {BoundData}
+*/
+genClose: function(comments)
+```
 
 - **woclose 工单结案**
 ``` javascript
@@ -469,24 +467,23 @@ wosave : function(comments, dbpool)
 woclose : function(comments, dbpool)
 ```
 - **genSend 生成下送bounddata对象** 
-
-  ```js
-  /**
-   * 生成下送bounddata对象
-   * @param params {object} 参数
-   *        comments 备注信息
-   *        [toStep] 下送的步骤
-   *        [toGrp] 下送的组
-   *        [toBy] 下送的人
-   *        [operateTaskGuid] 需要操作的taskId
-   *        [dbPool] 数据源
-   *        [toRole] 下送的角色
-   *        [substatus] 子状态
-   *        [rolegroupId] 机构id
-   * @return {BoundData}
-   */
-  genSend: function(params)
-  ```
+```js
+/**
+* 生成下送bounddata对象
+* @param params {object} 参数
+*        comments 备注信息
+*        [toStep] 下送的步骤
+*        [toGrp] 下送的组
+*        [toBy] 下送的人
+*        [operateTaskGuid] 需要操作的taskId
+*        [dbPool] 数据源
+*        [toRole] 下送的角色
+*        [substatus] 子状态
+*        [rolegroupId] 机构id
+* @return {BoundData}
+*/
+genSend: function(params)
+```
 
 - **wosend 工单下送** 可以加载一次，下送多次，这样可以实现给多个人同时下送工单，相同的objective，不同的elitetask
 ``` javascript
@@ -508,15 +505,14 @@ wosend : function(params)
 ```
 
 - **genCd 生成催单bounddata对象**
-
-  ```js
-  /**
-   * 生成催单bounddata对象
-   * @param comments 备注信息
-   * @return {BoundData}
-   */
-  genCd : function(comments)
-  ```
+```js
+/**
+* 生成催单bounddata对象
+* @param comments 备注信息
+* @return {BoundData}
+*/
+genCd : function(comments)
+```
 
 - **wocd 工单催单** 
 ``` javascript
@@ -530,28 +526,51 @@ wocd : function(comments, dbpool)
 ```
 
 - **genFailedClose** 失败结案bounddata生成
-
-  ```js
-  /**
-   * 失败结案bounddata生成
-   * @param comments 备注信息
-   * @param objectiveStatus
-   * @return {BoundData}
-   */
-  genFailedClose: function(comments, objectiveStatus) 
-  ```
+```js
+/**
+* 失败结案bounddata生成
+* @param comments 备注信息
+* @param objectiveStatus
+* @return {BoundData}
+*/
+genFailedClose: function(comments, objectiveStatus) 
+```
 
 - **wofailedclose 工单失败结案**
+```js
+/**
+* 工单失败结案
+* @param comments {string} 备注信息
+* @param objectiveStatus {string} 工单状态，默认是FAILED，也可以自己传递
+* @param dbPool {string} 数据库连接池
+*/
+wofailedclose : function(comments, objectiveStatus, dbPool)
+```
 
-  ```js
-  /**
-   * 工单失败结案
-   * @param comments {string} 备注信息
-   * @param objectiveStatus {string} 工单状态，默认是FAILED，也可以自己传递
-   * @param dbPool {string} 数据库连接池
-   */
-  wofailedclose : function(comments, objectiveStatus, dbPool)
-  ```
+- **worevoke 工单撤单**
+```js
+/**
+* 工单撤单
+* @param params {object}  参数
+*    revokeToNodeId 撤单到的节点id
+*    comments 备注信息 		
+* @param dbPool {string} 数据库连接池
+*/
+worevoke : function(params, dbPool)
+```
+
+- **genRevoke** 撤单bounddata生成
+```js
+/**
+* 撤单bounddata生成
+* @param params {object}  参数
+*    revokeToNodeId 撤单到的节点id
+*    comments 备注信息 		
+* @return {BoundData}
+*/
+genRevoke: function(params) 
+```
+
 
 - **woclear 清空工单缓存** 包括了objective和elitetask的bounddata对象，和工单结构
 ``` javascript
