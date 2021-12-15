@@ -520,12 +520,12 @@ genCd : function(comments)
  * 工单催单
  * @param comments 备注信息
  * @param dbpool
- * @returns {number}
+ * @returns {number} 1 成功 , -1 失败
  */
 wocd : function(comments, dbpool)
 ```
 
-- **genFailedClose** 失败结案bounddata生成
+- **genFailedClose 失败结案bounddata生成** 
 ```js
 /**
 * 失败结案bounddata生成
@@ -547,19 +547,7 @@ genFailedClose: function(comments, objectiveStatus)
 wofailedclose : function(comments, objectiveStatus, dbPool)
 ```
 
-- **worevoke 工单撤单**
-```js
-/**
-* 工单撤单
-* @param params {object}  参数
-*    revokeToNodeId 撤单到的节点id
-*    comments 备注信息 		
-* @param dbPool {string} 数据库连接池
-*/
-worevoke : function(params, dbPool)
-```
-
-- **genRevoke** 撤单bounddata生成
+- **genRevoke 撤单bounddata生成** 
 ```js
 /**
 * 撤单bounddata生成
@@ -569,6 +557,19 @@ worevoke : function(params, dbPool)
 * @return {BoundData}
 */
 genRevoke: function(params) 
+```
+
+- **worevoke 工单撤单**
+```js
+/**
+* 工单撤单
+* @param params {object}  参数
+*    revokeToNodeId 撤单到的节点id
+*    comments 备注信息 		
+* @param dbPool {string} 数据库连接池
+* @returns {number} 1 成功 , -1 失败
+*/
+worevoke : function(params, dbPool)
 ```
 
 
