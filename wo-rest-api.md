@@ -122,6 +122,7 @@ url: http://xxxxx/ngs/wo/send
 	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid（加载时必传）
 	"operateTaskGuid": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // 需要处理的elitetask的guid（可选）
 	"toStep": "", // 下送到的步骤（可选）
+    "handleType": "", // 处理类型（可选: G,R,GR。默认根据下一个节点上配置的来，如果传递，则按传递的来）
 	"toGrp": "", // 下送到的组（可选）
 	"toBy": "", // 下送到的人（可选）
 	"toRole": "", // 下送到的角色（可选）
