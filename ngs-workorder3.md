@@ -480,6 +480,8 @@ woclose : function(comments, dbpool)
 *        [toRole] 下送的角色
 *        [substatus] 子状态
 *        [rolegroupId] 机构id
+* 	     [handleType] 处理类型(默认使用下一步节点上的配置)
+* 	     [sendType] 下送类型(默认使用下一步节点上的配置)
 * @return {BoundData}
 */
 genSend: function(params)
@@ -499,6 +501,8 @@ genSend: function(params)
  * 	   [toRole] 下送的角色
  * 	   [substatus] 子状态
  * 	   [rolegroupId] 机构id
+ *     [handleType] 处理类型(默认使用下一步节点上的配置)
+ *	   [sendType] 下送类型(默认使用下一步节点上的配置)
  * @returns {number}
  */
 wosend : function(params)
