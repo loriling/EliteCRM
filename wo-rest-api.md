@@ -100,7 +100,7 @@ url: http://xxxxx/ngs/wo/save
 	"message": "", // 错误信息
 	"value": {
         "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid，当工单是新建时候，接口调用放可能需要获取这个新生成的guid
-        "taskId": "" // elitetask_guid 当工单是新建时候，接口调用放可能需要获取这个新生成的guid
+        "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4" // elitetask_guid 当工单是新建时候，接口调用放可能需要获取这个新生成的guid
     }
 }
 ```
