@@ -123,7 +123,7 @@ url: http://xxxxx/ngs/wo/send
     "customerGuid": "xxxx",// 客户guid（新建时必传）
 	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid（加载时必传）
 	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid（加载时必传）
-	"operateTaskGuid": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // 需要处理的elitetask的guid（可选）
+	"operateTaskGuid": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // 需要处理的elitetask的guid（可选，只有传递这个值时候才会生成elitetask记录，包括新建下送和已有工单下送）
 	"toStep": "", // 下送到的步骤（可选）
     "handleType": "", // 处理类型（可选: G,R,GR。默认根据下一个节点上配置的来，如果传递，则按传递的来）
     "sendType": 1, // 下送类型（可选）详细说明看下面的HANDLETYPE与SENDTYPE说明
