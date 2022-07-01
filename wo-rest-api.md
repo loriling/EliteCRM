@@ -68,13 +68,6 @@ url: http://xxxxx/ngs/wo/save
     "customerGuid": "xxxx",// 客户guid（新建时必传）
 	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid（加载时必传）
 	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid（加载时必传）
-	"operateTaskGuid": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // 需要处理的elitetask的guid（可选）
-	"toStep": "", // 下送到的步骤（可选）
-	"toGrp": "", // 下送到的组（可选）
-	"toBy": "", // 下送到的人（可选）
-	"toRole": "", // 下送到的角色（可选）
-	"substatus": "", // 子状态（可选）
-	"rolegroupId": "", // 机构id（可选）
 	"objective": { // objective表字段（可选）
 		"stringfield1": "aaa"
 	},

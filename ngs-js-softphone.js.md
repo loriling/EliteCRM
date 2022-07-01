@@ -26,7 +26,7 @@ $softphone.simpleCommonCall('CTICommonCall', 'CTICallName=RESETAGENTSKILL|AgentI
 
 - **getCallInfo** -  获取callInfo
 ```javascript
-$softphone.getCallInfo(function(callInfo){
+$softphone.getCallInfo(function(callInfo) {
 	//这个callInfo是我封装的一个js对象，其中包含了当前电话的很多信息，可以通过getValue方法获取具体信息的值，所有信息如下：
 	//var callInfo = {
 	//	agentid : softphone.AgentID,
@@ -59,6 +59,7 @@ $softphone.getCallInfo(function(callInfo){
 	sandbox.docommand('12345');//调用当前组件或者当前动态页面的12345命令组
 });
 ```
+
 - **getAgentStateAndMode** -  获取agentState和agentMode
 **agentState包括：**
 	//    EAS_UNKNOWN: 0,
@@ -76,7 +77,7 @@ $softphone.getCallInfo(function(callInfo){
     //    EAM_NOCALLDISCONNECT: 5,
     //    EAM_MAX: 6
 ```javascript
-$softphone.getAgentStateAndMode(function(stateAndMode){
+$softphone.getAgentStateAndMode(function(stateAndMode) {
 	//stateAndMode是个json对象，包含了：
 	//{
 	//    agentState : 1,
@@ -85,162 +86,359 @@ $softphone.getAgentStateAndMode(function(stateAndMode){
 	R.var.stateAndMode= stateAndMode;//把stateAndMode对象赋值给当前runtime的var.stateAndMode变量上
 	sandbox.docommand('12345');//调用当前组件或者当前动态页面的12345命令组
 });
-``` 
+```
+
 - **makeCall** -  拨打电话
 ```javascript
-$softphone.makeCall('13916312345', 'a=1|b=2'); //第一个参数是电话号码。第二参数是随路数据，key=value多个用竖线分割
+/**
+ * 拨打电话
+ * @param number 电话号码
+ * @param sData 随路数据, key=value多个用竖线分割
+ * @param [callback] 结果回调
+ */
+$softphone.makeCall('13916312345', 'a=1|b=2', callback);
 ```
+
 - **releaseCall** - 挂断电话
 ```javascript
-$softphone.releaseCall();
+/**
+ * 挂断电话
+ * @param [callback] 结果回调
+ */
+$softphone.releaseCall(callback);
 ```
+
 - **answerCall** - 接起电话
 ```javascript
-$softphone.answerCall();
+/**
+ * 接起电话
+ * @param [callback] 结果回调
+ */
+$softphone.answerCall(callback);
 ```
+
 - **holdCall** - 保持电话
 ```javascript
-$softphone.holdCall();
+/**
+ * 保持电话
+ * @param [callback] 结果回调
+ */
+$softphone.holdCall(callback);
 ```
+
 - **retrieveCall** - 接回电话
 ```javascript
-$softphone.holdCall();
+/**
+ * 接回电话
+ * @param [callback] 结果回调
+ */
+$softphone.retrieveCall(callback);
 ```
+
 - **initConference** - 发出会议
 ```javascript
-$softphone.initConference('13916312345', 'a=1|b=2'); //第一个参数是电话号码。第二参数是随路数据，key=value多个用竖线分割
+/**
+ * 发起会议
+ * @param number 会议号码
+ * @param sData 随路数据，key=value多个用竖线分割
+ * @param [callback] 结果回调
+ */
+$softphone.initConference('13916312345', 'a=1|b=2', callback);
 ```
+
 - **completeConference** - 完成会议
 ```javascript
-$softphone.completeConference();
+/**
+ * 完成会议
+ * @param [callback] 结果回调
+ */
+$softphone.completeConference(callback);
 ```
+
 - **initTransfer** - 发出转接
 ```javascript
-$softphone.initTransfer('13916312345', 'a=1|b=2'); //第一个参数是电话号码。第二参数是随路数据，key=value多个用竖线分割
+/**
+ * 发起转接
+ * @param number 转接号码
+ * @param sData 随路数据，key=value多个用竖线分割
+ * @param [callback] 结果回调
+ */
+$softphone.initTransfer('13916312345', 'a=1|b=2', callback);
 ```
+
 - **completeTransfer** - 完成转接
 ```javascript
-$softphone.completeConference();
+/**
+ * 完成转接
+ * @param [callback] 结果回调
+ */
+$softphone.completeConference(callback);
 ```
+
 - **muteTransfer** - 直接转
 ```javascript
-$softphone.muteTransfer('13916312345', 'a=1|b=2'); //第一个参数是电话号码。第二参数是随路数据，key=value多个用竖线分割
+/**
+ * 直接转
+ * @param number 转接号码
+ * @param sData 随路数据，key=value多个用竖线分割
+ * @param [callback] 结果回调
+ */
+$softphone.muteTransfer('13916312345', 'a=1|b=2', callback);
 ```
+
+- **singleStepTransfer** - 单步转
+```javascript
+/**
+ * 单步转
+ * @param number 转接号码
+ * @param sData 随路数据，key=value多个用竖线分割
+ * @param [callback] 结果回调
+ */
+$softphone.singleStepTransfer('13916312345', 'a=1|b=2', callback);
+```
+
 - **reconnect** - 取消转接或会议
 ```javascript
-$softphone.reconnect();
+/**
+ * 取消转接或会议
+ * @param [callback] 结果回调
+ */
+$softphone.reconnect(callback);
 ```
+
 - **ready** - 准备好
 ```javascript
-$softphone.ready();
+/**
+ * 置闲
+ * @param [callback] 结果回调
+ */
+$softphone.ready(callback);
 ```
+
 - **notReady** - 未准备好
 ```javascript
-$softphone.notReady();
+/**
+ * 置忙
+ * @param [callback] 结果回调
+ */
+$softphone.notReady(callback);
 ```
+
 - **breaks** - 小修
 ```javascript
-$softphone.breaks();
+/**
+ * 小修
+ * @param [callback] 结果回调
+ */
+$softphone.breaks(callback);
 ```
+
 - **mute** - 静音
 ```javascript
-$softphone.mute();
+/**
+ * 静音
+ * @param [callback] 结果回调
+ */
+$softphone.mute(callback);
 ```
+
 - **unMute** - 取消静音
 ```javascript
-$softphone.unMute();
+/**
+ * 取消静音
+ * @param [callback] 结果回调
+ */
+$softphone.unMute(callback);
 ```
+
 - **notifyWorkStart** - 通知工作开始
 	   "WT-OB", // 外呼
        "WT-IB", // 呼入
        "WT_PDS_OB" // PDS外呼
 ```javascript
-$softphone.notifyWorkStart('WT-OB');//需要传递工作类型
+/**
+ * 通知软电话工作开始
+ * @param workStatus
+ * @param [callback] 结果回调
+ */
+$softphone.notifyWorkStart('WT-OB', callback);
 ```
+
 - **notifyWorkEnd** - 通知工作结束
 ```javascript
-$softphone.notifyWorkEnd();
+/**
+ * 通知软电话工作结束
+ * @param [callback] 结果回调
+ */
+$softphone.notifyWorkEnd(callback);
 ```
+
 - **allAttachDatas** - 获取所有随路数据
 ```javascript
-$softphone.allAttachDatas(function(attachDatas){
+$softphone.allAttachDatas(function(attachDatas) {
 	log(attachDatas);//获取返回的随路数据json字符串，日志打印出来看看
 	R.var.attachDatas= attachDatas;//把attachDatas对象赋值给当前runtime的var.attachDatas变量上
 	sandbox.docommand('12345');//调用当前组件或者当前动态页面的12345命令组
 });
 ```
+
 - **attachData** - 获取指定key的随路数据
 ```javascript
-$softphone.attachData('key', function(attachData){
+$softphone.attachData('key', function(attachData) {
 	log(attachData);//获取给定key的随路数据值，日志打印出来看看
 	R.var.key = attachData;//把attachData对象赋值给当前runtime的var.key变量上
 	sandbox.docommand('12345');//调用当前组件或者当前动态页面的12345命令组
 });
 ```
+
 - **getAgentId** - 获取工号
 ```javascript
-$softphone.getAgentId(function(agentId){
+$softphone.getAgentId(function(agentId) {
 	log(agentId);//获取工号，日志打印出来看看
 	R.var.agentId= agentId;//把agentId对象赋值给当前runtime的var.agentId变量上
 });
 ```
+
 - **getExtension** - 获取分机号
 ```javascript
-$softphone.getExtension(function(extension){
+$softphone.getExtension(function(extension) {
 	log(extension);//获取分机号，日志打印出来看看
 	R.var.extension= extension;//把extension对象赋值给当前runtime的var.extension变量上
 });
 ```
+
 - **getRecordGuid** - 获取录音guid
 ```javascript
-$softphone.getRecordGuid(function(recordGuid){
+$softphone.getRecordGuid(function(recordGuid) {
 	log(recordGuid);//获取录音guid，日志打印出来看看
 	R.var.recordGuid= recordGuid;//把recordGuid对象赋值给当前runtime的var.recordGuid变量上
 });
 ```
+
+- **getRecordInfo** - 获取录音信息
+```javascript
+$softphone.getRecordInfo(function(recordInfo) {
+	log(recordInfo);//包括了3个属性： recordGuid, recordFile, recordFlag
+});
+```
+
 - **forceAgentLogout** - 强退
 ```javascript
-$softphone.forceAgentLogout('分机号', '工号');
+/**
+ * 强退
+ * @param dn 分机
+ * @param agentId 工号
+ * @param [callback] 结果回调
+ */
+$softphone.forceAgentLogout(dn, agentId, callback);
 ```
+
 - **forceAgentNotReady** - 强忙
 ```javascript
-$softphone.forceAgentNotReady('分机号', '工号');
+/**
+ * 强忙
+ * @param dn 分机
+ * @param agentId 工号
+ * @param [callback] 结果回调
+ */
+$softphone.forceAgentNotReady(dn, agentId, callback);
 ```
+
 - **forceAgentReady** - 强闲
 ```javascript
-$softphone.forceAgentReady('分机号', '工号');
+/**
+ * 强闲
+ * @param dn 分机
+ * @param agentId 工号
+ * @param [callback] 结果回调
+ */
+$softphone.forceAgentReady(dn, agentId, callback);
 ```
+
 - **listen** - 监听
 ```javascript
-$softphone.listen('分机号');
+/**
+ * 监听
+ * @param dn 分机
+ * @param agentId 工号
+ * @param [callback] 结果回调
+ */
+$softphone.listen(dn, agentId, callback);
 ```
+
 - **intercept** - 强拆
 ```javascript
-$softphone.intercept('工号');
+/**
+ * 强拆
+ * @param dn 分机
+ * @param agentId 工号
+ * @param [callback] 结果回调
+ */
+$softphone.intercept(dn, agentId, callback);
 ```
+
 - **forceDisconnectAgentByDN** - 强断
 ```javascript
-$softphone.forceDisconnectAgentByDN('分机号');
+ /**
+ * 强断
+ * @param dn 分机号
+ * @param [callback] 结果回调
+ */
+$softphone.forceDisconnectAgentByDN(dn, callback);
 ```
+
 - **forceHangUp** - 板卡挂断
 ```javascript
-$softphone.forceHangUp();
+ /**
+ * 板卡挂断
+ * @param dn 分机号
+ * @param agentId 工号
+ * @param [callback] 结果回调
+ */
+$softphone.forceHangUp(dn, agentId, callback);
 ```
+
 - **bargeIn** - 强插
 ```javascript
-$softphone.bargeIn('分机号');
+/**
+ * 强插
+ * @param dn 分机号
+ * @param agentId 工号
+ * @param [callback] 结果回调
+ */
+$softphone.bargeIn(dn, agentId, callback);
 ```
+
 - **takeOver** - 拦截
 ```javascript
-$softphone.takeOver('分机号', '工号');
+/**
+ * 拦截
+ * @param dn 分机号
+ * @param agentId 工号
+ * @param [callback] 结果回调
+ */
+$softphone.takeOver(dn, agentId, callback);
 ```
+
 - **coach** - 暗语
 ```javascript
-$softphone.coach('分机号', '工号');
+/**
+ * 暗语
+ * @param dn 分机号
+ * @param agentId 工号
+ * @param [callback] 结果回调
+ */
+$softphone.coach(dn, agentId, callback);
 ```
+
 - **sendDTMF** - 发送DTMF数据
 ```javascript
-$softphone.sendDTMF('123');
+/**
+ * 发送DTMF数据
+ * @param number 号码
+ * @param [callback] 结果回调
+ */
+$softphone.sendDTMF(number, callback);
 ```
 
 - **addCustomButton** - 添加自定义软电话按钮
