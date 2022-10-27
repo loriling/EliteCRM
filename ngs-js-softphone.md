@@ -11,7 +11,7 @@ commonCall是软电话的一个非常重要且通用的方法，通常为了不�
 ```javascript
 //通过commonCall来调用setevent，给当前event赋值
 var param = "customer_guid=" + R.temp.cust_customer_guid + "|event_guid=" + R.temp.event_guid;
-$softphone.simpleCommonCall('setevent', 'param');
+$softphone.simpleCommonCall('setevent', param);
 
 //通过commonCall来通知软电话项目改变
 $softphone.simpleCommonCall('changeproject', 'ProjectId=gzl111');
