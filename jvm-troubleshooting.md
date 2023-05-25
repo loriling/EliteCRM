@@ -179,3 +179,23 @@ KiB Swap:        0 total,        0 free,        0 used.  5038328 avail Mem
 
 
 
+# 补充
+
+### 如果装的是openjdk，有可能没有装dev工具，造成jmap等命令不能使用
+
+```shell
+# 查看java版本
+java -version
+
+openjdk version "11.0.16.1" 2022-08-12 LTS
+OpenJDK Runtime Environment (Red_Hat-11.0.16.1.1-1.al8) (build 11.0.16.1+1-LTS)
+OpenJDK 64-Bit Server VM (Red_Hat-11.0.16.1.1-1.al8) (build 11.0.16.1+1-LTS, mixed mode, sharing)
+
+# 查看装了哪些java 可以看到是否装了devel版本
+rpm -qa |grep java
+
+java-11-openjdk-headless-11.0.16.1.1-1.al8.x86_64
+java-11-openjdk-11.0.16.1.1-1.al8.x86_64
+java-11-openjdk-devel-11.0.16.1.1-1.al8.x86_64
+```
+
