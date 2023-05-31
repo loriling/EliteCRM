@@ -116,7 +116,7 @@ softphone.initSoftphone({}, function(d){
 			agentId : "5005",//工号
 			extension : "8005",//分级
 			password : "1234",//密码
-			loginType: ""// 签入类型
+			loginType: "webrtc"// 签入类型  webrtc：浏览器内置电话 webcall：软电话 extension：硬话机 softphone：手机
 		}, function(d) {
 			if (!d) {
 				alert("登录失败");
@@ -914,7 +914,7 @@ available : function() {
          position : position, 	// 位置
          password : password, 	// 密码
          pds: {},                // 预测外呼相关参数
-         loginType: loginType    // 签入类型
+         loginType: loginType    // 签入类型 webrtc：浏览器内置电话 webcall：软电话 extension：硬话机 softphone：手机
      }
  * @param callback 登录结果回调，参数result: {true|false}
  */
