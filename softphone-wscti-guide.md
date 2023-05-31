@@ -905,25 +905,22 @@ available : function() {
  * 软电话登录
  * @param param 登录参数，是一个json对象
  *  {
-        agentId : agentId, 		//工号
-        extension : extension, 	//分机
-        queue : queue,  		//队列
-        position : position, 	//位置
-        password : password  	//密码
-    }
+         agentId : agentId, 		// 工号
+         extension : extension, 	// 分机
+         queue : queue,  		// 队列
+         position : position, 	// 位置
+         password : password, 	// 密码
+         pds: {},                // 预测外呼相关参数
+         loginType: loginType    // 签入类型
+     }
  * @param callback 登录结果回调，参数result: {true|false}
  */
 login : function(param, callback) {
-	var agentId = param.agentId;
-	var extension = param.extension;
-	var password = param.password;
-	softphone.login2({
-		agentId: agentId, 
-		dn: extension, 
-		password: password,
-		callback: callback
-	});
-	
+ 	softphone.login2(Object.assign(param, {
+   		dn: param.extension,
+		pds: param.pds || {},
+    	callback: callback
+    }));
 },
 
 /**
