@@ -1,4 +1,4 @@
-#基于WSCTI的Softphone开发帮助 
+# 基于WSCTI的Softphone开发帮助 
 
 传统软电话都是需要和本地ocx或者dll控件去练本地的cti控件，从而实现软电话与cti的交互。
 WSCTI，打破了这种客户端控件模式，彻底做到了客户端无控件，通过websocket与服务端的WSCTIProxy互联，实现软电话的所有功能。
@@ -8,10 +8,11 @@ WSCTI，打破了这种客户端控件模式，彻底做到了客户端无控件
 3. [接收软电话事件](#handleSoftphoneEvent)
 4. [常量说明](#constants)
 
-##<div id="init">初始化</div>
-###一.加载相关的js，构造Softphone对象
+## <div id="init">初始化</div>
+### 1. 加载相关的js，构造Softphone对象
 页面中需要加载的js，这部分公共的js可以直接应用ngs服务下的，也可以复制到自己服务中去引
 然后通过require加载softphone相关js，并构造Softphone对象，继承与SoftphonAPI对象
+
 ```
 <script src="js/lib/jquery-3.1.1.min.js"></script>
 <script src="js/lib/guid-1.0.min.js"></script>
@@ -80,9 +81,10 @@ WSCTI，打破了这种客户端控件模式，彻底做到了客户端无控件
 
 	});
 ```
-###二.登录ngs
+### 2. 登录ngs
 因为软电话需要与数据库交互，因此需要先登录ngs服务，让相关数据接口可以被正常调用
 其中参数包括：ngs服务地址，登录名，密码，数据服务名，登录项目，登录组。相关参数可以问项目相关人员。
+
 ```
 //在合适的地方调用$E.init，进行登录操作
 $E.init({
@@ -100,10 +102,11 @@ $E.init({
     }
 });
 ```
-###三.初始化软电话并登录
+### 3. 初始化软电话并登录
 当ngs登录成功后，就可以调用之前构造的软电话对象初始化方法initSoftphone。
 当initSoftphone成功后，就可以调用软电话的登录了
 软电话的登录中，就会发起与服务端WSCTIProxy的websocket的连接，连接的地址在softphone.ini.js中配置
+
 ```
 softphone.initSoftphone({}, function(d){
 	if (!d) {
@@ -112,7 +115,8 @@ softphone.initSoftphone({}, function(d){
 		softphone.login({
 			agentId : "5005",//工号
 			extension : "8005",//分级
-			password : "1234"//密码
+			password : "1234",//密码
+			loginType: ""// 签入类型
 		}, function(d) {
 			if (!d) {
 				alert("登录失败");
@@ -133,8 +137,7 @@ softphone.initSoftphone({}, function(d){
  - 调用softphone.initSoftphone初始化软电话
  - 调用softphone.login登录软电话
 
-
-##<div id="callSoftphone">软电话softphone对象方法说明</div>
+## <div id="callSoftphone">软电话softphone对象方法说明</div>
 
 ```
 /**
@@ -963,7 +966,7 @@ softphoneReady : function() {
 }
 ```
 
-##<div id="handleSoftphoneEvent">接收软电话事件</div>
+## <div id="handleSoftphoneEvent">接收软电话事件</div>
 
 当我们可以调用软电话方法后，还需要接收软电话发出的事件,事件主要包括了SCTIEvent和CTIEvent
 ```
@@ -1193,8 +1196,7 @@ function onSCTIEvent(evt){
 }
 ```
 
-
-##<div id="constants">常量说明</div>
+## <div id="constants">常量说明</div>
 agentMode坐席模式
 
 ```
