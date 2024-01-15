@@ -83,21 +83,21 @@ url: http://xxxxx/ngs/wo/save
         "ooo": "abc"
     },
     "extend": { // 扩展表（可选）
-        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            pkColumn: 'UPLOADGUID', // 主键字段（必传）
-            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
-            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
-            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data: [ // 表中字段数据数组
+        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            "pkColumn": "UPLOADGUID", // 主键字段（必传）
+            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
+            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
+            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "data": [ // 表中字段数据数组
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '123.jpg',
-                    path: 'jpg/123.jpg'
+                    "UPLOADGUID": "xxxxxx",
+                    "filename": "123.jpg",
+                    "path": "jpg/123.jpg"
                 },
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '124.jpg',
-                    path: 'jpg/124.jpg'
+                    "UPLOADGUID": "oooooo",
+                    "filename": "124.jpg",
+                    "path": "jpg/124.jpg"
                 }
             ]
         }
@@ -160,21 +160,21 @@ url: http://xxxxx/ngs/wo/send
         "ooo": "abc"
     },
     "extend": { // 扩展表（可选）
-        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            pkColumn: 'UPLOADGUID', // 主键字段（必传）
-            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
-            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
-            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data: [ // 表中字段数据数组
+        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            "pkColumn": "UPLOADGUID", // 主键字段（必传）
+            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
+            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
+            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "data": [ // 表中字段数据数组
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '123.jpg',
-                    path: 'jpg/123.jpg'
+                    "UPLOADGUID": "xxxxxx",
+                    "filename": "123.jpg",
+                    "path": "jpg/123.jpg"
                 },
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '124.jpg',
-                    path: 'jpg/124.jpg'
+                    "UPLOADGUID": "oooooo",
+                    "filename": "124.jpg",
+                    "path": "jpg/124.jpg"
                 }
             ]
         }
@@ -256,21 +256,21 @@ url: http://xxxxx/ngs/wo/close
         "ooo": "abc"
     },
     "extend": { // 扩展表（可选）
-        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            pkColumn: 'UPLOADGUID', // 主键字段（必传）
-            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
-            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
-            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data: [ // 表中字段数据数组
+        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            "pkColumn": "UPLOADGUID", // 主键字段（必传）
+            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
+            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
+            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "data": [ // 表中字段数据数组
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '123.jpg',
-                    path: 'jpg/123.jpg'
+                    "UPLOADGUID": "xxxxxx",
+                    "filename": "123.jpg",
+                    "path": "jpg/123.jpg"
                 },
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '124.jpg',
-                    path: 'jpg/124.jpg'
+                    "UPLOADGUID": "oooooo",
+                    "filename": "124.jpg",
+                    "path": "jpg/124.jpg"
                 }
             ]
         }
@@ -315,21 +315,21 @@ url: http://xxxxx/ngs/wo/failedClose
         "ooo": "abc"
     },
     "extend": { // 扩展表（可选）
-        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            pkColumn: 'UPLOADGUID', // 主键字段（必传）
-            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
-            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
-            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data: [ // 表中字段数据数组
+        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            "pkColumn": "UPLOADGUID", // 主键字段（必传）
+            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
+            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
+            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "data": [ // 表中字段数据数组
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '123.jpg',
-                    path: 'jpg/123.jpg'
+                    "UPLOADGUID": "xxxxxx",
+                    "filename": "123.jpg",
+                    "path": "jpg/123.jpg"
                 },
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '124.jpg',
-                    path: 'jpg/124.jpg'
+                    "UPLOADGUID": "oooooo",
+                    "filename": "124.jpg",
+                    "path": "jpg/124.jpg"
                 }
             ]
         }
@@ -414,21 +414,21 @@ url: http://xxxxx/ngs/wo/back
         "ooo": "abc"
     },
     "extend": { // 扩展表（可选）
-        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            pkColumn: 'UPLOADGUID', // 主键字段（必传）
-            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
-            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
-            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data: [ // 表中字段数据数组
+        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            "pkColumn": "UPLOADGUID", // 主键字段（必传）
+            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
+            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
+            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "data": [ // 表中字段数据数组
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '123.jpg',
-                    path: 'jpg/123.jpg'
+                    "UPLOADGUID": "xxxxxx",
+                    "filename": "123.jpg",
+                    "path": "jpg/123.jpg"
                 },
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '124.jpg',
-                    path: 'jpg/124.jpg'
+                    "UPLOADGUID": "oooooo",
+                    "filename": "124.jpg",
+                    "path": "jpg/124.jpg"
                 }
             ]
         }
@@ -476,21 +476,21 @@ url: http://xxxxx/ngs/wo/revoke
         "ooo": "abc"
     },
     "extend": { // 扩展表（可选）
-        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            pkColumn: 'UPLOADGUID', // 主键字段（必传）
-            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
-            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
-            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data: [ // 表中字段数据数组
+        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            "pkColumn": "UPLOADGUID", // 主键字段（必传）
+            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
+            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
+            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "data": [ // 表中字段数据数组
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '123.jpg',
-                    path: 'jpg/123.jpg'
+                    "UPLOADGUID": "xxxxxx",
+                    "filename": "123.jpg",
+                    "path": "jpg/123.jpg"
                 },
                 {
-                    UPLOADGUID: 'xxxxxx',
-                    filename: '124.jpg',
-                    path: 'jpg/124.jpg'
+                    "UPLOADGUID": "oooooo",
+                    "filename": "124.jpg",
+                    "path": "jpg/124.jpg"
                 }
             ]
         }
