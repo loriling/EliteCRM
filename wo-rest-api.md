@@ -88,12 +88,14 @@ url: http://xxxxx/ngs/wo/save
             relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
             createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
             createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data:[ // 表中字段数据数组
+            data: [ // 表中字段数据数组
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '123.jpg',
                     path: 'jpg/123.jpg'
                 },
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '124.jpg',
                     path: 'jpg/124.jpg'
                 }
@@ -163,12 +165,14 @@ url: http://xxxxx/ngs/wo/send
             relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
             createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
             createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data:[ // 表中字段数据数组
+            data: [ // 表中字段数据数组
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '123.jpg',
                     path: 'jpg/123.jpg'
                 },
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '124.jpg',
                     path: 'jpg/124.jpg'
                 }
@@ -257,12 +261,14 @@ url: http://xxxxx/ngs/wo/close
             relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
             createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
             createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data:[ // 表中字段数据数组
+            data: [ // 表中字段数据数组
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '123.jpg',
                     path: 'jpg/123.jpg'
                 },
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '124.jpg',
                     path: 'jpg/124.jpg'
                 }
@@ -314,12 +320,14 @@ url: http://xxxxx/ngs/wo/failedClose
             relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
             createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
             createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data:[ // 表中字段数据数组
+            data: [ // 表中字段数据数组
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '123.jpg',
                     path: 'jpg/123.jpg'
                 },
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '124.jpg',
                     path: 'jpg/124.jpg'
                 }
@@ -411,12 +419,14 @@ url: http://xxxxx/ngs/wo/back
             relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
             createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
             createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data:[ // 表中字段数据数组
+            data: [ // 表中字段数据数组
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '123.jpg',
                     path: 'jpg/123.jpg'
                 },
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '124.jpg',
                     path: 'jpg/124.jpg'
                 }
@@ -471,12 +481,14 @@ url: http://xxxxx/ngs/wo/revoke
             relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
             createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
             createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
-            data:[ // 表中字段数据数组
+            data: [ // 表中字段数据数组
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '123.jpg',
                     path: 'jpg/123.jpg'
                 },
                 {
+                    UPLOADGUID: 'xxxxxx',
                     filename: '124.jpg',
                     path: 'jpg/124.jpg'
                 }
