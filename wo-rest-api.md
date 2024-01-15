@@ -74,13 +74,31 @@ url: http://xxxxx/ngs/wo/save
 	"task": { // elitetask表字段（可选）
 		"event_guid": "bbb"
 	},
-	"tabc": { // 所有tabc表
+	"tabc": { // 所有tabc表（可选）
 		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
 			"a": 1 // 其他各种字段
 		}
 	},
-    "step": { // workorderstep3表字段传递
+    "step": { // workorderstep3表字段传递（可选）
         "ooo": "abc"
+    },
+    "extend": { // 扩展表（可选）
+        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            pkColumn: 'UPLOADGUID', // 主键字段（必传）
+            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
+            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
+            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
+            data:[ // 表中字段数据数组
+                {
+                    filename: '123.jpg',
+                    path: 'jpg/123.jpg'
+                },
+                {
+                    filename: '124.jpg',
+                    path: 'jpg/124.jpg'
+                }
+            ]
+        }
     }
 }
 ```
@@ -131,13 +149,31 @@ url: http://xxxxx/ngs/wo/send
 	"task": { // elitetask表字段（可选）
 		"event_guid": "bbb"
 	},
-	"tabc": { // 所有tabc表
+	"tabc": { // 所有tabc表（可选）
 		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
 			"a": 1 // 其他各种字段
 		}
 	},
-    "step": { // workorderstep3表字段传递
+    "step": { // workorderstep3表字段传递（可选）
         "ooo": "abc"
+    },
+    "extend": { // 扩展表（可选）
+        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            pkColumn: 'UPLOADGUID', // 主键字段（必传）
+            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
+            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
+            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
+            data:[ // 表中字段数据数组
+                {
+                    filename: '123.jpg',
+                    path: 'jpg/123.jpg'
+                },
+                {
+                    filename: '124.jpg',
+                    path: 'jpg/124.jpg'
+                }
+            ]
+        }
     }
 }
 ```
@@ -207,13 +243,31 @@ url: http://xxxxx/ngs/wo/close
     "objective": { // objective表字段（可选）
 		"stringfield1": "aaa"
 	},
-	"tabc": { // 所有tabc表
+	"tabc": { // 所有tabc表（可选）
 		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
 			"a": 1 // 其他各种字段
 		}
 	},
-    "step": { // workorderstep3表字段传递
+    "step": { // workorderstep3表字段传递（可选）
         "ooo": "abc"
+    },
+    "extend": { // 扩展表（可选）
+        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            pkColumn: 'UPLOADGUID', // 主键字段（必传）
+            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
+            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
+            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
+            data:[ // 表中字段数据数组
+                {
+                    filename: '123.jpg',
+                    path: 'jpg/123.jpg'
+                },
+                {
+                    filename: '124.jpg',
+                    path: 'jpg/124.jpg'
+                }
+            ]
+        }
     }
 }
 ```
@@ -246,13 +300,31 @@ url: http://xxxxx/ngs/wo/failedClose
     "objective": { // objective表字段（可选）
 		"stringfield1": "aaa"
 	},
-	"tabc": { // 所有tabc表
+	"tabc": { // 所有tabc表（可选）
 		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
 			"a": 1 // 其他各种字段
 		}
 	},
-    "step": { // workorderstep3表字段传递
+    "step": { // workorderstep3表字段传递（可选）
         "ooo": "abc"
+    },
+    "extend": { // 扩展表（可选）
+        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            pkColumn: 'UPLOADGUID', // 主键字段（必传）
+            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
+            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
+            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
+            data:[ // 表中字段数据数组
+                {
+                    filename: '123.jpg',
+                    path: 'jpg/123.jpg'
+                },
+                {
+                    filename: '124.jpg',
+                    path: 'jpg/124.jpg'
+                }
+            ]
+        }
     }
 }
 ```
@@ -282,7 +354,7 @@ url: http://xxxxx/ngs/wo/reminder
 	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
 	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
     "comments": "xxxxx", // 备注信息
-    "step": { // workorderstep3表字段传递
+    "step": { // workorderstep3表字段传递（可选）
         "ooo": "abc"
     }
 }
@@ -325,13 +397,31 @@ url: http://xxxxx/ngs/wo/back
     "task": { // elitetask表字段（可选）
 		"event_guid": "bbb"
 	},
-	"tabc": { // 所有tabc表
+	"tabc": { // 所有tabc表（可选）
 		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
 			"a": 1 // 其他各种字段
 		}
 	},
-    "step": { // workorderstep3表字段传递
+    "step": { // workorderstep3表字段传递（可选）
         "ooo": "abc"
+    },
+    "extend": { // 扩展表（可选）
+        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            pkColumn: 'UPLOADGUID', // 主键字段（必传）
+            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
+            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
+            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
+            data:[ // 表中字段数据数组
+                {
+                    filename: '123.jpg',
+                    path: 'jpg/123.jpg'
+                },
+                {
+                    filename: '124.jpg',
+                    path: 'jpg/124.jpg'
+                }
+            ]
+        }
     }
 }
 ```
@@ -367,13 +457,31 @@ url: http://xxxxx/ngs/wo/revoke
     "task": { // elitetask表字段（可选）
 		"event_guid": "bbb"
 	},
-	"tabc": { // 所有tabc表
+	"tabc": { // 所有tabc表（可选）
 		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
 			"a": 1 // 其他各种字段
 		}
 	},
-    "step": { // workorderstep3表字段传递
+    "step": { // workorderstep3表字段传递（可选）
         "ooo": "abc"
+    },
+    "extend": { // 扩展表（可选）
+        uploadlist: { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+            pkColumn: 'UPLOADGUID', // 主键字段（必传）
+            relationColumn: 'guid', // 关联objective字段（可选，默认为RELATION_ID）
+            createdbyColumn: 'staff_id', // 创建人字段（可选，默认为createdby）
+            createddateColumn: 'createdate', // 创建时间字段（可选，默认为createdate）
+            data:[ // 表中字段数据数组
+                {
+                    filename: '123.jpg',
+                    path: 'jpg/123.jpg'
+                },
+                {
+                    filename: '124.jpg',
+                    path: 'jpg/124.jpg'
+                }
+            ]
+        }
     }
 }
 ```
