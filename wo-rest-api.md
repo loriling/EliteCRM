@@ -85,9 +85,10 @@ url: http://xxxxx/ngs/wo/save
     "extend": { // 扩展表（可选）
         "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
             "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
-            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
-            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "pk2Column": "xxxxx", // 主键2（可选）
+            "relationColumn": "guid", // 关联objective字段（可选）
+            "createdbyColumn": "staff_id", // 创建人字段（可选）
+            "createddateColumn": "createdate", // 创建时间字段（可选）
             "data": [ // 表中字段数据数组
                 {
                     "UPLOADGUID": "xxxxxx",
@@ -162,9 +163,10 @@ url: http://xxxxx/ngs/wo/send
     "extend": { // 扩展表（可选）
         "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
             "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
-            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
-            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "pk2Column": "xxxxx", // 主键2（可选）
+            "relationColumn": "guid", // 关联objective字段（可选）
+            "createdbyColumn": "staff_id", // 创建人字段（可选）
+            "createddateColumn": "createdate", // 创建时间字段（可选）
             "data": [ // 表中字段数据数组
                 {
                     "UPLOADGUID": "xxxxxx",
@@ -258,9 +260,10 @@ url: http://xxxxx/ngs/wo/close
     "extend": { // 扩展表（可选）
         "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
             "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
-            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
-            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "pk2Column": "xxxxx", // 主键2（可选）
+            "relationColumn": "guid", // 关联objective字段（可选）
+            "createdbyColumn": "staff_id", // 创建人字段（可选）
+            "createddateColumn": "createdate", // 创建时间字段（可选）
             "data": [ // 表中字段数据数组
                 {
                     "UPLOADGUID": "xxxxxx",
@@ -317,9 +320,10 @@ url: http://xxxxx/ngs/wo/failedClose
     "extend": { // 扩展表（可选）
         "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
             "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
-            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
-            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "pk2Column": "xxxxx", // 主键2（可选）
+            "relationColumn": "guid", // 关联objective字段（可选）
+            "createdbyColumn": "staff_id", // 创建人字段（可选）
+            "createddateColumn": "createdate", // 创建时间字段（可选）
             "data": [ // 表中字段数据数组
                 {
                     "UPLOADGUID": "xxxxxx",
@@ -416,9 +420,10 @@ url: http://xxxxx/ngs/wo/back
     "extend": { // 扩展表（可选）
         "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
             "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
-            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
-            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "pk2Column": "xxxxx", // 主键2（可选）
+            "relationColumn": "guid", // 关联objective字段（可选）
+            "createdbyColumn": "staff_id", // 创建人字段（可选）
+            "createddateColumn": "createdate", // 创建时间字段（可选）
             "data": [ // 表中字段数据数组
                 {
                     "UPLOADGUID": "xxxxxx",
@@ -478,9 +483,10 @@ url: http://xxxxx/ngs/wo/revoke
     "extend": { // 扩展表（可选）
         "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
             "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "relationColumn": "guid", // 关联objective字段（可选，默认为RELATION_ID）
-            "createdbyColumn": "staff_id", // 创建人字段（可选，默认为createdby）
-            "createddateColumn": "createdate", // 创建时间字段（可选，默认为createdate）
+            "pk2Column": "xxxxx", // 主键2（可选）
+            "relationColumn": "guid", // 关联objective字段（可选）
+            "createdbyColumn": "staff_id", // 创建人字段（可选）
+            "createddateColumn": "createdate", // 创建时间字段（可选）
             "data": [ // 表中字段数据数组
                 {
                     "UPLOADGUID": "xxxxxx",
