@@ -144,6 +144,12 @@ url: http://xxxxx/ngs/wo/send
 	"toGrp": "", // 下送到的组（可选）
 	"toBy": "", // 下送到的人（可选）
 	"toRole": "", // 下送到的角色（可选）
+    "toMulti": [ // 下送多人（可选）
+        {
+            "by": "A00001",
+            "group": "SYSTEM"
+        }
+    ],
 	"substatus": "", // 子状态（可选）
 	"rolegroupId": "", // 机构id（可选）
 	"objective": { // objective表字段（可选）
@@ -203,9 +209,10 @@ HANDLETYPE与SENDTYPE说明：
 
 ```
 handletype总共分为3种：
-G（组）；
-R（角色）；
+G（组）
+R（角色）
 GR（组+角色）
+M（多人）
 
 G（组）：
 组权限和我们旧版的权限很类似，一共有5种权限方式：
@@ -229,9 +236,14 @@ SENDTYPE=4
 
 GR（组+角色）
 通过组，角色，由此产生了组+角色的权限：
-1.原步骤-步骤X-人或组+角色		----下送给原步骤X的处理人或者处理的组+角色SENDTYPE=4
+1.原步骤-步骤X-人或组+角色		----下送给原步骤X的处理人或者处理的组+角色
+SENDTYPE=4
 2.组+角色						----下送给指定组+角色
 SENDTYPE=10
+
+M（多人）
+1.多处理人
+SENDTYPE=12
 ```
 
 
@@ -500,6 +512,83 @@ url: http://xxxxx/ngs/wo/revoke
                 }
             ]
         }
+    }
+}
+```
+
+出参：
+
+```json
+{
+	"code": 1, // 1表示成功 0表示失败
+	"message": "", // 错误信息
+	"value": null
+}
+```
+
+
+
+### 工单加签
+
+加签的操作：对现有任务做一个加签操作，
+
+加签从位置分为：
+
+- 前加签：前加签完就回到当前节点，加签时候修改当前task状态为pending，并创建出多个加签task，等多个task按会签或签逻辑处理完后，再修改回正常状态
+- 后加签：后加签是指直接删除当前task，然后创建出多个当前步骤的加签task。后加签和工单下送多个人操作类似
+
+加签从类型分为：
+
+- 会签：会签表示所有task都处理完才能下一步
+- 或签：或签表示只要有一个task处理完就可以下一步
+
+url: http://xxxxx/ngs/wo/addSign
+
+入参：
+
+```json
+{
+	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+	"position": 1, //  前加签1，后加签2（默认前加签）
+	"type": 0, // 会签0，或签1（默认会签）
+	"handleSiblingTasksType": "hold", // 多任务时候，对某个子任务加签后，自动挂起还是删除同级兄弟任务： hold表示挂起，close表示关闭（默认hold）
+	"handles": [ // 加签人
+		{
+			"by": "A00001",
+            "group": "SYSTEM"
+		}
+	], 
+    "comments": "xxxxx", // 备注信息
+    "step": { // workorderstep3表字段传递（可选）
+        "ooo": "abc"
+    }
+}
+```
+
+出参：
+
+```json
+{
+	"code": 1, // 1表示成功 0表示失败
+	"message": "", // 错误信息
+	"value": null
+}
+```
+
+
+
+### 工单完签
+
+完签操作：对加签的任务做完签动作
+
+```json
+{
+	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+    "comments": "xxxxx", // 备注信息
+    "step": { // workorderstep3表字段传递（可选）
+        "ooo": "abc"
     }
 }
 ```
