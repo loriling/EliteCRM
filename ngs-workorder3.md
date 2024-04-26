@@ -36,6 +36,9 @@ $instance.workorder.taskBoundData.setValue('comments', 'xxxxx');
  *  readonly 是否是只读
  *  continuable 是否可持续的在一个instance中打开
  *  lastInstance 之前的instance
+ *  forceProxy 是否是强制代理
+ *  tabc 关联的tabc表名（用来支持根据tabc表记录打开工单）(可选)
+ *  tabcSuffix 如果传递，操作的tabc表表名就会拼接上这个tabcSuffix后缀(可选)
  * @returns {number} -1表示失败，如果成功会返回响应创建出来的instance实例
  */
 loadByObjectiveGuid : function (params)
@@ -52,8 +55,12 @@ $project.event.notify(window.$CONST.EVENT.OPEN_WO3, {
     notifyId: '', //相关提醒的guid，非必传
     parameter: {}, //带入参数
     dbPool: '', //数据源，非必传
+    readonly: false, // 是否是只读模式
     continuable: true, // 操作结束时候，是否不自动关闭工单
-    lastInstance: lastInstance // 上个工单的instance对象（用来实现不关闭工单tab直接加载新工单，仅当上个实例里的动态页面Id和新打开的动态页面Id一致时候）
+    lastInstance: lastInstance, // 上个工单的instance对象（用来实现不关闭工单tab直接加载新工单，仅当上个实例里的动态页面Id和新打开的动态页面Id一致时候）
+    forceProxy: false, // 是否是强制代理
+    tabc: '', // 关联的tabc表名（用来支持根据tabc表记录打开工单）(可选)
+    tabcSuffix: '' // 如果传递，操作的tabc表表名就会拼接上这个tabcSuffix后缀(可选)
 });
 ```
 
@@ -68,12 +75,15 @@ $project.event.notify(window.$CONST.EVENT.OPEN_WO3, {
  *  dupFlag 是否允许重复的标志 1表示允许重复，当前客户已经有此objective时候还是会新建一个，0表示不允许
  *  addinId 模块id
  *  tabName tab名字
- *  parameters 参数
- *  container 工单容器
- *  customerGuid 可以指定某个客户
- *  stepId 指定某个步骤
- *  readonly 只读模式
- *  rolegroupId 子流程id(机构id)
+ *  parameters 参数(可选)
+ *  container 工单容器(可选)
+ *  customerGuid 可以指定某个客户(可选)
+ *  stepId 指定某个步骤(可选)
+ *  readonly 只读模式(可选)
+ *  alwaysNew 是否每次都打开新的工单页(可选)
+ * 	rolegroupId 子流程id(机构id)
+ *  tabc 关联的tabc表名（用来支持根据tabc表记录打开工单）(可选)
+ *  tabcSuffix 如果传递，操作的tabc表表名就会拼接上这个tabcSuffix后缀(可选)
  * @returns {number} -1表示失败，如果成功会返回响应创建出来的instance实例
  */
 loadByOtId : function (params)
@@ -89,7 +99,11 @@ $project.event.notify(window.$CONST.EVENT.OPEN_WO3, {
     stepId: 'xxx', //步骤id，可以从指定步骤新建工单
     parameter: {}, //带入参数
     dbPool: '', //数据源，非必传
-    alwaysNew: true, //是否每次都
+    readonly: false, // 是否是只读模式(可选)
+    alwaysNew: true, //是否每次都打开新的工单页(可选)
+    rolegroupId: '', // 子流程id(机构id)(可选)
+    tabc: '', // 关联的tabc表名（用来支持根据tabc表记录打开工单）(可选)
+    tabcSuffix: '' // 如果传递，操作的tabc表表名就会拼接上这个tabcSuffix后缀(可选)
 });
 ```
 
