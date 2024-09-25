@@ -68,6 +68,8 @@ url: http://xxxxx/ngs/wo/save
     "customerGuid": "xxxx",// 客户guid（新建时必传）
 	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid（加载时必传）
 	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid（加载时必传）
+    "toGrp": "", // 如果是新增工单，工单的处理人，如果不传递就是当前的调用人（可选）
+	"toBy": "", // 如果是新增工单，工单的处理组，如果不传递就是当前的调用组（可选）
 	"objective": { // objective表字段（可选）
 		"stringfield1": "aaa"
 	},
