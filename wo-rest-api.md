@@ -584,6 +584,10 @@ url: http://xxxxx/ngs/wo/addSign
 
 完签操作：对加签的任务做完签动作
 
+url: http://xxxxx/ngs/wo/finishSign
+
+入参：
+
 ```json
 {
 	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
@@ -596,6 +600,74 @@ url: http://xxxxx/ngs/wo/addSign
 ```
 
 出参：
+
+```json
+{
+	"code": 1, // 1表示成功 0表示失败
+	"message": "", // 错误信息
+	"value": null
+}
+```
+
+
+
+### 工单转交
+
+转交操作：修改工单处理人处理组，只有当前节点有转交权限，并且当前处理人是自己的时候，才可以转交
+
+url: http://xxxxx/ngs/wo/transfer
+
+入参：
+
+```json
+{
+	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+	"toGrp": "", // 转交到的组（可选）
+	"toBy": "", // 转交到的人（可选）
+	"toRole": "", // 转交到的角色（可选）
+    "comments": "xxxxx", // 备注信息
+    "step": { // workorderstep3表字段传递（可选）
+        "ooo": "abc"
+    }
+}
+```
+
+出参:
+
+```json
+{
+	"code": 1, // 1表示成功 0表示失败
+	"message": "", // 错误信息
+	"value": null
+}
+```
+
+
+
+### 工单接管
+
+把其他人的工单的处理人改成自己
+
+会先判断加锁情况，如果此时工单正在被其他人操作中，则接管失败
+
+url: http://xxxxx/ngs/wo/takeover
+
+入参：
+
+```json
+{
+	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+    "comments": "xxxxx", // 备注信息（可选）
+    "closeFlag": 1, // 关闭标识（可选）如果传递1，则step上的WORKORDERSTEPSTATUS会记录成TAKECL，不然默认记录为TAKE
+    "step": { // workorderstep3表字段传递（可选）
+        "ooo": "abc"
+    }
+}
+```
+
+出参:
 
 ```json
 {
