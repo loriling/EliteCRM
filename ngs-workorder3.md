@@ -443,42 +443,50 @@ wonew : function(mapId, customerGuid, rolegroupId)
 - **genSave 生成工单保存bounddata对象 **
 ```js
 /**
-* 生成工单保存bounddata对象
-* @param comments 备注信息
-* @return {BoundData}
-*/
-genSave: function(comments)
+ * 生成工单保存bounddata对象
+ * @param params 参数
+ *        comments 备注
+ *        [substatus] 子状态
+ * @return {BoundData}
+ */
+genSave: function(params)
 ```
 
 - **wosave 工单保存** 加载完工单或者新建完工单，就可以开始调用工单的那些个方法了
 ``` javascript
 /**
  * 工单保存
- * @param comments 备注信息
- * @param dbpool
+ * @param params 参数
+ *        comments 备注
+ *        [dbPool] 数据源
+ *        [substatus] 子状态
  * @returns {number}
  */
-wosave : function(comments, dbpool)
+wosave : function(params)
 ```
 - **genClose 生成结案bounddata对象** 
 ```js
 /**
-* 生成结案bounddata对象
-* @param comments 备注信息
-* @return {BoundData}
-*/
-genClose: function(comments)
+ * 生成结案bounddata对象
+ * @param params 参数
+ *        comments 备注
+ *        [substatus] 子状态
+ * @return {BoundData}
+ */
+genClose: function(params)
 ```
 
 - **woclose 工单结案**
 ``` javascript
 /**
  * 工单结案
- * @param comments 备注信息
- * @param dbpool
+ * @param params 参数
+ *        comments 备注
+ *        [dbPool] 数据源
+ *        [substatus] 子状态
  * @returns {number}
  */
-woclose : function(comments, dbpool)
+woclose : function(params)
 ```
 - **genSend 生成下送bounddata对象** 
 ```js
@@ -546,23 +554,27 @@ wocd : function(comments, dbpool)
 - **genFailedClose 失败结案bounddata生成** 
 ```js
 /**
-* 失败结案bounddata生成
-* @param comments 备注信息
-* @param objectiveStatus
-* @return {BoundData}
-*/
-genFailedClose: function(comments, objectiveStatus) 
+ * 失败结案bounddata生成
+ * @param params 参数
+ *        comments 备注
+ *        [objectiveStatus] 工单状态，默认FAIL
+ *        [substatus] 子状态
+ * @return {BoundData}
+ */
+genFailedClose: function(params) 
 ```
 
 - **wofailedclose 工单失败结案**
 ```js
 /**
-* 工单失败结案
-* @param comments {string} 备注信息
-* @param objectiveStatus {string} 工单状态，默认是FAILED，也可以自己传递
-* @param dbPool {string} 数据库连接池
-*/
-wofailedclose : function(comments, objectiveStatus, dbPool)
+ * 工单失败结案
+ * @param params {object} 参数
+ *        comments 备注
+ *        [objectiveStatus] 工单状态，默认FAIL
+ *        [dbPool] 数据源
+ *        [substatus] 子状态
+ */
+wofailedclose : function(params)
 ```
 
 - **genRevoke 撤单bounddata生成** 
@@ -572,6 +584,7 @@ wofailedclose : function(comments, objectiveStatus, dbPool)
 * @param params {object}  参数
 *    revokeToNodeId 撤单到的节点id
 *    comments 备注信息 		
+*    [substatus] 子状态
 * @return {BoundData}
 */
 genRevoke: function(params) 
@@ -583,7 +596,8 @@ genRevoke: function(params)
 * 工单撤单
 * @param params {object}  参数
 *    revokeToNodeId 撤单到的节点id
-*    comments 备注信息 		
+*    comments 备注信息 	
+*    [substatus] 子状态
 * @param dbPool {string} 数据库连接池
 * @returns {number} 1 成功 , -1 失败
 */

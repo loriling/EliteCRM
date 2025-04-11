@@ -677,3 +677,80 @@ url: http://xxxxx/ngs/wo/takeover
 }
 ```
 
+
+
+### 工单重新打开
+
+已经关闭的工单，重新打开，创建task
+
+url: http://xxxxx/ngs/wo/reopen
+
+入参：
+
+```json
+{
+	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+    "comments": "xxxxx", // 备注信息（可选）
+    "objective": { // objective表字段（可选）
+		"stringfield1": "aaa"
+	},
+	"task": { // elitetask表字段（可选）
+		"event_guid": "bbb"
+	},
+	"tabc": { // 所有tabc表（可选）
+		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+			"a": 1 // 其他各种字段
+		}
+	},
+    "step": { // workorderstep3表字段传递（可选）
+        "ooo": "abc"
+    },
+    "extend": {
+    }
+}
+```
+
+出参:
+
+```json
+{
+	"code": 1, // 1表示成功 0表示失败
+	"message": "", // 错误信息
+	"value": {
+    	"oId": "xxxxx", // objective的guid
+        "taskId": "xxxxx", // 生成的elitetask的guid
+        "stepId": "xxxxxx" // 当前步骤id
+    }
+}
+```
+
+
+
+### 工单CC已读
+
+更新ELITETASK_CCLIST表相关记录的READFLAG字段值为1，插入一条read的step记录
+
+url: http://xxxxx/ngs/wo/read
+
+入参：
+
+```json
+{
+	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+    "step": { // workorderstep3表字段传递（可选）
+        "ooo": "abc"
+    }
+}
+```
+
+出参:
+
+```json
+{
+	"code": 1, // 1表示成功 0表示失败
+	"message": "", // 错误信息
+	"value": null
+}
+```
+
