@@ -188,7 +188,11 @@ url: http://xxxxx/ngs/wo/send
                 }
             ]
         }
-    }
+    },
+    "workordertype1": "xxx", // 工单1类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+    "workordertype2": "xxx", // 工单2类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+    "workordertype3": "xxx", // 工单3类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+    "workordertype4": "xxx", // 工单4类（可选, 用在基于规则分配处理组处理人时候的判断参数）
 }
 ```
 
@@ -629,7 +633,11 @@ url: http://xxxxx/ngs/wo/transfer
     "comments": "xxxxx", // 备注信息
     "step": { // workorderstep3表字段传递（可选）
         "ooo": "abc"
-    }
+    },
+    "workordertype1": "xxx", // 工单1类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+    "workordertype2": "xxx", // 工单2类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+    "workordertype3": "xxx", // 工单3类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+    "workordertype4": "xxx", // 工单4类（可选, 用在基于规则分配处理组处理人时候的判断参数）
 }
 ```
 
@@ -753,4 +761,92 @@ url: http://xxxxx/ngs/wo/read
 	"value": null
 }
 ```
+
+
+
+### 工单退回公共池
+
+与工单转交类似。修改工单处理人为空，默认处理组不变，如果传递处理组则更新成传递来的处理组
+
+url: http://xxxxx/ngs/wo/revert
+
+入参：
+
+```json
+{
+	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+	"toGrp": "", // 退回到的组，如果不传递则表示退回当前组（可选）
+    "comments": "xxxxx", // 备注信息
+    "step": { // workorderstep3表字段传递（可选）
+        "ooo": "abc"
+    },
+}
+```
+
+出参:
+
+```json
+{
+	"code": 1, // 1表示成功 0表示失败
+	"message": "", // 错误信息
+	"value": null
+}
+```
+
+
+
+## 工单批量操作
+
+所有工单操作都支持批量操作，方式为：
+
+url: http://xxxxx/ngs/wo/batch/{action}
+
+入参：
+
+和对应操作入参格式一致，只是把对象改成了数组对象
+
+```
+[
+	{
+		"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+		"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+		...
+	},
+	{
+		"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD5", // objective_guid
+		"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB5", // elitetask_guid
+		...
+	},
+	...
+]
+```
+
+
+
+出参:
+
+```json
+{
+	"code": 1, // 1表示成功 0表示失败
+	"message": "", // 错误信息
+	"value": [
+        {
+            "code": 1, // 1表示成功 0表示失败
+            "message": "", // 错误信息
+            "value": null
+        },
+        {
+            "code": 1, // 1表示成功 0表示失败
+            "message": "", // 错误信息
+            "value": null
+        },
+        ...
+    ]
+}
+```
+
+
+
+
 
