@@ -189,10 +189,12 @@ url: http://xxxxx/ngs/wo/send
             ]
         }
     },
-    "workordertype1": "xxx", // 工单1类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-    "workordertype2": "xxx", // 工单2类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-    "workordertype3": "xxx", // 工单3类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-    "workordertype4": "xxx", // 工单4类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+    "variables": {
+        "workorderworkordertype1": "xxx", // 工单1类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+        "workorderworkordertype2": "xxx", // 工单2类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+        "workorderworkordertype3": "xxx", // 工单3类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+        "workorderworkordertype4": "xxx", // 工单4类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+    }
 }
 ```
 
@@ -634,10 +636,12 @@ url: http://xxxxx/ngs/wo/transfer
     "step": { // workorderstep3表字段传递（可选）
         "ooo": "abc"
     },
-    "workordertype1": "xxx", // 工单1类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-    "workordertype2": "xxx", // 工单2类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-    "workordertype3": "xxx", // 工单3类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-    "workordertype4": "xxx", // 工单4类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+    "variables": {
+        "workorderworkordertype1": "xxx", // 工单1类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+        "workorderworkordertype2": "xxx", // 工单2类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+        "workorderworkordertype3": "xxx", // 工单3类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+        "workorderworkordertype4": "xxx", // 工单4类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+    }
 }
 ```
 
