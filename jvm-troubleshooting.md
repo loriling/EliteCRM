@@ -61,9 +61,10 @@ jstack 1651 > stack.log
 ## 4. jmap 收集内存信息
 
 1. 使用`jmap -heap pid`查看进程堆内存使用情况，包括使用的GC算法、堆配置参数和各代中堆内存使用情况
+   **jdk11中需要用**： `jhsdb jmap --heap --pid 1651`
 
 ```shell
-# 根据pid查看堆内存信息  jdk11中需要用： jhsdb jmap --heap --pid 1651
+# 根据pid查看堆内存信息 
 jmap -heap 1651
 # 或者写到日志文件
 jmap -heap 1651 > heap.log
@@ -181,7 +182,7 @@ KiB Swap:        0 total,        0 free,        0 used.  5038328 avail Mem
 
 # 补充
 
-### 如果装的是openjdk，有可能没有装dev工具，造成jmap等命令不能使用
+## 如果装的是openjdk，有可能没有装dev工具，造成jmap等命令不能使用
 
 ```shell
 # 查看java版本
