@@ -715,7 +715,7 @@ listen : function (dn, callback) {
     }
 },
 /**
- * 强拆
+ * 拦截 与takeover功能一样
  * @param agentId
  * @param callback
  */
@@ -743,7 +743,7 @@ forceDisconnectAgentByDN : function (dn, callback) {
     }
 },
 /**
- * 板卡挂断
+ * 强挂
  * @param callback
  */
 forceHangUp : function (callback) {
@@ -1256,5 +1256,4 @@ WT_OB : "WT-OB",//外呼工作
 WT_IB : "WT-IB",//呼入工作
 WT_PDS_OB : "WT_PDS_OB"//预览外呼工作
 ```
-
 
