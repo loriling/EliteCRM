@@ -8,8 +8,6 @@
 
 支持通过token方式校验的调用，也支持通过ip白名单方式的校验调用
 
-
-
 ## 工单接口头信息
 
 ### 工单接口校验规则
@@ -18,13 +16,12 @@
 
    请求的head中传递登录ngs后获取的token，即可作为接口校验
 
-   示例：请求的head中添加 
+   示例：请求的head中添加
 
    ```
    token=xxxxxx（ngs登录后获取的token）
    ```
 
-   
 
 2. 接口白名单方式
 
@@ -32,7 +29,7 @@
 
    同时请求的head中传递ds，epid来标识出具体的数据源，通过staffId和groupId来标识处理的人和组
 
-   示例：请求的head中添加 
+   示例：请求的head中添加
 
    ```
    ds=gl2019（ds数据源名）
@@ -40,19 +37,13 @@
    groupId=SYSTEM
    ```
 
-
-
 ### 其他头信息
 
 ```
 dbPool=xxx // 数据源dbPool（可选）
 ```
 
-
-
 ## 工单操作接口说明
-
-
 
 ### 工单保存
 
@@ -64,47 +55,55 @@ url: http://xxxxx/ngs/wo/save
 
 ```json
 {
-    "mapId": "xxxxxx", // 工单mapId（新建时必传）
-    "customerGuid": "xxxx",// 客户guid（新建时必传）
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid（加载时必传）
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid（加载时必传）
-    "toGrp": "", // 如果是新增工单，工单的处理人，如果不传递就是当前的调用人（可选）
-	"toBy": "", // 如果是新增工单，工单的处理组，如果不传递就是当前的调用组（可选）
-	"objective": { // objective表字段（可选）
-		"stringfield1": "aaa"
-	},
-	"task": { // elitetask表字段（可选）
-		"event_guid": "bbb"
-	},
-	"tabc": { // 所有tabc表（可选）
-		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
-			"a": 1 // 其他各种字段
-		}
-	},
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    },
-    "extend": { // 扩展表（可选）
-        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "pk2Column": "xxxxx", // 主键2（可选）
-            "relationColumn": "guid", // 关联objective字段（可选）
-            "createdbyColumn": "staff_id", // 创建人字段（可选）
-            "createddateColumn": "createdate", // 创建时间字段（可选）
-            "data": [ // 表中字段数据数组
-                {
-                    "UPLOADGUID": "xxxxxx",
-                    "filename": "123.jpg",
-                    "path": "jpg/123.jpg"
-                },
-                {
-                    "UPLOADGUID": "oooooo",
-                    "filename": "124.jpg",
-                    "path": "jpg/124.jpg"
-                }
-            ]
-        }
-    }
+   "mapId": "xxxxxx", // 工单mapId（新建时必传）
+   "customerGuid": "xxxx", // 客户guid（新建时必传）
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid（加载时必传）
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid（加载时必传）
+   "toGrp": "", // 如果是新增工单，工单的处理人，如果不传递就是当前的调用人（可选）
+   "toBy": "", // 如果是新增工单，工单的处理组，如果不传递就是当前的调用组（可选）
+   // objective表字段（可选）
+   "objective": {
+      "stringfield1": "aaa"
+   },
+   // elitetask表字段（可选）
+   "task": {
+      "event_guid": "bbb"
+   },
+   // 所有tabc表（可选）
+   "tabc": {
+      // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+      "xxx": {
+         "a": 1 // 其他各种字段
+      }
+   },
+   // workorderstep3表字段传递（可选）
+   "step": {
+      "ooo": "abc"
+   },
+   // 扩展表（可选）
+   "extend": {
+      // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+      "uploadlist": {
+         "pkColumn": "UPLOADGUID", // 主键字段（必传）
+         "pk2Column": "xxxxx", // 主键2（可选）
+         "relationColumn": "guid", // 关联objective字段（可选）
+         "createdbyColumn": "staff_id", // 创建人字段（可选）
+         "createddateColumn": "createdate", // 创建时间字段（可选）
+         // 表中字段数据数组
+         "data": [
+            {
+               "UPLOADGUID": "xxxxxx",
+               "filename": "123.jpg",
+               "path": "jpg/123.jpg"
+            },
+            {
+               "UPLOADGUID": "oooooo",
+               "filename": "124.jpg",
+               "path": "jpg/124.jpg"
+            }
+         ]
+      }
+   }
 }
 ```
 
@@ -112,18 +111,14 @@ url: http://xxxxx/ngs/wo/save
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": {
-        "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid，当工单是新建时候，接口调用放可能需要获取这个新生成的guid
-        "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4" // elitetask_guid 当工单是新建时候，接口调用放可能需要获取这个新生成的guid
-    }
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": {
+      "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid，当工单是新建时候，接口调用放可能需要获取这个新生成的guid
+      "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4"// elitetask_guid 当工单是新建时候，接口调用放可能需要获取这个新生成的guid
+   }
 }
 ```
-
-
-
-
 
 ### 工单下送
 
@@ -135,66 +130,66 @@ url: http://xxxxx/ngs/wo/send
 
 ```json
 {
-    "mapId": "xxxxxx", // 工单mapId（新建时必传）
-    "customerGuid": "xxxx",// 客户guid（新建时必传）
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid（加载时必传）
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid（加载时必传）
-	"operateTaskGuid": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // 需要处理的elitetask的guid（可选，只有传递这个值时候才会生成elitetask记录，包括新建下送和已有工单下送）
-	"toStep": "", // 下送到的步骤（可选）
-    "handleType": "", // 处理类型（可选: G,R,GR。默认根据下一个节点上配置的来，如果传递，则按传递的来）
-    "sendType": 1, // 下送类型（可选）详细说明看下面的HANDLETYPE与SENDTYPE说明
-	"toGrp": "", // 下送到的组（可选）
-	"toBy": "", // 下送到的人（可选）
-	"toRole": "", // 下送到的角色（可选）
-    "toMulti": [ // 下送多人（可选）
-        {
-            "by": "A00001",
-            "group": "SYSTEM"
-        }
-    ],
-	"substatus": "", // 子状态（可选）
-	"rolegroupId": "", // 机构id（可选）
-	"objective": { // objective表字段（可选）
-		"stringfield1": "aaa"
-	},
-	"task": { // elitetask表字段（可选）
-		"event_guid": "bbb"
-	},
-	"tabc": { // 所有tabc表（可选）
-		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
-			"a": 1 // 其他各种字段
-		}
-	},
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    },
-    "extend": { // 扩展表（可选）
-        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "pk2Column": "xxxxx", // 主键2（可选）
-            "relationColumn": "guid", // 关联objective字段（可选）
-            "createdbyColumn": "staff_id", // 创建人字段（可选）
-            "createddateColumn": "createdate", // 创建时间字段（可选）
-            "data": [ // 表中字段数据数组
-                {
-                    "UPLOADGUID": "xxxxxx",
-                    "filename": "123.jpg",
-                    "path": "jpg/123.jpg"
-                },
-                {
-                    "UPLOADGUID": "oooooo",
-                    "filename": "124.jpg",
-                    "path": "jpg/124.jpg"
-                }
-            ]
-        }
-    },
-    "variables": {
-        "workorderworkordertype1": "xxx", // 工单1类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-        "workorderworkordertype2": "xxx", // 工单2类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-        "workorderworkordertype3": "xxx", // 工单3类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-        "workorderworkordertype4": "xxx", // 工单4类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-    }
+   "mapId": "xxxxxx", // 工单mapId（新建时必传）
+   "customerGuid": "xxxx", // 客户guid（新建时必传）
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid（加载时必传）
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid（加载时必传）
+   "operateTaskGuid": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // 需要处理的elitetask的guid（可选，只有传递这个值时候才会生成elitetask记录，包括新建下送和已有工单下送）
+   "toStep": "", // 下送到的步骤（可选）
+   "handleType": "", // 处理类型（可选: G,R,GR。默认根据下一个节点上配置的来，如果传递，则按传递的来）
+   "sendType": 1, // 下送类型（可选）详细说明看下面的HANDLETYPE与SENDTYPE说明
+   "toGrp": "", // 下送到的组（可选）
+   "toBy": "", // 下送到的人（可选）
+   "toRole": "", // 下送到的角色（可选）
+   "toMulti": [// 下送多人（可选）
+      {
+         "by": "A00001",
+         "group": "SYSTEM"
+      }
+   ],
+   "substatus": "", // 子状态（可选）
+   "rolegroupId": "", // 机构id（可选）
+   "objective": {// objective表字段（可选）
+      "stringfield1": "aaa"
+   },
+   "task": {// elitetask表字段（可选）
+      "event_guid": "bbb"
+   },
+   "tabc": {// 所有tabc表（可选）
+      "xxx": {// 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+         "a": 1 // 其他各种字段
+      }
+   },
+   "step": {// workorderstep3表字段传递（可选）
+      "ooo": "abc"
+   },
+   "extend": {// 扩展表（可选）
+      "uploadlist": {// 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+         "pkColumn": "UPLOADGUID", // 主键字段（必传）
+         "pk2Column": "xxxxx", // 主键2（可选）
+         "relationColumn": "guid", // 关联objective字段（可选）
+         "createdbyColumn": "staff_id", // 创建人字段（可选）
+         "createddateColumn": "createdate", // 创建时间字段（可选）
+         "data": [// 表中字段数据数组
+            {
+               "UPLOADGUID": "xxxxxx",
+               "filename": "123.jpg",
+               "path": "jpg/123.jpg"
+            },
+            {
+               "UPLOADGUID": "oooooo",
+               "filename": "124.jpg",
+               "path": "jpg/124.jpg"
+            }
+         ]
+      }
+   },
+   "variables": {
+      "workorderworkordertype1": "xxx", // 工单1类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+      "workorderworkordertype2": "xxx", // 工单2类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+      "workorderworkordertype3": "xxx", // 工单3类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+      "workorderworkordertype4": "xxx"// 工单4类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+   }
 }
 ```
 
@@ -202,16 +197,14 @@ url: http://xxxxx/ngs/wo/send
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": {
-        "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid，当工单是新建时候，接口调用放可能需要获取这个新生成的guid
-        "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4" // elitetask_guid 当工单是新建时候，接口调用放可能需要获取这个新生成的guid
-    }
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": {
+      "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid，当工单是新建时候，接口调用放可能需要获取这个新生成的guid
+      "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4"// elitetask_guid 当工单是新建时候，接口调用放可能需要获取这个新生成的guid
+   }
 }
 ```
-
-
 
 HANDLETYPE与SENDTYPE说明：
 
@@ -254,8 +247,6 @@ M（多人）
 SENDTYPE=12
 ```
 
-
-
 ### 工单成功结案
 
 url: http://xxxxx/ngs/wo/close
@@ -264,40 +255,46 @@ url: http://xxxxx/ngs/wo/close
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-    "objective": { // objective表字段（可选）
-		"stringfield1": "aaa"
-	},
-	"tabc": { // 所有tabc表（可选）
-		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
-			"a": 1 // 其他各种字段
-		}
-	},
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    },
-    "extend": { // 扩展表（可选）
-        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "pk2Column": "xxxxx", // 主键2（可选）
-            "relationColumn": "guid", // 关联objective字段（可选）
-            "createdbyColumn": "staff_id", // 创建人字段（可选）
-            "createddateColumn": "createdate", // 创建时间字段（可选）
-            "data": [ // 表中字段数据数组
-                {
-                    "UPLOADGUID": "xxxxxx",
-                    "filename": "123.jpg",
-                    "path": "jpg/123.jpg"
-                },
-                {
-                    "UPLOADGUID": "oooooo",
-                    "filename": "124.jpg",
-                    "path": "jpg/124.jpg"
-                }
-            ]
-        }
-    }
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "objective": {// objective表字段（可选）
+      "stringfield1": "aaa"
+   },
+   // 所有tabc表（可选）
+   "tabc": {
+      // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+      "xxx": {
+         "a": 1 // 其他各种字段
+      }
+   },
+   // workorderstep3表字段传递（可选）
+   "step": {
+      "ooo": "abc"
+   },
+   // 扩展表（可选）
+   "extend": {
+      // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+      "uploadlist": {
+         "pkColumn": "UPLOADGUID", // 主键字段（必传）
+         "pk2Column": "xxxxx", // 主键2（可选）
+         "relationColumn": "guid", // 关联objective字段（可选）
+         "createdbyColumn": "staff_id", // 创建人字段（可选）
+         "createddateColumn": "createdate", // 创建时间字段（可选）
+         // 表中字段数据数组
+         "data": [
+            {
+               "UPLOADGUID": "xxxxxx",
+               "filename": "123.jpg",
+               "path": "jpg/123.jpg"
+            },
+            {
+               "UPLOADGUID": "oooooo",
+               "filename": "124.jpg",
+               "path": "jpg/124.jpg"
+            }
+         ]
+      }
+   }
 }
 ```
 
@@ -305,15 +302,11 @@ url: http://xxxxx/ngs/wo/close
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": null
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": null
 }
 ```
-
-
-
-
 
 ### 工单失败结案
 
@@ -323,41 +316,48 @@ url: http://xxxxx/ngs/wo/failedClose
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-	"objectiveStatus": "xxx", // 默认不传递是FAILED，也可以自定义传递（可选）
-    "objective": { // objective表字段（可选）
-		"stringfield1": "aaa"
-	},
-	"tabc": { // 所有tabc表（可选）
-		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
-			"a": 1 // 其他各种字段
-		}
-	},
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    },
-    "extend": { // 扩展表（可选）
-        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "pk2Column": "xxxxx", // 主键2（可选）
-            "relationColumn": "guid", // 关联objective字段（可选）
-            "createdbyColumn": "staff_id", // 创建人字段（可选）
-            "createddateColumn": "createdate", // 创建时间字段（可选）
-            "data": [ // 表中字段数据数组
-                {
-                    "UPLOADGUID": "xxxxxx",
-                    "filename": "123.jpg",
-                    "path": "jpg/123.jpg"
-                },
-                {
-                    "UPLOADGUID": "oooooo",
-                    "filename": "124.jpg",
-                    "path": "jpg/124.jpg"
-                }
-            ]
-        }
-    }
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "objectiveStatus": "xxx", // 默认不传递是FAILED，也可以自定义传递（可选）
+   // objective表字段（可选）
+   "objective": {
+      "stringfield1": "aaa"
+   },
+   // 所有tabc表（可选）
+   "tabc": {
+      // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+      "xxx": {
+         "a": 1 // 其他各种字段
+      }
+   },
+   // workorderstep3表字段传递（可选）
+   "step": {
+      "ooo": "abc"
+   },
+   // 扩展表（可选）
+   "extend": {
+      // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+      "uploadlist": {
+         "pkColumn": "UPLOADGUID", // 主键字段（必传）
+         "pk2Column": "xxxxx", // 主键2（可选）
+         "relationColumn": "guid", // 关联objective字段（可选）
+         "createdbyColumn": "staff_id", // 创建人字段（可选）
+         "createddateColumn": "createdate", // 创建时间字段（可选）
+         "data": [
+            // 表中字段数据数组
+            {
+               "UPLOADGUID": "xxxxxx",
+               "filename": "123.jpg",
+               "path": "jpg/123.jpg"
+            },
+            {
+               "UPLOADGUID": "oooooo",
+               "filename": "124.jpg",
+               "path": "jpg/124.jpg"
+            }
+         ]
+      }
+   }
 }
 ```
 
@@ -365,13 +365,11 @@ url: http://xxxxx/ngs/wo/failedClose
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": null
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": null
 }
 ```
-
-
 
 ### 工单催单
 
@@ -383,12 +381,13 @@ url: http://xxxxx/ngs/wo/reminder
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-    "comments": "xxxxx", // 备注信息
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    }
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "comments": "xxxxx", // 备注信息
+   // workorderstep3表字段传递（可选）
+   "step": {
+      "ooo": "abc"
+   }
 }
 ```
 
@@ -396,13 +395,11 @@ url: http://xxxxx/ngs/wo/reminder
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": null
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": null
 }
 ```
-
-
 
 ### 工单回退
 
@@ -416,48 +413,54 @@ url: http://xxxxx/ngs/wo/back
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-    "operateTaskGuid": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // 需要处理的elitetask的guid（可选）
-	"toGrp": "", // 退回到的组（可选）
-	"toBy": "", // 退回到的人（可选）
-	"toRole": "", // 退回到的角色（可选）
-    "comments": "xxxxx", // 备注信息
-    "objective": { // objective表字段（可选）
-		"stringfield1": "aaa"
-	},
-    "task": { // elitetask表字段（可选）
-		"event_guid": "bbb"
-	},
-	"tabc": { // 所有tabc表（可选）
-		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
-			"a": 1 // 其他各种字段
-		}
-	},
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    },
-    "extend": { // 扩展表（可选）
-        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "pk2Column": "xxxxx", // 主键2（可选）
-            "relationColumn": "guid", // 关联objective字段（可选）
-            "createdbyColumn": "staff_id", // 创建人字段（可选）
-            "createddateColumn": "createdate", // 创建时间字段（可选）
-            "data": [ // 表中字段数据数组
-                {
-                    "UPLOADGUID": "xxxxxx",
-                    "filename": "123.jpg",
-                    "path": "jpg/123.jpg"
-                },
-                {
-                    "UPLOADGUID": "oooooo",
-                    "filename": "124.jpg",
-                    "path": "jpg/124.jpg"
-                }
-            ]
-        }
-    }
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "operateTaskGuid": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // 需要处理的elitetask的guid（可选）
+   "toGrp": "", // 退回到的组（可选）
+   "toBy": "", // 退回到的人（可选）
+   "toRole": "", // 退回到的角色（可选）
+   "comments": "xxxxx", // 备注信息
+   // objective表字段（可选）
+   "objective": {
+      "stringfield1": "aaa"
+   },
+   // elitetask表字段（可选）
+   "task": {
+      "event_guid": "bbb"
+   },
+   // 所有tabc表（可选）
+   "tabc": {
+      // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+      "xxx": {
+         "a": 1 // 其他各种字段
+      }
+   },
+   // workorderstep3表字段传递（可选）
+   "step": {
+      "ooo": "abc"
+   },
+   // 扩展表（可选）
+   "extend": {
+      "uploadlist": {// 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+         "pkColumn": "UPLOADGUID", // 主键字段（必传）
+         "pk2Column": "xxxxx", // 主键2（可选）
+         "relationColumn": "guid", // 关联objective字段（可选）
+         "createdbyColumn": "staff_id", // 创建人字段（可选）
+         "createddateColumn": "createdate", // 创建时间字段（可选）
+         "data": [// 表中字段数据数组
+            {
+               "UPLOADGUID": "xxxxxx",
+               "filename": "123.jpg",
+               "path": "jpg/123.jpg"
+            },
+            {
+               "UPLOADGUID": "oooooo",
+               "filename": "124.jpg",
+               "path": "jpg/124.jpg"
+            }
+         ]
+      }
+   }
 }
 ```
 
@@ -465,13 +468,11 @@ url: http://xxxxx/ngs/wo/back
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": null
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": null
 }
 ```
-
-
 
 ### 工单撤单
 
@@ -483,44 +484,52 @@ url: http://xxxxx/ngs/wo/revoke
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-    "comments": "xxxxx", // 备注信息
-    "objective": { // objective表字段（可选）
-		"stringfield1": "aaa"
-	},
-    "task": { // elitetask表字段（可选）
-		"event_guid": "bbb"
-	},
-	"tabc": { // 所有tabc表（可选）
-		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
-			"a": 1 // 其他各种字段
-		}
-	},
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    },
-    "extend": { // 扩展表（可选）
-        "uploadlist": { // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
-            "pkColumn": "UPLOADGUID", // 主键字段（必传）
-            "pk2Column": "xxxxx", // 主键2（可选）
-            "relationColumn": "guid", // 关联objective字段（可选）
-            "createdbyColumn": "staff_id", // 创建人字段（可选）
-            "createddateColumn": "createdate", // 创建时间字段（可选）
-            "data": [ // 表中字段数据数组
-                {
-                    "UPLOADGUID": "xxxxxx",
-                    "filename": "123.jpg",
-                    "path": "jpg/123.jpg"
-                },
-                {
-                    "UPLOADGUID": "oooooo",
-                    "filename": "124.jpg",
-                    "path": "jpg/124.jpg"
-                }
-            ]
-        }
-    }
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "comments": "xxxxx", // 备注信息
+   // objective表字段（可选）
+   "objective": {
+      "stringfield1": "aaa"
+   },
+   // elitetask表字段（可选）
+   "task": {
+      "event_guid": "bbb"
+   },
+   // 所有tabc表（可选）
+   "tabc": {
+      // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+      "xxx": {
+         "a": 1 // 其他各种字段
+      }
+   },
+   // workorderstep3表字段传递（可选）
+   "step": {
+      "ooo": "abc"
+   },
+   // 扩展表（可选）
+   "extend": {
+      // 表名，必须配置到WOEXTB系统参数中，如果没配置则直接忽略
+      "uploadlist": {
+         "pkColumn": "UPLOADGUID", // 主键字段（必传）
+         "pk2Column": "xxxxx", // 主键2（可选）
+         "relationColumn": "guid", // 关联objective字段（可选）
+         "createdbyColumn": "staff_id", // 创建人字段（可选）
+         "createddateColumn": "createdate", // 创建时间字段（可选）
+         // 表中字段数据数组
+         "data": [
+            {
+               "UPLOADGUID": "xxxxxx",
+               "filename": "123.jpg",
+               "path": "jpg/123.jpg"
+            },
+            {
+               "UPLOADGUID": "oooooo",
+               "filename": "124.jpg",
+               "path": "jpg/124.jpg"
+            }
+         ]
+      }
+   }
 }
 ```
 
@@ -528,13 +537,11 @@ url: http://xxxxx/ngs/wo/revoke
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": null
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": null
 }
 ```
-
-
 
 ### 工单加签
 
@@ -556,21 +563,21 @@ url: http://xxxxx/ngs/wo/addSign
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-	"position": 1, //  前加签1，后加签2（默认前加签）
-	"type": 0, // 会签0，或签1（默认会签）
-	"handleSiblingTasksType": "hold", // 多任务时候，对某个子任务加签后，自动挂起还是删除同级兄弟任务： hold表示挂起，close表示关闭（默认hold）
-	"handles": [ // 加签人
-		{
-			"by": "A00001",
-            "group": "SYSTEM"
-		}
-	], 
-    "comments": "xxxxx", // 备注信息
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    }
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "position": 1, //  前加签1，后加签2（默认前加签）
+   "type": 0, // 会签0，或签1（默认会签）
+   "handleSiblingTasksType": "hold", // 多任务时候，对某个子任务加签后，自动挂起还是删除同级兄弟任务： hold表示挂起，close表示关闭（默认hold）
+   "handles": [// 加签人
+      {
+         "by": "A00001",
+         "group": "SYSTEM"
+      }
+   ],
+   "comments": "xxxxx", // 备注信息
+   "step": {// workorderstep3表字段传递（可选）
+      "ooo": "abc"
+   }
 }
 ```
 
@@ -578,13 +585,11 @@ url: http://xxxxx/ngs/wo/addSign
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": null
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": null
 }
 ```
-
-
 
 ### 工单完签
 
@@ -596,12 +601,12 @@ url: http://xxxxx/ngs/wo/finishSign
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-    "comments": "xxxxx", // 备注信息
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    }
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "comments": "xxxxx", // 备注信息
+   "step": {// workorderstep3表字段传递（可选）
+      "ooo": "abc"
+   }
 }
 ```
 
@@ -609,13 +614,11 @@ url: http://xxxxx/ngs/wo/finishSign
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": null
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": null
 }
 ```
-
-
 
 ### 工单转交
 
@@ -627,21 +630,21 @@ url: http://xxxxx/ngs/wo/transfer
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-	"toGrp": "", // 转交到的组（可选）
-	"toBy": "", // 转交到的人（可选）
-	"toRole": "", // 转交到的角色（可选）
-    "comments": "xxxxx", // 备注信息
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    },
-    "variables": {
-        "workorderworkordertype1": "xxx", // 工单1类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-        "workorderworkordertype2": "xxx", // 工单2类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-        "workorderworkordertype3": "xxx", // 工单3类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-        "workorderworkordertype4": "xxx", // 工单4类（可选, 用在基于规则分配处理组处理人时候的判断参数）
-    }
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "toGrp": "", // 转交到的组（可选）
+   "toBy": "", // 转交到的人（可选）
+   "toRole": "", // 转交到的角色（可选）
+   "comments": "xxxxx", // 备注信息
+   "step": {// workorderstep3表字段传递（可选）
+      "ooo": "abc"
+   },
+   "variables": {
+      "workorderworkordertype1": "xxx", // 工单1类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+      "workorderworkordertype2": "xxx", // 工单2类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+      "workorderworkordertype3": "xxx", // 工单3类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+      "workorderworkordertype4": "xxx"// 工单4类（可选, 用在基于规则分配处理组处理人时候的判断参数）
+   }
 }
 ```
 
@@ -649,13 +652,11 @@ url: http://xxxxx/ngs/wo/transfer
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": null
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": null
 }
 ```
-
-
 
 ### 工单接管
 
@@ -669,13 +670,13 @@ url: http://xxxxx/ngs/wo/takeover
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-    "comments": "xxxxx", // 备注信息（可选）
-    "closeFlag": 1, // 关闭标识（可选）如果传递1，则step上的WORKORDERSTEPSTATUS会记录成TAKECL，不然默认记录为TAKE
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    }
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "comments": "xxxxx", // 备注信息（可选）
+   "closeFlag": 1, // 关闭标识（可选）如果传递1，则step上的WORKORDERSTEPSTATUS会记录成TAKECL，不然默认记录为TAKE
+   "step": {// workorderstep3表字段传递（可选）
+      "ooo": "abc"
+   }
 }
 ```
 
@@ -683,13 +684,11 @@ url: http://xxxxx/ngs/wo/takeover
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": null
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": null
 }
 ```
-
-
 
 ### 工单重新打开
 
@@ -701,24 +700,24 @@ url: http://xxxxx/ngs/wo/reopen
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-    "comments": "xxxxx", // 备注信息（可选）
-    "objective": { // objective表字段（可选）
-		"stringfield1": "aaa"
-	},
-	"task": { // elitetask表字段（可选）
-		"event_guid": "bbb"
-	},
-	"tabc": { // 所有tabc表（可选）
-		"xxx": { // 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
-			"a": 1 // 其他各种字段
-		}
-	},
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    },
-    "extend": {
-    }
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "comments": "xxxxx", // 备注信息（可选）
+   "objective": {// objective表字段（可选）
+      "stringfield1": "aaa"
+   },
+   "task": {// elitetask表字段（可选）
+      "event_guid": "bbb"
+   },
+   "tabc": {// 所有tabc表（可选）
+      "xxx": {// 某个tabc表的表名（最终sql中，表名会自动拼成：tabcxxx）
+         "a": 1 // 其他各种字段
+      }
+   },
+   "step": {// workorderstep3表字段传递（可选）
+      "ooo": "abc"
+   },
+   "extend": {
+   }
 }
 ```
 
@@ -726,17 +725,15 @@ url: http://xxxxx/ngs/wo/reopen
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": {
-    	"oId": "xxxxx", // objective的guid
-        "taskId": "xxxxx", // 生成的elitetask的guid
-        "stepId": "xxxxxx" // 当前步骤id
-    }
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": {
+      "oId": "xxxxx", // objective的guid
+      "taskId": "xxxxx", // 生成的elitetask的guid
+      "stepId": "xxxxxx"// 当前步骤id
+   }
 }
 ```
-
-
 
 ### 工单CC已读
 
@@ -748,11 +745,11 @@ url: http://xxxxx/ngs/wo/read
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    }
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "step": {// workorderstep3表字段传递（可选）
+      "ooo": "abc"
+   }
 }
 ```
 
@@ -760,13 +757,11 @@ url: http://xxxxx/ngs/wo/read
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": null
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": null
 }
 ```
-
-
 
 ### 工单退回公共池
 
@@ -778,13 +773,13 @@ url: http://xxxxx/ngs/wo/revert
 
 ```json
 {
-	"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-	"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-	"toGrp": "", // 退回到的组，如果不传递则表示退回当前组（可选）
-    "comments": "xxxxx", // 备注信息
-    "step": { // workorderstep3表字段传递（可选）
-        "ooo": "abc"
-    },
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "toGrp": "", // 退回到的组，如果不传递则表示退回当前组（可选）
+   "comments": "xxxxx", // 备注信息
+   "step": {// workorderstep3表字段传递（可选）
+      "ooo": "abc"
+   }
 }
 ```
 
@@ -792,13 +787,11 @@ url: http://xxxxx/ngs/wo/revert
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": null
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": null
 }
 ```
-
-
 
 ## 工单批量操作
 
@@ -826,27 +819,25 @@ url: http://xxxxx/ngs/wo/batch/{action}
 ]
 ```
 
-
-
 出参:
 
 ```json
 {
-	"code": 1, // 1表示成功 0表示失败
-	"message": "", // 错误信息
-	"value": [
-        {
-            "code": 1, // 1表示成功 0表示失败
-            "message": "", // 错误信息
-            "value": null
-        },
-        {
-            "code": 1, // 1表示成功 0表示失败
-            "message": "", // 错误信息
-            "value": null
-        },
-        ...
-    ]
+   "code": 1, // 1表示成功 0表示失败
+   "message": "", // 错误信息
+   "value": [
+      {
+         "code": 1, // 1表示成功 0表示失败
+         "message": "", // 错误信息
+         "value": null
+      },
+      {
+         "code": 1, // 1表示成功 0表示失败
+         "message": "", // 错误信息
+         "value": null
+      },
+      ...
+   ]
 }
 ```
 
