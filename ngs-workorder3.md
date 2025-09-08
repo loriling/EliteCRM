@@ -504,6 +504,7 @@ woclose : function(params)
 *        [rolegroupId] 机构id
 * 	     [handleType] 处理类型(默认使用下一步节点上的配置)
 * 	     [sendType] 下送类型(默认使用下一步节点上的配置)
+* 	     [variables] 动态变量(用于规则匹配)
 * @return {BoundData}
 */
 genSend: function(params)
@@ -525,6 +526,7 @@ genSend: function(params)
  * 	   [rolegroupId] 机构id
  *     [handleType] 处理类型(默认使用下一步节点上的配置)
  *	   [sendType] 下送类型(默认使用下一步节点上的配置)
+ * 	   [variables] 动态变量(用于规则匹配)
  * @returns {number}
  */
 wosend : function(params)
