@@ -13,24 +13,23 @@
 ### 工单接口校验规则
 
 1. token方式
-
+   
    请求的head中传递登录ngs后获取的token，即可作为接口校验
-
+   
    示例：请求的head中添加
-
+   
    ```
    token=xxxxxx（ngs登录后获取的token）
    ```
 
-
 2. 接口白名单方式
-
+   
    在**NgsConfig**的**apiWhiteList**中配置ip白名单
-
+   
    同时请求的head中传递ds，epid来标识出具体的数据源，通过staffId和groupId来标识处理的人和组
-
+   
    示例：请求的head中添加
-
+   
    ```
    ds=gl2019（ds数据源名）
    staffId=SELITE
@@ -217,29 +216,29 @@ M（多人）
 
 G（组）：
 组权限和我们旧版的权限很类似，一共有5种权限方式：
-1.指定部门（组）	----下送给指定组
+1.指定部门（组）    ----下送给指定组
 SENDTYPE=1
-2.指定人					----下送给指定人
+2.指定人                    ----下送给指定人
 SENDTYPE=2
-3.原步骤-步骤X-人或组	----下送给原步骤X的处理人或者处理组
+3.原步骤-步骤X-人或组    ----下送给原步骤X的处理人或者处理组
 SENDTYPE=4
-4.直属上级部门			----下送给所属部门的直属上级部门
+4.直属上级部门            ----下送给所属部门的直属上级部门
 SENDTYPE=7
-5.当前组组长				----下送给组长（该员工等级大于管理台issupe参数，为组长。员工等级需要看对应字段issupervisor）
+5.当前组组长                ----下送给组长（该员工等级大于管理台issupe参数，为组长。员工等级需要看对应字段issupervisor）
 SENDTYPE=9
 
 R（角色）
 角色权限是新增的权限之一，主要针对角色这一特殊变量：
-1.指定角色				----下送给指定角色内的人员
+1.指定角色                ----下送给指定角色内的人员
 SENDTYPE=3
-2.原步骤-步骤X-人或角色	----下送给原步骤X的处理人或者处理角色
+2.原步骤-步骤X-人或角色    ----下送给原步骤X的处理人或者处理角色
 SENDTYPE=4
 
 GR（组+角色）
 通过组，角色，由此产生了组+角色的权限：
-1.原步骤-步骤X-人或组+角色		----下送给原步骤X的处理人或者处理的组+角色
+1.原步骤-步骤X-人或组+角色        ----下送给原步骤X的处理人或者处理的组+角色
 SENDTYPE=4
-2.组+角色						----下送给指定组+角色
+2.组+角色                        ----下送给指定组+角色
 SENDTYPE=10
 
 M（多人）
@@ -803,19 +802,19 @@ url: http://xxxxx/ngs/wo/batch/{action}
 
 和对应操作入参格式一致，只是把对象改成了数组对象
 
-```
+```json
 [
-	{
-		"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-		"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
-		...
-	},
-	{
-		"oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD5", // objective_guid
-		"taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB5", // elitetask_guid
-		...
-	},
-	...
+    {
+        "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
+        "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+        ...
+    },
+    {
+        "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD5", // objective_guid
+        "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB5", // elitetask_guid
+        ...
+    },
+    ...
 ]
 ```
 
@@ -840,8 +839,3 @@ url: http://xxxxx/ngs/wo/batch/{action}
    ]
 }
 ```
-
-
-
-
-
