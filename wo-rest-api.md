@@ -567,7 +567,7 @@ url: http://xxxxx/ngs/wo/addSign
    "position": 1, //  前加签1，后加签2（默认前加签）
    "type": 0, // 会签0，或签1（默认会签）
    "handleSiblingTasksType": "hold", // 多任务时候，对某个子任务加签后，自动挂起还是删除同级兄弟任务： hold表示挂起，close表示关闭（默认hold）
-   "handles": [// 加签人
+   "handlers": [// 加签人
       {
          "by": "A00001",
          "group": "SYSTEM"
