@@ -248,14 +248,18 @@ SENDTYPE=12
 
 ### 工单成功结案
 
+工单结案操作，如果传递了mapId和customerGuid，则表示新建工单并结案，如果传递的时oId和taskId，则表示加载老的工单并结案
+
 url: http://xxxxx/ngs/wo/close
 
 入参：
 
 ```json
 {
-   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "mapId": "xxxxxx", // 工单mapId（新建时必传）
+   "customerGuid": "xxxx", // 客户guid（新建时必传）
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid（加载时必传）
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid（加载时必传）
    "objective": {// objective表字段（可选）
       "stringfield1": "aaa"
    },
@@ -309,14 +313,18 @@ url: http://xxxxx/ngs/wo/close
 
 ### 工单失败结案
 
+工单失败结案操作，如果传递了mapId和customerGuid，则表示新建工单并失败结案，如果传递的时oId和taskId，则表示加载老的工单并失败结案
+
 url: http://xxxxx/ngs/wo/failedClose
 
 入参：
 
 ```json
 {
-   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid
-   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid
+   "mapId": "xxxxxx", // 工单mapId（新建时必传）
+   "customerGuid": "xxxx", // 客户guid（新建时必传）
+   "oId": "C37F1819-8963-1CD4-E9C2-9DA64826DDD4", // objective_guid（加载时必传）
+   "taskId": "BCDBBD33-BD6A-6168-63CE-4E55620D3CB4", // elitetask_guid（加载时必传）
    "objectiveStatus": "xxx", // 默认不传递是FAILED，也可以自定义传递（可选）
    // objective表字段（可选）
    "objective": {
@@ -662,6 +670,8 @@ url: http://xxxxx/ngs/wo/transfer
 把其他人的工单的处理人改成自己
 
 会先判断加锁情况，如果此时工单正在被其他人操作中，则接管失败
+
+接管操作，如果传递了mapId和customerGuid，则表示新建工单并接管，如果传递的时oId和taskId，则表示加载老的工单并接管
 
 url: http://xxxxx/ngs/wo/takeover
 
